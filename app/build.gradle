@@ -1,19 +1,21 @@
+import com.yonder.addtolist.Config
+import com.yonder.addtolist.Libs
+
 plugins {
   id 'com.android.application'
   id 'kotlin-android'
 }
 
 android {
-  compileSdkVersion 30
-  buildToolsVersion "30.0.3"
+  compileSdkVersion Config.compileSdkVersion
+  buildToolsVersion Config.buildToolsVersion
 
   defaultConfig {
-    applicationId "com.yonder.addtolist"
-    minSdkVersion 16
-    targetSdkVersion 30
-    versionCode 1
-    versionName "1.0"
-
+    applicationId Config.applicationName
+    minSdkVersion Config.minSdkVersion
+    targetSdkVersion Config.targetSdkVersion
+    versionCode Config.versionCode
+    versionName Config.versionName
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
   }
 
@@ -34,12 +36,20 @@ android {
 
 dependencies {
 
-  implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-  implementation 'androidx.core:core-ktx:1.3.2'
-  implementation 'androidx.appcompat:appcompat:1.2.0'
-  implementation 'com.google.android.material:material:1.3.0'
-  implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-  testImplementation 'junit:junit:4.+'
-  androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-  androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+  implementation Libs.AndroidX.core_ktx
+  implementation Libs.AndroidX.androidx_appcompat
+  implementation Libs.AndroidX.constraint_layout
+
+  implementation Libs.Kotlin.org_jetbrains_kotlin
+
+
+  implementation Libs.Design.material
+
+  testImplementation Libs.UnitTest.junit
+
+  androidTestImplementation Libs.UnitTest.junit_test
+  androidTestImplementation Libs.AndroidTest.espresso_core
+
+  implementation Libs.Network.gson
 }
