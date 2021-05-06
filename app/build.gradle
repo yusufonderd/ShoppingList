@@ -4,6 +4,9 @@ import com.yonder.addtolist.Libs
 plugins {
   id 'com.android.application'
   id 'kotlin-android'
+  id 'kotlin-kapt'
+  id 'dagger.hilt.android.plugin'
+
 }
 
 android {
@@ -20,6 +23,22 @@ android {
   }
 
   buildTypes {
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    def base_url = properties.getProperty('addtolist_base_url')
+    def database_name = properties.getProperty('addtolist_database_name')
+
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile(Config.proguard_txt), Config.proguard_rules
+      buildConfigField "String", "BASE_URL", base_url
+      buildConfigField "String", "DATABASE_NAME", database_name
+    }
+    debug {
+      buildConfigField "String", "BASE_URL", base_url
+      buildConfigField "String", "DATABASE_NAME", database_name
+    }
+
     release {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -47,6 +66,9 @@ dependencies {
 
   implementation Libs.Kotlin.org_jetbrains_kotlin
 
+  implementation Libs.DaggerHilt.daggerHilt
+  kapt Libs.DaggerHilt.daggerHiltCompiler
+
   implementation Libs.Design.material
 
   testImplementation Libs.UnitTest.junit
@@ -55,4 +77,8 @@ dependencies {
   androidTestImplementation Libs.AndroidTest.espresso_core
 
   implementation Libs.Network.gson
+  implementation Libs.Network.retrofit
+  implementation Libs.Network.converter
+  implementation Libs.Network.okhttp
+  implementation Libs.Network.interceptor
 }

@@ -9,7 +9,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.yonder.addtolist.R
 import com.yonder.addtolist.extensions.setupWithNavController
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
   private var currentNavController: LiveData<NavController>? = null
