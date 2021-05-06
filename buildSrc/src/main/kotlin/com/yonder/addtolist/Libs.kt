@@ -54,7 +54,7 @@ object Libs {
       "androidx.lifecycle:lifecycle-livedata-ktx:" + Versions.livedata
     const val live_data_ktx: String =
       "androidx.lifecycle:lifecycle-viewmodel-ktx:" + Versions.livedata
-
+    const val dataStore : String = "androidx.datastore:datastore-preferences:" + Versions.dataStore
   }
 
   object Design {

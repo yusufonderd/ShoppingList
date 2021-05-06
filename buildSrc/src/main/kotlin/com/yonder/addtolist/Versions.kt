@@ -13,7 +13,7 @@ object Versions {
   const val gradle_plugin: String = "1.4.31"
   const val retrofit = "2.9.0"
   const val ok_http = "4.7.2"
-
+  const val dataStore = "1.0.0-alpha06"
   const val hilt_version = "2.35"
   const val core_ktx = "1.3.2"
   const val material = "1.3.0"

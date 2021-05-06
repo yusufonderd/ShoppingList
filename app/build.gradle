@@ -63,6 +63,7 @@ dependencies {
   implementation Libs.AndroidX.legacy_support
   implementation Libs.AndroidX.live_data_vm
   implementation Libs.AndroidX.live_data_ktx
+  implementation Libs.AndroidX.dataStore
 
   implementation Libs.Kotlin.org_jetbrains_kotlin
 
