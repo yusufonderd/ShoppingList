@@ -1,4 +1,4 @@
-package com.yonder.addtolist.extensions.presentation.splash
+package com.yonder.addtolist.presentation.splash
 
 import androidx.lifecycle.ViewModel
 

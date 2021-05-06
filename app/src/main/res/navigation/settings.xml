@@ -8,7 +8,7 @@
 
   <fragment
     android:id="@+id/splashScreen"
-    android:name="com.yonder.addtolist.extensions.presentation.splash.SplashFragment"
+    android:name="com.yonder.addtolist.presentation.splash.SplashFragment"
     android:label="@string/title_splash"
     tools:layout="@layout/splash_fragment">
     <action
@@ -18,7 +18,7 @@
 
   <fragment
     android:id="@+id/settingsScreen"
-    android:name="com.yonder.addtolist.extensions.presentation.settings.SettingsFragment"
+    android:name="com.yonder.addtolist.presentation.settings.SettingsFragment"
     android:label="@string/title_settings"
     tools:layout="@layout/settings_fragment">
     <action

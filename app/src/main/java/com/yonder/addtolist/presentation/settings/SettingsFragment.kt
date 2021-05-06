@@ -1,4 +1,4 @@
-package com.yonder.addtolist.extensions.presentation.list
+package com.yonder.addtolist.presentation.settings
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -8,20 +8,20 @@ import android.view.View
 import android.view.ViewGroup
 import com.yonder.addtolist.R
 
-class ShoppingListItemsFragment : Fragment() {
+class SettingsFragment : Fragment() {
 
-  private lateinit var viewModel: ShoppingListItemsViewModel
+  private lateinit var viewModel: SettingsViewModel
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    return inflater.inflate(R.layout.shopping_list_items_fragment, container, false)
+    return inflater.inflate(R.layout.settings_fragment, container, false)
   }
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
-    viewModel = ViewModelProvider(this).get(ShoppingListItemsViewModel::class.java)
+    viewModel = ViewModelProvider(this).get(SettingsViewModel::class.java)
 
   }
 

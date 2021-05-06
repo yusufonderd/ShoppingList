@@ -7,7 +7,7 @@
 
   <fragment
     android:id="@+id/splashScreen"
-    android:name="com.yonder.addtolist.extensions.presentation.splash.SplashFragment"
+    android:name="com.yonder.addtolist.presentation.splash.SplashFragment"
     android:label="@string/title_splash"
     tools:layout="@layout/splash_fragment">
     <action
@@ -18,7 +18,7 @@
 
   <fragment
     android:id="@+id/shoppingListItemsScreen"
-    android:name="com.yonder.addtolist.extensions.presentation.list.ShoppingListItemsFragment"
+    android:name="com.yonder.addtolist.presentation.list.ShoppingListItemsFragment"
     android:label="@string/title_shopping_list_items"
     tools:layout="@layout/shopping_list_items_fragment">
     <action

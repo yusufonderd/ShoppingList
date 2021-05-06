@@ -1,4 +1,4 @@
-package com.yonder.addtolist.extensions.presentation.list
+package com.yonder.addtolist.presentation.list
 
 import androidx.lifecycle.ViewModel
 

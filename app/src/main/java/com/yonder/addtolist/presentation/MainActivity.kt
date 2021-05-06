@@ -1,4 +1,4 @@
-package com.yonder.addtolist
+package com.yonder.addtolist.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.yonder.addtolist.R
 import com.yonder.addtolist.extensions.setupWithNavController
 
 class MainActivity : AppCompatActivity() {

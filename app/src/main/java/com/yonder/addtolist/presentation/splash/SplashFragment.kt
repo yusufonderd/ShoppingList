@@ -1,4 +1,4 @@
-package com.yonder.addtolist.extensions.presentation.settings
+package com.yonder.addtolist.presentation.splash
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -8,20 +8,20 @@ import android.view.View
 import android.view.ViewGroup
 import com.yonder.addtolist.R
 
-class SettingsFragment : Fragment() {
+class SplashFragment : Fragment() {
 
-  private lateinit var viewModel: SettingsViewModel
+  private lateinit var viewModel: SplashViewModel
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    return inflater.inflate(R.layout.settings_fragment, container, false)
+    return inflater.inflate(R.layout.splash_fragment, container, false)
   }
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
-    viewModel = ViewModelProvider(this).get(SettingsViewModel::class.java)
+    viewModel = ViewModelProvider(this).get(SplashViewModel::class.java)
 
   }
 
