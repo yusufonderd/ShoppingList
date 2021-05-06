@@ -1,3 +1,10 @@
 <resources>
   <string name="app_name">Addtolist</string>
+  <string name="title_list">List</string>
+  <string name="title_settings">Settings</string>
+  <string name="title_splash">Splash</string>
+  <string name="title_shopping_list_items">Shopping List Items</string>
+
+
+
 </resources>

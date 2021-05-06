@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/settings"
+  app:startDestination="@id/settingsScreen">
+
+
+  <fragment
+    android:id="@+id/splashScreen"
+    android:name="com.yonder.addtolist.extensions.presentation.splash.SplashFragment"
+    android:label="@string/title_splash"
+    tools:layout="@layout/splash_fragment">
+    <action
+      android:id="@+id/action_splash_to_settings"
+      app:destination="@id/settingsScreen" />
+  </fragment>
+
+  <fragment
+    android:id="@+id/settingsScreen"
+    android:name="com.yonder.addtolist.extensions.presentation.settings.SettingsFragment"
+    android:label="@string/title_settings"
+    tools:layout="@layout/settings_fragment">
+    <action
+      android:id="@+id/action_settings_to_splash"
+      app:destination="@id/splashScreen" />
+  </fragment>
+
+</navigation>

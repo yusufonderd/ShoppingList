@@ -31,6 +31,17 @@ object Libs {
     const val core_ktx: String = "androidx.core:core-ktx:" + Versions.core_ktx
     const val constraint_layout: String =
       "androidx.constraintlayout:constraintlayout:" + Versions.constraint_layout
+    const val navigation_fragment: String =
+      "androidx.navigation:navigation-fragment-ktx:" + Versions.navigation
+    const val navigation_ui_ktx: String =
+      "androidx.navigation:navigation-ui-ktx:" + Versions.navigation
+    const val legacy_support: String =
+      "androidx.legacy:legacy-support-v4:" + Versions.legacy_support
+    const val live_data_vm: String =
+      "androidx.lifecycle:lifecycle-livedata-ktx:" + Versions.livedata
+    const val live_data_ktx: String =
+      "androidx.lifecycle:lifecycle-viewmodel-ktx:" + Versions.livedata
+
   }
 
   object Design {

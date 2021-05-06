@@ -36,13 +36,16 @@ android {
 
 dependencies {
 
-
   implementation Libs.AndroidX.core_ktx
   implementation Libs.AndroidX.androidx_appcompat
   implementation Libs.AndroidX.constraint_layout
+  implementation Libs.AndroidX.navigation_fragment
+  implementation Libs.AndroidX.navigation_ui_ktx
+  implementation Libs.AndroidX.legacy_support
+  implementation Libs.AndroidX.live_data_vm
+  implementation Libs.AndroidX.live_data_ktx
 
   implementation Libs.Kotlin.org_jetbrains_kotlin
-
 
   implementation Libs.Design.material
 

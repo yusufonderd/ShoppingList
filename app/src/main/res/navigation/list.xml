@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/list"
+  app:startDestination="@id/shoppingListItemsScreen">
+
+  <fragment
+    android:id="@+id/splashScreen"
+    android:name="com.yonder.addtolist.extensions.presentation.splash.SplashFragment"
+    android:label="@string/title_splash"
+    tools:layout="@layout/splash_fragment">
+    <action
+      android:id="@+id/action_splash_to_shopping_list_items"
+      app:destination="@id/shoppingListItemsScreen" />
+  </fragment>
+
+
+  <fragment
+    android:id="@+id/shoppingListItemsScreen"
+    android:name="com.yonder.addtolist.extensions.presentation.list.ShoppingListItemsFragment"
+    android:label="@string/title_shopping_list_items"
+    tools:layout="@layout/shopping_list_items_fragment">
+    <action
+      android:id="@+id/action_shopping_list_items_to_splash"
+      app:destination="@id/splashScreen" />
+  </fragment>
+
+</navigation>
