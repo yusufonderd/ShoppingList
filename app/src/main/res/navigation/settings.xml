@@ -16,6 +16,18 @@
       app:destination="@id/settingsScreen" />
   </fragment>
 
+
+  <fragment
+    android:id="@+id/loginScreen"
+    android:name="com.yonder.addtolist.presentation.login.LoginFragment"
+    android:label="@string/title_login"
+    tools:layout="@layout/login_fragment">
+    <action
+      android:id="@+id/action_login_to_shopping_list_items"
+      app:destination="@id/shoppingListItemsScreen" />
+  </fragment>
+
+
   <fragment
     android:id="@+id/settingsScreen"
     android:name="com.yonder.addtolist.presentation.settings.SettingsFragment"
@@ -24,6 +36,11 @@
     <action
       android:id="@+id/action_settings_to_splash"
       app:destination="@id/splashScreen" />
+
+    <action
+      android:id="@+id/action_shopping_list_items_to_login"
+      app:destination="@id/loginScreen" />
+
   </fragment>
 
 </navigation>

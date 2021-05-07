@@ -12,7 +12,7 @@ buildscript {
     classpath Libs.Gradle.androidGradlePlugin
     classpath Libs.Kotlin.gradlePlugin
     classpath Libs.DaggerHilt.daggerHiltGradlePlugin
-
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
   }
 }
 

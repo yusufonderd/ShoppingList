@@ -53,7 +53,9 @@ class MainActivity : AppCompatActivity() {
   }
 
   private fun showUpButton(id: Int): Boolean {
-    return id != R.id.splashScreen || id != R.id.settingsScreen
+    return id != R.id.splashScreen &&
+        id != R.id.loginScreen &&
+        id != R.id.settingsScreen
   }
 
   private fun setUpButtonVisibility(isVisible: Boolean) {

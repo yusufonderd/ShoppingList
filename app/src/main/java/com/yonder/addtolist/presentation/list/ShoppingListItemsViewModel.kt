@@ -7,7 +7,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,10 +16,9 @@ class ShoppingListItemsViewModel @Inject constructor(
   private val userPreferenceDataStore: UserPreferenceDataStore
 ) : ViewModel() {
 
-  private val _splashViewState: MutableStateFlow<ShoppingListItemsViewState> =
+  private val _shoppingListViewState: MutableStateFlow<ShoppingListItemsViewState> =
     MutableStateFlow(ShoppingListItemsViewState.Initial)
-  val splashViewState: StateFlow<ShoppingListItemsViewState> get() = _splashViewState
-
+  val shoppingListViewState: StateFlow<ShoppingListItemsViewState> get() = _shoppingListViewState
 
   init {
     startInitialAppFlow()
@@ -32,7 +30,7 @@ class ShoppingListItemsViewModel @Inject constructor(
         .map { token -> token != null }
         .collect { isLoggedIn ->
         if (isLoggedIn.not()) {
-          _splashViewState.value = ShoppingListItemsViewState.GoSplash
+          _shoppingListViewState.value = ShoppingListItemsViewState.GoLogin
         }
       }
     }
@@ -43,4 +41,5 @@ class ShoppingListItemsViewModel @Inject constructor(
 sealed class ShoppingListItemsViewState {
   object Initial : ShoppingListItemsViewState()
   object GoSplash : ShoppingListItemsViewState()
+  object GoLogin : ShoppingListItemsViewState()
 }

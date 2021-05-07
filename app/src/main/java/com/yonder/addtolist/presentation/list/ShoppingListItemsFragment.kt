@@ -35,10 +35,10 @@ class ShoppingListItemsFragment : Fragment() {
 
   private fun setObserver() {
     lifecycleScope.launchWhenResumed {
-      viewModel.splashViewState.collect { viewState ->
+      viewModel.shoppingListViewState.collect { viewState ->
         when (viewState) {
-          ShoppingListItemsViewState.GoSplash -> {
-            shoppingListNavigator.goSplash()
+          ShoppingListItemsViewState.GoLogin -> {
+            shoppingListNavigator.goLogin()
           }
           else -> {
 

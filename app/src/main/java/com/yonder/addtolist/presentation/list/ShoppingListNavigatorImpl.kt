@@ -26,6 +26,12 @@ class ShoppingListNavigatorImpl @Inject constructor(
     navController.get().navigateUp()
   }
 
+  override fun goLogin() {
+    setBottomNavigationVisibility(false)
+    navController.get().navigate(R.id.action_shopping_list_items_to_login)
+
+
+  }
   override fun setBottomNavigationVisibility(isVisible: Boolean) {
     bottomNavigationView.get().isVisible = isVisible
   }
