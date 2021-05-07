@@ -15,6 +15,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 /**
  * Yusuf Onder on 06,May,2021
@@ -30,7 +31,7 @@ interface NavigationModule {
 
 
   companion object {
-    @Provides
+    @[Provides]
     fun provideNavController(activity: Activity): NavController =
       activity.findNavController(R.id.nav_host_container)
 

@@ -3,7 +3,6 @@ package com.yonder.addtolist.presentation
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -15,6 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
   private var currentNavController: LiveData<NavController>? = null
+  private val navGraphIds = listOf(R.navigation.list, R.navigation.settings)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -31,13 +31,9 @@ class MainActivity : AppCompatActivity() {
     setupBottomNavigationBar()
   }
 
-
   private fun setupBottomNavigationBar() {
     val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav)
 
-    val navGraphIds = listOf(R.navigation.list, R.navigation.settings)
-
-    // Setup the bottom navigation view with a list of navigation graphs
     val controller = bottomNavigationView.setupWithNavController(
       navGraphIds = navGraphIds,
       fragmentManager = supportFragmentManager,
@@ -45,8 +41,7 @@ class MainActivity : AppCompatActivity() {
       intent = intent
     )
 
-    // Whenever the selected controller changes, setup the action bar.
-    controller.observe(this, Observer { navController ->
+    controller.observe(this, { navController ->
       setupActionBarWithNavController(navController)
       navController.addOnDestinationChangedListener { _, destination, _ ->
         val showButton = showUpButton(destination.id)
@@ -58,7 +53,7 @@ class MainActivity : AppCompatActivity() {
   }
 
   private fun showUpButton(id: Int): Boolean {
-    return id != R.id.splashScreen
+    return id != R.id.splashScreen || id != R.id.settingsScreen
   }
 
   private fun setUpButtonVisibility(isVisible: Boolean) {

@@ -22,18 +22,18 @@ import javax.inject.Singleton
 object NetworkModule {
 
   val provideLoggingInterceptor: HttpLoggingInterceptor
-    @[Provides Singleton Named("body")] get() = HttpLoggingInterceptor().also { interceptor ->
+    @[Provides Named("body")] get() = HttpLoggingInterceptor().also { interceptor ->
       interceptor.level = HttpLoggingInterceptor.Level.BODY
     }
 
-  @[Provides Singleton]
+  @[Provides]
   fun provideOkHttpClient(@Named("body") loggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
     OkHttpClient.Builder().apply {
       addInterceptor(loggingInterceptor)
     }.build()
 
 
-  @[Provides Singleton]
+  @[Provides]
   fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
     return Retrofit.Builder()
       .client(okHttpClient)
@@ -42,7 +42,7 @@ object NetworkModule {
       .build()
   }
 
-  @[Provides Singleton]
+  @[Provides]
   fun provideApiService(retrofit: Retrofit): ApiService {
     return retrofit.create(ApiService::class.java)
   }

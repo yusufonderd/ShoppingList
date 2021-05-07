@@ -13,7 +13,7 @@ import javax.inject.Provider
 
 class ShoppingListNavigatorImpl @Inject constructor(
   private val navController: Provider<NavController>,
-  private val bottomNavigationView: BottomNavigationView
+  private val bottomNavigationView: Provider<BottomNavigationView>
 ) :
   ShoppingListNavigator {
 
@@ -27,7 +27,7 @@ class ShoppingListNavigatorImpl @Inject constructor(
   }
 
   override fun setBottomNavigationVisibility(isVisible: Boolean) {
-    bottomNavigationView.isVisible = isVisible
+    bottomNavigationView.get().isVisible = isVisible
   }
 
 }
