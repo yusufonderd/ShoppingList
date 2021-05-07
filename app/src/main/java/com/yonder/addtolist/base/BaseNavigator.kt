@@ -7,4 +7,5 @@ package com.yonder.addtolist.base
 interface BaseNavigator {
   fun goSplash()
   fun goBack()
+  fun setBottomNavigationVisibility(isVisible : Boolean)
 }

@@ -16,7 +16,6 @@ class MainActivity : AppCompatActivity() {
 
   private var currentNavController: LiveData<NavController>? = null
 
-
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
@@ -49,8 +48,22 @@ class MainActivity : AppCompatActivity() {
     // Whenever the selected controller changes, setup the action bar.
     controller.observe(this, Observer { navController ->
       setupActionBarWithNavController(navController)
+      navController.addOnDestinationChangedListener { _, destination, _ ->
+        val showButton = showUpButton(destination.id)
+        setUpButtonVisibility(showButton)
+      }
     })
+
     currentNavController = controller
+  }
+
+  private fun showUpButton(id: Int): Boolean {
+    return id != R.id.splashScreen
+  }
+
+  private fun setUpButtonVisibility(isVisible: Boolean) {
+    supportActionBar?.setDisplayShowHomeEnabled(isVisible)
+    supportActionBar?.setDisplayHomeAsUpEnabled(isVisible)
   }
 
   override fun onSupportNavigateUp(): Boolean {

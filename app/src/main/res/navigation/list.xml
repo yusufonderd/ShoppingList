@@ -23,6 +23,9 @@
     tools:layout="@layout/shopping_list_items_fragment">
     <action
       android:id="@+id/action_shopping_list_items_to_splash"
+      app:launchSingleTop="true"
+      app:popUpTo="@+id/list"
+      app:popUpToInclusive="true"
       app:destination="@id/splashScreen" />
   </fragment>
 

@@ -1,5 +1,6 @@
 package com.yonder.addtolist.presentation.list
 
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.yonder.addtolist.R
@@ -17,11 +18,16 @@ class ShoppingListNavigatorImpl @Inject constructor(
   ShoppingListNavigator {
 
   override fun goSplash() {
-      navController.get().navigate(R.id.action_shopping_list_items_to_splash)
+    setBottomNavigationVisibility(false)
+    navController.get().navigate(R.id.action_shopping_list_items_to_splash)
   }
 
   override fun goBack() {
     navController.get().navigateUp()
+  }
+
+  override fun setBottomNavigationVisibility(isVisible: Boolean) {
+    bottomNavigationView.isVisible = isVisible
   }
 
 }
