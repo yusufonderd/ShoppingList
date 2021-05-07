@@ -5,7 +5,7 @@
   <string name="title_splash">Splash</string>
   <string name="title_login">Login</string>
   <string name="btn_login">Login</string>
-
+  <string name="cd_splash_image">Welcome to Addtolist</string>
   <string name="title_shopping_list_items">Shopping List Items</string>
 
 
