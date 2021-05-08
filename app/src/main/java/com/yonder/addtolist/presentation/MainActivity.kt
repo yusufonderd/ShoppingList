@@ -2,6 +2,7 @@ package com.yonder.addtolist.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -33,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
   private fun setupBottomNavigationBar() {
     val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav)
-
+    findViewById<Toolbar>(R.id.toolbar).let(::setSupportActionBar)
     val controller = bottomNavigationView.setupWithNavController(
       navGraphIds = navGraphIds,
       fragmentManager = supportFragmentManager,

@@ -1,5 +1,6 @@
 package com.yonder.addtolist.presentation.list
 
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -13,7 +14,8 @@ import javax.inject.Provider
 
 class ShoppingListNavigatorImpl @Inject constructor(
   private val navController: Provider<NavController>,
-  private val bottomNavigationView: Provider<BottomNavigationView>
+  private val bottomNavigationView: Provider<BottomNavigationView>,
+  private val toolbar: Provider<Toolbar>
 ) :
   ShoppingListNavigator {
 
@@ -33,6 +35,10 @@ class ShoppingListNavigatorImpl @Inject constructor(
 
   override fun setBottomNavigationVisibility(isVisible: Boolean) {
     bottomNavigationView.get().isVisible = isVisible
+  }
+
+  override fun setToolbarVisibility(isVisible: Boolean) {
+    toolbar.get().isVisible = isVisible
   }
 
 }

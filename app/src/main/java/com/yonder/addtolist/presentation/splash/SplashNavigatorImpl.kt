@@ -1,5 +1,6 @@
 package com.yonder.addtolist.presentation.splash
 
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -12,7 +13,8 @@ import javax.inject.Provider
 
 class SplashNavigatorImpl @Inject constructor(
   private val navController: Provider<NavController>,
-  private val bottomNavigationView: Provider<BottomNavigationView>
+  private val bottomNavigationView: Provider<BottomNavigationView>,
+  private val toolbar: Provider<Toolbar>
 ): SplashNavigator{
 
   init {
@@ -23,8 +25,12 @@ class SplashNavigatorImpl @Inject constructor(
 
   }
 
+  override fun setToolbarVisibility(isVisible: Boolean) {
+    toolbar.get().isVisible = isVisible
+  }
   override fun onInitial() {
     super.onInitial()
+    setToolbarVisibility(false)
     setBottomNavigationVisibility(false)
   }
 

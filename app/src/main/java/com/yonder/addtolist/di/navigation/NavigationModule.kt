@@ -1,6 +1,7 @@
 package com.yonder.addtolist.di.navigation
 
 import android.app.Activity
+import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -35,12 +36,16 @@ interface NavigationModule {
   val SplashNavigatorImpl.splashNavigator: SplashNavigator
 
   companion object {
+
+    @Provides
+    fun provideToolbar(activity: Activity): Toolbar = activity.findViewById(R.id.toolbar)
+
     @[Provides]
     fun provideNavController(activity: Activity): NavController =
       activity.findNavController(R.id.nav_host_container)
 
     @Provides
     fun provideBottomNavigationView(activity: Activity): BottomNavigationView =
-      activity.findViewById<BottomNavigationView>(R.id.bottom_nav)
+      activity.findViewById(R.id.bottom_nav)
   }
 }
