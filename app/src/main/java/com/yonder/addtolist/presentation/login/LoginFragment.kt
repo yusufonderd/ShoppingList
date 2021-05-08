@@ -7,18 +7,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.yonder.addtolist.R
+import com.yonder.addtolist.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoginFragment : Fragment() {
+class LoginFragment : BaseFragment() {
 
   val viewModel: LoginViewModel by viewModels()
+
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
     return inflater.inflate(R.layout.login_fragment, container, false)
+  }
+
+  override fun setObserver() {
+
   }
 
 
