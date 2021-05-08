@@ -5,8 +5,9 @@ package com.yonder.addtolist.base
  */
 
 interface BaseNavigator {
-  fun goLogin()
-  fun goSplash()
   fun goBack()
-  fun setBottomNavigationVisibility(isVisible : Boolean)
+  fun setBottomNavigationVisibility(isVisible: Boolean)
+  fun onInitial() {
+
+  }
 }

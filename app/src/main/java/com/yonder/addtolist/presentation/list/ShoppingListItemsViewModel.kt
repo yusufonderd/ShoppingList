@@ -6,8 +6,9 @@ import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,11 +29,12 @@ class ShoppingListItemsViewModel @Inject constructor(
     viewModelScope.launch {
       userPreferenceDataStore.token
         .map { token -> token != null }
-        .collect { isLoggedIn ->
-        if (isLoggedIn.not()) {
-          _shoppingListViewState.value = ShoppingListItemsViewState.GoLogin
+        .onEach { isLoggedIn ->
+          if (isLoggedIn.not()) {
+            _shoppingListViewState.value = ShoppingListItemsViewState.GoLogin
+          }
         }
-      }
+        .launchIn(viewModelScope)
     }
   }
 

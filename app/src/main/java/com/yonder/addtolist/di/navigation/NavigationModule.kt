@@ -7,6 +7,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.yonder.addtolist.R
 import com.yonder.addtolist.presentation.list.ShoppingListNavigatorImpl
 import com.yonder.addtolist.presentation.list.ShoppingListNavigator
+import com.yonder.addtolist.presentation.splash.SplashNavigator
+import com.yonder.addtolist.presentation.splash.SplashNavigatorImpl
 
 import dagger.Binds
 import dagger.Module
@@ -29,6 +31,8 @@ interface NavigationModule {
   @get:Binds
   val ShoppingListNavigatorImpl.shoppingListNavigator: ShoppingListNavigator
 
+  @get:Binds
+  val SplashNavigatorImpl.splashNavigator: SplashNavigator
 
   companion object {
     @[Provides]
