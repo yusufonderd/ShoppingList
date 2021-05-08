@@ -19,7 +19,7 @@ class ShoppingListNavigatorImpl @Inject constructor(
 ) :
   ShoppingListNavigator {
 
-  override fun goSplash() {
+  override fun navigateSplash() {
     setBottomNavigationVisibility(false)
     navController.get().navigate(R.id.action_shopping_list_items_to_splash)
   }
@@ -28,7 +28,7 @@ class ShoppingListNavigatorImpl @Inject constructor(
     navController.get().navigateUp()
   }
 
-  override fun goLogin() {
+  override fun navigateLogin() {
     setBottomNavigationVisibility(false)
     navController.get().navigate(R.id.action_shopping_list_items_to_login)
   }

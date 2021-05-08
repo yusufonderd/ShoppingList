@@ -21,22 +21,7 @@ class ShoppingListItemsViewModel @Inject constructor(
     MutableStateFlow(ShoppingListItemsViewState.Initial)
   val shoppingListViewState: StateFlow<ShoppingListItemsViewState> get() = _shoppingListViewState
 
-  init {
-    startInitialAppFlow()
-  }
 
-  private fun startInitialAppFlow() {
-    viewModelScope.launch {
-      userPreferenceDataStore.token
-        .map { token -> token != null }
-        .onEach { isLoggedIn ->
-          if (isLoggedIn.not()) {
-            _shoppingListViewState.value = ShoppingListItemsViewState.GoLogin
-          }
-        }
-        .launchIn(viewModelScope)
-    }
-  }
 
 }
 

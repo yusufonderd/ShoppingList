@@ -38,7 +38,7 @@ class ShoppingListItemsFragment : Fragment() {
       viewModel.shoppingListViewState.collect { viewState ->
         when (viewState) {
           ShoppingListItemsViewState.GoLogin -> {
-            shoppingListNavigator.goLogin()
+            shoppingListNavigator.navigateLogin()
           }
           else -> {
 

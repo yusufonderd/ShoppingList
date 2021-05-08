@@ -8,6 +8,7 @@ import com.yonder.addtolist.base.BaseNavigator
 
 
 interface SplashNavigator : BaseNavigator {
-  fun goLogin()
+  fun navigateLogin()
+  fun navigateShoppingListItems()
 }
 

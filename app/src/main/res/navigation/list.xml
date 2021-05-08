@@ -13,6 +13,10 @@
     <action
       android:id="@+id/action_splash_to_shopping_list_items"
       app:destination="@id/shoppingListItemsScreen" />
+
+    <action
+      android:id="@+id/action_splash_to_login"
+      app:destination="@id/loginScreen" />
   </fragment>
 
 
