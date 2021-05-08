@@ -2,12 +2,11 @@ package com.yonder.addtolist.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.yonder.addtolist.R
+import com.yonder.addtolist.databinding.ActivityMainBinding
 import com.yonder.addtolist.extensions.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,25 +16,26 @@ class MainActivity : AppCompatActivity() {
   private var currentNavController: LiveData<NavController>? = null
   private val navGraphIds = listOf(R.navigation.list, R.navigation.settings)
 
+  private lateinit var binding: ActivityMainBinding
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_main)
-
+    binding = ActivityMainBinding.inflate(layoutInflater)
+    setContentView(binding.root)
     if (savedInstanceState == null) {
+      setupToolbar()
       setupBottomNavigationBar()
     }
-
   }
 
   override fun onRestoreInstanceState(savedInstanceState: Bundle) {
     super.onRestoreInstanceState(savedInstanceState)
+    setupToolbar()
     setupBottomNavigationBar()
   }
 
   private fun setupBottomNavigationBar() {
-    val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav)
-    findViewById<Toolbar>(R.id.toolbar).let(::setSupportActionBar)
-    val controller = bottomNavigationView.setupWithNavController(
+    val controller = binding.bottomNav.setupWithNavController(
       navGraphIds = navGraphIds,
       fragmentManager = supportFragmentManager,
       containerId = R.id.nav_host_container,
@@ -51,6 +51,10 @@ class MainActivity : AppCompatActivity() {
     })
 
     currentNavController = controller
+  }
+
+  private fun setupToolbar() {
+    setSupportActionBar(binding.toolbar)
   }
 
   private fun showUpButton(id: Int): Boolean {
