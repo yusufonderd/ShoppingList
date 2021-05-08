@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <!-- Login Screen-->
+
+  <style name="TStyle_LoginAppName">
+    <item name="android:textAppearance">@style/TextAppearance.AppCompat.Display1</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:text">@string/app_name</item>
+    <item name="android:textColor">@color/white</item>
+  </style>
+
+
+  <style name="IvStyle_LoginWelcome">
+    <item name="android:scaleType">fitCenter</item>
+    <item name="android:src">@drawable/ic_login_welcome</item>
+  </style>
+
+  <style name="TStyle_LoginAppDescription">
+    <item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:text">@string/app_description</item>
+    <item name="android:textColor">@color/white</item>
+  </style>
+
+  <style name="BtnStyle_BaseContinueOptions" parent="Widget.AppCompat.Button">
+    <item name="android:textStyle">bold</item>
+    <item name="android:textColor">@color/black</item>
+    <item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
+    <item name="android:background">@drawable/bg_btn_login_options</item>
+  </style>
+
+  <style name="BtnStyle_ContinueWithGoogle" parent="BtnStyle_BaseContinueOptions">
+    <item name="android:text">@string/continue_with_google</item>
+  </style>
+
+  <style name="BtnStyle_ContinueWithFacebook" parent="BtnStyle_BaseContinueOptions">
+    <item name="android:text">@string/continue_with_facebook</item>
+  </style>
+
+  <style name="BtnStyle_ContinueAsGuest" parent="@style/BtnStyle_BaseContinueOptions">
+    <item name="android:text">@string/continue_as_guest</item>
+  </style>
+
+</resources>

@@ -1,20 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:fillViewport="true"
   tools:context=".presentation.login.LoginFragment">
 
-  <Button
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/btn_login"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
 
-  </Button>
+    <TextView
+      android:id="@+id/tvAppName"
+      style="@style/TStyle_LoginAppName"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintBottom_toTopOf="@+id/tvAppDescription"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_chainStyle="packed" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+      android:id="@+id/tvAppDescription"
+      style="@style/TStyle_LoginAppDescription"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_8"
+      app:layout_constraintBottom_toTopOf="@+id/ivWelcome"
+      app:layout_constraintEnd_toEndOf="@+id/tvAppName"
+      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintStart_toStartOf="@+id/tvAppName"
+      app:layout_constraintTop_toBottomOf="@+id/tvAppName" />
+
+    <ImageView
+      android:id="@+id/ivWelcome"
+      style="@style/IvStyle_LoginWelcome"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_16"
+      android:contentDescription="@string/cd_welcome_image"
+      app:layout_constraintBottom_toTopOf="@+id/btnContinueWithGoogle"
+      app:layout_constraintEnd_toEndOf="@+id/tvAppDescription"
+      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintStart_toStartOf="@+id/tvAppDescription"
+      app:layout_constraintTop_toBottomOf="@+id/tvAppDescription" />
+
+    <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/btnContinueWithGoogle"
+      style="@style/BtnStyle_ContinueWithGoogle"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_16"
+      app:layout_constraintBottom_toTopOf="@+id/btnContinueWithFacebook"
+      app:layout_constraintEnd_toEndOf="@+id/ivWelcome"
+      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintStart_toStartOf="@+id/ivWelcome"
+      app:layout_constraintTop_toBottomOf="@+id/ivWelcome"
+      app:layout_constraintWidth_percent="0.6" />
+
+    <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/btnContinueWithFacebook"
+      style="@style/BtnStyle_ContinueWithFacebook"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_12"
+      app:layout_constraintBottom_toTopOf="@+id/btnContinueAsGuest"
+      app:layout_constraintEnd_toEndOf="@+id/btnContinueWithGoogle"
+      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintStart_toStartOf="@+id/btnContinueWithGoogle"
+      app:layout_constraintTop_toBottomOf="@+id/btnContinueWithGoogle"
+      app:layout_constraintWidth_percent="0.6" />
+
+    <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/btnContinueAsGuest"
+      style="@style/BtnStyle_ContinueAsGuest"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_12"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="@+id/btnContinueWithFacebook"
+      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintStart_toStartOf="@+id/btnContinueWithFacebook"
+      app:layout_constraintTop_toBottomOf="@+id/btnContinueWithFacebook"
+      app:layout_constraintWidth_percent="0.6" />
+
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

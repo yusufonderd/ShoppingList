@@ -1,13 +1,23 @@
 <resources>
   <string name="app_name">Addtolist</string>
+  <string name="app_description">Create a shopping lists</string>
+
   <string name="title_list">List</string>
   <string name="title_settings">Settings</string>
   <string name="title_splash">Splash</string>
   <string name="title_login">Login</string>
   <string name="btn_login">Login</string>
-  <string name="cd_splash_image">Welcome to Addtolist</string>
   <string name="title_shopping_list_items">Shopping List Items</string>
 
 
+  <!-- Content Descriptions -->
+  <string name="cd_splash_image">Splash Image</string>
+  <string name="cd_welcome_image">Welcome Image</string>
+
+
+  <!-- Login Screen -->
+  <string name="continue_with_google">Continue with Google</string>
+  <string name="continue_with_facebook">Continue with Facebook</string>
+  <string name="continue_as_guest">Continue as a Guest</string>
 
 </resources>
