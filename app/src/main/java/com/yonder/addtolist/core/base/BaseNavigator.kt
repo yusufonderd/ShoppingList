@@ -1,4 +1,4 @@
-package com.yonder.addtolist.base
+package com.yonder.addtolist.core.base
 
 /**
  * Yusuf Onder on 06,May,2021

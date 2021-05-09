@@ -8,4 +8,4 @@ import dagger.hilt.android.HiltAndroidApp
  */
 
 @HiltAndroidApp
-class ApplicationClass : Application()
+class AddToListApp : Application()

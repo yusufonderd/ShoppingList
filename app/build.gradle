@@ -28,15 +28,24 @@ android {
     def base_url = properties.getProperty('addtolist_base_url')
     def database_name = properties.getProperty('addtolist_database_name')
 
+    def params_user_id = properties.getProperty('params_provider_key')
+    def params_fcm_token = properties.getProperty('params_fcm_token')
+
     release {
       minifyEnabled false
       proguardFiles getDefaultProguardFile(Config.proguard_txt), Config.proguard_rules
       buildConfigField "String", "BASE_URL", base_url
       buildConfigField "String", "DATABASE_NAME", database_name
+      buildConfigField "String", "PARAMS_FCM_TOKEN", params_fcm_token
+      buildConfigField "String", "PARAMS_USER_ID", params_user_id
     }
     debug {
       buildConfigField "String", "BASE_URL", base_url
       buildConfigField "String", "DATABASE_NAME", database_name
+      buildConfigField "String", "PARAMS_FCM_TOKEN", params_fcm_token
+      buildConfigField "String", "PARAMS_USER_ID", params_user_id
+
+
     }
 
     release {

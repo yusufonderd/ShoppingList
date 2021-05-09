@@ -22,12 +22,12 @@ import javax.inject.Singleton
 object NetworkModule {
 
   val provideLoggingInterceptor: HttpLoggingInterceptor
-    @[Provides Named("body")] get() = HttpLoggingInterceptor().also { interceptor ->
+    @[Provides] get() = HttpLoggingInterceptor().also { interceptor ->
       interceptor.level = HttpLoggingInterceptor.Level.BODY
     }
 
   @[Provides]
-  fun provideOkHttpClient(@Named("body") loggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
+  fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
     OkHttpClient.Builder().apply {
       addInterceptor(loggingInterceptor)
     }.build()

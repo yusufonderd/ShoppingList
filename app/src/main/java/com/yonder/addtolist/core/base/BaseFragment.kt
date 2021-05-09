@@ -1,4 +1,4 @@
-package com.yonder.addtolist.base
+package com.yonder.addtolist.core.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,6 +18,7 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
   protected open val binding get() = _binding!!
 
   abstract fun setObserver()
+  abstract fun setupViews()
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -30,6 +31,7 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    setupViews()
     setObserver()
   }
   override fun onDestroyView() {

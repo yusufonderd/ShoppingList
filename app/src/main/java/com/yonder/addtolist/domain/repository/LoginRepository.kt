@@ -1,0 +1,24 @@
+package com.yonder.addtolist.domain.repository
+
+import com.yonder.addtolist.core.BaseResponse
+import com.yonder.addtolist.data.remote.ApiService
+import com.yonder.addtolist.domain.model.UserRegisterParam
+import com.yonder.addtolist.domain.model.UserResponse
+import javax.inject.Inject
+
+/**
+ * Yusuf Onder on 09,May,2021
+ */
+
+interface LoginRepository {
+  suspend fun login(params: UserRegisterParam): BaseResponse<UserResponse>
+}
+
+class LoginRepositoryImpl @Inject constructor(
+  private val apiService: ApiService
+) : LoginRepository {
+
+  override suspend fun login(params: UserRegisterParam): BaseResponse<UserResponse> =
+    apiService.registerGuestUser(params)
+
+}

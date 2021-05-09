@@ -1,6 +1,6 @@
 package com.yonder.addtolist.presentation.list
 
-import com.yonder.addtolist.base.BaseNavigator
+import com.yonder.addtolist.core.base.BaseNavigator
 
 /**
  * Yusuf Onder on 06,May,2021

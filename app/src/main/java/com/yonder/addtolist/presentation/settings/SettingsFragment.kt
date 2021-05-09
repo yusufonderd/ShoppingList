@@ -3,7 +3,7 @@ package com.yonder.addtolist.presentation.settings
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.yonder.addtolist.base.BaseFragment
+import com.yonder.addtolist.core.base.BaseFragment
 import com.yonder.addtolist.databinding.SettingsFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,6 +16,9 @@ class SettingsFragment : BaseFragment<SettingsFragmentBinding>() {
     TODO("Not yet implemented")
   }
 
+  override fun setupViews() {
+    TODO("Not yet implemented")
+  }
   override fun initBinding(
     inflater: LayoutInflater,
     container: ViewGroup?

@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.yonder.addtolist.base.BaseFragment
+import com.yonder.addtolist.core.base.BaseFragment
 import com.yonder.addtolist.databinding.ShoppingListItemsFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -23,6 +23,9 @@ class ShoppingListItemsFragment : BaseFragment<ShoppingListItemsFragmentBinding>
   @Inject
   lateinit var shoppingListNavigator: ShoppingListNavigator
 
+  override fun setupViews() {
+
+  }
 
   override fun setObserver() {
     lifecycleScope.launchWhenResumed {

@@ -42,7 +42,7 @@ class SplashViewModel @Inject constructor(
   @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
   fun getStateOf(isLoggedIn: Boolean): SplashViewState {
     return if (isLoggedIn) {
-      SplashViewState.GoHome
+      SplashViewState.GoShoppingListItems
     } else {
       SplashViewState.GoLogin
     }
@@ -57,6 +57,6 @@ class SplashViewModel @Inject constructor(
 sealed class SplashViewState {
   object Initial : SplashViewState()
   object GoLogin : SplashViewState()
-  object GoHome : SplashViewState()
+  object GoShoppingListItems : SplashViewState()
 }
 
