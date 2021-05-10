@@ -1,4 +1,4 @@
-package com.yonder.addtolist.di.navigation
+package com.yonder.addtolist.data.di
 
 import android.app.Activity
 import androidx.appcompat.widget.Toolbar
@@ -10,15 +10,12 @@ import com.yonder.addtolist.presentation.list.ShoppingListNavigatorImpl
 import com.yonder.addtolist.presentation.list.ShoppingListNavigator
 import com.yonder.addtolist.presentation.splash.SplashNavigator
 import com.yonder.addtolist.presentation.splash.SplashNavigatorImpl
-
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
-import dagger.hilt.android.components.ViewModelComponent
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+
 
 /**
  * Yusuf Onder on 06,May,2021

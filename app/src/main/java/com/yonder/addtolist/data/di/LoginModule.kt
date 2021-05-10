@@ -1,4 +1,4 @@
-package com.yonder.addtolist.di.login
+package com.yonder.addtolist.data.di
 
 import android.content.Context
 import com.yonder.addtolist.common.utils.auth.AuthUtils
@@ -6,6 +6,8 @@ import com.yonder.addtolist.common.utils.auth.IAuthUtils
 import com.yonder.addtolist.core.base.BaseDecider
 import com.yonder.addtolist.core.base.BaseMapper
 import com.yonder.addtolist.core.BaseResponse
+import com.yonder.addtolist.data.remote.datasource.login.RemoteLoginDataSource
+import com.yonder.addtolist.data.remote.datasource.login.RemoteLoginDataSourceImpl
 import com.yonder.addtolist.domain.decider.LoginDecider
 import com.yonder.addtolist.domain.mapper.LoginMapper
 import com.yonder.addtolist.domain.model.response.UserResponse
@@ -36,10 +38,14 @@ interface LoginModule {
   val LoginUseCaseImpl.loginUseCase: LoginUseCase
 
   @get:[Binds]
+  val RemoteLoginDataSourceImpl.remoteLoginDataSource: RemoteLoginDataSource
+
+  @get:[Binds]
   val LoginRepositoryImpl.loginRepository: LoginRepository
 
   @get:[Binds]
   val LoginDecider.loginDecider: BaseDecider
+
 
   companion object{
     @[Provides]

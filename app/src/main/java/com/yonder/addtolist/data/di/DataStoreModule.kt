@@ -1,4 +1,4 @@
-package com.yonder.addtolist.di.local
+package com.yonder.addtolist.data.di
 
 import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.data.local.UserPreferenceDataStoreImpl

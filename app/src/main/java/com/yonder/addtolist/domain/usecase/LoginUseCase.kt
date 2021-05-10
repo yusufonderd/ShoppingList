@@ -1,7 +1,7 @@
 package com.yonder.addtolist.domain.usecase
 
 import com.yonder.addtolist.core.NetworkResult
-import com.yonder.addtolist.di.thread.CoroutineThread
+import com.yonder.addtolist.data.di.thread.CoroutineThread
 import com.yonder.addtolist.domain.mapper.LoginMapper
 import com.yonder.addtolist.domain.model.request.UserRegisterRequest
 import com.yonder.addtolist.domain.repository.LoginRepository

@@ -1,4 +1,4 @@
-package com.yonder.addtolist.di.network
+package com.yonder.addtolist.data.di
 
 import com.yonder.addtolist.BuildConfig
 import com.yonder.addtolist.data.remote.ApiService
@@ -10,8 +10,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Named
-import javax.inject.Singleton
 
 /**
  * Yusuf Onder on 06,May,2021

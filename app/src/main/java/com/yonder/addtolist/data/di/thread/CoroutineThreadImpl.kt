@@ -1,4 +1,4 @@
-package com.yonder.addtolist.di.thread
+package com.yonder.addtolist.data.di.thread
 
 /**
  * Yusuf Onder on 06,May,2021
