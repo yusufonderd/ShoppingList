@@ -1,4 +1,4 @@
-package com.yonder.addtolist.domain.model
+package com.yonder.addtolist.domain.model.request
 
 import com.google.gson.annotations.SerializedName
 import com.yonder.addtolist.BuildConfig
@@ -7,7 +7,7 @@ import com.yonder.addtolist.BuildConfig
  * Yusuf Onder on 09,May,2021
  */
 
-data class UserRegisterParam(
+data class UserRegisterRequest(
   @SerializedName("provider_type") var providerType: String?,
   @SerializedName("device_uuid") var deviceUUID: String,
   @SerializedName("phone_model") var deviceModel: String,

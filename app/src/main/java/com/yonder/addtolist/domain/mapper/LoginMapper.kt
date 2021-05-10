@@ -3,8 +3,8 @@ package com.yonder.addtolist.domain.mapper
 import com.yonder.addtolist.core.base.BaseMapper
 import com.yonder.addtolist.core.BaseResponse
 import com.yonder.addtolist.domain.decider.LoginDecider
-import com.yonder.addtolist.domain.model.UserResponse
-import com.yonder.addtolist.domain.uimodel.UserUiModel
+import com.yonder.addtolist.domain.model.response.UserResponse
+import com.yonder.addtolist.domain.model.ui.UserUiModel
 import javax.inject.Inject
 
 /**

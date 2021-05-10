@@ -19,12 +19,9 @@ class LoginFragment : BaseFragment<LoginFragmentBinding>() {
 
   override fun setupViews() {
     binding.btnContinueAsGuest.setOnClickListener {
-      context?.let { safeContext ->
         viewModel.continueWith(
-          context = safeContext,
           providerType = ProviderType.GUEST
         )
-      }
     }
   }
 

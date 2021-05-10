@@ -1,4 +1,4 @@
-package com.yonder.addtolist.domain.uimodel
+package com.yonder.addtolist.domain.model.ui
 
 import com.yonder.addtolist.core.base.BaseUiModel
 import com.yonder.addtolist.core.BaseUiResult

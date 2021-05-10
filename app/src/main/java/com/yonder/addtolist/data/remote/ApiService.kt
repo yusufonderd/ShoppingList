@@ -1,8 +1,8 @@
 package com.yonder.addtolist.data.remote
 
 import com.yonder.addtolist.core.BaseResponse
-import com.yonder.addtolist.domain.model.UserRegisterParam
-import com.yonder.addtolist.domain.model.UserResponse
+import com.yonder.addtolist.domain.model.request.UserRegisterRequest
+import com.yonder.addtolist.domain.model.response.UserResponse
 import retrofit2.http.Body
 import retrofit2.http.POST
 
@@ -12,6 +12,6 @@ import retrofit2.http.POST
  interface ApiService {
 
  @POST("register")
- suspend fun registerGuestUser(@Body registerUser: UserRegisterParam): BaseResponse<UserResponse>
+ suspend fun registerGuestUser(@Body registerUser: UserRegisterRequest): BaseResponse<UserResponse>
 
 }

@@ -1,4 +1,4 @@
-package com.yonder.addtolist.domain.model
+package com.yonder.addtolist.domain.model.response
 
 import com.google.gson.annotations.SerializedName
 

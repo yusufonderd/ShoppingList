@@ -2,8 +2,8 @@ package com.yonder.addtolist.domain.repository
 
 import com.yonder.addtolist.core.BaseResponse
 import com.yonder.addtolist.data.remote.ApiService
-import com.yonder.addtolist.domain.model.UserRegisterParam
-import com.yonder.addtolist.domain.model.UserResponse
+import com.yonder.addtolist.domain.model.request.UserRegisterRequest
+import com.yonder.addtolist.domain.model.response.UserResponse
 import javax.inject.Inject
 
 /**
@@ -11,14 +11,11 @@ import javax.inject.Inject
  */
 
 interface LoginRepository {
-  suspend fun login(params: UserRegisterParam): BaseResponse<UserResponse>
+  suspend fun login(params: UserRegisterRequest): BaseResponse<UserResponse>
 }
 
 class LoginRepositoryImpl @Inject constructor(
   private val apiService: ApiService
 ) : LoginRepository {
-
-  override suspend fun login(params: UserRegisterParam): BaseResponse<UserResponse> =
-    apiService.registerGuestUser(params)
-
+  override suspend fun login(params: UserRegisterRequest): BaseResponse<UserResponse> = apiService.registerGuestUser(params)
 }
