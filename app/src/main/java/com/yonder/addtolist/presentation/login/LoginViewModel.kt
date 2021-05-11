@@ -3,12 +3,12 @@ package com.yonder.addtolist.presentation.login
 import android.os.Bundle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.GraphRequest
 import com.facebook.login.LoginResult
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.yonder.addtolist.common.ProviderType
 import com.yonder.addtolist.common.utils.auth.NewUserProvider
 import com.yonder.addtolist.domain.model.request.UserRegisterRequest
@@ -20,15 +20,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import org.json.JSONObject
-import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
   private val loginUseCase: LoginUseCase,
-  private val authProvider: NewUserProvider
+  private val newUserProvider: NewUserProvider
 ) : ViewModel() {
 
   private val _state: MutableStateFlow<LoginViewState> =
@@ -47,11 +45,21 @@ class LoginViewModel @Inject constructor(
     }
   }
 
+  fun continueWithGoogle(account: GoogleSignInAccount?) {
+    account?.let {
+      val loginParams = newUserProvider.createUserRegisterRequest(
+        ProviderType.FACEBOOK,
+        TEST_GCM_TOKEN,
+        TEST_DEVICE_UUID,
+        account
+      )
+      createNewUser(loginParams)
+    }
+  }
+
   fun continueWithFacebook(loginResult: LoginResult) {
-    val request = GraphRequest.newMeRequest(
-      loginResult.accessToken
-    ) { `object`, _ ->
-      val loginParams = authProvider.createUserRegisterRequest(
+    val request = GraphRequest.newMeRequest(loginResult.accessToken) { `object`, _ ->
+      val loginParams = newUserProvider.createUserRegisterRequest(
         ProviderType.FACEBOOK,
         TEST_GCM_TOKEN,
         TEST_DEVICE_UUID,
@@ -66,7 +74,7 @@ class LoginViewModel @Inject constructor(
   }
 
   fun continueAsGuest() {
-    val newUserRegisterRequest = authProvider.createUserRegisterRequest(
+    val newUserRegisterRequest = newUserProvider.createUserRegisterRequest(
       ProviderType.GUEST,
       TEST_GCM_TOKEN,
       TEST_DEVICE_UUID

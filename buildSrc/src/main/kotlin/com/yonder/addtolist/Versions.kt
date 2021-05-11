@@ -22,7 +22,7 @@ object Versions {
   const val espresso_core = "3.3.0"
   const val junit_test = "1.1.2"
   const val junit: String = "4.13.1"
-  const val google_auth: String = "18.1.0"
+  const val google_auth: String = "19.0.0"
   const val google_service_auth: String = "4.3.5"
   const val facebook_login: String = "[8.1)"
   const val facebook_sdk = "[5,6)"
