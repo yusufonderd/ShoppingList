@@ -1,7 +1,6 @@
 package com.yonder.addtolist.domain.repository
 
-import com.yonder.addtolist.core.BaseResponse
-import com.yonder.addtolist.data.remote.ApiService
+import com.yonder.addtolist.core.base.BaseResponse
 import com.yonder.addtolist.data.remote.datasource.login.RemoteLoginDataSource
 import com.yonder.addtolist.domain.model.request.UserRegisterRequest
 import com.yonder.addtolist.domain.model.response.UserResponse

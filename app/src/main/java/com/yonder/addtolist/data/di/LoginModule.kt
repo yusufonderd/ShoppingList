@@ -5,7 +5,7 @@ import com.yonder.addtolist.common.utils.auth.AuthUtils
 import com.yonder.addtolist.common.utils.auth.IAuthUtils
 import com.yonder.addtolist.core.base.BaseDecider
 import com.yonder.addtolist.core.base.BaseMapper
-import com.yonder.addtolist.core.BaseResponse
+import com.yonder.addtolist.core.base.BaseResponse
 import com.yonder.addtolist.data.remote.datasource.login.RemoteLoginDataSource
 import com.yonder.addtolist.data.remote.datasource.login.RemoteLoginDataSourceImpl
 import com.yonder.addtolist.domain.decider.LoginDecider
@@ -44,7 +44,7 @@ interface LoginModule {
   val LoginRepositoryImpl.loginRepository: LoginRepository
 
   @get:[Binds]
-  val LoginDecider.loginDecider: BaseDecider
+  val LoginDecider.loginDecider: BaseDecider<UserResponse>
 
 
   companion object{

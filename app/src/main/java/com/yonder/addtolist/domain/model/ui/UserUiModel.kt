@@ -1,7 +1,7 @@
 package com.yonder.addtolist.domain.model.ui
 
 import com.yonder.addtolist.core.base.BaseUiModel
-import com.yonder.addtolist.core.BaseUiResult
+import com.yonder.addtolist.core.base.BaseUiResult
 
 /**
  * Yusuf Onder on 09,May,2021

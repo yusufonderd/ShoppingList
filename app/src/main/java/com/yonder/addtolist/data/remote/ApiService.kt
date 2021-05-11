@@ -1,6 +1,6 @@
 package com.yonder.addtolist.data.remote
 
-import com.yonder.addtolist.core.BaseResponse
+import com.yonder.addtolist.core.base.BaseResponse
 import com.yonder.addtolist.domain.model.request.UserRegisterRequest
 import com.yonder.addtolist.domain.model.response.UserResponse
 import retrofit2.http.Body
