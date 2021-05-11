@@ -6,18 +6,25 @@ package com.yonder.addtolist
 
 object Libs {
 
-  object Gradle{
-
+  object Gradle {
     const val androidGradlePlugin = "com.android.tools.build:gradle:4.1.3"
-
   }
+
   object Kotlin {
     const val org_jetbrains_kotlin: String =
       "org.jetbrains.kotlin:kotlin-stdlib:" + Versions.jetbrains_kotlin
     const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:" + Versions.gradle_plugin
   }
 
+  object Facebook{
+    const val sdk = "com.facebook.android:facebook-android-sdk:" + Versions.facebook_sdk
+    const val login = "com.facebook.android:facebook-login:" + Versions.facebook_login
+  }
 
+  object GoogleServices {
+    const val service_plugin = "com.google.gms:google-services:" + Versions.google_service_auth
+    const val auth = "com.google.android.gms:play-services-auth:" + Versions.google_auth
+  }
 
   object UnitTest {
     const val junit_test: String = "androidx.test.ext:junit:" + Versions.junit_test
@@ -29,9 +36,11 @@ object Libs {
         Versions.espresso_core
   }
 
+  object Log{
+    const val timber = "com.jakewharton.timber:timber:" + Versions.timber
+  }
   object Network {
     const val gson: String = "com.google.code.gson:gson:" + Versions.gson
-
     const val retrofit = "com.squareup.retrofit2:retrofit:" + Versions.retrofit
     const val converter = "com.squareup.retrofit2:converter-gson:" + Versions.retrofit
     const val okhttp = "com.squareup.okhttp3:okhttp:" + Versions.ok_http
@@ -54,7 +63,7 @@ object Libs {
       "androidx.lifecycle:lifecycle-livedata-ktx:" + Versions.livedata
     const val live_data_ktx: String =
       "androidx.lifecycle:lifecycle-viewmodel-ktx:" + Versions.livedata
-    const val dataStore : String = "androidx.datastore:datastore-preferences:" + Versions.dataStore
+    const val dataStore: String = "androidx.datastore:datastore-preferences:" + Versions.dataStore
   }
 
   object Design {

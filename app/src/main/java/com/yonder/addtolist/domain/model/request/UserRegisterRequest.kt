@@ -16,11 +16,11 @@ data class UserRegisterRequest(
   @SerializedName("phone_language") var language: String,
   @SerializedName("system_version") var system_version: String,
   @SerializedName("region") var region: String,
-  @SerializedName("first_name") var firstName: String = "",
-  @SerializedName("last_name") var lastName: String = "",
-  @SerializedName("email") var email: String = "",
+  @SerializedName("first_name") var firstName: String? = "",
+  @SerializedName("last_name") var lastName: String? = "",
+  @SerializedName("email") var email: String? = "",
   @SerializedName("photo_url") var photoUrl: String = "",
-  @SerializedName(BuildConfig.PARAMS_USER_ID) var userId: String = "",
+  @SerializedName(BuildConfig.PARAMS_USER_ID) var userId: String? = "",
   @SerializedName("platform") var platform: String = "android",
   @SerializedName("premium") var premium: Int = 0
 )

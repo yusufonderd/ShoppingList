@@ -1,8 +1,8 @@
 package com.yonder.addtolist.data.di
 
 import android.content.Context
-import com.yonder.addtolist.common.utils.auth.AuthUtils
-import com.yonder.addtolist.common.utils.auth.IAuthUtils
+import com.yonder.addtolist.common.utils.auth.NewUserProviderImpl
+import com.yonder.addtolist.common.utils.auth.NewUserProvider
 import com.yonder.addtolist.core.base.BaseDecider
 import com.yonder.addtolist.core.base.BaseMapper
 import com.yonder.addtolist.core.base.BaseResponse
@@ -49,8 +49,8 @@ interface LoginModule {
 
   companion object{
     @[Provides]
-    fun provideAuthUtils(@ApplicationContext context : Context) : IAuthUtils{
-     return AuthUtils(context)
+    fun provideAuthUtils(@ApplicationContext context : Context) : NewUserProvider{
+     return NewUserProviderImpl(context)
     }
   }
 }

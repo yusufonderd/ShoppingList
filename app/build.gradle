@@ -19,6 +19,8 @@ android {
     targetSdkVersion Config.targetSdkVersion
     versionCode Config.versionCode
     versionName Config.versionName
+    multiDexEnabled true
+
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
   }
 
@@ -85,6 +87,13 @@ dependencies {
   kapt Libs.DaggerHilt.daggerHiltCompiler
 
   implementation Libs.Design.material
+
+  implementation Libs.GoogleServices.auth
+  implementation Libs.Facebook.login
+  implementation Libs.Facebook.sdk
+
+  implementation Libs.Log.timber
+
 
   testImplementation Libs.UnitTest.junit
 
