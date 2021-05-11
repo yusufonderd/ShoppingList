@@ -48,7 +48,7 @@ class LoginViewModel @Inject constructor(
   fun continueWithGoogle(account: GoogleSignInAccount?) {
     account?.let {
       val loginParams = newUserProvider.createUserRegisterRequest(
-        ProviderType.FACEBOOK,
+        ProviderType.GOOGLE,
         TEST_GCM_TOKEN,
         TEST_DEVICE_UUID,
         account
