@@ -9,6 +9,7 @@ import androidx.datastore.preferences.createDataStore
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -28,6 +29,16 @@ class UserPreferenceDataStoreImpl @Inject constructor(@ApplicationContext contex
       preferences[KEY_APP_TOKEN]
     }
 
+  override val uuid: Flow<String?>
+    get() = dataStore.data.map { preferences ->
+      preferences[KEY_UUID]
+    }
+
+  override suspend fun saveUUID(uuid: String) {
+    dataStore.edit { preferences ->
+      preferences[KEY_UUID] = uuid
+    }
+  }
   override suspend fun saveToken(token: String) {
     dataStore.edit { preferences ->
       preferences[KEY_APP_TOKEN] = token
@@ -37,6 +48,8 @@ class UserPreferenceDataStoreImpl @Inject constructor(@ApplicationContext contex
   companion object {
     const val KEY_APP_PREFERENCES = "app_preferences"
     val KEY_APP_TOKEN = stringPreferencesKey("key_app_token")
+    val KEY_UUID = stringPreferencesKey("key_uuid")
+
   }
 
 }

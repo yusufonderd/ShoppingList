@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,22 +21,30 @@ class SplashViewModel @Inject constructor(
 ) : ViewModel() {
 
   private val _state: MutableStateFlow<SplashViewState> =
-    MutableStateFlow(SplashViewState.Initial)
+    MutableStateFlow(SplashViewState.Loading)
   val state: StateFlow<SplashViewState> get() = _state
 
   init {
-    startInitialAppFlow()
+    checkUUID()
+    startSplashFlow()
   }
 
-  private fun startInitialAppFlow(splashDelay: Long = DELAY_SPLASH) {
+  private fun checkUUID() {
+    userPreferenceDataStore.uuid.map { it == null }.onEach { uuidNotExist ->
+      if (uuidNotExist) {
+        userPreferenceDataStore.saveUUID(UUID.randomUUID().toString())
+      }
+    }.launchIn(viewModelScope)
+  }
+
+  private fun startSplashFlow(splashDelay: Long = DELAY_SPLASH) {
     viewModelScope.launch {
       delay(splashDelay)
       userPreferenceDataStore.token
         .map { token -> token != null }
         .onEach { isLoggedIn ->
           _state.value = getStateOf(isLoggedIn)
-        }
-        .launchIn(viewModelScope)
+        }.launchIn(viewModelScope)
     }
   }
 
@@ -55,7 +64,7 @@ class SplashViewModel @Inject constructor(
 }
 
 sealed class SplashViewState {
-  object Initial : SplashViewState()
+  object Loading : SplashViewState()
   object GoLogin : SplashViewState()
   object GoShoppingListItems : SplashViewState()
 }

@@ -8,6 +8,8 @@ import kotlinx.coroutines.flow.Flow
  */
 
 interface UserPreferenceDataStore {
+  val uuid: Flow<String?>
+  suspend fun saveUUID(uuid: String)
   val token: Flow<String?>
   suspend fun saveToken(token: String)
 }

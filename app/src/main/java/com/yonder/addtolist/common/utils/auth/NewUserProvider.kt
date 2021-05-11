@@ -15,14 +15,12 @@ interface NewUserProvider {
   fun createUserRegisterRequest(
     providerType: ProviderType,
     gcmToken: String,
-    deviceUUID: String
   ): UserRegisterRequest
 
   /** Facebook User **/
   fun createUserRegisterRequest(
     providerType: ProviderType,
     token: String,
-    deviceUUID: String,
     jsonObject: JSONObject
   ): UserRegisterRequest
 
@@ -30,7 +28,6 @@ interface NewUserProvider {
   fun createUserRegisterRequest(
     providerType: ProviderType,
     token: String,
-    deviceUUID: String,
     account: GoogleSignInAccount
   ): UserRegisterRequest
 

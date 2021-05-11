@@ -51,15 +51,13 @@ class NewUserProviderImpl @Inject constructor(val context: Context) : NewUserPro
 
   override fun createUserRegisterRequest(
     providerType: ProviderType,
-    gcmToken: String,
-    deviceUUID: String
-  ) = createUserRegisterRequest(providerType, deviceUUID, gcmToken, "", "", "", "", "")
+    gcmToken: String
+  ) = createUserRegisterRequest(providerType, "", gcmToken, "", "", "", "", "")
 
 
   override fun createUserRegisterRequest(
     providerType: ProviderType,
     token: String,
-    deviceUUID: String,
     jsonObject: JSONObject
   ): UserRegisterRequest {
     val userId = jsonObject.getString("id")
@@ -69,7 +67,7 @@ class NewUserProviderImpl @Inject constructor(val context: Context) : NewUserPro
     val photoUrl = "https://graph.facebook.com/$userId/picture?type=large"
     return createUserRegisterRequest(
       providerType,
-      deviceUUID,
+      "",
       token,
       firstName,
       lastName,
@@ -82,7 +80,7 @@ class NewUserProviderImpl @Inject constructor(val context: Context) : NewUserPro
   override fun createUserRegisterRequest(
     providerType: ProviderType,
     token: String,
-    deviceUUID: String,
+
     account: GoogleSignInAccount
   ): UserRegisterRequest {
     val email = account.email
@@ -92,7 +90,7 @@ class NewUserProviderImpl @Inject constructor(val context: Context) : NewUserPro
     val userId = account.id
     return createUserRegisterRequest(
       providerType,
-      deviceUUID,
+      "",
       token,
       firstName,
       lastName,

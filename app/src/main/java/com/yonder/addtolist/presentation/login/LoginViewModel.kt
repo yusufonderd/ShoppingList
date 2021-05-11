@@ -11,6 +11,7 @@ import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.yonder.addtolist.common.ProviderType
 import com.yonder.addtolist.common.utils.auth.NewUserProvider
+import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.domain.model.request.UserRegisterRequest
 import com.yonder.addtolist.domain.model.ui.UserUiModel
 import com.yonder.addtolist.domain.usecase.LoginUseCase
@@ -20,13 +21,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
   private val loginUseCase: LoginUseCase,
-  private val newUserProvider: NewUserProvider
+  private val newUserProvider: NewUserProvider,
+  private val userPreferenceDataStore: UserPreferenceDataStore
 ) : ViewModel() {
 
   private val _state: MutableStateFlow<LoginViewState> =
@@ -50,7 +51,6 @@ class LoginViewModel @Inject constructor(
       val loginParams = newUserProvider.createUserRegisterRequest(
         ProviderType.GOOGLE,
         TEST_GCM_TOKEN,
-        TEST_DEVICE_UUID,
         account
       )
       createNewUser(loginParams)
@@ -62,7 +62,6 @@ class LoginViewModel @Inject constructor(
       val loginParams = newUserProvider.createUserRegisterRequest(
         ProviderType.FACEBOOK,
         TEST_GCM_TOKEN,
-        TEST_DEVICE_UUID,
         `object`
       )
       createNewUser(loginParams)
@@ -76,23 +75,30 @@ class LoginViewModel @Inject constructor(
   fun continueAsGuest() {
     val newUserRegisterRequest = newUserProvider.createUserRegisterRequest(
       ProviderType.GUEST,
-      TEST_GCM_TOKEN,
-      TEST_DEVICE_UUID
+      TEST_GCM_TOKEN
     )
     createNewUser(newUserRegisterRequest)
   }
 
 
+  private fun getDeviceUuid(invoker: (uuid: String) -> Unit) {
+    userPreferenceDataStore.uuid.onEach { uuid ->
+      invoker.invoke(uuid.orEmpty())
+    }.launchIn(viewModelScope)
+  }
+
   private fun createNewUser(createUserRegisterRequest: UserRegisterRequest) {
-    loginUseCase.login(createUserRegisterRequest)
-      .onEach { result ->
-        result.onSuccess { userUiModel ->
-          onLoginSuccess(userUiModel)
-        }.onError { error ->
-          onLoginError(error)
-        }
-      }
-      .launchIn(viewModelScope)
+    getDeviceUuid { uuid ->
+      createUserRegisterRequest.deviceUUID = uuid
+      loginUseCase.login(createUserRegisterRequest)
+        .onEach { result ->
+          result.onSuccess { userUiModel ->
+            onLoginSuccess(userUiModel)
+          }.onError { error ->
+            onLoginError(error)
+          }
+        }.launchIn(viewModelScope)
+    }
   }
 
 
@@ -106,7 +112,6 @@ class LoginViewModel @Inject constructor(
 
   companion object {
     const val TEST_GCM_TOKEN = "TEST_GCM_TOKEN"
-    val TEST_DEVICE_UUID = UUID.randomUUID().toString()
   }
 }
 
