@@ -2,7 +2,7 @@ package com.yonder.addtolist.common.utils.auth
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.yonder.addtolist.common.ProviderType
-import com.yonder.addtolist.domain.model.request.UserRegisterRequest
+import com.yonder.addtolist.features.login.data.remote.request.UserRegisterRequest
 import org.json.JSONObject
 
 /**

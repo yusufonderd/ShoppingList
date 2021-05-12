@@ -6,8 +6,8 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.yonder.addtolist.R
-import com.yonder.addtolist.presentation.list.ShoppingListNavigatorImpl
-import com.yonder.addtolist.presentation.list.ShoppingListNavigator
+import com.yonder.addtolist.features.list.presentation.ShoppingListNavigatorImpl
+import com.yonder.addtolist.features.list.presentation.ShoppingListNavigator
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

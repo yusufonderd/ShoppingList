@@ -2,8 +2,8 @@ package com.yonder.addtolist.data.di
 
 import com.yonder.addtolist.BuildConfig
 import com.yonder.addtolist.data.local.UserPreferenceDataStore
-import com.yonder.addtolist.data.remote.ApiService
-import com.yonder.addtolist.data.remote.interceptor.AuthInterceptor
+import com.yonder.addtolist.data.remote.api.ApiService
+import com.yonder.addtolist.data.remote.api.AuthInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

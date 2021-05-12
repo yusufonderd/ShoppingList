@@ -3,7 +3,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context=".presentation.list.ShoppingListItemsFragment">
+  tools:context=".features.list.presentation.ShoppingListItemsFragment">
 
   <TextView
     android:id="@+id/tvHello"

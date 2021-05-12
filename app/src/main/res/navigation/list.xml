@@ -7,7 +7,7 @@
 
   <fragment
     android:id="@+id/splashScreen"
-    android:name="com.yonder.addtolist.presentation.splash.SplashFragment"
+    android:name="com.yonder.addtolist.features.splash.presentation.SplashFragment"
     android:label="@string/title_splash"
     tools:layout="@layout/splash_fragment">
     <action
@@ -22,7 +22,7 @@
 
   <fragment
     android:id="@+id/loginScreen"
-    android:name="com.yonder.addtolist.presentation.login.LoginFragment"
+    android:name="com.yonder.addtolist.features.login.presentation.LoginFragment"
     android:label="@string/title_login"
     tools:layout="@layout/login_fragment">
     <action
@@ -32,7 +32,7 @@
 
   <fragment
     android:id="@+id/shoppingListItemsScreen"
-    android:name="com.yonder.addtolist.presentation.list.ShoppingListItemsFragment"
+    android:name="com.yonder.addtolist.features.list.presentation.ShoppingListItemsFragment"
     android:label="@string/title_shopping_list_items"
     tools:layout="@layout/shopping_list_items_fragment">
 
