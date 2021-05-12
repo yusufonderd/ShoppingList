@@ -4,17 +4,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.yonder.addtolist.R
 import com.yonder.addtolist.core.base.BaseFragment
 import com.yonder.addtolist.databinding.SplashFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class SplashFragment : BaseFragment<SplashFragmentBinding>() {
-
-  @Inject
-  lateinit var splashNavigator: SplashNavigator
 
   val viewModel: SplashViewModel by viewModels()
 
@@ -30,10 +28,10 @@ class SplashFragment : BaseFragment<SplashFragmentBinding>() {
 
         when (viewState) {
           SplashViewState.GoLogin -> {
-            splashNavigator.navigateLogin()
+            findNavController().navigate(R.id.action_splash_to_login)
           }
           SplashViewState.GoShoppingListItems -> {
-            splashNavigator.navigateShoppingListItems()
+            findNavController().navigate(R.id.action_splash_to_shopping_list_items)
           }
           else -> Unit
         }

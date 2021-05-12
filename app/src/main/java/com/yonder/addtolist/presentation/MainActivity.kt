@@ -1,16 +1,16 @@
 package com.yonder.addtolist.presentation
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.yonder.addtolist.R
 import com.yonder.addtolist.databinding.ActivityMainBinding
 import com.yonder.addtolist.extensions.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -43,26 +43,31 @@ class MainActivity : AppCompatActivity() {
       containerId = R.id.nav_host_container,
       intent = intent
     )
-
     controller.observe(this, { navController ->
       setupActionBarWithNavController(navController)
       navController.addOnDestinationChangedListener { _, destination, _ ->
-        val showButton = showUpButton(destination.id)
-        setUpButtonVisibility(showButton)
+        handleNavDestination(destination)
       }
     })
-
     currentNavController = controller
+  }
+
+  private fun handleNavDestination(destination: NavDestination) {
+    when (destination.id) {
+      R.id.shoppingListItemsScreen, R.id.settingsScreen -> {
+        binding.toolbar.isVisible = true
+        binding.bottomNav.isVisible = true
+        setUpButtonVisibility(false)
+      }
+      R.id.loginScreen, R.id.splashScreen -> {
+        binding.toolbar.isVisible = false
+        binding.bottomNav.isVisible = false
+      }
+    }
   }
 
   private fun setupToolbar() {
     setSupportActionBar(binding.toolbar)
-  }
-
-  private fun showUpButton(id: Int): Boolean {
-    return id != R.id.splashScreen &&
-        id != R.id.loginScreen &&
-        id != R.id.settingsScreen
   }
 
   private fun setUpButtonVisibility(isVisible: Boolean) {
