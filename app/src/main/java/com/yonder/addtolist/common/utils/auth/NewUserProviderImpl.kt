@@ -18,8 +18,6 @@ class NewUserProviderImpl @Inject constructor(val context: Context) : NewUserPro
 
   private fun createUserRegisterRequest(
     providerType: ProviderType,
-    deviceUUID: String,
-    fcmToken: String,
     firstName: String?,
     lastName: String?,
     email: String?,
@@ -33,10 +31,8 @@ class NewUserProviderImpl @Inject constructor(val context: Context) : NewUserPro
     val region = DeviceUtils.getRegion(context)
     return UserRegisterRequest(
       providerType = providerType.value,
-      deviceUUID = deviceUUID,
       deviceModel = deviceModel,
       appVersion = appVersion,
-      fcmToken = fcmToken,
       language = language,
       system_version = systemVersion,
       region = region,
@@ -44,20 +40,20 @@ class NewUserProviderImpl @Inject constructor(val context: Context) : NewUserPro
       lastName = lastName,
       email = email,
       photoUrl = photoUrl,
-      userId = userId
+      userId = userId,
+      deviceUUID = "",
+      fcmToken = "",
     )
   }
 
 
   override fun createUserRegisterRequest(
-    providerType: ProviderType,
-    gcmToken: String
-  ) = createUserRegisterRequest(providerType, "", gcmToken, "", "", "", "", "")
+    providerType: ProviderType
+  ) = createUserRegisterRequest(providerType, "", "", "", "", "")
 
 
   override fun createUserRegisterRequest(
     providerType: ProviderType,
-    token: String,
     jsonObject: JSONObject
   ): UserRegisterRequest {
     val userId = jsonObject.getString("id")
@@ -67,8 +63,6 @@ class NewUserProviderImpl @Inject constructor(val context: Context) : NewUserPro
     val photoUrl = "https://graph.facebook.com/$userId/picture?type=large"
     return createUserRegisterRequest(
       providerType,
-      "",
-      token,
       firstName,
       lastName,
       email,
@@ -79,8 +73,6 @@ class NewUserProviderImpl @Inject constructor(val context: Context) : NewUserPro
 
   override fun createUserRegisterRequest(
     providerType: ProviderType,
-    token: String,
-
     account: GoogleSignInAccount
   ): UserRegisterRequest {
     val email = account.email
@@ -90,8 +82,6 @@ class NewUserProviderImpl @Inject constructor(val context: Context) : NewUserPro
     val userId = account.id
     return createUserRegisterRequest(
       providerType,
-      "",
-      token,
       firstName,
       lastName,
       email,

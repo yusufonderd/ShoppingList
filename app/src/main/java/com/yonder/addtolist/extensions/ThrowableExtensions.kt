@@ -7,5 +7,5 @@ package com.yonder.addtolist.extensions
 private const val UNKNOWN_ERROR = "UNKNOWN ERROR"
 
 fun Throwable?.toReadableMessage(): String {
-  return this?.message ?: this?.localizedMessage ?: UNKNOWN_ERROR
+  return this?.localizedMessage ?: this?.message ?: UNKNOWN_ERROR
 }

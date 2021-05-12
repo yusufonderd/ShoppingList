@@ -1,14 +1,13 @@
 package com.yonder.addtolist.presentation.login
 
-import android.os.Bundle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
-import com.facebook.GraphRequest
 import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.firebase.messaging.FirebaseMessaging
 import com.yonder.addtolist.common.ProviderType
 import com.yonder.addtolist.common.utils.auth.NewUserProvider
 import com.yonder.addtolist.data.local.UserPreferenceDataStore
@@ -21,20 +20,22 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
   private val loginUseCase: LoginUseCase,
   private val newUserProvider: NewUserProvider,
-  private val userPreferenceDataStore: UserPreferenceDataStore
+  private val userPreferenceDataStore: UserPreferenceDataStore,
+  internal val callbackManager: CallbackManager,
+  private val facebookGraphExecute: FacebookGraphExecute
 ) : ViewModel() {
 
   private val _state: MutableStateFlow<LoginViewState> =
     MutableStateFlow(LoginViewState.Initial)
   val state: StateFlow<LoginViewState> get() = _state
 
-  var callbackManager: CallbackManager = CallbackManager.Factory.create()
   internal val facebookCallback = object : FacebookCallback<LoginResult> {
     override fun onSuccess(result: LoginResult?) {
       result?.let(::continueWithFacebook)
@@ -46,40 +47,28 @@ class LoginViewModel @Inject constructor(
     }
   }
 
-  fun continueWithGoogle(account: GoogleSignInAccount?) {
-    account?.let {
-      val loginParams = newUserProvider.createUserRegisterRequest(
-        ProviderType.GOOGLE,
-        TEST_GCM_TOKEN,
-        account
-      )
-      createNewUser(loginParams)
-    }
+  fun continueWithGoogle(account: GoogleSignInAccount) {
+    val loginParams = newUserProvider.createUserRegisterRequest(
+      ProviderType.GOOGLE,
+      account
+    )
+    createNewUser(loginParams)
   }
 
   fun continueWithFacebook(loginResult: LoginResult) {
-    val request = GraphRequest.newMeRequest(loginResult.accessToken) { `object`, _ ->
+    facebookGraphExecute.getUserInfo(loginResult) { userInfoObject ->
       val loginParams = newUserProvider.createUserRegisterRequest(
         ProviderType.FACEBOOK,
-        TEST_GCM_TOKEN,
-        `object`
+        userInfoObject
       )
       createNewUser(loginParams)
     }
-    val parameters = Bundle()
-    parameters.putString("fields", "id,first_name,last_name,email")
-    request.parameters = parameters
-    request.executeAsync()
   }
 
   fun continueAsGuest() {
-    val newUserRegisterRequest = newUserProvider.createUserRegisterRequest(
-      ProviderType.GUEST,
-      TEST_GCM_TOKEN
-    )
+    val newUserRegisterRequest = newUserProvider.createUserRegisterRequest(ProviderType.GUEST)
     createNewUser(newUserRegisterRequest)
   }
-
 
   private fun getDeviceUuid(invoker: (uuid: String) -> Unit) {
     userPreferenceDataStore.uuid.onEach { uuid ->
@@ -87,35 +76,48 @@ class LoginViewModel @Inject constructor(
     }.launchIn(viewModelScope)
   }
 
-  private fun createNewUser(createUserRegisterRequest: UserRegisterRequest) {
-    getDeviceUuid { uuid ->
-      createUserRegisterRequest.deviceUUID = uuid
-      loginUseCase.login(createUserRegisterRequest)
-        .onEach { result ->
-          result.onSuccess { userUiModel ->
-            onLoginSuccess(userUiModel)
-          }.onError { error ->
-            onLoginError(error)
-          }
-        }.launchIn(viewModelScope)
+  private fun getFirebaseToken(invoker: (fcmToken: String?) -> Unit) {
+    FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+      if (task.isSuccessful) {
+        invoker.invoke(task.result)
+      } else {
+        invoker.invoke(null)
+      }
     }
   }
 
+  private fun createNewUser(createUserRegisterRequest: UserRegisterRequest) {
+    getFirebaseToken { token ->
+      getDeviceUuid { uuid ->
+        createUserRegisterRequest.fcmToken = token.orEmpty()
+        createUserRegisterRequest.deviceUUID = uuid
+        loginUseCase.login(createUserRegisterRequest)
+          .onEach { result ->
+            result.onSuccess { userUiModel ->
+              onLoginSuccess(userUiModel)
+            }.onError { error ->
+              onLoginError(error)
+            }
+          }.launchIn(viewModelScope)
+      }
+    }
+  }
 
   private fun onLoginError(error: Throwable) {
     _state.value = LoginViewState.Error(error.toReadableMessage())
   }
 
   private fun onLoginSuccess(userUiModel: UserUiModel) {
-    TODO("make what you need with model object $userUiModel")
+    viewModelScope.launch {
+      userPreferenceDataStore.saveToken(userUiModel.token)
+    }
+    _state.value = LoginViewState.NavigateLogin
   }
 
-  companion object {
-    const val TEST_GCM_TOKEN = "TEST_GCM_TOKEN"
-  }
 }
 
 sealed class LoginViewState {
   object Initial : LoginViewState()
+  object NavigateLogin : LoginViewState()
   data class Error(val message: String) : LoginViewState()
 }

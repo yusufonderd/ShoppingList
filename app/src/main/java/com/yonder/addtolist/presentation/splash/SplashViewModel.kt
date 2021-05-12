@@ -20,8 +20,7 @@ class SplashViewModel @Inject constructor(
   private val userPreferenceDataStore: UserPreferenceDataStore
 ) : ViewModel() {
 
-  private val _state: MutableStateFlow<SplashViewState> =
-    MutableStateFlow(SplashViewState.Loading)
+  private val _state: MutableStateFlow<SplashViewState> = MutableStateFlow(SplashViewState.Loading)
   val state: StateFlow<SplashViewState> get() = _state
 
   init {
@@ -43,13 +42,13 @@ class SplashViewModel @Inject constructor(
       userPreferenceDataStore.token
         .map { token -> token != null }
         .onEach { isLoggedIn ->
-          _state.value = getStateOf(isLoggedIn)
+          _state.value = getNavigateDestination(isLoggedIn)
         }.launchIn(viewModelScope)
     }
   }
 
   @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-  fun getStateOf(isLoggedIn: Boolean): SplashViewState {
+  fun getNavigateDestination(isLoggedIn: Boolean): SplashViewState {
     return if (isLoggedIn) {
       SplashViewState.GoShoppingListItems
     } else {

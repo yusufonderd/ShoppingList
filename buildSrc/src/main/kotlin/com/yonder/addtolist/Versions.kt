@@ -27,5 +27,6 @@ object Versions {
   const val facebook_login: String = "[8.1)"
   const val facebook_sdk = "[5,6)"
   const val timber = "4.7.1"
+  const val firebase_bom = "26.0.0"
 
 }

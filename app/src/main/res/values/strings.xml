@@ -9,6 +9,8 @@
   <string name="btn_login">Login</string>
   <string name="title_shopping_list_items">Shopping List Items</string>
 
+  <!-- Message -->
+  <string name="error_occurred">An error occurred</string>
 
   <!-- Content Descriptions -->
   <string name="cd_splash_image">Splash Image</string>

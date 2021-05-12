@@ -1,6 +1,7 @@
 package com.yonder.addtolist.data.di
 
 import android.content.Context
+import com.facebook.CallbackManager
 import com.yonder.addtolist.common.utils.auth.NewUserProviderImpl
 import com.yonder.addtolist.common.utils.auth.NewUserProvider
 import com.yonder.addtolist.core.base.BaseDecider
@@ -16,6 +17,7 @@ import com.yonder.addtolist.domain.repository.LoginRepositoryImpl
 import com.yonder.addtolist.domain.model.ui.UserUiModel
 import com.yonder.addtolist.domain.usecase.LoginUseCase
 import com.yonder.addtolist.domain.usecase.LoginUseCaseImpl
+import com.yonder.addtolist.presentation.login.FacebookGraphExecute
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -47,10 +49,19 @@ interface LoginModule {
   val LoginDecider.loginDecider: BaseDecider<UserResponse>
 
 
-  companion object{
+  companion object {
     @[Provides]
-    fun provideAuthUtils(@ApplicationContext context : Context) : NewUserProvider{
-     return NewUserProviderImpl(context)
+    fun provideNewUserProvider(@ApplicationContext context: Context): NewUserProvider {
+      return NewUserProviderImpl(context)
+    }
+    @[Provides]
+    fun provideFacebookCallbackManager(): CallbackManager {
+      return CallbackManager.Factory.create()
+    }
+
+    @[Provides]
+    fun provideFacebookGraphExecute(): FacebookGraphExecute {
+      return FacebookGraphExecute()
     }
   }
 }

@@ -1,5 +1,6 @@
 package com.yonder.addtolist.presentation
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.LiveData
@@ -9,6 +10,7 @@ import com.yonder.addtolist.R
 import com.yonder.addtolist.databinding.ActivityMainBinding
 import com.yonder.addtolist.extensions.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

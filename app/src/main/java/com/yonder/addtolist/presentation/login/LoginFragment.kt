@@ -1,17 +1,20 @@
 package com.yonder.addtolist.presentation.login
 
+import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Task
+import com.yonder.addtolist.R
 import com.yonder.addtolist.core.base.BaseFragment
 import com.yonder.addtolist.databinding.LoginFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -19,7 +22,18 @@ class LoginFragment : BaseFragment<LoginFragmentBinding>() {
 
   val viewModel: LoginViewModel by viewModels()
 
-  override fun setObserver() = Unit
+  override fun setObserver() {
+    lifecycleScope.launchWhenResumed {
+      viewModel.state.collect { viewState ->
+        when (viewState) {
+          LoginViewState.NavigateLogin -> {
+            findNavController().navigate(R.id.action_login_to_shopping_list_items)
+          }
+          else -> Unit
+        }
+      }
+    }
+  }
 
   override fun setupViews() {
     setupFacebookLogin()
@@ -34,43 +48,23 @@ class LoginFragment : BaseFragment<LoginFragmentBinding>() {
     }
   }
 
-  private fun startGoogleLogin() {
-    activity?.let { safeActivity ->
-      val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-        .requestEmail()
-        .build()
-      val mGoogleSignInClient = GoogleSignIn.getClient(safeActivity, gso);
-      val signInIntent: Intent = mGoogleSignInClient.signInIntent
-      startActivityForResult(signInIntent, RC_SIGN_IN)
-    }
-  }
-
   private fun setupFacebookLogin() {
+    binding.loginButton.fragment = this
     binding.loginButton.registerCallback(viewModel.callbackManager, viewModel.facebookCallback)
   }
 
   override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) =
-    LoginFragmentBinding.inflate(layoutInflater)
+    LoginFragmentBinding.inflate(inflater)
+
+  internal val startForGoogleSignInResult =
+    registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+      if (result.resultCode == Activity.RESULT_OK) {
+        handleSignInResult(GoogleSignIn.getSignedInAccountFromIntent(result.data))
+      }
+    }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
-    if (requestCode == RC_SIGN_IN) {
-      val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
-      handleSignInResult(task)
-    }
+    viewModel.callbackManager.onActivityResult(requestCode, resultCode, data)
   }
-
-  private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
-    try {
-      val account = completedTask.getResult(ApiException::class.java)
-      viewModel.continueWithGoogle(account)
-    } catch (e: ApiException) {
-      Timber.e(e.localizedMessage)
-    }
-  }
-
-  companion object {
-    private const val RC_SIGN_IN = 1
-  }
-
 }

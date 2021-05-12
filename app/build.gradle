@@ -6,6 +6,7 @@ plugins {
   id 'kotlin-android'
   id 'kotlin-kapt'
   id 'dagger.hilt.android.plugin'
+  id 'com.google.gms.google-services'
 
 }
 
@@ -91,6 +92,11 @@ dependencies {
   implementation Libs.GoogleServices.auth
   implementation Libs.Facebook.login
   implementation Libs.Facebook.sdk
+
+
+  implementation platform(Libs.Firebase.bom)
+  implementation Libs.Firebase.analytics
+  implementation Libs.Firebase.messaging
 
 
   implementation Libs.Log.timber

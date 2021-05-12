@@ -13,21 +13,18 @@ interface NewUserProvider {
 
   /** Guest User **/
   fun createUserRegisterRequest(
-    providerType: ProviderType,
-    gcmToken: String,
+    providerType: ProviderType
   ): UserRegisterRequest
 
   /** Facebook User **/
   fun createUserRegisterRequest(
     providerType: ProviderType,
-    token: String,
     jsonObject: JSONObject
   ): UserRegisterRequest
 
   /** Google User **/
   fun createUserRegisterRequest(
     providerType: ProviderType,
-    token: String,
     account: GoogleSignInAccount
   ): UserRegisterRequest
 

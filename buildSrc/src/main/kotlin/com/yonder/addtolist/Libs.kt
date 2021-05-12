@@ -26,6 +26,12 @@ object Libs {
     const val auth = "com.google.android.gms:play-services-auth:" + Versions.google_auth
   }
 
+  object Firebase{
+    const val bom = "com.google.firebase:firebase-bom:" + Versions.firebase_bom
+    const val messaging = "com.google.firebase:firebase-messaging-ktx"
+    const val analytics = "com.google.firebase:firebase-analytics-ktx"
+  }
+
   object UnitTest {
     const val junit_test: String = "androidx.test.ext:junit:" + Versions.junit_test
     const val junit: String = "junit:junit:" + Versions.junit
