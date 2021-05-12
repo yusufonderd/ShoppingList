@@ -1,7 +1,9 @@
 package com.yonder.addtolist.data.di
 
 import com.yonder.addtolist.BuildConfig
+import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.data.remote.ApiService
+import com.yonder.addtolist.data.remote.interceptor.AuthInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,6 +12,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 /**
  * Yusuf Onder on 06,May,2021
@@ -20,18 +23,26 @@ import retrofit2.converter.gson.GsonConverterFactory
 object NetworkModule {
 
   val provideLoggingInterceptor: HttpLoggingInterceptor
-    @[Provides] get() = HttpLoggingInterceptor().also { interceptor ->
+    @[Provides Singleton] get() = HttpLoggingInterceptor().also { interceptor ->
       interceptor.level = HttpLoggingInterceptor.Level.BODY
     }
 
-  @[Provides]
-  fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
+  @[Provides Singleton]
+  fun provideAuthInterceptor(userPreferenceDataStore: UserPreferenceDataStore): AuthInterceptor {
+    return AuthInterceptor(userPreferenceDataStore)
+  }
+
+  @[Provides Singleton]
+  fun provideOkHttpClient(
+    loggingInterceptor: HttpLoggingInterceptor,
+    authInterceptor: AuthInterceptor
+  ): OkHttpClient =
     OkHttpClient.Builder().apply {
+      addInterceptor(authInterceptor)
       addInterceptor(loggingInterceptor)
     }.build()
 
-
-  @[Provides]
+  @[Provides Singleton]
   fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
     return Retrofit.Builder()
       .client(okHttpClient)
@@ -40,7 +51,7 @@ object NetworkModule {
       .build()
   }
 
-  @[Provides]
+  @[Provides Singleton]
   fun provideApiService(retrofit: Retrofit): ApiService {
     return retrofit.create(ApiService::class.java)
   }

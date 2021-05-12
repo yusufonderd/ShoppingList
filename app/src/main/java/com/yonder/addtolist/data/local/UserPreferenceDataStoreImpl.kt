@@ -29,6 +29,7 @@ class UserPreferenceDataStoreImpl @Inject constructor(@ApplicationContext contex
       preferences[KEY_APP_TOKEN]
     }
 
+
   override val uuid: Flow<String?>
     get() = dataStore.data.map { preferences ->
       preferences[KEY_UUID]

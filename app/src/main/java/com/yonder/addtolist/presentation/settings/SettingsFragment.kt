@@ -13,11 +13,11 @@ class SettingsFragment : BaseFragment<SettingsFragmentBinding>() {
   val viewModel: SettingsViewModel by viewModels()
 
   override fun setObserver() {
-    TODO("Not yet implemented")
+
   }
 
   override fun setupViews() {
-    TODO("Not yet implemented")
+
   }
   override fun initBinding(
     inflater: LayoutInflater,
