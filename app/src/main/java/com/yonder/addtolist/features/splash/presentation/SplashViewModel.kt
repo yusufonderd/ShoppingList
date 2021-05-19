@@ -8,9 +8,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
@@ -29,21 +26,15 @@ class SplashViewModel @Inject constructor(
   }
 
   private fun checkUUID() {
-    userPreferenceDataStore.uuid.map { it == null }.onEach { uuidNotExist ->
-      if (uuidNotExist) {
-        userPreferenceDataStore.saveUUID(UUID.randomUUID().toString())
-      }
-    }.launchIn(viewModelScope)
+    if (userPreferenceDataStore.uuid == null) {
+      userPreferenceDataStore.saveUUID(UUID.randomUUID().toString())
+    }
   }
 
   private fun startSplashFlow(splashDelay: Long = DELAY_SPLASH) {
     viewModelScope.launch {
       delay(splashDelay)
-      userPreferenceDataStore.token
-        .map { token -> token != null }
-        .onEach { isLoggedIn ->
-          _state.value = getNavigateDestination(isLoggedIn)
-        }.launchIn(viewModelScope)
+      _state.value = getNavigateDestination(userPreferenceDataStore.token != null)
     }
   }
 

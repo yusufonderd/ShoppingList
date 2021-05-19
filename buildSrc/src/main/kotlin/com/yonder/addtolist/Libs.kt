@@ -16,6 +16,11 @@ object Libs {
     const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:" + Versions.gradle_plugin
   }
 
+  object Room{
+    const val room_ktx = "androidx.room:room-ktx:" + Versions.room
+    const val room_compiler = "androidx.room:room-compiler:" + Versions.room
+  }
+
   object Facebook{
     const val sdk = "com.facebook.android:facebook-android-sdk:" + Versions.facebook_sdk
     const val login = "com.facebook.android:facebook-login:" + Versions.facebook_login

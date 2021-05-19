@@ -1,4 +1,4 @@
-package com.yonder.addtolist.extensions
+package com.yonder.addtolist.core.extensions
 
 /*
  * Copyright 2019, The Android Open Source Project

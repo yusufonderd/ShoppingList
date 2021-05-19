@@ -19,9 +19,6 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
 
   protected open val binding get() = _binding!!
 
-  abstract fun setObserver()
-  abstract fun setupViews()
-
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
@@ -29,12 +26,6 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
   ): View? {
     _binding = this.initBinding(inflater, container)
     return binding.root
-  }
-
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-    setupViews()
-    setObserver()
   }
 
   override fun onDestroyView() {

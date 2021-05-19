@@ -1,6 +1,8 @@
 package com.yonder.addtolist.features.list.presentation
 
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -23,20 +25,25 @@ class ShoppingListItemsFragment : BaseFragment<ShoppingListItemsFragmentBinding>
   @Inject
   lateinit var shoppingListNavigator: ShoppingListNavigator
 
-  override fun setupViews() {
 
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    setObserver()
   }
 
-  override fun setObserver() {
+  private fun setObserver() {
     lifecycleScope.launchWhenResumed {
       viewModel.shoppingListViewState.collect { viewState ->
         when (viewState) {
           ShoppingListItemsViewState.GoLogin -> {
             shoppingListNavigator.navigateLogin()
           }
-          else -> {
+          is ShoppingListItemsViewState.Result -> {
+            viewState.networkResult.onSuccess {
 
+            }
           }
+          else -> Unit
         }
 
       }

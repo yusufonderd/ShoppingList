@@ -7,6 +7,7 @@ import com.yonder.addtolist.BuildConfig
 import com.yonder.addtolist.common.ProviderType
 import com.yonder.addtolist.common.utils.device.DeviceUtils
 import com.yonder.addtolist.features.login.data.remote.request.UserRegisterRequest
+import dagger.hilt.android.qualifiers.ApplicationContext
 import org.json.JSONObject
 import javax.inject.Inject
 
@@ -14,7 +15,8 @@ import javax.inject.Inject
  * Yusuf Onder on 09,May,2021
  */
 
-class NewUserProviderImpl @Inject constructor(val context: Context) : NewUserProvider {
+class NewUserProviderImpl @Inject constructor(@ApplicationContext val context: Context) :
+  NewUserProvider {
 
   private fun createUserRegisterRequest(
     providerType: ProviderType,

@@ -6,7 +6,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.yonder.addtolist.R
-import com.yonder.addtolist.extensions.toReadableMessage
+import com.yonder.addtolist.core.extensions.toReadableMessage
 
 /**
  * Yusuf Onder on 12,May,2021

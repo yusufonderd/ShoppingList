@@ -1,6 +1,8 @@
 package com.yonder.addtolist.features.splash.presentation
 
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -19,13 +21,15 @@ class SplashFragment : BaseFragment<SplashFragmentBinding>() {
   override fun initBinding(inflater: LayoutInflater, container: ViewGroup?)  =
     SplashFragmentBinding.inflate(layoutInflater)
 
-  override fun setupViews() {
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    setObserver()
 
   }
-  override fun setObserver() {
+  private fun setObserver() {
     lifecycleScope.launchWhenStarted {
       viewModel.state.collect { viewState ->
-
         when (viewState) {
           SplashViewState.GoLogin -> {
             findNavController().navigate(R.id.action_splash_to_login)

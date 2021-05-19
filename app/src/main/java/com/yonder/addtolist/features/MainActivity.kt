@@ -6,10 +6,11 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.yonder.addtolist.R
 import com.yonder.addtolist.databinding.ActivityMainBinding
-import com.yonder.addtolist.extensions.setupWithNavController
+import com.yonder.addtolist.core.extensions.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
   private val navGraphIds = listOf(R.navigation.list, R.navigation.settings)
 
   private lateinit var binding: ActivityMainBinding
+  private lateinit var appBarConfiguration: AppBarConfiguration
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -43,8 +45,9 @@ class MainActivity : AppCompatActivity() {
       containerId = R.id.nav_host_container,
       intent = intent
     )
+    appBarConfiguration = AppBarConfiguration(setOf(R.id.shoppingListItemsScreen,R.id.settingsScreen))
     controller.observe(this, { navController ->
-      setupActionBarWithNavController(navController)
+      setupActionBarWithNavController(navController,appBarConfiguration)
       navController.addOnDestinationChangedListener { _, destination, _ ->
         handleNavDestination(destination)
       }

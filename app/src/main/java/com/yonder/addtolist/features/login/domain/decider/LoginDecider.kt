@@ -8,6 +8,4 @@ import javax.inject.Inject
  * Yusuf Onder on 09,May,2021
  */
 
-class LoginDecider @Inject constructor() : BaseDecider<UserResponse>(){
-
-}
+class LoginDecider @Inject constructor() : BaseDecider<UserResponse>()

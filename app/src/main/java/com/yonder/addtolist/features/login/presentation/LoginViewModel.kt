@@ -13,7 +13,7 @@ import com.yonder.addtolist.common.utils.auth.NewUserProvider
 import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.features.login.data.remote.request.UserRegisterRequest
 import com.yonder.addtolist.features.login.domain.model.UserUiModel
-import com.yonder.addtolist.extensions.toReadableMessage
+import com.yonder.addtolist.core.extensions.toReadableMessage
 import com.yonder.addtolist.features.login.domain.usecase.FacebookGraphUseCase
 import com.yonder.addtolist.features.login.domain.usecase.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +21,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -71,11 +70,6 @@ class LoginViewModel @Inject constructor(
     createNewUser(newUserRegisterRequest)
   }
 
-  private fun getDeviceUuid(invoker: (uuid: String) -> Unit) {
-    userPreferenceDataStore.uuid.onEach { uuid ->
-      invoker.invoke(uuid.orEmpty())
-    }.launchIn(viewModelScope)
-  }
 
   private fun getFirebaseToken(invoker: (fcmToken: String?) -> Unit) {
     FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
@@ -89,18 +83,17 @@ class LoginViewModel @Inject constructor(
 
   private fun createNewUser(createUserRegisterRequest: UserRegisterRequest) {
     getFirebaseToken { token ->
-      getDeviceUuid { uuid ->
-        createUserRegisterRequest.fcmToken = token.orEmpty()
-        createUserRegisterRequest.deviceUUID = uuid
-        loginUseCase.login(createUserRegisterRequest)
-          .onEach { result ->
-            result.onSuccess { userUiModel ->
-              onLoginSuccess(userUiModel)
-            }.onError { error ->
-              onLoginError(error)
-            }
-          }.launchIn(viewModelScope)
-      }
+      createUserRegisterRequest.fcmToken = token.orEmpty()
+      createUserRegisterRequest.deviceUUID = userPreferenceDataStore.uuid.orEmpty()
+      loginUseCase.login(createUserRegisterRequest)
+        .onEach { result ->
+          result.onSuccess { userUiModel ->
+            onLoginSuccess(userUiModel)
+          }.onError { error ->
+            onLoginError(error)
+          }
+        }.launchIn(viewModelScope)
+
     }
   }
 
@@ -109,10 +102,12 @@ class LoginViewModel @Inject constructor(
   }
 
   private fun onLoginSuccess(userUiModel: UserUiModel) {
-    viewModelScope.launch {
-      userPreferenceDataStore.saveToken(userUiModel.token)
+    userUiModel.token?.let { token ->
+      userPreferenceDataStore.saveToken(token)
+      _state.value = LoginViewState.NavigateLogin
+    } ?: run {
+      _state.value = LoginViewState.Error(userUiModel.result.message)
     }
-    _state.value = LoginViewState.NavigateLogin
   }
 
 }

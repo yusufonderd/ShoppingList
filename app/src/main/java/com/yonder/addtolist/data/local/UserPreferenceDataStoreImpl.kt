@@ -1,56 +1,36 @@
 package com.yonder.addtolist.data.local
 
-import android.content.Context
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.datastore.preferences.createDataStore
-import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-import java.util.*
+import android.content.SharedPreferences
 import javax.inject.Inject
 
 /**
  * Yusuf Onder on 07,May,2021
  */
 
-
-class UserPreferenceDataStoreImpl @Inject constructor(@ApplicationContext context: Context) :
+class UserPreferenceDataStoreImpl @Inject constructor(private val sharedPreferences: SharedPreferences) :
   UserPreferenceDataStore {
-  private val applicationContext = context.applicationContext
-  private val dataStore: DataStore<Preferences> = applicationContext.createDataStore(
-    name = KEY_APP_PREFERENCES
-  )
 
-  override val token: Flow<String?>
-    get() = dataStore.data.map { preferences ->
-      preferences[KEY_APP_TOKEN]
-    }
-
-
-  override val uuid: Flow<String?>
-    get() = dataStore.data.map { preferences ->
-      preferences[KEY_UUID]
-    }
-
-  override suspend fun saveUUID(uuid: String) {
-    dataStore.edit { preferences ->
-      preferences[KEY_UUID] = uuid
+  override fun saveToken(token: String) {
+    sharedPreferences.edit().apply {
+      putString(KEY_APP_TOKEN, token)
+      apply()
     }
   }
-  override suspend fun saveToken(token: String) {
-    dataStore.edit { preferences ->
-      preferences[KEY_APP_TOKEN] = token
+
+  override fun saveUUID(uuid: String) {
+    sharedPreferences.edit().apply {
+      putString(KEY_UUID, uuid)
+      apply()
     }
   }
+
+  override val uuid: String? = sharedPreferences.getString(KEY_UUID, null)
+
+  override val token: String? = sharedPreferences.getString(KEY_APP_TOKEN, null)
 
   companion object {
     const val KEY_APP_PREFERENCES = "app_preferences"
-    val KEY_APP_TOKEN = stringPreferencesKey("key_app_token")
-    val KEY_UUID = stringPreferencesKey("key_uuid")
-
+    const val KEY_APP_TOKEN = "key_app_token"
+    const val KEY_UUID = "key_uuid"
   }
-
 }

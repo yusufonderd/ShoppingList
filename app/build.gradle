@@ -98,6 +98,8 @@ dependencies {
   implementation Libs.Firebase.analytics
   implementation Libs.Firebase.messaging
 
+  implementation Libs.Room.room_ktx
+  kapt Libs.Room.room_compiler
 
   implementation Libs.Log.timber
 

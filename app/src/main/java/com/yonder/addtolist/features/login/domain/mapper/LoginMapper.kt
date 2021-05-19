@@ -17,7 +17,7 @@ class LoginMapper @Inject constructor(private val decider: LoginDecider) :
   override fun map(input: BaseResponse<UserResponse>): UserUiModel {
     return UserUiModel(
       result = decider.toBaseUiResult(input),
-      token = input.data?.apiToken.orEmpty()
+      token = input.data?.apiToken
     )
   }
 }

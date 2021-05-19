@@ -9,5 +9,5 @@ import com.yonder.addtolist.core.base.BaseUiResult
 
 data class UserUiModel(
   override val result: BaseUiResult,
-  var token: String
+  var token: String?
 ) : BaseUiModel()

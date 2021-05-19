@@ -1,4 +1,4 @@
-package com.yonder.addtolist.extensions
+package com.yonder.addtolist.core.extensions
 
 /**
  * Yusuf Onder on 09,May,2021

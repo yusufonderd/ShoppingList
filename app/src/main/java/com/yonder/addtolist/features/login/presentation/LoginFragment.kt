@@ -2,7 +2,9 @@ package com.yonder.addtolist.features.login.presentation
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -21,7 +23,7 @@ class LoginFragment : BaseFragment<LoginFragmentBinding>() {
 
   val viewModel: LoginViewModel by viewModels()
 
-  override fun setObserver() {
+  private fun setObserver() {
     lifecycleScope.launchWhenResumed {
       viewModel.state.collect { viewState ->
         when (viewState) {
@@ -34,7 +36,7 @@ class LoginFragment : BaseFragment<LoginFragmentBinding>() {
     }
   }
 
-  override fun setupViews() {
+  private fun setupViews() {
     setupFacebookLogin()
     binding.btnContinueAsGuest.setOnClickListener {
       viewModel.continueAsGuest()
@@ -47,9 +49,17 @@ class LoginFragment : BaseFragment<LoginFragmentBinding>() {
     }
   }
 
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    setupViews()
+    setObserver()
+  }
+
   private fun setupFacebookLogin() {
-    binding.loginButton.fragment = this
-    binding.loginButton.registerCallback(viewModel.callbackManager, viewModel.facebookCallback)
+    with(binding.loginButton){
+      fragment = this@LoginFragment
+      registerCallback(viewModel.callbackManager, viewModel.facebookCallback)
+    }
   }
 
   override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) =
