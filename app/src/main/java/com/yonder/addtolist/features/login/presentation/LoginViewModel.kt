@@ -9,7 +9,9 @@ import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.messaging.FirebaseMessaging
 import com.yonder.addtolist.common.ProviderType
-import com.yonder.addtolist.common.utils.auth.NewUserProvider
+import com.yonder.addtolist.common.utils.auth.FacebookUserProvider
+import com.yonder.addtolist.common.utils.auth.GoogleUserProvider
+import com.yonder.addtolist.common.utils.auth.GuestUserProvider
 import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.features.login.data.remote.request.UserRegisterRequest
 import com.yonder.addtolist.features.login.domain.model.UserUiModel
@@ -26,7 +28,9 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
   private val loginUseCase: LoginUseCase,
-  private val newUserProvider: NewUserProvider,
+  private val facebookUserProvider: FacebookUserProvider,
+  private val googleUserProvider: GoogleUserProvider,
+  private val guestUserProvider: GuestUserProvider,
   private val userPreferenceDataStore: UserPreferenceDataStore,
   internal val callbackManager: CallbackManager,
   private val facebookGraphExecute: FacebookGraphUseCase
@@ -48,26 +52,17 @@ class LoginViewModel @Inject constructor(
   }
 
   fun continueWithGoogle(account: GoogleSignInAccount) {
-    val loginParams = newUserProvider.createUserRegisterRequest(
-      ProviderType.GOOGLE,
-      account
-    )
-    createNewUser(loginParams)
+    createNewUser(googleUserProvider.create(account))
   }
 
   fun continueWithFacebook(loginResult: LoginResult) {
     facebookGraphExecute.getUserInfo(loginResult) { userInfoObject ->
-      val loginParams = newUserProvider.createUserRegisterRequest(
-        ProviderType.FACEBOOK,
-        userInfoObject
-      )
-      createNewUser(loginParams)
+      createNewUser(facebookUserProvider.create(userInfoObject))
     }
   }
 
   fun continueAsGuest() {
-    val newUserRegisterRequest = newUserProvider.createUserRegisterRequest(ProviderType.GUEST)
-    createNewUser(newUserRegisterRequest)
+    createNewUser(guestUserProvider.create())
   }
 
 

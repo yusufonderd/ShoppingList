@@ -42,6 +42,4 @@ class SplashFragment : BaseFragment<SplashFragmentBinding>() {
       }
     }
   }
-
-
 }
