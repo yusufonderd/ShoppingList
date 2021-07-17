@@ -1,4 +1,4 @@
-package com.yonder.addtolist.core.base
+package com.yonder.addtolist.core.network.responses
 
 /**
  * Yusuf Onder on 09,May,2021

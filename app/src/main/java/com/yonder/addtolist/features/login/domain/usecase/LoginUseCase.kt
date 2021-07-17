@@ -1,6 +1,6 @@
 package com.yonder.addtolist.features.login.domain.usecase
 
-import com.yonder.addtolist.core.NetworkResult
+import com.yonder.addtolist.core.network.responses.Result
 import com.yonder.addtolist.features.login.data.remote.request.UserRegisterRequest
 import com.yonder.addtolist.features.login.domain.model.UserUiModel
 import kotlinx.coroutines.flow.Flow
@@ -10,5 +10,5 @@ import kotlinx.coroutines.flow.Flow
  */
 
 interface LoginUseCase {
-  fun login(userRegisterParam: UserRegisterRequest): Flow<NetworkResult<UserUiModel>>
+  fun login(userRegisterParam: UserRegisterRequest): Flow<Result<UserUiModel>>
 }

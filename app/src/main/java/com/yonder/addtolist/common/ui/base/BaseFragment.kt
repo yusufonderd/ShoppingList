@@ -1,4 +1,4 @@
-package com.yonder.addtolist.core.base
+package com.yonder.addtolist.common.ui.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.google.android.material.snackbar.Snackbar
 
 /**
  * Yusuf Onder on 08,May,2021
@@ -24,7 +25,7 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    _binding = this.initBinding(inflater, container)
+    _binding = this.initBinding(inflater)
     return binding.root
   }
 
@@ -33,7 +34,7 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
     _binding = null
   }
 
-  abstract fun initBinding(inflater: LayoutInflater, container: ViewGroup?): T
+  abstract fun initBinding(inflater: LayoutInflater): T
 
   fun showToastMessage(@StringRes messageResId: Int) {
     showToastMessage(getString(messageResId))
@@ -42,4 +43,13 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
   fun showToastMessage(message: String) {
     Toast.makeText(context, message, Toast.LENGTH_LONG).show()
   }
+
+  fun showSnackBar(message: String) {
+    Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
+  }
+
+  fun showSnackBar(@StringRes messageResId: Int) {
+    Snackbar.make(binding.root, getString(messageResId), Snackbar.LENGTH_SHORT).show()
+  }
+
 }

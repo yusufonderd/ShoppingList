@@ -3,12 +3,11 @@ package com.yonder.addtolist.features.splash.presentation
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.yonder.addtolist.R
-import com.yonder.addtolist.core.base.BaseFragment
+import com.yonder.addtolist.common.ui.base.BaseFragment
 import com.yonder.addtolist.databinding.SplashFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -18,7 +17,7 @@ class SplashFragment : BaseFragment<SplashFragmentBinding>() {
 
   val viewModel: SplashViewModel by viewModels()
 
-  override fun initBinding(inflater: LayoutInflater, container: ViewGroup?)  =
+  override fun initBinding(inflater: LayoutInflater)  =
     SplashFragmentBinding.inflate(layoutInflater)
 
 

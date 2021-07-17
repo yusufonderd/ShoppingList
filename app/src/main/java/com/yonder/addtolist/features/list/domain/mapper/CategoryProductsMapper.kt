@@ -1,7 +1,7 @@
 package com.yonder.addtolist.features.list.domain.mapper
 
-import com.yonder.addtolist.core.base.BaseMapper
-import com.yonder.addtolist.core.base.BaseResponse
+import com.yonder.addtolist.core.mapper.Mapper
+import com.yonder.addtolist.core.network.responses.BaseResponse
 import com.yonder.addtolist.core.extensions.orZero
 import com.yonder.addtolist.features.list.data.remote.response.CategoryProductResponse
 import com.yonder.addtolist.features.list.domain.decider.CategoryProductsDecider
@@ -16,7 +16,7 @@ import javax.inject.Inject
  */
 
 class CategoryProductsMapper @Inject constructor(private val decider: CategoryProductsDecider) :
-  BaseMapper<BaseResponse<ArrayList<CategoryProductResponse>>, CategoryProductsUiModel> {
+  Mapper<BaseResponse<ArrayList<CategoryProductResponse>>, CategoryProductsUiModel> {
 
   override fun map(input: BaseResponse<ArrayList<CategoryProductResponse>>): CategoryProductsUiModel {
     val list = input.data?.filter { response ->

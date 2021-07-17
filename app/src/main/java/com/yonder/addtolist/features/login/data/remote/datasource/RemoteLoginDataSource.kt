@@ -1,6 +1,6 @@
 package com.yonder.addtolist.features.login.data.remote.datasource
 
-import com.yonder.addtolist.core.base.BaseResponse
+import com.yonder.addtolist.core.network.responses.BaseResponse
 import com.yonder.addtolist.features.login.data.remote.request.UserRegisterRequest
 import com.yonder.addtolist.features.login.data.remote.response.UserResponse
 

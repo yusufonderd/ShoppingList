@@ -1,4 +1,4 @@
-package com.yonder.addtolist.data.di.thread
+package com.yonder.addtolist.core.network.thread
 
 import kotlinx.coroutines.CoroutineDispatcher
 

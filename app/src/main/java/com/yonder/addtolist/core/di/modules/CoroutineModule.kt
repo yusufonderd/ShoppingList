@@ -1,5 +1,7 @@
-package com.yonder.addtolist.data.di.thread
+package com.yonder.addtolist.core.di.modules
 
+import com.yonder.addtolist.core.network.thread.CoroutineThread
+import com.yonder.addtolist.core.network.thread.CoroutineThreadImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

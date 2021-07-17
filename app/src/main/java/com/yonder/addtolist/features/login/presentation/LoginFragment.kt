@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
@@ -13,7 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.yonder.addtolist.R
-import com.yonder.addtolist.core.base.BaseFragment
+import com.yonder.addtolist.common.ui.base.BaseFragment
 import com.yonder.addtolist.databinding.LoginFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -62,7 +61,7 @@ class LoginFragment : BaseFragment<LoginFragmentBinding>() {
     }
   }
 
-  override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) =
+  override fun initBinding(inflater: LayoutInflater) =
     LoginFragmentBinding.inflate(inflater)
 
   internal val startForGoogleSignInResult =

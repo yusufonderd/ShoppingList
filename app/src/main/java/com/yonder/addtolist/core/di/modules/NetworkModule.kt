@@ -1,8 +1,7 @@
-package com.yonder.addtolist.data.di
+package com.yonder.addtolist.core.di.modules
 
 import com.yonder.addtolist.BuildConfig
 import com.yonder.addtolist.data.local.UserPreferenceDataStore
-import com.yonder.addtolist.features.login.data.remote.LoginService
 import com.yonder.addtolist.data.remote.api.AuthInterceptor
 import dagger.Module
 import dagger.Provides

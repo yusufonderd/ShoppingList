@@ -1,4 +1,4 @@
-package com.yonder.addtolist.data.di
+package com.yonder.addtolist.core.di.modules
 
 import android.content.Context
 import androidx.room.Room

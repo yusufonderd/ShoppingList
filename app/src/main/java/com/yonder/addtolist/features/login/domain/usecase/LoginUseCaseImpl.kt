@@ -1,7 +1,7 @@
 package com.yonder.addtolist.features.login.domain.usecase
 
-import com.yonder.addtolist.core.NetworkResult
-import com.yonder.addtolist.data.di.thread.CoroutineThread
+import com.yonder.addtolist.core.network.responses.Result
+import com.yonder.addtolist.core.network.thread.CoroutineThread
 import com.yonder.addtolist.features.login.domain.mapper.LoginMapper
 import com.yonder.addtolist.features.login.data.remote.request.UserRegisterRequest
 import com.yonder.addtolist.features.login.domain.model.UserUiModel
@@ -22,12 +22,12 @@ class LoginUseCaseImpl @Inject constructor(
   private val dispatcher: CoroutineThread
 ) : LoginUseCase {
 
-  override fun login(userRegisterParam: UserRegisterRequest): Flow<NetworkResult<UserUiModel>> {
+  override fun login(userRegisterParam: UserRegisterRequest): Flow<Result<UserUiModel>> {
     return flow {
-      emit(NetworkResult.Loading)
-      emit(NetworkResult.Success(loginMapper.map(repository.login(userRegisterParam))))
+      emit(Result.Loading)
+      emit(Result.Success(loginMapper.map(repository.login(userRegisterParam))))
     }.catch { error ->
-      emit(NetworkResult.Error(error))
+      emit(Result.Error(error))
     }.flowOn(dispatcher.io)
   }
 

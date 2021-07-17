@@ -13,9 +13,9 @@ import javax.inject.Inject
 class SplashUseCase @Inject constructor(private val userPreferenceDataStore: UserPreferenceDataStore) {
 
   fun getUuid() = flow<Any> {
-    userPreferenceDataStore.uuid?.let { existingUuid ->
-      emit(existingUuid)
-    } ?: run {
+    if (userPreferenceDataStore.uuid != null){
+      emit(userPreferenceDataStore.uuid!!)
+    }else{
       val randomUuid = UUID.randomUUID().toString()
       userPreferenceDataStore.saveUUID(randomUuid)
       emit(randomUuid)
