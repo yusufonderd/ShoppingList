@@ -7,7 +7,7 @@ package com.yonder.addtolist
 object Libs {
 
   object Gradle {
-    const val androidGradlePlugin = "com.android.tools.build:gradle:4.1.3"
+    const val androidGradlePlugin = "com.android.tools.build:gradle:4.2.2"
   }
 
   object Kotlin {
@@ -69,6 +69,8 @@ object Libs {
       "androidx.constraintlayout:constraintlayout:" + Versions.constraint_layout
     const val navigation_fragment: String =
       "androidx.navigation:navigation-fragment-ktx:" + Versions.navigation
+
+    const val nav_args_plugin = "androidx.navigation:navigation-safe-args-gradle-plugin:" + Versions.navigation
     const val navigation_ui_ktx: String =
       "androidx.navigation:navigation-ui-ktx:" + Versions.navigation
     const val legacy_support: String =

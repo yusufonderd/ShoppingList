@@ -1,10 +1,13 @@
 package com.yonder.addtolist.scenes.list.presentation
 
 import androidx.appcompat.widget.Toolbar
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.yonder.addtolist.R
+import com.yonder.addtolist.local.entity.UserListEntity
+import com.yonder.addtolist.scenes.detail.ListDetailFragmentArgs
 import javax.inject.Inject
 import javax.inject.Provider
 
@@ -39,6 +42,13 @@ class ShoppingListNavigatorImpl @Inject constructor(
 
   override fun setToolbarVisibility(isVisible: Boolean) {
     toolbar.get().isVisible = isVisible
+  }
+
+  override fun navigateList(userListEntity: UserListEntity) {
+    setBottomNavigationVisibility(false)
+    navController.get().navigate(
+      ShoppingListItemsFragmentDirections.actionShoppingListToListDetail(userListEntity)
+    )
   }
 
 }

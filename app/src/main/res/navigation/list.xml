@@ -52,11 +52,11 @@
 
     <action
       android:id="@+id/action_shopping_list_to_create_list"
-      app:destination="@id/createListFragment"/>
+      app:destination="@id/createListFragment" />
 
     <action
       android:id="@+id/action_shopping_list_to_list_detail"
-      app:destination="@id/listDetailFragment"/>
+      app:destination="@id/listDetailFragment" />
 
 
   </fragment>
@@ -78,9 +78,9 @@
     tools:layout="@layout/fragment_list_detail">
 
     <argument
-      android:name="user_list_id"
-      app:argType="string"
-      app:nullable="true" />
+      android:name="userList"
+      app:nullable="false"
+      app:argType="com.yonder.addtolist.local.entity.UserListEntity" />
 
   </fragment>
 

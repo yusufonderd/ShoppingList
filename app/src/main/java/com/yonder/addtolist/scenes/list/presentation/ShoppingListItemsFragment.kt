@@ -66,7 +66,7 @@ class ShoppingListItemsFragment : BaseFragment<ShoppingListItemsFragmentBinding>
   }
 
   private fun onClickUserList(userList: UserListEntity) {
-    findNavController().navigate(R.id.action_shopping_list_to_list_detail)
+    shoppingListNavigator.navigateList(userList)
   }
 
   private fun onListLoaded(userLists: List<UserListEntity>) = with(binding) {
