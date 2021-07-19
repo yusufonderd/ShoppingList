@@ -29,6 +29,7 @@
   <string name="list_name">List name</string>
   <string name="list_color">List color</string>
   <string name="create_own_color">🎨 Create your own color</string>
+  <string name="create">Create</string>
 
   <string-array name="list_names">
     <item>Shopping list</item>
