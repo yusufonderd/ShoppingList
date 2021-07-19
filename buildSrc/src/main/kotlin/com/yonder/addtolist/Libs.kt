@@ -47,6 +47,9 @@ object Libs {
         Versions.espresso_core
   }
 
+  object StateLayout{
+    const val state_layout : String = "com.github.yusufonderd:StateLayout:" + Versions.state_layout
+  }
   object Log{
     const val timber = "com.jakewharton.timber:timber:" + Versions.timber
   }
@@ -87,6 +90,7 @@ object Libs {
     const val daggerHiltGradlePlugin =
       "com.google.dagger:hilt-android-gradle-plugin:" + Versions.hilt_version
   }
+
 
 
 }

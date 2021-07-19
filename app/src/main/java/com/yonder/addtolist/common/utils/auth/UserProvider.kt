@@ -2,11 +2,10 @@ package com.yonder.addtolist.common.utils.auth
 
 import android.content.Context
 import android.os.Build
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.yonder.addtolist.BuildConfig
 import com.yonder.addtolist.common.ProviderType
 import com.yonder.addtolist.common.utils.device.DeviceUtils
-import com.yonder.addtolist.features.login.data.remote.request.UserRegisterRequest
+import com.yonder.addtolist.core.network.UserRegisterRequest
 
 /**
  * @author: yusufonder

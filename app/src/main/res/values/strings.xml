@@ -30,6 +30,8 @@
   <string name="list_color">List color</string>
   <string name="create_own_color">🎨 Create your own color</string>
   <string name="create">Create</string>
+  <string name="list_name_should_not_be_empty">List name should not be empty</string>
+
 
   <string-array name="list_names">
     <item>Shopping list</item>
@@ -37,5 +39,12 @@
     <item>Monthly shopping</item>
     <item>Daily shopping</item>
   </string-array>
+
+  <!-- List Detail Fragment-->
+
+  <string name="list_detail">List detail</string>
+
+
+
 
 </resources>

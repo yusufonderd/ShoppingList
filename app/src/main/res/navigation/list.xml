@@ -7,7 +7,7 @@
 
   <fragment
     android:id="@+id/splashScreen"
-    android:name="com.yonder.addtolist.features.splash.presentation.SplashFragment"
+    android:name="com.yonder.addtolist.scenes.splash.presentation.SplashFragment"
     android:label="@string/title_splash"
     tools:layout="@layout/splash_fragment">
     <action
@@ -22,7 +22,7 @@
 
   <fragment
     android:id="@+id/loginScreen"
-    android:name="com.yonder.addtolist.features.login.presentation.LoginFragment"
+    android:name="com.yonder.addtolist.scenes.login.presentation.LoginFragment"
     android:label="@string/title_login"
     tools:layout="@layout/login_fragment">
     <action
@@ -32,7 +32,7 @@
 
   <fragment
     android:id="@+id/shoppingListItemsScreen"
-    android:name="com.yonder.addtolist.features.list.presentation.ShoppingListItemsFragment"
+    android:name="com.yonder.addtolist.scenes.list.presentation.ShoppingListItemsFragment"
     android:label="@string/title_shopping_list_items"
     tools:layout="@layout/shopping_list_items_fragment">
 
@@ -54,18 +54,35 @@
       android:id="@+id/action_shopping_list_to_create_list"
       app:destination="@id/createListFragment"/>
 
+    <action
+      android:id="@+id/action_shopping_list_to_list_detail"
+      app:destination="@id/listDetailFragment"/>
+
+
   </fragment>
 
 
   <fragment
     android:id="@+id/createListFragment"
-    android:name="com.yonder.addtolist.features.list.presentation.createlist.CreateListFragment"
+    android:name="com.yonder.addtolist.scenes.createlist.CreateListFragment"
     android:label="@string/create_list"
     tools:layout="@layout/fragment_create_list">
 
+  </fragment>
 
 
+  <fragment
+    android:id="@+id/listDetailFragment"
+    android:name="com.yonder.addtolist.scenes.detail.ListDetailFragment"
+    android:label="@string/list_detail"
+    tools:layout="@layout/fragment_list_detail">
+
+    <argument
+      android:name="user_list_id"
+      app:argType="string"
+      app:nullable="true" />
 
   </fragment>
+
 
 </navigation>

@@ -29,4 +29,6 @@ object Versions {
   const val timber = "4.7.1"
   const val firebase_bom = "26.0.0"
   const val room = "2.3.0"
+  const val state_layout = "0.1.1"
+
 }

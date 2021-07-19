@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.annotation.StringRes
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.yonder.addtolist.common.ui.extensions.setSafeOnClickListener
 import com.yonder.addtolist.databinding.LayoutYoTitleButtonBinding
 
 class YoTitleButtonView @JvmOverloads constructor(
@@ -24,7 +25,7 @@ class YoTitleButtonView @JvmOverloads constructor(
   ) = with(binding) {
     textView.setText(titleResId)
     button.setText(buttonTextResId)
-    button.setOnClickListener {
+    button.setSafeOnClickListener {
       onClickButton.invoke()
     }
   }

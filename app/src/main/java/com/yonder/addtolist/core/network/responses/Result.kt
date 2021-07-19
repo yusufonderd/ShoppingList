@@ -16,6 +16,10 @@ sealed class Result<out T> {
     if (this is Success) handler(data)
   }
 
+  fun onLoading(handler: () -> Unit): Result<T> = this.also {
+    if (this is Loading) handler()
+  }
+
   fun onError(handler: (t: Throwable) -> Unit): Result<T> = this.also {
     if (this is Error) handler(throwable)
   }

@@ -93,6 +93,7 @@ dependencies {
   implementation Libs.Facebook.login
   implementation Libs.Facebook.sdk
 
+  implementation Libs.StateLayout.state_layout
 
   implementation platform(Libs.Firebase.bom)
   implementation Libs.Firebase.analytics
@@ -114,4 +115,6 @@ dependencies {
   implementation Libs.Network.converter
   implementation Libs.Network.okhttp
   implementation Libs.Network.interceptor
+
+
 }

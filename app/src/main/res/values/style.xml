@@ -45,6 +45,7 @@
   <style name="TitleChipTextStyle">
     <item name="android:background">@drawable/bg_oval_chip</item>
     <item name="android:gravity">center</item>
+    <item name="android:textColor">@color/black</item>
   </style>
 
 

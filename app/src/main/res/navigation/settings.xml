@@ -8,7 +8,7 @@
 
   <fragment
     android:id="@+id/splashScreen"
-    android:name="com.yonder.addtolist.features.splash.presentation.SplashFragment"
+    android:name="com.yonder.addtolist.scenes.splash.presentation.SplashFragment"
     android:label="@string/title_splash"
     tools:layout="@layout/splash_fragment">
     <action
@@ -19,7 +19,7 @@
 
   <fragment
     android:id="@+id/loginScreen"
-    android:name="com.yonder.addtolist.features.login.presentation.LoginFragment"
+    android:name="com.yonder.addtolist.scenes.login.presentation.LoginFragment"
     android:label="@string/title_login"
     tools:layout="@layout/login_fragment">
     <action
@@ -30,7 +30,7 @@
 
   <fragment
     android:id="@+id/settingsScreen"
-    android:name="com.yonder.addtolist.features.settings.presentation.SettingsFragment"
+    android:name="com.yonder.addtolist.scenes.settings.presentation.SettingsFragment"
     android:label="@string/title_settings"
     tools:layout="@layout/settings_fragment">
     <action
