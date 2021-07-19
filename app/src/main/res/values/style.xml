@@ -42,4 +42,11 @@
     <item name="android:text">@string/continue_as_guest</item>
   </style>
 
+  <style name="TitleChipTextStyle">
+    <item name="android:background">@drawable/bg_oval_chip</item>
+    <item name="android:gravity">center</item>
+  </style>
+
+
+
 </resources>

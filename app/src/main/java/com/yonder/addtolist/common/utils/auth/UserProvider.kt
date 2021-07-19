@@ -23,7 +23,8 @@ abstract class UserProvider {
     lastName: String? = "",
     email: String? = "",
     photoUrl: String = "",
-    userId: String? = ""
+    userId: String? = "",
+    deviceUUID: String = ""
   ): UserRegisterRequest {
     val deviceModel = DeviceUtils.getModel()
     val appVersion: String = BuildConfig.VERSION_NAME
@@ -42,7 +43,7 @@ abstract class UserProvider {
       email = email,
       photoUrl = photoUrl,
       userId = userId,
-      deviceUUID = "",
+      deviceUUID = deviceUUID,
       fcmToken = "",
     )
   }

@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,7 +28,9 @@ class SplashViewModel @Inject constructor(
 
   private fun getUuid() {
     viewModelScope.launch {
-      splashUseCase.getUuid().collect()
+      splashUseCase.getUuid().collect {
+        Timber.d("success $it")
+      }
     }
   }
 

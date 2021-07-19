@@ -3,14 +3,18 @@ package com.yonder.addtolist.features.list.presentation
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.yonder.addtolist.R
 import com.yonder.addtolist.common.ui.base.BaseFragment
 import com.yonder.addtolist.databinding.ShoppingListItemsFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import timber.log.Timber
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class ShoppingListItemsFragment : BaseFragment<ShoppingListItemsFragmentBinding>() {
@@ -35,18 +39,28 @@ class ShoppingListItemsFragment : BaseFragment<ShoppingListItemsFragmentBinding>
     Timber.d("adl-111 onresume")
   }
 
+
   private fun setObserver() {
     lifecycleScope.launchWhenStarted {
       Timber.d("adl-111 launchWhenStarted")
       viewModel.shoppingListViewState.collect { viewState ->
         when (viewState) {
-          is ShoppingListItemsViewState.Result -> {
-            viewState.categories.list.forEach {  categoryWithProductsUiModel ->
+          is ShoppingListItemsViewState.CreateNewListContent -> {
+            binding.ytCreateList.isVisible = true
+            binding.ytCreateList.initView(R.string.create_your_first_list,R.string.create_list){
+              findNavController().navigate(R.id.action_shopping_list_to_create_list)
+            }
+          }
 
-            Timber.e("adl-111 => " +
-                "${categoryWithProductsUiModel.name} - " +
-                "${categoryWithProductsUiModel.products.size} - " +
-                "${categoryWithProductsUiModel.translationResponses.size}")
+          is ShoppingListItemsViewState.Result -> {
+            viewState.categories.list.forEach { categoryWithProductsUiModel ->
+
+              Timber.e(
+                "adl-111 => " +
+                    "${categoryWithProductsUiModel.name} - " +
+                    "${categoryWithProductsUiModel.products.size} - " +
+                    "${categoryWithProductsUiModel.translationResponses.size}"
+              )
 
 
             }
@@ -59,7 +73,6 @@ class ShoppingListItemsFragment : BaseFragment<ShoppingListItemsFragmentBinding>
       }
     }
   }
-
 
 
 }

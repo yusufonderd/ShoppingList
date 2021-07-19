@@ -49,6 +49,23 @@
       app:launchSingleTop="true"
       app:popUpTo="@+id/list"
       app:popUpToInclusive="true" />
+
+    <action
+      android:id="@+id/action_shopping_list_to_create_list"
+      app:destination="@id/createListFragment"/>
+
+  </fragment>
+
+
+  <fragment
+    android:id="@+id/createListFragment"
+    android:name="com.yonder.addtolist.features.list.presentation.createlist.CreateListFragment"
+    android:label="@string/create_list"
+    tools:layout="@layout/fragment_create_list">
+
+
+
+
   </fragment>
 
 </navigation>

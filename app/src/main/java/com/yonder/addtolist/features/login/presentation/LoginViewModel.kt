@@ -97,10 +97,11 @@ class LoginViewModel @Inject constructor(
   }
 
   private fun onLoginSuccess(userUiModel: UserUiModel) {
-    userUiModel.token?.let { token ->
+    val token = userUiModel.token
+    if (token != null) {
       userPreferenceDataStore.saveToken(token)
       _state.value = LoginViewState.NavigateLogin
-    } ?: run {
+    } else {
       _state.value = LoginViewState.Error(userUiModel.result.message)
     }
   }
