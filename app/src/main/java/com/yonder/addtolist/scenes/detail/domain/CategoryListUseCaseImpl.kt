@@ -2,8 +2,9 @@ package com.yonder.addtolist.scenes.detail.domain
 
 import com.yonder.addtolist.core.network.responses.Result
 import com.yonder.addtolist.core.network.thread.CoroutineThread
+import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.local.entity.CategoryEntity
-import com.yonder.addtolist.local.entity.UserListEntity
+import com.yonder.addtolist.local.entity.CategoryWithProducts
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
@@ -17,9 +18,9 @@ class CategoryListUseCaseImpl @Inject constructor(
   private val dispatcher: CoroutineThread
 ) : CategoryListUseCase {
 
-  override fun getCategories(): Flow<Result<List<CategoryEntity>>> {
+  override fun getCategories(): Flow<Result<List<CategoryWithProducts>>> {
     return categoryListRepository
-      .getCategories()
+      .fetchCategories()
       .flowOn(dispatcher.io)
   }
 }

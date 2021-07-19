@@ -9,4 +9,6 @@ interface UserPreferenceDataStore {
   val token: String?
   fun saveUUID(uuid: String)
   fun saveToken(token: String)
+  fun isFetchedCategories(): Boolean
+  fun setFetchedCategories()
 }

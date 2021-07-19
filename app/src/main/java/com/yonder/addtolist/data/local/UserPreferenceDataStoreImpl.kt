@@ -24,11 +24,24 @@ class UserPreferenceDataStoreImpl @Inject constructor(private val sharedPreferen
     }
   }
 
+  override fun setFetchedCategories() {
+    sharedPreferences.edit().apply {
+      putBoolean(KEY_IS_FETCHED_CATEGORIES, true)
+      apply()
+    }
+  }
+
+  override fun isFetchedCategories(): Boolean {
+    return sharedPreferences.getBoolean(KEY_IS_FETCHED_CATEGORIES, false)
+  }
+
   override val uuid: String? = sharedPreferences.getString(KEY_UUID, null)
 
   override val token: String? = sharedPreferences.getString(KEY_APP_TOKEN, null)
 
   companion object {
+    const val KEY_IS_FETCHED_CATEGORIES = "key_fetched_categories"
+
     const val KEY_APP_PREFERENCES = "app_preferences"
     const val KEY_APP_TOKEN = "key_app_token"
     const val KEY_UUID = "key_uuid"
