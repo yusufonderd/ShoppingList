@@ -14,7 +14,7 @@ fun RecyclerView.removeAnimator() {
   itemAnimator = null
 }
 
-fun RecyclerView.addDividerForLinearLayoutManager() {
+fun RecyclerView.addVerticalDivider() {
   (layoutManager as? LinearLayoutManager)?.let {
     val dividerItemDecoration = DividerItemDecoration(
       context,

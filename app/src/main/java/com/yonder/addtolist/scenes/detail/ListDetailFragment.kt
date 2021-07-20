@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.yonder.addtolist.common.ui.base.BaseFragment
-import com.yonder.addtolist.common.ui.extensions.addDividerForLinearLayoutManager
+import com.yonder.addtolist.common.ui.extensions.addVerticalDivider
 import com.yonder.addtolist.common.ui.extensions.openWithKeyboard
 import com.yonder.addtolist.common.ui.extensions.removeAnimator
 import com.yonder.addtolist.databinding.FragmentListDetailBinding
@@ -32,7 +32,7 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>() {
 
   private val viewModel: ListDetailViewModel by viewModels()
 
-  val adapter: ProductListsAdapter by lazy {
+  val adapterProductList: ProductListsAdapter by lazy {
     ProductListsAdapter(::onClickProduct)
   }
 
@@ -77,27 +77,35 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>() {
     }
   }
 
-  private fun initViews() = with(binding) {
-    etSearch.addTextChangedListener { editable ->
+  private fun initViews() {
+    initEditText()
+    initRecyclerView()
+  }
+
+  private fun initEditText() = with(binding.etSearch) {
+    addTextChangedListener { editable ->
       val query = editable.toString()
       viewModel.searchBy(query)
     }
-    binding.rvItems.addDividerForLinearLayoutManager()
-    rvItems.removeAnimator()
+  }
+
+  private fun initRecyclerView() = with(binding.rvItems) {
+    addVerticalDivider()
+    removeAnimator()
+    adapter = adapterProductList
   }
 
   private fun setQueryResult(list: List<ProductEntitySummary>) {
-    binding.tvHeader.isVisible = false
-    binding.rvItems.adapter = adapter.apply {
-      submitList(list)
-    }
+    setProductList(list, false)
   }
-
 
   private fun setPopularProducts(list: List<ProductEntitySummary>) {
-    binding.tvHeader.isVisible = true
-    binding.rvItems.adapter = adapter.apply {
-      submitList(list)
-    }
+    setProductList(list, true)
   }
+
+  private fun setProductList(list: List<ProductEntitySummary>, isHeaderVisible: Boolean) {
+    binding.tvHeader.isVisible = isHeaderVisible
+    adapterProductList.submitList(list)
+  }
+
 }
