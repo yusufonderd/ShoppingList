@@ -1,10 +1,10 @@
 package com.yonder.addtolist.scenes.list.data.local.datasource
 
-import androidx.lifecycle.LiveData
 import com.yonder.addtolist.local.AppDatabase
 import com.yonder.addtolist.local.entity.CategoryEntity
 import com.yonder.addtolist.local.entity.CategoryWithProducts
 import com.yonder.addtolist.local.entity.ProductEntity
+import com.yonder.addtolist.local.entity.ProductEntitySummary
 import javax.inject.Inject
 
 /**
@@ -19,6 +19,10 @@ class CategoryDataSourceImpl @Inject constructor(private val appDatabase: AppDat
 
   override suspend fun insertAllProducts(products: List<ProductEntity>) {
     return appDatabase.categoryDao().insertAll(products)
+  }
+
+  override suspend fun getProductsByQuery(query: String): List<ProductEntitySummary> {
+    return appDatabase.productDao().fetchProducts(1, query)
   }
 
   override suspend fun insert(category: CategoryEntity) {

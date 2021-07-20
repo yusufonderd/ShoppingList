@@ -3,6 +3,7 @@ package com.yonder.addtolist.scenes.detail.domain
 import com.yonder.addtolist.core.network.responses.Result
 import com.yonder.addtolist.local.entity.CategoryEntity
 import com.yonder.addtolist.local.entity.CategoryWithProducts
+import com.yonder.addtolist.local.entity.ProductEntitySummary
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -11,4 +12,5 @@ import kotlinx.coroutines.flow.Flow
  */
 interface CategoryListUseCase {
   fun getCategories(): Flow<Result<List<CategoryWithProducts>>>
+  fun fetchProductByQuery(query: String): Flow<Result<List<ProductEntitySummary>>>
 }

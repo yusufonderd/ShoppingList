@@ -15,7 +15,7 @@ import com.yonder.addtolist.local.entity.UserListEntity
 
 @Database(
   entities = [CategoryEntity::class, UserListEntity::class,ProductEntity::class],
-  version = 3,
+  version = 4,
   exportSchema = false
 )
 

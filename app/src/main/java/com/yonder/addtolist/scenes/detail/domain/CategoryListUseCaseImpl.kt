@@ -5,6 +5,7 @@ import com.yonder.addtolist.core.network.thread.CoroutineThread
 import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.local.entity.CategoryEntity
 import com.yonder.addtolist.local.entity.CategoryWithProducts
+import com.yonder.addtolist.local.entity.ProductEntitySummary
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
@@ -22,5 +23,9 @@ class CategoryListUseCaseImpl @Inject constructor(
     return categoryListRepository
       .fetchCategories()
       .flowOn(dispatcher.io)
+  }
+
+  override fun fetchProductByQuery(query: String): Flow<Result<List<ProductEntitySummary>>> {
+    return categoryListRepository.fetchWord(query).flowOn(dispatcher.io)
   }
 }

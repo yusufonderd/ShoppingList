@@ -1,9 +1,8 @@
-package com.yonder.addtolist.core.di.modules
+package com.yonder.addtolist.local
 
 import android.content.Context
 import androidx.room.Room
 import com.yonder.addtolist.BuildConfig
-import com.yonder.addtolist.local.AppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

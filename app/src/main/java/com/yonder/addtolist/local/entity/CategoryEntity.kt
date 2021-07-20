@@ -14,4 +14,5 @@ class CategoryEntity(
   @field:ColumnInfo(name = "categoryId") @PrimaryKey val categoryId: String,
   @field:ColumnInfo(name = "name") val name: String,
   @field:ColumnInfo(name = "image") val image: String,
-  @field:ColumnInfo(name = "language_id") val languageId: Int)
+  @field:ColumnInfo(name = "language_id") val languageId: Int
+)
