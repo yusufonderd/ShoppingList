@@ -25,6 +25,10 @@ class CategoryDataSourceImpl @Inject constructor(private val appDatabase: AppDat
     return appDatabase.productDao().fetchProducts(1, query)
   }
 
+  override suspend fun getPopularProducts(): List<ProductEntitySummary> {
+    return appDatabase.productDao().getPopularProducts(1)
+  }
+
   override suspend fun insert(category: CategoryEntity) {
     return appDatabase.categoryDao().insert(category)
   }

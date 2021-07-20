@@ -1,4 +1,5 @@
 package com.yonder.addtolist.scenes.detail
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.core.extensions.toReadableMessage
@@ -34,7 +35,9 @@ class ListDetailViewModel @Inject constructor(
     userListUseCase.getCategories()
       .onEach { result ->
         result.onSuccess {
-          _state.value = ListDetailViewState.ShowContent(it)
+          _state.value = ListDetailViewState.ShowContent(it).also {
+            getPopularProducts()
+          }
         }.onLoading {
           _state.value = ListDetailViewState.Loading
         }.onError { error ->
@@ -43,11 +46,29 @@ class ListDetailViewModel @Inject constructor(
       }.launchIn(viewModelScope)
   }
 
-  fun search(query: String) {
+  fun searchBy(query: String) {
+    if (query.trim().isEmpty()) {
+      getPopularProducts()
+    } else {
+      getProductsByQuery(query)
+    }
+  }
+
+
+  private fun getProductsByQuery(query: String) {
     userListUseCase.fetchProductByQuery(query)
       .onEach { result ->
         result.onSuccess {
           _state.value = ListDetailViewState.QueryResult(it)
+        }
+      }.launchIn(viewModelScope)
+  }
+
+  private fun getPopularProducts() {
+    userListUseCase.fetchPopularProducts()
+      .onEach { result ->
+        result.onSuccess {
+          _state.value = ListDetailViewState.PopularProducts(it)
         }
       }.launchIn(viewModelScope)
   }
@@ -57,6 +78,7 @@ class ListDetailViewModel @Inject constructor(
 sealed class ListDetailViewState {
   object Initial : ListDetailViewState()
   object Loading : ListDetailViewState()
+  data class PopularProducts(val list: List<ProductEntitySummary>) : ListDetailViewState()
   data class QueryResult(val list: List<ProductEntitySummary>) : ListDetailViewState()
   data class ShowContent(val categoryList: List<CategoryWithProducts>) : ListDetailViewState()
   data class Error(var errorMessage: String) : ListDetailViewState()

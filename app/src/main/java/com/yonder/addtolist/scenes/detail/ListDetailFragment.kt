@@ -3,18 +3,22 @@ package com.yonder.addtolist.scenes.detail
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.yonder.addtolist.common.ui.base.BaseFragment
+import com.yonder.addtolist.common.ui.extensions.addDividerForLinearLayoutManager
 import com.yonder.addtolist.common.ui.extensions.openWithKeyboard
+import com.yonder.addtolist.common.ui.extensions.removeAnimator
 import com.yonder.addtolist.databinding.FragmentListDetailBinding
 import com.yonder.addtolist.local.entity.ProductEntitySummary
 import com.yonder.addtolist.scenes.detail.adapter.productlist.ProductListsAdapter
 import com.yonder.statelayout.State
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+
 
 /**
  * @author yusuf.onder
@@ -59,6 +63,9 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>() {
           is ListDetailViewState.QueryResult -> {
             setQueryResult(viewState.list)
           }
+          is ListDetailViewState.PopularProducts -> {
+            setPopularProducts(viewState.list)
+          }
           is ListDetailViewState.Error -> {
             binding.stateLayout.setState(State.ERROR)
           }
@@ -73,15 +80,24 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>() {
   private fun initViews() = with(binding) {
     etSearch.addTextChangedListener { editable ->
       val query = editable.toString()
-      viewModel.search(query)
+      viewModel.searchBy(query)
     }
-    recyclerView.itemAnimator = null
+    binding.rvItems.addDividerForLinearLayoutManager()
+    rvItems.removeAnimator()
   }
 
   private fun setQueryResult(list: List<ProductEntitySummary>) {
-    binding.recyclerView.adapter = adapter.apply {
+    binding.tvHeader.isVisible = false
+    binding.rvItems.adapter = adapter.apply {
       submitList(list)
     }
   }
 
+
+  private fun setPopularProducts(list: List<ProductEntitySummary>) {
+    binding.tvHeader.isVisible = true
+    binding.rvItems.adapter = adapter.apply {
+      submitList(list)
+    }
+  }
 }

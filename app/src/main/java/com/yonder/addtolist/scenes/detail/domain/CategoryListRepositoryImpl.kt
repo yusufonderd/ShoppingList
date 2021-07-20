@@ -39,6 +39,14 @@ class CategoryListRepositoryImpl @Inject constructor(
     emit(Result.Error(RoomResultException()))
   }
 
+  override fun fetchPopularProducts(): Flow<Result<List<ProductEntitySummary>>> = flow {
+    emit(Result.Loading)
+    emit(Result.Success(categoryDataSource.getPopularProducts()))
+  }.catch { e ->
+    e.printStackTrace()
+    emit(Result.Error(RoomResultException()))
+  }
+
   override fun fetchCategories(): Flow<Result<List<CategoryWithProducts>>> = flow {
     if (!userPreferenceDataStore.isFetchedCategories()) {
       emit(Result.Loading)

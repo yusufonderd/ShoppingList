@@ -14,12 +14,12 @@ import com.yonder.addtolist.local.entity.ProductEntitySummary
 interface ProductDao {
 
   @Query("SELECT name,categoryImage FROM category_products WHERE languageId  = :languageId and popular = 1 ORDER BY name ")
-  fun getPopularProducts(languageId: Int): LiveData<List<ProductEntitySummary>>
+  fun getPopularProducts(languageId: Int): List<ProductEntitySummary>
 
   @Query("SELECT name,categoryImage FROM category_products WHERE languageId  = :languageId and name LIKE '%' || :query || '%'  ORDER BY name LIMIT :limit ")
   fun fetchProducts(languageId: Int, query: String, limit: Int = 10): List<ProductEntitySummary>
 
   @Query("SELECT * FROM category_products WHERE languageId  = :languageId and name = :name LIMIT 1 ")
-  suspend fun findProduct(languageId: Int, name: String): ProductEntity?
+  fun findProduct(languageId: Int, name: String): ProductEntity?
 
 }
