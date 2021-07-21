@@ -1,13 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   tools:context=".scenes.settings.presentation.SettingsFragment">
 
-  <TextView
+  <com.yonder.addtolist.common.ui.component.YoImageTextView
+    android:id="@+id/yoAccount"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:text="Hello" />
+    android:layout_height="wrap_content"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:yo_imageResId="@drawable/ic_baseline_person_outline_24"
+    app:yo_text="@string/account" />
 
-</FrameLayout>
+  <com.yonder.addtolist.common.ui.component.YoImageTextView
+    android:id="@+id/yoAbout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/yoAccount"
+    app:yo_imageResId="@drawable/ic_baseline_info_24"
+    app:yo_text="@string/about" />
+
+  <com.yonder.addtolist.common.ui.component.YoImageTextView
+    android:id="@+id/yoLanguage"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/yoAbout"
+    app:yo_imageResId="@drawable/ic_baseline_language_24"
+    app:yo_text="@string/language" />
+
+  <com.yonder.addtolist.common.ui.component.YoImageTextView
+    android:id="@+id/yoPremium"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toBottomOf="@+id/yoLanguage"
+    app:yo_left_text="@string/premium_emo"
+    app:yo_text="@string/be_premium" />
+
+  <com.yonder.addtolist.common.ui.component.YoImageTextView
+    android:id="@+id/yoTranslate"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toBottomOf="@+id/yoPremium"
+    app:yo_left_text="@string/world_emo"
+    app:yo_text="@string/help_us_to_translate_app" />
+
+  <com.yonder.addtolist.common.ui.component.YoImageTextView
+    android:id="@+id/yoRateUs"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/yoTranslate"
+    app:yo_imageResId="@drawable/ic_baseline_rate_review_24"
+    app:yo_text="@string/rate_us" />
+
+  <com.yonder.addtolist.common.ui.component.YoImageTextView
+    android:id="@+id/yoShareApp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/yoRateUs"
+    app:yo_imageResId="@drawable/ic_baseline_share_24"
+    app:yo_text="@string/share_app" />
+
+  <com.yonder.addtolist.common.ui.component.YoImageTextView
+    android:id="@+id/yoInstagram"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/yoShareApp"
+    app:yo_imageResId="@drawable/instagram_sketched"
+    app:yo_text="@string/instagram" />
+
+
+  <com.yonder.addtolist.common.ui.component.YoImageTextView
+    android:id="@+id/yoTwitter"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/yoInstagram"
+    app:yo_imageResId="@drawable/twitter"
+    app:yo_text="@string/twitter" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

@@ -28,7 +28,6 @@
   <string name="create_list">Create list</string>
   <string name="list_name">List name</string>
   <string name="list_color">List color</string>
-  <string name="create_own_color">🎨 Create your own color</string>
   <string name="create">Create</string>
   <string name="list_name_should_not_be_empty">List name should not be empty</string>
 
@@ -44,7 +43,91 @@
 
   <string name="list_detail">List detail</string>
   <string name="what_would_you_like_to_buy">What would you like to buy ?</string>
-  <string name="popular_items">Popular items</string>
+
+
+
+
+
+
+
+
+  <string name="very_close">Very close</string>
+  <string name="product_name">Item name</string>
+  <string name="product_details">Item details</string>
+  <string name="product_quantity">Quantity</string>
+  <string name="product_note">Note</string>
+  <string name="product_unit_price">Unit price</string>
+
+  <string name="product_category">Category</string>
+  <string name="select_category">Select category</string>
+  <string name="unicode" translatable="false">\U+1F37F</string>
+
+
+  <string name="unit_piece">piece</string>
+  <string name="unit_package">package</string>
+  <string name="unit_kg">kg</string>
+  <string name="unit_lt">lt</string>
+  <string name="unit_gr">gr</string>
+
+  <string name="add_note">Add note</string>
+  <string name="check_done">Mark item as done</string>
+  <string name="add_favorites">Add favorites</string>
+  <string name="delete_item">Delete item</string>
+  <string name="remove_favorites">Remove favorites</string>
+  <string name="account">Account</string>
+  <string name="about">About</string>
+  <string name="language">Language</string>
+
+  <string name="world_emo" translatable="false">🌎</string>
+  <string name="rate_us">Rate this App</string>
+  <string name="share_app">Share App</string>
+  <string name="help_us_to_translate_app">Help us to translate Addtolist</string>
+  <string name="twitter" translatable="false">Twitter</string>
+  <string name="instagram" translatable="false">Instagram</string>
+  <string name="follow_us_on_social_media">🤗 Follow us on social media</string>
+  <string name="help_us_to_improve_addtolist">🌱 Help us to improve Addtolist</string>
+  <string name="add_item">Add item</string>
+  <string name="profile">Profile</string>
+  <string name="translators">Translators</string>
+  <string name="account_created_at">Created at</string>
+  <string name="account_full_name">Full name</string>
+  <string name="account_email">E-mail</string>
+  <string name="account_logout">Logout</string>
+  <string name="logout_title">@string/account_logout</string>
+  <string name="logout_message">Are you sure want to logout ?</string>
+  <string name="yes">Yes</string>
+  <string name="no">No</string>
+  <string name="cancel">Cancel</string>
+  <string name="premium_emo" translatable="false">⭐</string>
+  <string name="be_premium">Support Addtolist</string>
+  <string name="be_premium_text">Addtolist application was developed by Yusuf Onder with the help of his cat Memoli 🐈. As an Addtolist supporter, you can help me work full time on the application, and benefit from some useful features.</string>
+  <string name="upgrade">Upgrade</string>
+  <string name="restore_purchase">Restore purchases</string>
+  <string name="unlimited_lists">✏✏️ Create unlimited number of lists</string>
+  <string name="create_own_color">🥳 Create your own color</string>
+  <string name="remove_all_ads">🤖 Remove all ads</string>
+  <string name="unlimited_access_to_all_features">🤩 Unlimited access to all Addtolist features</string>
+
+  <string name="monthly">Monthly</string>
+  <string name="yearly">Yearly</string>
+  <string name="lifetime">Lifetime</string>
+
+  <string name="my_lists">My Lists</string>
+  <string name="create_new_list">Create a new list</string>
+
+  <string name="join_shopping_list">Join shopping list</string>
+  <string name="popular_items">Popular items </string>
+
+  <string name="category">Category</string>
+  <string name="items">Items</string>
+  <string name="recent">Recent</string>
+  <string name="search_item">Search item</string>
+  <string name="empty_list">Shopping list is empty now</string>
+
+
+
+
+
 
 
 </resources>

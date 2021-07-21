@@ -33,5 +33,12 @@
   <dimen name="item_color_picker_selected_radius">24dp</dimen>
 
 
+  <!-- Settings -->
+  <dimen name="settings_profile_size">36dp</dimen>
+
+
+  <dimen name="view_height_1">1dp</dimen>
+
+
 
 </resources>
