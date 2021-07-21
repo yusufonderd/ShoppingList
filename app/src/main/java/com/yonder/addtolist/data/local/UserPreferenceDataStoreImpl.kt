@@ -10,7 +10,7 @@ import javax.inject.Inject
 class UserPreferenceDataStoreImpl @Inject constructor(private val sharedPreferences: SharedPreferences) :
   UserPreferenceDataStore {
 
-  override fun saveToken(token: String) {
+  override fun saveToken(token: String?) {
     sharedPreferences.edit().apply {
       putString(KEY_APP_TOKEN, token)
       apply()

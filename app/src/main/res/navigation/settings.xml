@@ -38,7 +38,24 @@
       app:destination="@id/splashScreen" />
 
     <action
+      android:id="@+id/action_settings_to_account_detail"
+      app:destination="@id/accountDetailFragment" />
+
+    <action
       android:id="@+id/action_shopping_list_items_to_login"
+      app:destination="@id/loginScreen" />
+
+  </fragment>
+
+  <fragment
+    android:id="@+id/accountDetailFragment"
+    android:name="com.yonder.addtolist.scenes.accountdetail.AccountDetailFragment"
+    android:label="@string/title_account_detail"
+    tools:layout="@layout/fragment_account_detail">
+
+
+    <action
+      android:id="@+id/action_account_detail_to_login"
       app:destination="@id/loginScreen" />
 
   </fragment>

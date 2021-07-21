@@ -10,7 +10,7 @@ import javax.inject.Inject
  * @author: yusufonder
  * @date: 20/05/2021
  */
-class SplashUseCase @Inject constructor(private val userPreferenceDataStore: UserPreferenceDataStore) {
+class UserInfoUseCase @Inject constructor(private val userPreferenceDataStore: UserPreferenceDataStore) {
 
   fun getUuid() = flow<Any> {
     if (userPreferenceDataStore.uuid != null){
@@ -27,5 +27,10 @@ class SplashUseCase @Inject constructor(private val userPreferenceDataStore: Use
       emit(userPreferenceDataStore.token != null)
     }
   }
+
+  fun removeToken(){
+    userPreferenceDataStore.saveToken(null)
+  }
+
 
 }
