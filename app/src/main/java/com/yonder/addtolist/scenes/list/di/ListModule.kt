@@ -2,7 +2,7 @@ package com.yonder.addtolist.scenes.list.di
 
 import com.yonder.addtolist.scenes.list.data.local.datasource.UserListDataSource
 import com.yonder.addtolist.scenes.list.data.local.datasource.UserListDataSourceImpl
-import com.yonder.addtolist.scenes.list.data.remote.ShoppingListApiService
+import com.yonder.addtolist.scenes.list.data.remote.ApiService
 import com.yonder.addtolist.scenes.list.domain.repository.UserListRepository
 import com.yonder.addtolist.scenes.list.data.UserListRepositoryImpl
 import com.yonder.addtolist.scenes.list.domain.usecase.UserListUseCaseImpl
@@ -33,8 +33,8 @@ interface ListModule {
   companion object{
 
     @[Provides]
-    fun provideCategoryService(retrofit: Retrofit): ShoppingListApiService {
-      return retrofit.create(ShoppingListApiService::class.java)
+    fun provideCategoryService(retrofit: Retrofit): ApiService {
+      return retrofit.create(ApiService::class.java)
     }
   }
 }

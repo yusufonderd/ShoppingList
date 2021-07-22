@@ -4,6 +4,7 @@ import com.yonder.addtolist.core.network.responses.Result
 import com.yonder.addtolist.core.network.thread.CoroutineThread
 import com.yonder.addtolist.local.entity.UserListEntity
 import com.yonder.addtolist.core.network.request.CreateUserListRequest
+import com.yonder.addtolist.local.entity.UserListWithProducts
 import com.yonder.addtolist.scenes.list.domain.repository.UserListRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
@@ -19,7 +20,7 @@ class UserListUseCaseImpl @Inject constructor(
   private val dispatcher: CoroutineThread
 ) : UserListUseCase {
 
-  override fun getUserList(): Flow<Result<List<UserListEntity>>> {
+  override fun getUserList(): Flow<Result<List<UserListWithProducts>>> {
     return repository
       .getUserList()
       .flowOn(dispatcher.io)

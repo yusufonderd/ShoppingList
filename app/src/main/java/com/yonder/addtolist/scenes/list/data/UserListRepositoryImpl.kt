@@ -5,8 +5,9 @@ import com.yonder.addtolist.core.network.exceptions.ServerResultException
 import com.yonder.addtolist.core.network.responses.Result
 import com.yonder.addtolist.scenes.list.data.local.datasource.UserListDataSource
 import com.yonder.addtolist.local.entity.UserListEntity
-import com.yonder.addtolist.scenes.list.data.remote.ShoppingListApiService
+import com.yonder.addtolist.scenes.list.data.remote.ApiService
 import com.yonder.addtolist.core.network.request.CreateUserListRequest
+import com.yonder.addtolist.local.entity.UserListWithProducts
 import com.yonder.addtolist.scenes.list.data.remote.response.UserListResponse
 import com.yonder.addtolist.scenes.list.domain.mapper.UserListMapper
 import com.yonder.addtolist.scenes.list.domain.mapper.UserListProductMapper
@@ -23,7 +24,7 @@ import javax.inject.Inject
  */
 
 class UserListRepositoryImpl @Inject constructor(
-  private val apiService: ShoppingListApiService,
+  private val apiService: ApiService,
   private val localDataSource: UserListDataSource,
   private val mapper: UserListMapper
 ) : UserListRepository {
@@ -64,9 +65,9 @@ class UserListRepositoryImpl @Inject constructor(
     }
   }
 
-  override fun getUserList(): Flow<Result<List<UserListEntity>>> = flow {
+  override fun getUserList(): Flow<Result<List<UserListWithProducts>>> = flow {
     emit(Result.Loading)
-    val localUserLists = localDataSource.getUserLists()
+    val localUserLists = localDataSource.getUserListWithProducts()
     if (localUserLists.isNotEmpty()) {
       emit(Result.Success(localUserLists))
     }
@@ -77,13 +78,13 @@ class UserListRepositoryImpl @Inject constructor(
         insertLists(userLists)
         insertProducts(userLists)
       }
-      emit(Result.Success(localDataSource.getUserLists()))
+      emit(Result.Success(localDataSource.getUserListWithProducts()))
     } else {
-      emit(Result.Error<List<UserListEntity>>(ServerResultException()))
+      emit(Result.Error<List<UserListWithProducts>>(ServerResultException()))
     }
   }.catch { error ->
     error.printStackTrace()
-    emit(Result.Error<List<UserListEntity>>(error))
+    emit(Result.Error<List<UserListWithProducts>>(error))
   }
 
 

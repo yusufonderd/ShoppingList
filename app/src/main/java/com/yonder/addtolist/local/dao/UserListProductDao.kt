@@ -35,7 +35,7 @@ interface UserListProductDao {
 
   @Transaction
   @Query("SELECT * FROM userList")
-  fun getAllUserListWithProducts(): LiveData<List<UserListWithProducts>>
+  suspend fun getAllUserListWithProducts(): List<UserListWithProducts>
 
   @Transaction
   @Query("SELECT * FROM userList LIMIT :limit OFFSET :offset ")
@@ -58,7 +58,7 @@ interface UserListProductDao {
   @Insert
   suspend fun insertAll(products: List<UserListProductEntity>)
 
-  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  @Insert
   suspend fun insert(item: UserListProductEntity)
 
 

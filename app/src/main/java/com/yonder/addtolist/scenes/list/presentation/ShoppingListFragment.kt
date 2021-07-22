@@ -12,6 +12,7 @@ import com.yonder.addtolist.common.ui.extensions.setLinearLayoutManager
 import com.yonder.addtolist.common.ui.extensions.setSafeOnClickListener
 import com.yonder.addtolist.databinding.ShoppingListFragmentBinding
 import com.yonder.addtolist.local.entity.UserListEntity
+import com.yonder.addtolist.local.entity.UserListWithProducts
 import com.yonder.addtolist.scenes.list.presentation.adapter.UserListAdapter
 import com.yonder.statelayout.State
 import dagger.hilt.android.AndroidEntryPoint
@@ -84,11 +85,11 @@ class ShoppingListFragment : BaseFragment<ShoppingListFragmentBinding>() {
       shoppingListNavigator.navigateCreateListFragment()
     }
   }
-  private fun onClickUserList(userList: UserListEntity) {
-    shoppingListNavigator.navigateList(userList)
+  private fun onClickUserList(userListWithProduct: UserListWithProducts) {
+    shoppingListNavigator.navigateList(userListWithProduct.userList)
   }
 
-  private fun onListLoaded(userLists: List<UserListEntity>) = with(binding) {
+  private fun onListLoaded(userLists: List<UserListWithProducts>) = with(binding) {
     stateLayout.setState(State.CONTENT)
     binding.fabAdd.isVisible = true
     binding.ytCreateList.isVisible = false

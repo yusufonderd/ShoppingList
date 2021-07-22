@@ -6,6 +6,7 @@ import com.yonder.addtolist.core.network.request.CreateUserListProductRequest
 import com.yonder.addtolist.local.entity.ProductEntitySummary
 import com.yonder.addtolist.local.entity.UserListProductEntity
 import com.yonder.addtolist.scenes.list.data.remote.response.UserListProductResponse
+import java.util.*
 
 /**
  * @author yusuf.onder

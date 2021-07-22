@@ -3,6 +3,7 @@ package com.yonder.addtolist.scenes.list.domain.usecase
 
 import com.yonder.addtolist.core.network.responses.Result
 import com.yonder.addtolist.local.entity.UserListEntity
+import com.yonder.addtolist.local.entity.UserListWithProducts
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -10,6 +11,6 @@ import kotlinx.coroutines.flow.Flow
  */
 
 interface UserListUseCase {
-  fun getUserList(): Flow<Result<List<UserListEntity>>>
+  fun getUserList(): Flow<Result<List<UserListWithProducts>>>
   fun createList(listName: String, listColor: String): Flow<Result<UserListEntity>>
 }

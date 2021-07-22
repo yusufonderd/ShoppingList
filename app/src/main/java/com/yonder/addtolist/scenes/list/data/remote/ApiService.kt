@@ -16,7 +16,7 @@ import retrofit2.http.Query
  * Yusuf Onder on 12,May,2021
  */
 
-interface ShoppingListApiService {
+interface ApiService {
 
 
   @POST("newUserListProduct")

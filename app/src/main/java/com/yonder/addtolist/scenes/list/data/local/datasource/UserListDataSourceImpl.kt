@@ -3,6 +3,7 @@ package com.yonder.addtolist.scenes.list.data.local.datasource
 import com.yonder.addtolist.local.AppDatabase
 import com.yonder.addtolist.local.entity.UserListEntity
 import com.yonder.addtolist.local.entity.UserListProductEntity
+import com.yonder.addtolist.local.entity.UserListWithProducts
 import javax.inject.Inject
 
 /**
@@ -26,6 +27,10 @@ class UserListDataSourceImpl @Inject constructor(private val appDatabase: AppDat
 
   override suspend fun getUserLists(): List<UserListEntity> {
     return appDatabase.userListDao().getUserLists()
+  }
+
+  override suspend fun getUserListWithProducts(): List<UserListWithProducts> {
+    return appDatabase.userListProductDao().getAllUserListWithProducts()
   }
 
 }

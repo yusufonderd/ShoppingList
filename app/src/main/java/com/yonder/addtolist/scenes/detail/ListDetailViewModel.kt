@@ -81,11 +81,11 @@ class ListDetailViewModel @Inject constructor(
     productUseCase.addProduct(userListUUID, product)
       .onEach { result ->
         result.onSuccess {
-          Timber.d("addProduct onSuccess => $it")
+          Timber.e("addProduct onSuccess => $it")
         }.onError {
-          Timber.d("addProduct onError => $it")
+          Timber.e("addProduct onError => $it")
         }.onLoading {
-          Timber.d("addProduct onLoading")
+          Timber.e("addProduct onLoading")
         }
 
       }.launchIn(viewModelScope)

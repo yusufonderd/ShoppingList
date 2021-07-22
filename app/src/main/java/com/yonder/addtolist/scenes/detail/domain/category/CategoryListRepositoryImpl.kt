@@ -10,7 +10,7 @@ import com.yonder.addtolist.local.entity.ProductEntitySummary
 import com.yonder.addtolist.scenes.detail.domain.mapper.CategoryEntityMapper
 import com.yonder.addtolist.scenes.detail.domain.mapper.ProductEntityMapper
 import com.yonder.addtolist.scenes.list.data.local.datasource.CategoryDataSource
-import com.yonder.addtolist.scenes.list.data.remote.ShoppingListApiService
+import com.yonder.addtolist.scenes.list.data.remote.ApiService
 import com.yonder.addtolist.scenes.list.domain.mapper.CategoryProductsMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -22,7 +22,7 @@ import javax.inject.Inject
  * Created on 19.07.2021
  */
 class CategoryListRepositoryImpl @Inject constructor(
-  private val apiService: ShoppingListApiService,
+  private val apiService: ApiService,
   private val categoryDataSource: CategoryDataSource,
   private val userPreferenceDataStore: UserPreferenceDataStore,
   private val mapper: CategoryProductsMapper

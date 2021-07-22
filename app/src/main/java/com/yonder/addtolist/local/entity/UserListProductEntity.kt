@@ -14,8 +14,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "user_list_products")
 class UserListProductEntity(
-  @field:ColumnInfo(name = "userListUUID") @PrimaryKey val listUUID: String,
-  @field:ColumnInfo(name = "id") var id: Int? = null,
+  @field:ColumnInfo(name = "id") @PrimaryKey var id: Int? = null,
+  @field:ColumnInfo(name = "userListUUID") val listUUID: String,
   @field:ColumnInfo(name = "name") var name: String?,
   @field:ColumnInfo(name = "category_image") var categoryImage: String? = CATEGORY_IMAGE,
   @field:ColumnInfo(name = "category_name") var categoryName: String? = CATEGORY_OTHER,
