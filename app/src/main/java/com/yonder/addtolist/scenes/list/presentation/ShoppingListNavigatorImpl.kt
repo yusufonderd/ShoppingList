@@ -48,7 +48,7 @@ class ShoppingListNavigatorImpl @Inject constructor(
   override fun navigateList(userListEntity: UserListEntity) {
     setBottomNavigationVisibility(false)
     navController.get().navigate(
-      ShoppingListItemsFragmentDirections.actionShoppingListToListDetail(
+      ShoppingListFragmentDirections.actionShoppingListToListDetail(
         userList = userListEntity,
         title = userListEntity.name
       )

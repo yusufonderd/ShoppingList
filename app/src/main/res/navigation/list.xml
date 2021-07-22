@@ -32,9 +32,9 @@
 
   <fragment
     android:id="@+id/shoppingListItemsScreen"
-    android:name="com.yonder.addtolist.scenes.list.presentation.ShoppingListItemsFragment"
+    android:name="com.yonder.addtolist.scenes.list.presentation.ShoppingListFragment"
     android:label="@string/title_shopping_lists"
-    tools:layout="@layout/shopping_list_items_fragment">
+    tools:layout="@layout/shopping_list_fragment">
 
     <action
       android:id="@+id/action_shopping_list_items_to_splash"

@@ -10,22 +10,21 @@ import com.yonder.addtolist.common.ui.extensions.addVerticalDivider
 import com.yonder.addtolist.common.ui.extensions.removeAnimator
 import com.yonder.addtolist.common.ui.extensions.setLinearLayoutManager
 import com.yonder.addtolist.common.ui.extensions.setSafeOnClickListener
-import com.yonder.addtolist.databinding.ShoppingListItemsFragmentBinding
+import com.yonder.addtolist.databinding.ShoppingListFragmentBinding
 import com.yonder.addtolist.local.entity.UserListEntity
-import com.yonder.addtolist.scenes.list.presentation.adapter.UserListsAdapter
+import com.yonder.addtolist.scenes.list.presentation.adapter.UserListAdapter
 import com.yonder.statelayout.State
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
-
 @AndroidEntryPoint
-class ShoppingListItemsFragment : BaseFragment<ShoppingListItemsFragmentBinding>() {
+class ShoppingListFragment : BaseFragment<ShoppingListFragmentBinding>() {
 
   val viewModel: ShoppingListItemsViewModel by viewModels()
 
   override fun initBinding(inflater: LayoutInflater) =
-    ShoppingListItemsFragmentBinding.inflate(inflater)
+    ShoppingListFragmentBinding.inflate(inflater)
 
   @Inject
   lateinit var shoppingListNavigator: ShoppingListNavigator
@@ -42,8 +41,6 @@ class ShoppingListItemsFragment : BaseFragment<ShoppingListItemsFragmentBinding>
     initRecyclerView()
   }
 
-
-
   private fun initRecyclerView() = with(binding.rvUserList) {
     setLinearLayoutManager()
     addVerticalDivider()
@@ -52,7 +49,7 @@ class ShoppingListItemsFragment : BaseFragment<ShoppingListItemsFragmentBinding>
 
   override fun initObservers() {
     lifecycleScope.launchWhenResumed {
-      viewModel.shoppingListViewState.collect { viewState ->
+      viewModel.state.collect { viewState ->
         when (viewState) {
           is ShoppingListItemsViewState.CreateNewListContent -> {
             onCreateListContent()
@@ -95,7 +92,7 @@ class ShoppingListItemsFragment : BaseFragment<ShoppingListItemsFragmentBinding>
     stateLayout.setState(State.CONTENT)
     binding.fabAdd.isVisible = true
     binding.ytCreateList.isVisible = false
-    rvUserList.adapter = UserListsAdapter(::onClickUserList).apply {
+    rvUserList.adapter = UserListAdapter(::onClickUserList).apply {
       submitList(userLists)
     }
   }

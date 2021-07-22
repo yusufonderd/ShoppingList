@@ -17,20 +17,20 @@ class ShoppingListItemsViewModel @Inject constructor(
   private val userListUseCase: UserListUseCase
 ) : ViewModel() {
 
-  private val _shoppingListViewState: MutableStateFlow<ShoppingListItemsViewState> =
+  private val _state: MutableStateFlow<ShoppingListItemsViewState> =
     MutableStateFlow(ShoppingListItemsViewState.Loading)
-  val shoppingListViewState: StateFlow<ShoppingListItemsViewState> get() = _shoppingListViewState
+  val state: StateFlow<ShoppingListItemsViewState> get() = _state
 
   fun getShoppingItems() {
     userListUseCase.getUserList().onEach { result ->
       result.onSuccess { userLists ->
         if (userLists.isEmpty()) {
-          _shoppingListViewState.value = ShoppingListItemsViewState.CreateNewListContent
+          _state.value = ShoppingListItemsViewState.CreateNewListContent
         } else {
-          _shoppingListViewState.value = ShoppingListItemsViewState.Result(userLists)
+          _state.value = ShoppingListItemsViewState.Result(userLists)
         }
       }.onError { error ->
-        _shoppingListViewState.value =
+        _state.value =
           ShoppingListItemsViewState.Error(error.toReadableMessage())
       }
     }.launchIn(viewModelScope)

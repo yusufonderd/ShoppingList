@@ -12,7 +12,7 @@ import com.yonder.addtolist.R
 import com.yonder.addtolist.common.ui.base.BaseListAdapter
 import com.yonder.addtolist.local.entity.UserListEntity
 
-class UserListsAdapter (private val onClickUserList: ((value: UserListEntity) -> Unit)) : BaseListAdapter<UserListEntity>(
+class UserListAdapter (private val onClickUserList: ((value: UserListEntity) -> Unit)) : BaseListAdapter<UserListEntity>(
   itemsSame = { old, new -> old.id == new.id },
   contentsSame = { old, new -> old == new }
 ) {
