@@ -10,6 +10,7 @@
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:padding="@dimen/padding_12"
+    android:textColor="@color/primaryTextColor"
     android:textAppearance="?textAppearanceBody1"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"

@@ -54,6 +54,8 @@ class UserListRepositoryImpl @Inject constructor(
     )
   }
 
+
+
   private suspend fun insertProducts(list: List<UserListResponse>?) {
     list?.forEach { userList ->
       val productEntities =
@@ -65,7 +67,11 @@ class UserListRepositoryImpl @Inject constructor(
     }
   }
 
-  override fun getUserList(): Flow<Result<List<UserListWithProducts>>> = flow {
+  override fun getUserListByListUUID(listUUID: String): Flow<UserListWithProducts> = flow {
+    emit((localDataSource.getUserListByUUID(listUUID)))
+  }
+
+  override fun getUserLists(): Flow<Result<List<UserListWithProducts>>> = flow {
     emit(Result.Loading)
     val localUserLists = localDataSource.getUserListWithProducts()
     if (localUserLists.isNotEmpty()) {

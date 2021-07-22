@@ -15,6 +15,7 @@ import com.yonder.addtolist.scenes.list.domain.mapper.CategoryProductsMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -36,12 +37,9 @@ class CategoryListRepositoryImpl @Inject constructor(
     emit(Result.Error(RoomResultException()))
   }
 
-  override fun fetchPopularProducts(): Flow<Result<List<ProductEntitySummary>>> = flow {
-    emit(Result.Loading)
-    emit(Result.Success(categoryDataSource.getPopularProducts()))
-  }.catch { e ->
-    e.printStackTrace()
-    emit(Result.Error(RoomResultException()))
+  override fun fetchPopularProducts(): Flow<List<ProductEntitySummary>> = flow {
+    val popularProducts = categoryDataSource.getPopularProducts()
+    emit((popularProducts))
   }
 
   override fun fetchCategories(): Flow<Result<List<CategoryWithProducts>>> = flow {

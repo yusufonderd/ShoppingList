@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yonder.addtolist.R
 import com.yonder.addtolist.common.ui.base.BaseListAdapter
 import com.yonder.addtolist.local.entity.ProductEntitySummary
+import com.yonder.addtolist.local.entity.UserListProductEntity
 
 /**
  * @author yusuf.onder
@@ -17,6 +18,9 @@ class ProductListsAdapter(private val onClickProduct: ((value: ProductEntitySumm
     itemsSame = { old, new -> old.name == new.name },
     contentsSame = { old, new -> old == new }
   ) {
+
+  var userListProducts: List<UserListProductEntity> = listOf()
+
   override fun onCreateViewHolder(
     parent: ViewGroup,
     inflater: LayoutInflater,
@@ -29,9 +33,14 @@ class ProductListsAdapter(private val onClickProduct: ((value: ProductEntitySumm
   override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
     when (holder) {
       is ProductListViewHolder -> {
-        holder.bind(getItem(position))
+        val product = getItem(position)
+        holder.bind(product, getUserListProduct(product))
       }
     }
+  }
+
+  private fun getUserListProduct(value: ProductEntitySummary): UserListProductEntity? {
+    return userListProducts.find { value.name == it.name }
   }
 
 }

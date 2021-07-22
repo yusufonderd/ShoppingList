@@ -13,6 +13,7 @@ interface UserListDataSource {
   suspend fun insertAll(list: List<UserListEntity>)
   suspend fun getUserLists(): List<UserListEntity>
   suspend fun getUserListWithProducts(): List<UserListWithProducts>
+  suspend fun getUserListByUUID(listUUID: String): UserListWithProducts
   suspend fun insertProducts(products: List<UserListProductEntity>)
 
 }

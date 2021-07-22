@@ -12,6 +12,7 @@ import com.yonder.addtolist.common.ui.extensions.openWithKeyboard
 import com.yonder.addtolist.common.ui.extensions.removeAnimator
 import com.yonder.addtolist.databinding.FragmentListDetailBinding
 import com.yonder.addtolist.local.entity.ProductEntitySummary
+import com.yonder.addtolist.local.entity.UserListWithProducts
 import com.yonder.addtolist.scenes.detail.adapter.productlist.ProductListsAdapter
 import com.yonder.statelayout.State
 import dagger.hilt.android.AndroidEntryPoint
@@ -54,12 +55,13 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>() {
           is ListDetailViewState.ShowContent -> {
             binding.stateLayout.setState(State.CONTENT)
             binding.etSearch.openWithKeyboard(requireContext())
+            viewModel.fetchProductsByUUID(args.userList.uuid)
           }
           is ListDetailViewState.QueryResult -> {
             setQueryResult(viewState.list)
           }
           is ListDetailViewState.PopularProducts -> {
-            setPopularProducts(viewState.list)
+            setPopularProducts(viewState.list,viewState.userListWithProducts)
           }
           is ListDetailViewState.Error -> {
             binding.stateLayout.setState(State.ERROR)
@@ -94,7 +96,8 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>() {
     setProductList(list, isHeaderVisible = false)
   }
 
-  private fun setPopularProducts(list: List<ProductEntitySummary>) {
+  private fun setPopularProducts(list: List<ProductEntitySummary>,userListWithProducts: UserListWithProducts) {
+    adapterProductList.userListProducts = userListWithProducts.products
     setProductList(list, isHeaderVisible = true)
   }
 

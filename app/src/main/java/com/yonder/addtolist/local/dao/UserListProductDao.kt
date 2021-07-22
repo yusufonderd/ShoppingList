@@ -43,7 +43,7 @@ interface UserListProductDao {
 
   @Transaction
   @Query("SELECT * FROM userList WHERE uuid = :uuid")
-  fun getUserListWithProductsBy(uuid: String): LiveData<List<UserListWithProducts>>
+  fun getUserListWithProductsBy(uuid: String): UserListWithProducts
 
   @Delete
   suspend fun delete(product: UserListProductEntity)

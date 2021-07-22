@@ -20,9 +20,14 @@ class UserListUseCaseImpl @Inject constructor(
   private val dispatcher: CoroutineThread
 ) : UserListUseCase {
 
-  override fun getUserList(): Flow<Result<List<UserListWithProducts>>> {
+  override fun getUserLists(): Flow<Result<List<UserListWithProducts>>> {
     return repository
-      .getUserList()
+      .getUserLists()
+      .flowOn(dispatcher.io)
+  }
+
+  override fun getUserListByUUID(listUUID: String): Flow<UserListWithProducts> {
+    return repository.getUserListByListUUID(listUUID)
       .flowOn(dispatcher.io)
   }
 

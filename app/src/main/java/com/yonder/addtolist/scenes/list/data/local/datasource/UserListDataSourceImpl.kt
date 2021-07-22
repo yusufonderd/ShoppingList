@@ -33,4 +33,7 @@ class UserListDataSourceImpl @Inject constructor(private val appDatabase: AppDat
     return appDatabase.userListProductDao().getAllUserListWithProducts()
   }
 
+  override suspend fun getUserListByUUID(listUUID: String): UserListWithProducts {
+    return appDatabase.userListProductDao().getUserListWithProductsBy(listUUID)
+  }
 }

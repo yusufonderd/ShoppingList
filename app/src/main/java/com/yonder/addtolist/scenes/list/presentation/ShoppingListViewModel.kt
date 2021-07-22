@@ -22,7 +22,7 @@ class ShoppingListItemsViewModel @Inject constructor(
   val state: StateFlow<ShoppingListItemsViewState> get() = _state
 
   fun getShoppingItems() {
-    userListUseCase.getUserList().onEach { result ->
+    userListUseCase.getUserLists().onEach { result ->
       result.onSuccess { userLists ->
         if (userLists.isEmpty()) {
           _state.value = ShoppingListItemsViewState.CreateNewListContent
