@@ -1,4 +1,4 @@
-package com.yonder.addtolist.scenes.list.data.remote.input
+package com.yonder.addtolist.core.network.request
 
 /**
  * @author yusuf.onder

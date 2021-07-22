@@ -21,7 +21,7 @@ import com.yonder.addtolist.local.entity.UserListProductEntity
     UserListEntity::class,
     ProductEntity::class,
     UserListProductEntity::class],
-  version = 7,
+  version = 8,
   exportSchema = false
 )
 

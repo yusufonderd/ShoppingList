@@ -1,9 +1,7 @@
-package com.yonder.addtolist.scenes.detail.domain
+package com.yonder.addtolist.scenes.detail.domain.category
 
 import com.yonder.addtolist.core.network.responses.Result
 import com.yonder.addtolist.core.network.thread.CoroutineThread
-import com.yonder.addtolist.data.local.UserPreferenceDataStore
-import com.yonder.addtolist.local.entity.CategoryEntity
 import com.yonder.addtolist.local.entity.CategoryWithProducts
 import com.yonder.addtolist.local.entity.ProductEntitySummary
 import kotlinx.coroutines.flow.Flow

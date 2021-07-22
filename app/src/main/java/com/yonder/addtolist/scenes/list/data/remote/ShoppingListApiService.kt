@@ -1,8 +1,10 @@
 package com.yonder.addtolist.scenes.list.data.remote
 
+import com.yonder.addtolist.core.network.request.CreateUserListProductRequest
 import com.yonder.addtolist.core.network.responses.BaseResponse
-import com.yonder.addtolist.scenes.list.data.remote.input.CreateUserListRequest
+import com.yonder.addtolist.core.network.request.CreateUserListRequest
 import com.yonder.addtolist.scenes.list.data.remote.response.CategoryProductResponse
+import com.yonder.addtolist.scenes.list.data.remote.response.UserListProductResponse
 import com.yonder.addtolist.scenes.list.data.remote.response.UserListResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -15,6 +17,10 @@ import retrofit2.http.Query
  */
 
 interface ShoppingListApiService {
+
+
+  @POST("newUserListProduct")
+  suspend fun createProduct(@Body request: CreateUserListProductRequest): BaseResponse<UserListProductResponse>
 
   @GET("categories")
   suspend fun getCategories(@Query("language_id") languageId: Int?): BaseResponse<ArrayList<CategoryProductResponse>>

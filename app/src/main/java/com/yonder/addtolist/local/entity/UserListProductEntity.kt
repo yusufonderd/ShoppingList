@@ -9,16 +9,16 @@ import androidx.room.PrimaryKey
  * Created on 20.07.2021
  */
 
-private const val CATEGORY_OTHER = "Other"
-private const val CATEGORY_IMAGE = "U+1F3F7"
+ const val CATEGORY_OTHER = "Other"
+ const val CATEGORY_IMAGE = "U+1F3F7"
 
 @Entity(tableName = "user_list_products")
 class UserListProductEntity(
-  @field:ColumnInfo(name = "userListUUID") val listUUID: String?,
+  @field:ColumnInfo(name = "userListUUID") @PrimaryKey val listUUID: String,
+  @field:ColumnInfo(name = "id") var id: Int? = null,
   @field:ColumnInfo(name = "name") var name: String?,
   @field:ColumnInfo(name = "category_image") var categoryImage: String? = CATEGORY_IMAGE,
   @field:ColumnInfo(name = "category_name") var categoryName: String? = CATEGORY_OTHER,
-  @field:ColumnInfo(name = "id") @PrimaryKey val id: Int? = null,
   @field:ColumnInfo(name = "note") var note: String? = "",
   @field:ColumnInfo(name = "unit") var unit: String? = null,
   @field:ColumnInfo(name = "done") var done: Int? = 0,

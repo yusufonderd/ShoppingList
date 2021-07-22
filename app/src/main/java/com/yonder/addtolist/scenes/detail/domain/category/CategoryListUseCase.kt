@@ -1,4 +1,4 @@
-package com.yonder.addtolist.scenes.detail.domain
+package com.yonder.addtolist.scenes.detail.domain.category
 
 import com.yonder.addtolist.core.network.responses.Result
 import com.yonder.addtolist.local.entity.CategoryEntity

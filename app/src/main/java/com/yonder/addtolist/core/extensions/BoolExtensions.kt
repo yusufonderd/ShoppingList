@@ -5,3 +5,11 @@ package com.yonder.addtolist.core.extensions
  */
 
 fun Boolean?.orFalse() = this ?: false
+
+fun Boolean?.toInt(): Int {
+  return when (this) {
+    true -> 1
+    false -> 0
+    else -> 0
+  }
+}

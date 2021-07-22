@@ -1,5 +1,6 @@
 package com.yonder.addtolist.scenes.list.domain.mapper
 
+import com.yonder.addtolist.core.extensions.toInt
 import com.yonder.addtolist.core.mapper.Mapper
 import com.yonder.addtolist.local.entity.UserListProductEntity
 import com.yonder.addtolist.scenes.list.data.remote.response.UserListProductResponse
@@ -15,18 +16,18 @@ class UserListProductMapper constructor(
 
   override fun map(input: UserListProductResponse?): UserListProductEntity {
     return UserListProductEntity(
-      listUUID,
-      input?.name,
-      input?.categoryImage,
-      input?.categoryName,
-      input?.id,
-      input?.note,
-      input?.unit,
-      input?.done,
-      input?.favorite,
-      input?.quantity,
-      input?.price,
-      true
+      listUUID = listUUID,
+      id = input?.id,
+      name = input?.name,
+      categoryImage = input?.categoryImage,
+      categoryName = input?.categoryName,
+      note = input?.note,
+      unit = input?.unit,
+      done = input?.done.toInt(),
+      favorite = input?.favorite.toInt(),
+      quantity = input?.quantity,
+      price = input?.price,
+      sync = true
     )
   }
 }

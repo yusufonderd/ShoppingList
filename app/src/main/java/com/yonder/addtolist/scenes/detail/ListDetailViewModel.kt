@@ -5,12 +5,14 @@ import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.core.extensions.toReadableMessage
 import com.yonder.addtolist.local.entity.CategoryWithProducts
 import com.yonder.addtolist.local.entity.ProductEntitySummary
-import com.yonder.addtolist.scenes.detail.domain.CategoryListUseCase
+import com.yonder.addtolist.scenes.detail.domain.category.CategoryListUseCase
+import com.yonder.addtolist.scenes.detail.domain.product.AddProductUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -20,7 +22,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ListDetailViewModel @Inject constructor(
-  private val userListUseCase: CategoryListUseCase
+  private val userListUseCase: CategoryListUseCase,
+  private val productUseCase: AddProductUseCase
+
+
 ) : ViewModel() {
 
   private val _state: MutableStateFlow<ListDetailViewState> =
@@ -54,7 +59,6 @@ class ListDetailViewModel @Inject constructor(
     }
   }
 
-
   private fun getProductsByQuery(query: String) {
     userListUseCase.fetchProductByQuery(query)
       .onEach { result ->
@@ -70,6 +74,20 @@ class ListDetailViewModel @Inject constructor(
         result.onSuccess {
           _state.value = ListDetailViewState.PopularProducts(it)
         }
+      }.launchIn(viewModelScope)
+  }
+
+  fun addProduct(userListUUID: String, product: ProductEntitySummary) {
+    productUseCase.addProduct(userListUUID, product)
+      .onEach { result ->
+        result.onSuccess {
+          Timber.d("addProduct onSuccess => $it")
+        }.onError {
+          Timber.d("addProduct onError => $it")
+        }.onLoading {
+          Timber.d("addProduct onLoading")
+        }
+
       }.launchIn(viewModelScope)
   }
 

@@ -35,15 +35,18 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>() {
   }
 
   private fun onClickProduct(product: ProductEntitySummary) {
-
+    viewModel.addProduct(
+      userListUUID = args.userList.uuid,
+      product = product
+    )
   }
 
   override fun initBinding(inflater: LayoutInflater) =
     FragmentListDetailBinding.inflate(inflater)
 
-  override fun initObservers()  {
+  override fun initObservers() {
     lifecycleScope.launchWhenResumed {
-     viewModel.state.collect { viewState ->
+      viewModel.state.collect { viewState ->
         when (viewState) {
           ListDetailViewState.Loading -> {
             binding.stateLayout.setState(State.LOADING)
@@ -88,11 +91,11 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>() {
   }
 
   private fun setQueryResult(list: List<ProductEntitySummary>) {
-    setProductList(list, false)
+    setProductList(list, isHeaderVisible = false)
   }
 
   private fun setPopularProducts(list: List<ProductEntitySummary>) {
-    setProductList(list, true)
+    setProductList(list, isHeaderVisible = true)
   }
 
   private fun setProductList(list: List<ProductEntitySummary>, isHeaderVisible: Boolean) {

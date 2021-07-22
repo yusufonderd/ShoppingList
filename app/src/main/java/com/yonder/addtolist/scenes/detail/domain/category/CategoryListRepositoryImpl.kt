@@ -1,20 +1,17 @@
-package com.yonder.addtolist.scenes.detail.domain
+package com.yonder.addtolist.scenes.detail.domain.category
 
 import com.yonder.addtolist.core.mapper.ListMapperImpl
-import com.yonder.addtolist.core.mapper.Mapper
 import com.yonder.addtolist.core.network.exceptions.RoomResultException
 import com.yonder.addtolist.core.network.exceptions.ServerResultException
 import com.yonder.addtolist.core.network.responses.Result
 import com.yonder.addtolist.data.local.UserPreferenceDataStore
-import com.yonder.addtolist.local.entity.CategoryEntity
 import com.yonder.addtolist.local.entity.CategoryWithProducts
-import com.yonder.addtolist.local.entity.ProductEntity
 import com.yonder.addtolist.local.entity.ProductEntitySummary
+import com.yonder.addtolist.scenes.detail.domain.mapper.CategoryEntityMapper
+import com.yonder.addtolist.scenes.detail.domain.mapper.ProductEntityMapper
 import com.yonder.addtolist.scenes.list.data.local.datasource.CategoryDataSource
 import com.yonder.addtolist.scenes.list.data.remote.ShoppingListApiService
 import com.yonder.addtolist.scenes.list.domain.mapper.CategoryProductsMapper
-import com.yonder.addtolist.scenes.list.domain.model.ProductUiModel
-import com.yonder.addtolist.scenes.list.domain.model.TranslationUiModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
@@ -54,9 +51,7 @@ class CategoryListRepositoryImpl @Inject constructor(
       val entities = mapper.map(result)
       entities.list.forEach { category ->
         val categories = ListMapperImpl(
-          CategoryEntityMapper(
-            categoryImage = category.image
-          )
+          CategoryEntityMapper(categoryImage = category.image)
         ).map(category.translationResponses)
         val products = ListMapperImpl(
           ProductEntityMapper(
@@ -64,7 +59,6 @@ class CategoryListRepositoryImpl @Inject constructor(
             categoryId = "${category.id}"
           )
         ).map(category.products)
-
         categoryDataSource.insertAll(categories)
         categoryDataSource.insertAllProducts(products)
         userPreferenceDataStore.setFetchedCategories()
@@ -77,27 +71,6 @@ class CategoryListRepositoryImpl @Inject constructor(
   }
 }
 
-class CategoryEntityMapper(
-  private val categoryImage: String
-) : Mapper<TranslationUiModel, CategoryEntity> {
-  override fun map(input: TranslationUiModel): CategoryEntity {
-    return CategoryEntity("${input.categoryId}", input.name, categoryImage, input.languageId)
-  }
-}
 
 
-class ProductEntityMapper(
-  private val categoryId: String,
-  private val categoryImage: String
-) : Mapper<ProductUiModel, ProductEntity> {
-  override fun map(input: ProductUiModel): ProductEntity {
-    return ProductEntity(
-      input.id,
-      categoryId,
-      input.name,
-      input.isPopular,
-      input.languageId,
-      categoryImage
-    )
-  }
-}
+

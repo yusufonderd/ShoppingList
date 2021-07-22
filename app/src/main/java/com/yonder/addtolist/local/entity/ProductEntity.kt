@@ -17,4 +17,4 @@ class ProductEntity(
   @field:ColumnInfo(name = "languageId") val languageId: Int,
   @field:ColumnInfo(name = "categoryImage") val categoryImage: String?)
 
-data class ProductEntitySummary(val name:  String,var categoryImage: String?,val productId : Int? = 0)
+data class ProductEntitySummary(val name:  String,var categoryImage: String?)

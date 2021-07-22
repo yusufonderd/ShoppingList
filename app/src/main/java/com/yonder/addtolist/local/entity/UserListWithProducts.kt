@@ -10,7 +10,7 @@ import androidx.room.Relation
 data class UserListWithProducts(
   @Embedded val userList: UserListEntity,
   @Relation(
-    parentColumn = "id",
+    parentColumn = "uuid",
     entityColumn = "userListUUID"
   )
   val products: List<UserListProductEntity>

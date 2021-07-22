@@ -30,7 +30,7 @@ interface UserListProductDao {
   fun getLastNProduct(limit: Int): LiveData<List<UserListProductEntity>>
 
   @Transaction
-  @Query("SELECT * FROM userList WHERE id = :listUUID")
+  @Query("SELECT * FROM userList WHERE uuid = :listUUID")
   fun getUserListWithProducts(listUUID: String): LiveData<List<UserListWithProducts>>
 
   @Transaction
@@ -42,7 +42,7 @@ interface UserListProductDao {
   fun getFirstUserListWithProducts(limit: Int, offset: Int): LiveData<List<UserListWithProducts>>
 
   @Transaction
-  @Query("SELECT * FROM userList WHERE id = :uuid")
+  @Query("SELECT * FROM userList WHERE uuid = :uuid")
   fun getUserListWithProductsBy(uuid: String): LiveData<List<UserListWithProducts>>
 
   @Delete

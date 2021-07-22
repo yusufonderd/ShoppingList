@@ -9,3 +9,11 @@ const val LENGTH_ZERO = 0
 const val FIRST_INDEX = 0
 
 fun Int?.orZero() = this ?: 0
+
+fun Int?.toBoolean(): Boolean{
+  return when(this){
+    1 -> true
+    0 -> false
+    else -> false
+  }
+}

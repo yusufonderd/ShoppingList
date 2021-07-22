@@ -5,6 +5,7 @@ import com.yonder.addtolist.local.entity.CategoryEntity
 import com.yonder.addtolist.local.entity.CategoryWithProducts
 import com.yonder.addtolist.local.entity.ProductEntity
 import com.yonder.addtolist.local.entity.ProductEntitySummary
+import com.yonder.addtolist.local.entity.UserListProductEntity
 import javax.inject.Inject
 
 /**
@@ -35,5 +36,9 @@ class CategoryDataSourceImpl @Inject constructor(private val appDatabase: AppDat
 
   override suspend fun insertAll(list: List<CategoryEntity>) {
     return appDatabase.categoryDao().insertAll(list);
+  }
+
+  override suspend fun insert(product: UserListProductEntity) {
+   return appDatabase.userListProductDao().insert(product)
   }
 }

@@ -6,3 +6,5 @@ package com.yonder.addtolist.core.network.exceptions
  */
 private const val SERVER_ERROR_MESSAGE = "Server response success is false"
 class ServerResultException : Throwable(SERVER_ERROR_MESSAGE)
+
+

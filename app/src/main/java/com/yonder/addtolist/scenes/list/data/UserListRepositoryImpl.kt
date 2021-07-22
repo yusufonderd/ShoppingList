@@ -1,13 +1,12 @@
 package com.yonder.addtolist.scenes.list.data
 
-import com.yonder.addtolist.core.data.BaseRepository
 import com.yonder.addtolist.core.mapper.ListMapperImpl
 import com.yonder.addtolist.core.network.exceptions.ServerResultException
 import com.yonder.addtolist.core.network.responses.Result
 import com.yonder.addtolist.scenes.list.data.local.datasource.UserListDataSource
 import com.yonder.addtolist.local.entity.UserListEntity
 import com.yonder.addtolist.scenes.list.data.remote.ShoppingListApiService
-import com.yonder.addtolist.scenes.list.data.remote.input.CreateUserListRequest
+import com.yonder.addtolist.core.network.request.CreateUserListRequest
 import com.yonder.addtolist.scenes.list.data.remote.response.UserListResponse
 import com.yonder.addtolist.scenes.list.domain.mapper.UserListMapper
 import com.yonder.addtolist.scenes.list.domain.mapper.UserListProductMapper
@@ -16,6 +15,7 @@ import com.yonder.addtolist.scenes.list.domain.repository.UserListRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -59,6 +59,7 @@ class UserListRepositoryImpl @Inject constructor(
         ListMapperImpl(
           UserListProductMapper(userList.uuid)
         ).map(userList.userListProducts)
+      Timber.d("productEntities => ${productEntities.size}")
       localDataSource.insertProducts(productEntities)
     }
   }
