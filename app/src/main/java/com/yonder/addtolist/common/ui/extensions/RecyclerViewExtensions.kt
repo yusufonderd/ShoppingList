@@ -1,5 +1,6 @@
 package com.yonder.addtolist.common.ui.extensions
 
+import android.content.Context
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,5 +23,15 @@ fun RecyclerView.addVerticalDivider() {
     )
     addItemDecoration(dividerItemDecoration)
   }
+}
 
+
+fun RecyclerView.setLinearLayoutManager(
+  isVertical: Boolean = true
+) {
+  layoutManager = if (isVertical) {
+    LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+  } else {
+    LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+  }
 }

@@ -1,8 +1,6 @@
 package com.yonder.addtolist.scenes.detail
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
@@ -43,15 +41,9 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>() {
   override fun initBinding(inflater: LayoutInflater) =
     FragmentListDetailBinding.inflate(inflater)
 
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-    initViews()
-    observeLiveData()
-  }
-
-  private fun observeLiveData() = with(viewModel) {
+  override fun initObservers()  {
     lifecycleScope.launchWhenResumed {
-      state.collect { viewState ->
+     viewModel.state.collect { viewState ->
         when (viewState) {
           ListDetailViewState.Loading -> {
             binding.stateLayout.setState(State.LOADING)
@@ -77,7 +69,7 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>() {
     }
   }
 
-  private fun initViews() {
+  override fun initViews() {
     initEditText()
     initRecyclerView()
   }

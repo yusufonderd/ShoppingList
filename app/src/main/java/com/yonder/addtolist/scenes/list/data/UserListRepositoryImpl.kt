@@ -11,6 +11,7 @@ import com.yonder.addtolist.scenes.list.data.remote.input.CreateUserListRequest
 import com.yonder.addtolist.scenes.list.data.remote.response.UserListResponse
 import com.yonder.addtolist.scenes.list.domain.mapper.UserListMapper
 import com.yonder.addtolist.scenes.list.domain.mapper.UserListProductMapper
+import com.yonder.addtolist.scenes.list.domain.mapper.UserListRequestMapper
 import com.yonder.addtolist.scenes.list.domain.repository.UserListRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -30,14 +31,16 @@ class UserListRepositoryImpl @Inject constructor(
   override fun createUserList(request: CreateUserListRequest): Flow<Result<UserListEntity>> = flow {
     emit(Result.Loading)
     val response = apiService.createUserList(request)
+    val entity = UserListRequestMapper().map(request)
     if (response.success == true) {
-      val localUserList = mapper.map(response.data)
-      localDataSource.insert(localUserList)
-      emit(Result.Success(localUserList))
+      entity.id = response.data?.id
+      emit(Result.Success(entity))
     } else {
       emit(Result.Error<UserListEntity>(ServerResultException()))
     }
+    localDataSource.insert(entity)
   }.catch { error ->
+    localDataSource.insert(UserListRequestMapper().map(request))
     error.printStackTrace()
     emit(Result.Error<UserListEntity>(error))
   }

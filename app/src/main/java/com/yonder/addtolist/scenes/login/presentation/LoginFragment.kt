@@ -2,67 +2,57 @@ package com.yonder.addtolist.scenes.login.presentation
 
 import android.app.Activity
 import android.content.Intent
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.yonder.addtolist.R
 import com.yonder.addtolist.common.ui.base.BaseFragment
+import com.yonder.addtolist.common.ui.extensions.setSafeOnClickListener
 import com.yonder.addtolist.databinding.LoginFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<LoginFragmentBinding>() {
 
+  override fun initBinding(inflater: LayoutInflater) = LoginFragmentBinding.inflate(inflater)
+
   val viewModel: LoginViewModel by viewModels()
 
-  private fun setObserver() {
-    lifecycleScope.launchWhenResumed {
-      viewModel.state.collect { viewState ->
-        when (viewState) {
-          LoginViewState.NavigateLogin -> {
-            findNavController().navigate(R.id.action_login_to_shopping_list_items)
-          }
-          else -> Unit
+  override fun initObservers() {
+    viewModel.state.observe(viewLifecycleOwner) { viewState ->
+      when (viewState) {
+        LoginViewState.NavigateLogin -> {
+          findNavController().navigate(R.id.action_login_to_shopping_list_items)
         }
+        is LoginViewState.Error -> {
+          showSnackBar(viewState.message)
+        }
+        else -> Unit
       }
     }
   }
 
-  private fun setupViews() {
+  override fun initViews() = with(binding) {
     setupFacebookLogin()
-    binding.btnContinueAsGuest.setOnClickListener {
+    btnContinueAsGuest.setSafeOnClickListener {
       viewModel.continueAsGuest()
     }
-    binding.btnContinueWithFacebook.setOnClickListener {
-      binding.loginButton.performClick()
+    btnContinueWithFacebook.setSafeOnClickListener {
+      loginButton.performClick()
     }
-    binding.btnContinueWithGoogle.setOnClickListener {
+    btnContinueWithGoogle.setSafeOnClickListener {
       startGoogleLogin()
     }
   }
 
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-    setupViews()
-    setObserver()
+  private fun setupFacebookLogin() = with(binding.loginButton) {
+    fragment = this@LoginFragment
+    registerCallback(viewModel.callbackManager, viewModel.facebookCallback)
   }
 
-  private fun setupFacebookLogin() {
-    with(binding.loginButton){
-      fragment = this@LoginFragment
-      registerCallback(viewModel.callbackManager, viewModel.facebookCallback)
-    }
-  }
-
-  override fun initBinding(inflater: LayoutInflater) =
-    LoginFragmentBinding.inflate(inflater)
 
   internal val startForGoogleSignInResult =
     registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->

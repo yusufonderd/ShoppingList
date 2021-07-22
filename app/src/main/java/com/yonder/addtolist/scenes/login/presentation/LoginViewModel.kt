@@ -1,5 +1,7 @@
 package com.yonder.addtolist.scenes.login.presentation
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.facebook.CallbackManager
@@ -15,6 +17,7 @@ import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.core.network.UserRegisterRequest
 import com.yonder.addtolist.scenes.login.domain.model.UserUiModel
 import com.yonder.addtolist.core.extensions.toReadableMessage
+import com.yonder.addtolist.scenes.createlist.CreateListViewState
 import com.yonder.addtolist.scenes.login.domain.usecase.FacebookGraphUseCase
 import com.yonder.addtolist.scenes.login.domain.usecase.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -35,9 +38,11 @@ class LoginViewModel @Inject constructor(
   private val facebookGraphExecute: FacebookGraphUseCase
 ) : ViewModel() {
 
-  private val _state: MutableStateFlow<LoginViewState> =
-    MutableStateFlow(LoginViewState.Initial)
-  val state: StateFlow<LoginViewState> get() = _state
+
+  private val _state = MutableLiveData<LoginViewState>()
+  val state: LiveData<LoginViewState> = _state
+
+
 
   internal val facebookCallback = object : FacebookCallback<LoginResult> {
     override fun onSuccess(result: LoginResult?) {
@@ -108,7 +113,6 @@ class LoginViewModel @Inject constructor(
 }
 
 sealed class LoginViewState {
-  object Initial : LoginViewState()
   object NavigateLogin : LoginViewState()
   data class Error(val message: String) : LoginViewState()
 }

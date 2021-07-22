@@ -4,6 +4,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.yonder.addtolist.R
 import com.yonder.addtolist.local.entity.UserListEntity
@@ -47,8 +48,16 @@ class ShoppingListNavigatorImpl @Inject constructor(
   override fun navigateList(userListEntity: UserListEntity) {
     setBottomNavigationVisibility(false)
     navController.get().navigate(
-      ShoppingListItemsFragmentDirections.actionShoppingListToListDetail(userListEntity)
+      ShoppingListItemsFragmentDirections.actionShoppingListToListDetail(
+        userList = userListEntity,
+        title = userListEntity.name
+      )
     )
+  }
+
+  override fun navigateCreateListFragment() {
+    setBottomNavigationVisibility(false)
+    navController.get().navigate(R.id.action_shopping_list_to_create_list)
   }
 
 }

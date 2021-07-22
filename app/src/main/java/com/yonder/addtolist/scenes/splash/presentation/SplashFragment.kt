@@ -1,8 +1,6 @@
 package com.yonder.addtolist.scenes.splash.presentation
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -17,16 +15,11 @@ class SplashFragment : BaseFragment<SplashFragmentBinding>() {
 
   val viewModel: SplashViewModel by viewModels()
 
-  override fun initBinding(inflater: LayoutInflater)  =
-    SplashFragmentBinding.inflate(layoutInflater)
+  override fun initBinding(inflater: LayoutInflater)  = SplashFragmentBinding.inflate(layoutInflater)
 
+  override fun initViews() = Unit
 
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-    setObserver()
-
-  }
-  private fun setObserver() {
+  override fun initObservers() {
     lifecycleScope.launchWhenStarted {
       viewModel.state.collect { viewState ->
         when (viewState) {
@@ -41,4 +34,5 @@ class SplashFragment : BaseFragment<SplashFragmentBinding>() {
       }
     }
   }
+
 }

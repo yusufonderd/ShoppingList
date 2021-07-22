@@ -9,5 +9,6 @@ import com.yonder.addtolist.local.entity.UserListEntity
 interface ShoppingListNavigator : BaseNavigator {
   fun navigateSplash()
   fun navigateLogin()
+  fun navigateCreateListFragment()
   fun navigateList(userListEntity: UserListEntity)
 }

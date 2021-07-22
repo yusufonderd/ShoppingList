@@ -1,14 +1,17 @@
 package com.yonder.addtolist.scenes.createlist
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
+import androidx.core.text.trimmedLength
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.yonder.addtolist.R
 import com.yonder.addtolist.common.ui.base.BaseFragment
 import com.yonder.addtolist.common.ui.extensions.cursorEnd
 import com.yonder.addtolist.common.ui.extensions.setSafeOnClickListener
 import com.yonder.addtolist.common.utils.decider.ColorDecider
+import com.yonder.addtolist.core.extensions.LENGTH_ZERO
+import com.yonder.addtolist.core.extensions.orZero
 import com.yonder.addtolist.databinding.FragmentCreateListBinding
 import com.yonder.statelayout.State
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,13 +31,8 @@ class CreateListFragment : BaseFragment<FragmentCreateListBinding>() {
 
   private val listColors get() = requireContext().resources.getIntArray(R.array.rainbow)
 
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-    initViews()
-    observeLiveData()
-  }
 
-  private fun observeLiveData() {
+  override fun initObservers() {
     viewModel.state.observe(viewLifecycleOwner) { viewState ->
       when (viewState) {
         is CreateListViewState.EmptyListName -> {
@@ -43,8 +41,8 @@ class CreateListFragment : BaseFragment<FragmentCreateListBinding>() {
         is CreateListViewState.Loading -> {
           binding.stateLayout.setState(State.LOADING)
         }
-        is CreateListViewState.Success -> {
-          binding.stateLayout.setState(State.CONTENT)
+        is CreateListViewState.ListCreated -> {
+          findNavController().popBackStack()
         }
         is CreateListViewState.Error -> {
           showSnackBar(viewState.errorMessage)
@@ -55,23 +53,37 @@ class CreateListFragment : BaseFragment<FragmentCreateListBinding>() {
   }
 
   private fun showEmptyListError() {
-    showToastMessage(R.string.list_name_should_not_be_empty)
+    binding.textField.error = getString(R.string.list_name_should_not_be_empty)
+    binding.textField.isErrorEnabled = true
   }
 
-  private fun initViews() = with(binding) {
+  override fun initViews() {
 
-    horizontalPicker.initView(listNames) { listName ->
-      binding.tilName.setText(listName)
-      binding.tilName.cursorEnd()
+    with(binding) {
+      horizontalPicker.initView(listNames) { listName ->
+        binding.tilName.setText(listName)
+        binding.tilName.cursorEnd()
+      }
+
+      yoColorPicker.initView(listColors)
+
+      btnCreateList.setSafeOnClickListener {
+        val listName = tilName.text.toString()
+        viewModel.createList(
+          listName = listName,
+          listColor = colorDecider.convertToHexString(yoColorPicker.getSelectedColorResId())
+        )
+      }
     }
 
-    yoColorPicker.initView(listColors)
-    btnCreateList.setSafeOnClickListener {
-      val listName = tilName.text.toString()
-      viewModel.createList(
-        listName = listName,
-        listColor = colorDecider.convertToHexString(yoColorPicker.getSelectedColorResId())
-      )
+    initEditText()
+  }
+
+  private fun initEditText() = with(binding.tilName) {
+    addTextChangedListener { editable ->
+      if (editable?.trimmedLength().orZero() > LENGTH_ZERO){
+        binding.textField.isErrorEnabled = false
+      }
     }
   }
 

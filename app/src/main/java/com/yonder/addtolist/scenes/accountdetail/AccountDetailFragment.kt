@@ -1,8 +1,6 @@
 package com.yonder.addtolist.scenes.accountdetail
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -25,19 +23,13 @@ class AccountDetailFragment : BaseFragment<FragmentAccountDetailBinding>() {
   override fun initBinding(inflater: LayoutInflater) =
     FragmentAccountDetailBinding.inflate(inflater)
 
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-    initViews()
-    observeData()
-  }
-
-  private fun initViews() {
+  override fun initViews() {
     binding.btnLogout.setSafeOnClickListener {
       viewModel.logout()
     }
   }
 
-  private fun observeData() {
+  override fun initObservers() {
     lifecycleScope.launchWhenResumed {
       viewModel.state.collect { viewState ->
         when (viewState) {

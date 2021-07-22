@@ -48,6 +48,10 @@
     <item name="android:textColor">@color/black</item>
   </style>
 
+  <style name="ErrorTextAppearance" parent="@android:style/TextAppearance">
+  <item name="android:textColor">@color/colorRed</item>
+  <item name="android:textSize">12sp</item>
+</style>
 
 
 </resources>

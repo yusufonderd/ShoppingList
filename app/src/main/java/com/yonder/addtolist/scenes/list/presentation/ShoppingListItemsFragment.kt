@@ -1,14 +1,15 @@
 package com.yonder.addtolist.scenes.list.presentation
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.yonder.addtolist.R
 import com.yonder.addtolist.common.ui.base.BaseFragment
+import com.yonder.addtolist.common.ui.extensions.addVerticalDivider
+import com.yonder.addtolist.common.ui.extensions.removeAnimator
+import com.yonder.addtolist.common.ui.extensions.setLinearLayoutManager
+import com.yonder.addtolist.common.ui.extensions.setSafeOnClickListener
 import com.yonder.addtolist.databinding.ShoppingListItemsFragmentBinding
 import com.yonder.addtolist.local.entity.UserListEntity
 import com.yonder.addtolist.scenes.list.presentation.adapter.UserListsAdapter
@@ -29,48 +30,71 @@ class ShoppingListItemsFragment : BaseFragment<ShoppingListItemsFragmentBinding>
   @Inject
   lateinit var shoppingListNavigator: ShoppingListNavigator
 
-
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-    observeLiveData()
-  }
-
   override fun onResume() {
     super.onResume()
     viewModel.getShoppingItems()
   }
 
-  private fun observeLiveData() {
+  override fun initViews() {
+    binding.fabAdd.setSafeOnClickListener {
+      shoppingListNavigator.navigateCreateListFragment()
+    }
+    initRecyclerView()
+  }
+
+
+
+  private fun initRecyclerView() = with(binding.rvUserList) {
+    setLinearLayoutManager()
+    addVerticalDivider()
+    removeAnimator()
+  }
+
+  override fun initObservers() {
     lifecycleScope.launchWhenResumed {
       viewModel.shoppingListViewState.collect { viewState ->
         when (viewState) {
           is ShoppingListItemsViewState.CreateNewListContent -> {
-            binding.stateLayout.setState(State.CONTENT)
-            binding.ytCreateList.isVisible = true
-            binding.ytCreateList.initView(R.string.create_your_first_list, R.string.create_list) {
-              findNavController().navigate(R.id.action_shopping_list_to_create_list)
-            }
+            onCreateListContent()
           }
           is ShoppingListItemsViewState.Result -> {
             onListLoaded(viewState.userLists)
           }
           is ShoppingListItemsViewState.Loading -> {
-            binding.stateLayout.setState(State.LOADING)
+            onLoading()
           }
 
           is ShoppingListItemsViewState.Error ->
-            binding.stateLayout.setState(State.ERROR)
+            onError()
         }
       }
     }
   }
 
+  private fun onError(){
+    binding.stateLayout.setState(State.ERROR)
+  }
+
+  private fun onLoading(){
+    binding.stateLayout.setState(State.LOADING)
+
+  }
+  private fun onCreateListContent() = with(binding){
+    stateLayout.setState(State.CONTENT)
+    ytCreateList.isVisible = true
+    fabAdd.isVisible = false
+    ytCreateList.initView(R.string.create_your_first_list, R.string.create_list) {
+      shoppingListNavigator.navigateCreateListFragment()
+    }
+  }
   private fun onClickUserList(userList: UserListEntity) {
     shoppingListNavigator.navigateList(userList)
   }
 
   private fun onListLoaded(userLists: List<UserListEntity>) = with(binding) {
     stateLayout.setState(State.CONTENT)
+    binding.fabAdd.isVisible = true
+    binding.ytCreateList.isVisible = false
     rvUserList.adapter = UserListsAdapter(::onClickUserList).apply {
       submitList(userLists)
     }

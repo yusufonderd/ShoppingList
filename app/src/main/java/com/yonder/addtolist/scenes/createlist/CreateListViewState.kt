@@ -8,7 +8,7 @@ package com.yonder.addtolist.scenes.createlist
 sealed class CreateListViewState {
   object EmptyListName : CreateListViewState()
   object Loading : CreateListViewState()
-  object Success : CreateListViewState()
+  object ListCreated : CreateListViewState()
   data class Error(val errorMessage : String) : CreateListViewState()
 }
 
