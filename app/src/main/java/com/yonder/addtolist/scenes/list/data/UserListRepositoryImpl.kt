@@ -67,10 +67,6 @@ class UserListRepositoryImpl @Inject constructor(
     }
   }
 
-  override fun getUserListByListUUID(listUUID: String): Flow<UserListWithProducts> = flow {
-    emit((localDataSource.getUserListByUUID(listUUID)))
-  }
-
   override fun getUserLists(): Flow<Result<List<UserListWithProducts>>> = flow {
     emit(Result.Loading)
     val localUserLists = localDataSource.getUserListWithProducts()

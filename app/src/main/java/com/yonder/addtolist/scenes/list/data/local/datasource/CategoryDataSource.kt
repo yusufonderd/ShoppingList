@@ -18,4 +18,7 @@ interface CategoryDataSource {
   suspend fun getProductsByQuery(query: String): List<ProductEntitySummary>
   suspend fun getPopularProducts(): List<ProductEntitySummary>
   suspend fun insert(product: UserListProductEntity)
+  suspend fun delete(product: UserListProductEntity)
+  suspend fun update(product: UserListProductEntity)
+
 }

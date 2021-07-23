@@ -3,12 +3,16 @@ package com.yonder.addtolist.scenes.list.data.remote
 import com.yonder.addtolist.core.network.request.CreateUserListProductRequest
 import com.yonder.addtolist.core.network.responses.BaseResponse
 import com.yonder.addtolist.core.network.request.CreateUserListRequest
+import com.yonder.addtolist.core.network.request.UserListProductRequest
 import com.yonder.addtolist.scenes.list.data.remote.response.CategoryProductResponse
 import com.yonder.addtolist.scenes.list.data.remote.response.UserListProductResponse
 import com.yonder.addtolist.scenes.list.data.remote.response.UserListResponse
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.HTTP
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -18,6 +22,16 @@ import retrofit2.http.Query
 
 interface ApiService {
 
+  @PUT("newUserListProduct/{productId}")
+  suspend fun updateProduct(
+    @Path("productId") productId: Int?,
+    @Body userListProductRequest: UserListProductRequest
+  ): BaseResponse<UserListProductResponse>
+
+  @DELETE("newUserListProduct/{productId}")
+  suspend fun removeProduct(
+    @Path("productId") productId: Int?
+  ): BaseResponse<UserListProductResponse>
 
   @POST("newUserListProduct")
   suspend fun createProduct(@Body request: CreateUserListProductRequest): BaseResponse<UserListProductResponse>

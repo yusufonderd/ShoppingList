@@ -10,6 +10,7 @@ import androidx.room.Transaction
 import androidx.room.Update
 import com.yonder.addtolist.local.entity.UserListProductEntity
 import com.yonder.addtolist.local.entity.UserListWithProducts
+import kotlinx.coroutines.flow.Flow
 
 /**
  * @author yusuf.onder
@@ -43,14 +44,13 @@ interface UserListProductDao {
 
   @Transaction
   @Query("SELECT * FROM userList WHERE uuid = :uuid")
-  fun getUserListWithProductsBy(uuid: String): UserListWithProducts
+  fun getUserListWithProductsBy(uuid: String): Flow<UserListWithProducts>
 
   @Delete
   suspend fun delete(product: UserListProductEntity)
 
   @Query("SELECT * FROM user_list_products WHERE name = :productName and userListUUID = :listUUID LIMIT 1 ")
-  suspend fun findByListUUID(listUUID: String, productName: String): UserListProductEntity?
-
+  fun findByListUUID(listUUID: String, productName: String): Flow<UserListProductEntity?>
 
   @Update
   suspend fun update(item: UserListProductEntity)

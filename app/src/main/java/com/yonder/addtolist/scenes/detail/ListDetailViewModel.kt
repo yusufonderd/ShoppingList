@@ -5,17 +5,17 @@ import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.core.extensions.toReadableMessage
 import com.yonder.addtolist.local.entity.CategoryWithProducts
 import com.yonder.addtolist.local.entity.ProductEntitySummary
+import com.yonder.addtolist.local.entity.UserListProductEntity
 import com.yonder.addtolist.local.entity.UserListWithProducts
 import com.yonder.addtolist.scenes.detail.domain.category.CategoryListUseCase
-import com.yonder.addtolist.scenes.detail.domain.product.AddProductUseCase
-import com.yonder.addtolist.scenes.list.domain.usecase.UserListUseCase
+import com.yonder.addtolist.scenes.detail.domain.product.ProductUseCase
+import com.yonder.addtolist.scenes.list.domain.usecase.LocalListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.zip
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -27,29 +27,22 @@ import javax.inject.Inject
 @HiltViewModel
 class ListDetailViewModel @Inject constructor(
   private val categoryListUseCase: CategoryListUseCase,
-  private val productUseCase: AddProductUseCase,
-  private val userListUseCase: UserListUseCase
-
+  private val productUseCase: ProductUseCase,
+  private val localUserListUseCase: LocalListUseCase
 ) : ViewModel() {
 
   private val _state: MutableStateFlow<ListDetailViewState> =
     MutableStateFlow(ListDetailViewState.Initial)
   val state: StateFlow<ListDetailViewState> get() = _state
 
-
   init {
     fetchCategories()
   }
 
   fun fetchProductsByUUID(listUUID: String) {
-    val flow1 = categoryListUseCase.fetchPopularProducts()
-    val flow2 = userListUseCase.getUserListByUUID(listUUID)
-    flow1.zip(flow2) { result1, result2 ->
-      _state.value = ListDetailViewState.PopularProducts(result1, result2)
-
+    localUserListUseCase.getUserListByUUID(listUUID).onEach {
+      _state.value = ListDetailViewState.UserListContent(it)
     }.launchIn(viewModelScope)
-
-
   }
 
   private fun fetchCategories() {
@@ -57,6 +50,7 @@ class ListDetailViewModel @Inject constructor(
       .onEach { result ->
         result.onSuccess {
           _state.value = ListDetailViewState.ShowContent(it)
+          getPopularProducts()
         }.onLoading {
           _state.value = ListDetailViewState.Loading
         }.onError { error ->
@@ -67,10 +61,18 @@ class ListDetailViewModel @Inject constructor(
 
   fun searchBy(query: String) {
     if (query.trim().isEmpty()) {
-      //getPopularProducts()
+      getPopularProducts()
     } else {
       getProductsByQuery(query)
     }
+  }
+
+
+  private fun getPopularProducts() {
+    categoryListUseCase.fetchPopularProducts()
+      .onEach {
+        _state.value = ListDetailViewState.PopularProducts(it)
+      }.launchIn(viewModelScope)
   }
 
   private fun getProductsByQuery(query: String) {
@@ -83,28 +85,57 @@ class ListDetailViewModel @Inject constructor(
   }
 
 
-  fun addProduct(userListUUID: String, product: ProductEntitySummary) {
-    productUseCase.addProduct(userListUUID, product)
-      .onEach { result ->
-        result.onSuccess {
-          Timber.e("addProduct onSuccess => $it")
-        }.onError {
-          Timber.e("addProduct onError => $it")
-        }.onLoading {
-          Timber.e("addProduct onLoading")
-        }
+  fun addProduct(listId: String, userListUUID: String, product: ProductEntitySummary) {
+    productUseCase.addProduct(
+      listId = listId,
+      listUUID = userListUUID,
+      product = product
+    ).onEach {
 
       }.launchIn(viewModelScope)
   }
 
+  fun increaseQuantity(listId: String,product: UserListProductEntity) {
+    product.quantity = product.quantity?.plus(1.0)
+    productUseCase.updateProduct(listId,product).onEach {
+      Timber.d("updateProduct => $it")
+    }.launchIn(viewModelScope)
+  }
+
+  fun decreaseQuantity(listId: String,product: UserListProductEntity) {
+    product.quantity = product.quantity?.minus(1.0)
+    productUseCase.updateProduct(listId,product).onEach {
+
+    }.launchIn(viewModelScope)
+  }
+
+  fun removeProduct(product: UserListProductEntity) {
+    productUseCase.removeProduct(product)
+      .onEach { result ->
+        result.onSuccess {
+
+        }.onError {
+
+        }
+
+      }.launchIn(viewModelScope)
+  }
 }
 
 sealed class ListDetailViewState {
   object Initial : ListDetailViewState()
   object Loading : ListDetailViewState()
+  data class AddProduct(
+    val userListProductEntity: UserListProductEntity
+  ) : ListDetailViewState()
+
+  data class UserListContent(
+    val userListWithProducts: UserListWithProducts
+  ) : ListDetailViewState()
+
+
   data class PopularProducts(
     val list: List<ProductEntitySummary>,
-    val userListWithProducts: UserListWithProducts
   ) : ListDetailViewState()
 
   data class QueryResult(val list: List<ProductEntitySummary>) : ListDetailViewState()

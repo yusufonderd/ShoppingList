@@ -13,19 +13,37 @@ import javax.inject.Inject
  * @author yusuf.onder
  * Created on 22.07.2021
  */
-class AddProductUseCaseImpl @Inject constructor(
+class ProductUseCaseImpl @Inject constructor(
   private val productRepository: ProductRepository,
   private val dispatcher: CoroutineThread
-) : AddProductUseCase {
+) : ProductUseCase {
 
   override fun addProduct(
+    listId: String,
     listUUID: String,
     product: ProductEntitySummary
   ): Flow<Result<UserListProductEntity>> {
     val createUserListProductRequest =
-      UserListProductMapper.mapProductEntitySummaryToRequest(product)
+      UserListProductMapper.mapProductEntitySummaryToRequest(listId,product)
     return productRepository
       .addProduct(listUUID, createUserListProductRequest)
+      .flowOn(dispatcher.io)
+  }
+
+  override fun removeProduct(
+    productEntity: UserListProductEntity
+  ): Flow<Result<UserListProductEntity>> {
+    return productRepository
+      .removeProduct(productEntity)
+      .flowOn(dispatcher.io)
+  }
+
+  override fun updateProduct(
+    listId : String,
+    productEntity: UserListProductEntity
+  ): Flow<Result<UserListProductEntity>> {
+    return productRepository
+      .updateProduct(listId,productEntity)
       .flowOn(dispatcher.io)
   }
 

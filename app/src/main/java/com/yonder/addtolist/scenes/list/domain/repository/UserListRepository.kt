@@ -12,6 +12,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserListRepository {
   fun getUserLists(): Flow<Result<List<UserListWithProducts>>>
-  fun getUserListByListUUID(listUUID : String): Flow<UserListWithProducts>
   fun createUserList(request: CreateUserListRequest): Flow<Result<UserListEntity>>
 }

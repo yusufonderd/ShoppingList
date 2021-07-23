@@ -1,18 +1,34 @@
 package com.yonder.addtolist.scenes.detail.domain.mapper
 
-import com.yonder.addtolist.core.extensions.orFalse
+import com.yonder.addtolist.core.extensions.orZero
+import com.yonder.addtolist.core.extensions.toBoolean
 import com.yonder.addtolist.core.extensions.toInt
 import com.yonder.addtolist.core.network.request.CreateUserListProductRequest
+import com.yonder.addtolist.core.network.request.UserListProductRequest
 import com.yonder.addtolist.local.entity.ProductEntitySummary
 import com.yonder.addtolist.local.entity.UserListProductEntity
 import com.yonder.addtolist.scenes.list.data.remote.response.UserListProductResponse
-import java.util.*
 
 /**
  * @author yusuf.onder
  * Created on 22.07.2021
  */
 object UserListProductMapper {
+
+  fun mapEntityToResponse(listId: String,input: UserListProductEntity): UserListProductRequest {
+    return UserListProductRequest(
+      name = input.name.orEmpty(),
+      userListId = listId,
+      category_image = input.categoryImage.orEmpty(),
+      category_name = input.categoryName.orEmpty(),
+      note = input.note.orEmpty(),
+      unit = input.unit.orEmpty(),
+      done = input.done.toBoolean(),
+      favorite = input.favorite.toBoolean(),
+      quantity = input.quantity.orZero(),
+      price = input.price.orZero(),
+    )
+  }
 
   fun mapResponseToEntity(listUUID: String, input: UserListProductResponse): UserListProductEntity {
     return UserListProductEntity(
@@ -51,8 +67,12 @@ object UserListProductMapper {
     )
   }
 
-  fun mapProductEntitySummaryToRequest(product: ProductEntitySummary): CreateUserListProductRequest {
+  fun mapProductEntitySummaryToRequest(
+    listId: String,
+    product: ProductEntitySummary
+  ): CreateUserListProductRequest {
     return CreateUserListProductRequest(
+      userListId = listId,
       name = product.name,
       category_image = product.categoryImage.orEmpty()
     )

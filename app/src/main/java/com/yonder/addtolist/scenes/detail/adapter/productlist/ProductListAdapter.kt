@@ -13,13 +13,19 @@ import com.yonder.addtolist.local.entity.UserListProductEntity
  * Created on 19.07.2021
  */
 
-class ProductListsAdapter(private val onClickProduct: ((value: ProductEntitySummary) -> Unit)) :
+class ProductListsAdapter() :
   BaseListAdapter<ProductEntitySummary>(
     itemsSame = { old, new -> old.name == new.name },
     contentsSame = { old, new -> old == new }
   ) {
 
-  var userListProducts: List<UserListProductEntity> = listOf()
+  lateinit var iProductOperation: IProductOperation
+  var userListProducts: ArrayList<UserListProductEntity> = arrayListOf()
+
+  fun addProduct(entity: UserListProductEntity) {
+    userListProducts.add(entity)
+    notifyDataSetChanged()
+  }
 
   override fun onCreateViewHolder(
     parent: ViewGroup,
@@ -27,7 +33,7 @@ class ProductListsAdapter(private val onClickProduct: ((value: ProductEntitySumm
     viewType: Int
   ): RecyclerView.ViewHolder {
     val view = LayoutInflater.from(parent.context).inflate(R.layout.item_product, parent, false)
-    return ProductListViewHolder(view, onClickProduct)
+    return ProductListViewHolder(view, iProductOperation)
   }
 
   override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

@@ -24,4 +24,10 @@ sealed class Result<out T> {
     if (this is Error) handler(throwable)
   }
 
+
+  fun onSuccessOrError(handler: () -> Unit): Result<T> = this.also {
+    if (this is Success || this is Error) handler()
+  }
+
+
 }

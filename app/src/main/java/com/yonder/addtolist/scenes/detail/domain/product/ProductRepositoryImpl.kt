@@ -21,6 +21,36 @@ class ProductRepositoryImpl @Inject constructor(
   private val api: ApiService,
   private val localDataSource: CategoryDataSource
 ) : ProductRepository {
+
+  override fun updateProduct(
+    listId: String,
+    product: UserListProductEntity
+  ): Flow<Result<UserListProductEntity>> = flow {
+    emit(Result.Loading)
+    val request = UserListProductMapper.mapEntityToResponse(listId,product)
+    val response = api.updateProduct(product.id,request)
+    if (response.success == true) {
+      localDataSource.update(product)
+    }
+    emit(Result.Success<UserListProductEntity>(product))
+  }.catch { e ->
+    e.printStackTrace()
+    emit(Result.Error(e))
+  }
+  override fun removeProduct(
+    product: UserListProductEntity
+  ): Flow<Result<UserListProductEntity>> = flow {
+    emit(Result.Loading)
+    val response = api.removeProduct(product.id)
+    if (response.success == true) {
+      localDataSource.delete(product)
+    }
+    emit(Result.Success<UserListProductEntity>(product))
+  }.catch { e ->
+    e.printStackTrace()
+    emit(Result.Error(e))
+  }
+
   override fun addProduct(
     listUUID: String,
     product: CreateUserListProductRequest

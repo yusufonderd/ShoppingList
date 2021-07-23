@@ -5,6 +5,10 @@ import com.yonder.addtolist.scenes.list.data.local.datasource.UserListDataSource
 import com.yonder.addtolist.scenes.list.data.remote.ApiService
 import com.yonder.addtolist.scenes.list.domain.repository.UserListRepository
 import com.yonder.addtolist.scenes.list.data.UserListRepositoryImpl
+import com.yonder.addtolist.scenes.list.domain.usecase.LocalListUseCase
+import com.yonder.addtolist.scenes.list.domain.usecase.LocalListUseCaseImpl
+import com.yonder.addtolist.scenes.list.domain.usecase.LocalUserListProductUseCase
+import com.yonder.addtolist.scenes.list.domain.usecase.LocalUserListProductUseCaseImpl
 import com.yonder.addtolist.scenes.list.domain.usecase.UserListUseCaseImpl
 import com.yonder.addtolist.scenes.list.domain.usecase.UserListUseCase
 import dagger.Binds
@@ -29,6 +33,12 @@ interface ListModule {
 
   @get:[Binds]
   val UserListRepositoryImpl.userRepository: UserListRepository
+
+  @get:[Binds]
+  val LocalListUseCaseImpl.localUserListUseCase: LocalListUseCase
+
+  @get:[Binds]
+  val LocalUserListProductUseCaseImpl.localUserListProductUseCase: LocalUserListProductUseCase
 
   companion object{
 

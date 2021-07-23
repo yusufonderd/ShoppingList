@@ -26,10 +26,7 @@ class UserListUseCaseImpl @Inject constructor(
       .flowOn(dispatcher.io)
   }
 
-  override fun getUserListByUUID(listUUID: String): Flow<UserListWithProducts> {
-    return repository.getUserListByListUUID(listUUID)
-      .flowOn(dispatcher.io)
-  }
+
 
   override fun createList(listName: String, listColor: String): Flow<Result<UserListEntity>> {
     return repository
