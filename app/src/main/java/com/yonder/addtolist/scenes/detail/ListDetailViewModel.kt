@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.core.extensions.EMPTY_STRING
 import com.yonder.addtolist.core.extensions.toReadableMessage
+import com.yonder.addtolist.local.entity.CATEGORY_OTHER_IMAGE
 import com.yonder.addtolist.local.entity.CategoryWithProducts
 import com.yonder.addtolist.local.entity.ProductEntitySummary
 import com.yonder.addtolist.local.entity.UserListProductEntity
@@ -16,16 +17,12 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.zip
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
-import kotlinx.coroutines.flow.Flow as Flow1
 
 /**
  * @author yusuf.onder
@@ -43,14 +40,11 @@ class ListDetailViewModel @Inject constructor(
   private val _state: MutableStateFlow<ListDetailViewState> =
     MutableStateFlow(ListDetailViewState.Initial)
   val state: StateFlow<ListDetailViewState> get() = _state
-
-  val query = ""
+  var job: Job? = null
 
   init {
     fetchCategories()
   }
-
-  var job : Job? = null
 
   fun fetchProducts(listUUID: String, query: String = EMPTY_STRING) {
     val flow1 = localUserListUseCase.getUserListByUUID(listUUID)
@@ -60,11 +54,12 @@ class ListDetailViewModel @Inject constructor(
       categoryListUseCase.fetchProductByQuery(query)
     }
     job?.cancel()
-    job =  viewModelScope.launch {
+    job = viewModelScope.launch {
       flow1.combine(flow2) { userListWithProducts, listingProducts ->
         _state.value = ListDetailViewState.UserListContent(
           userListWithProducts,
-          listingProducts
+          listingProducts,
+          query
         )
       }.collect()
     }
@@ -85,58 +80,42 @@ class ListDetailViewModel @Inject constructor(
   }
 
 
+  fun addProduct(listId: String, userListUUID: String, productName: String) = with(viewModelScope) {
+    launch {
+      productUseCase.getProductEntityForName(productName).collect { productEntity ->
+        val categoryImage = productEntity?.categoryImage ?: CATEGORY_OTHER_IMAGE
+        productUseCase.addProduct(
+          listId = listId,
+          listUUID = userListUUID,
+          productName = productName,
+          productCategoryImage = categoryImage
+        ).collect()
+      }
+    }
 
-
-
-  fun addProduct(listId: String, userListUUID: String, productName: String) {
-    productUseCase.addProduct(
-      listId = listId,
-      listUUID = userListUUID,
-      productName = productName
-    ).onEach {
-
-    }.launchIn(viewModelScope)
   }
 
-  fun increaseQuantity(listId: String, product: UserListProductEntity) {
+
+  fun increaseQuantity(listId: String, product: UserListProductEntity) = with(viewModelScope) {
     product.quantity = product.quantity?.plus(1.0)
-    productUseCase.updateProduct(listId, product).onEach {
-      Timber.d("updateProduct => $it")
-    }.launchIn(viewModelScope)
+    launch {
+      productUseCase.updateProduct(listId, product)
+        .collect()
+    }
   }
 
-  fun decreaseQuantity(listId: String, product: UserListProductEntity) {
+  fun decreaseQuantity(listId: String, product: UserListProductEntity) = with(viewModelScope) {
     product.quantity = product.quantity?.minus(1.0)
-    productUseCase.updateProduct(listId, product).onEach {
-
-    }.launchIn(viewModelScope)
+    launch {
+      productUseCase.updateProduct(listId, product)
+        .collect()
+    }
   }
 
-  fun removeProduct(product: UserListProductEntity) {
-    productUseCase.removeProduct(product)
-      .onEach { result ->
-        result.onSuccess {
-
-        }.onError {
-
-        }
-
-      }.launchIn(viewModelScope)
+  fun removeProduct(product: UserListProductEntity) = with(viewModelScope) {
+    launch {
+      productUseCase.removeProduct(product).collect()
+    }
   }
 }
 
-sealed class ListDetailViewState {
-  object Initial : ListDetailViewState()
-  object Loading : ListDetailViewState()
-  data class AddProduct(
-    val userListProductEntity: UserListProductEntity
-  ) : ListDetailViewState()
-
-  data class UserListContent(
-    val userListWithProducts: UserListWithProducts,
-    val list: List<ProductEntitySummary>
-  ) : ListDetailViewState()
-
-  data class ShowContent(val categoryList: List<CategoryWithProducts>) : ListDetailViewState()
-  data class Error(var errorMessage: String) : ListDetailViewState()
-}

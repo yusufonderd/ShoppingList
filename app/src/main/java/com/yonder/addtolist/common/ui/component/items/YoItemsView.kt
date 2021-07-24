@@ -4,8 +4,11 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isGone
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.yonder.addtolist.common.ui.component.items.adapter.ItemListAdapter
+import com.yonder.addtolist.common.ui.component.items.model.ItemUiModel
 import com.yonder.addtolist.common.ui.component.items.model.ItemUiModelMapper
 import com.yonder.addtolist.common.ui.extensions.addVerticalDivider
 import com.yonder.addtolist.common.ui.extensions.removeAnimator
@@ -49,14 +52,26 @@ class YoItemsView @JvmOverloads constructor(
       addedProducts = userListWithProducts.products,
       filteredProducts = list
     )
-    binding.tvHeader.isVisible = query.isEmpty()
+
+    val isVisibleQuery = query.isNotEmpty()
+    binding.yoProductQueryItem.isVisible = isVisibleQuery
+    if (isVisibleQuery) {
+      val entity = userListWithProducts.products.find { it.name == query }
+      val queryItemModel = ItemUiModel(query, entity)
+      binding.yoProductQueryItem.bind(
+        listener = productOperationListener,
+        query = query,
+        value = queryItemModel
+      )
+    }
+
+    binding.tvHeader.isGone = isVisibleQuery
     if (adapter == null) {
       adapter = ItemListAdapter().apply {
         itemOperationListener = productOperationListener
         this.query = query
         submitList(itemsList)
       }
-      adapter?.query = query
       binding.rvItems.adapter = adapter
     } else {
       adapter?.apply {

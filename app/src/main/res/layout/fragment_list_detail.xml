@@ -15,6 +15,7 @@
     android:hint="@string/what_would_you_like_to_buy"
     app:hintAnimationEnabled="false"
     app:hintEnabled="true"
+    android:animateLayoutChanges="true"
     app:layout_constraintBottom_toTopOf="@+id/recyclerView"
     app:layout_constraintEnd_toStartOf="@+id/btnCancel"
     app:layout_constraintStart_toStartOf="parent"

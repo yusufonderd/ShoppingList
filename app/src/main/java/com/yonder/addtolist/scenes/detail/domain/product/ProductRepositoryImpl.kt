@@ -4,6 +4,7 @@ import com.yonder.addtolist.core.extensions.orZero
 import com.yonder.addtolist.core.network.exceptions.ServerResultException
 import com.yonder.addtolist.core.network.request.CreateUserListProductRequest
 import com.yonder.addtolist.core.network.responses.Result
+import com.yonder.addtolist.local.entity.ProductEntity
 import com.yonder.addtolist.local.entity.UserListProductEntity
 import com.yonder.addtolist.scenes.detail.domain.mapper.UserListProductMapper
 import com.yonder.addtolist.scenes.list.data.local.datasource.CategoryDataSource
@@ -22,6 +23,11 @@ class ProductRepositoryImpl @Inject constructor(
   private val localDataSource: CategoryDataSource
 ) : ProductRepository {
 
+
+  override fun getProductEntityByName(productName: String): Flow<ProductEntity?> = flow {
+    val popularProducts = localDataSource.getProductByEntity(productName)
+    emit(popularProducts)
+  }
   override fun updateProduct(
     listId: String,
     product: UserListProductEntity

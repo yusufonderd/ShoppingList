@@ -20,5 +20,5 @@ interface CategoryDataSource {
   suspend fun insert(product: UserListProductEntity)
   suspend fun delete(product: UserListProductEntity)
   suspend fun update(product: UserListProductEntity)
-
+  suspend fun getProductByEntity(productName: String) : ProductEntity?
 }

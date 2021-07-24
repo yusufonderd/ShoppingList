@@ -44,6 +44,10 @@ class CategoryDataSourceImpl @Inject constructor(private val appDatabase: AppDat
     return appDatabase.categoryDao().insertAll(list);
   }
 
+  override suspend fun getProductByEntity(productName: String): ProductEntity? {
+    return appDatabase.productDao().findProduct(1,productName);
+  }
+
   override suspend fun insert(product: UserListProductEntity) {
    return appDatabase.userListProductDao().insert(product)
   }
