@@ -12,11 +12,11 @@
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/margin_8"
-    app:hintAnimationEnabled="false"
     android:hint="@string/what_would_you_like_to_buy"
+    app:hintAnimationEnabled="false"
     app:hintEnabled="true"
     app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintEnd_toStartOf="@+id/btnCancel"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
 
@@ -27,20 +27,48 @@
 
   </com.google.android.material.textfield.TextInputLayout>
 
+  <com.google.android.material.button.MaterialButton
+    android:id="@+id/btnCancel"
+    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+    android:layout_width="wrap_content"
+    android:layout_height="0dp"
+    android:layout_marginEnd="@dimen/margin_8"
+    android:visibility="gone"
+    tools:visibility="visible"
+    android:text="@string/cancel"
+    app:layout_constraintBottom_toBottomOf="@+id/tilSearch"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="@+id/tilSearch"
+    tools:text="Cancel">
+
+  </com.google.android.material.button.MaterialButton>
 
 
-
-  <com.yonder.addtolist.common.ui.component.list.result.YoFilteredItemsView
+  <com.yonder.addtolist.common.ui.component.items.YoItemsView
     android:id="@+id/yoFilteredItemsView"
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:layout_marginTop="@dimen/margin_8"
+    android:visibility="gone"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/tilSearch"
+    tools:visibility="visible" />
+
+
+  <com.yonder.addtolist.common.ui.component.productlist.YoProductListView
+    android:id="@+id/yoProductListView"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_marginTop="@dimen/margin_8"
+    android:visibility="visible"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/tilSearch">
 
-  </com.yonder.addtolist.common.ui.component.list.result.YoFilteredItemsView>
 
+  </com.yonder.addtolist.common.ui.component.productlist.YoProductListView>
 
 </com.yonder.statelayout.StateLayoutView>

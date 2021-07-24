@@ -1,24 +1,23 @@
-package com.yonder.addtolist.common.ui.component.list.result
+package com.yonder.addtolist.common.ui.component.items
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.RecyclerView
-import com.yonder.addtolist.common.ui.component.list.result.model.ItemUiModelMapper
+import com.yonder.addtolist.common.ui.component.items.adapter.ItemListAdapter
+import com.yonder.addtolist.common.ui.component.items.model.ItemUiModelMapper
 import com.yonder.addtolist.common.ui.extensions.addVerticalDivider
 import com.yonder.addtolist.common.ui.extensions.removeAnimator
 import com.yonder.addtolist.databinding.LayoutYoFilteredItemsBinding
 import com.yonder.addtolist.local.entity.ProductEntitySummary
 import com.yonder.addtolist.local.entity.UserListWithProducts
-import timber.log.Timber
 
 /**
  * @author yusuf.onder
  * Created on 23.07.2021
  */
-class YoFilteredItemsView @JvmOverloads constructor(
+class YoItemsView @JvmOverloads constructor(
   context: Context,
   attrs: AttributeSet? = null,
   defStyleAttr: Int = 0
@@ -28,7 +27,7 @@ class YoFilteredItemsView @JvmOverloads constructor(
     LayoutYoFilteredItemsBinding.inflate(LayoutInflater.from(context), this, true)
   }
 
-  var adapter: ProductListsAdapter? = null
+  var adapter: ItemListAdapter? = null
 
   init {
     initRecyclerView()
@@ -43,7 +42,7 @@ class YoFilteredItemsView @JvmOverloads constructor(
     userListWithProducts: UserListWithProducts,
     list: List<ProductEntitySummary>,
     query: String,
-    productOperation: IProductOperation
+    productOperationListener: ItemOperationListener
   ) {
 
     val itemsList = ItemUiModelMapper.mapToUiModel(
@@ -52,8 +51,8 @@ class YoFilteredItemsView @JvmOverloads constructor(
     )
     binding.tvHeader.isVisible = query.isEmpty()
     if (adapter == null) {
-      adapter = ProductListsAdapter().apply {
-        iProductOperation = productOperation
+      adapter = ItemListAdapter().apply {
+        itemOperationListener = productOperationListener
         this.query = query
         submitList(itemsList)
       }

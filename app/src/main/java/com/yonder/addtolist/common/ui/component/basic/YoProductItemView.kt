@@ -8,10 +8,9 @@ import android.text.style.StyleSpan
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.isGone
 import androidx.core.view.isInvisible
-import com.yonder.addtolist.common.ui.component.list.result.IProductOperation
-import com.yonder.addtolist.common.ui.component.list.result.model.ItemUiModel
+import com.yonder.addtolist.common.ui.component.items.ItemOperationListener
+import com.yonder.addtolist.common.ui.component.items.model.ItemUiModel
 import com.yonder.addtolist.common.ui.extensions.setSafeOnClickListener
 import com.yonder.addtolist.core.extensions.INDEX_NOT_FOUND
 import com.yonder.addtolist.core.extensions.orZero
@@ -36,7 +35,7 @@ class YoProductItemView @JvmOverloads constructor(
 
   fun bind(
     value: ItemUiModel,
-    listener: IProductOperation,
+    listener: ItemOperationListener,
     query: String
   ) {
     val product = value.entity

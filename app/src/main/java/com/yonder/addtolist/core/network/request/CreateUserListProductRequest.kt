@@ -1,8 +1,8 @@
 package com.yonder.addtolist.core.network.request
 
 import com.google.gson.annotations.SerializedName
-import com.yonder.addtolist.local.entity.CATEGORY_IMAGE
-import com.yonder.addtolist.local.entity.CATEGORY_OTHER
+import com.yonder.addtolist.local.entity.CATEGORY_OTHER_IMAGE
+import com.yonder.addtolist.local.entity.CATEGORY_OTHER_NAME
 
 /**
  * @author yusuf.onder
@@ -16,8 +16,8 @@ data class CreateUserListProductRequest(
   @SerializedName("price") val price: Double = 0.0,
   @SerializedName("total_price") val total_price: Double = 0.0,
   @SerializedName("unit") val unit: String = "",
-  @SerializedName("category_name") val category_name: String = CATEGORY_OTHER,
-  @SerializedName("category_image") val category_image: String = CATEGORY_IMAGE,
+  @SerializedName("category_name") val category_name: String = CATEGORY_OTHER_NAME,
+  @SerializedName("category_image") val category_image: String = CATEGORY_OTHER_IMAGE,
   @SerializedName("note") val note: String = "",
   @SerializedName("done") val done: Boolean = false,
   @SerializedName("favorite") val favorite: Boolean = false
@@ -31,8 +31,8 @@ data class UserListProductRequest(
   @SerializedName("total_price") val total_price: Double = 0.0,
   @SerializedName("unit") val unit: String = "",
   @SerializedName("user_list_id") val userListId: String = "",
-  @SerializedName("category_name") val category_name: String = CATEGORY_OTHER,
-  @SerializedName("category_image") val category_image: String = CATEGORY_IMAGE,
+  @SerializedName("category_name") val category_name: String = CATEGORY_OTHER_NAME,
+  @SerializedName("category_image") val category_image: String = CATEGORY_OTHER_IMAGE,
   @SerializedName("note") val note: String = "",
   @SerializedName("done") val done: Boolean = false,
   @SerializedName("favorite") val favorite: Boolean = false

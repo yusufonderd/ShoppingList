@@ -1,4 +1,4 @@
-package com.yonder.addtolist.common.ui.component.list.result.model
+package com.yonder.addtolist.common.ui.component.items.model
 
 import com.yonder.addtolist.local.entity.UserListProductEntity
 

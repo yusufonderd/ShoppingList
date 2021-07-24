@@ -1,20 +1,19 @@
-package com.yonder.addtolist.common.ui.component.list.result
+package com.yonder.addtolist.common.ui.component.items.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.yonder.addtolist.common.ui.component.list.result.model.ItemUiModel
+import com.yonder.addtolist.common.ui.component.items.ItemOperationListener
+import com.yonder.addtolist.common.ui.component.items.model.ItemUiModel
 import com.yonder.addtolist.databinding.ItemProductBinding
-import com.yonder.addtolist.local.entity.ProductEntitySummary
-import com.yonder.addtolist.local.entity.UserListProductEntity
 
 /**
  * @author yusuf.onder
  * Created on 20.07.2021
  */
 
-class ProductListViewHolder(
+class ItemListViewHolder(
   view: View,
-  private val listener: IProductOperation
+  private val listener: ItemOperationListener
 ) : RecyclerView.ViewHolder(view) {
   private val binding = ItemProductBinding.bind(view)
 
