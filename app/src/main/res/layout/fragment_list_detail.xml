@@ -12,6 +12,7 @@
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/margin_8"
+    app:hintAnimationEnabled="false"
     android:hint="@string/what_would_you_like_to_buy"
     app:hintEnabled="true"
     app:layout_constraintBottom_toTopOf="@+id/recyclerView"

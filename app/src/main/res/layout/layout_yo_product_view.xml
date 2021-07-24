@@ -36,15 +36,15 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
-      android:paddingHorizontal="@dimen/padding_8"
-      android:maxLines="1"
-      app:autoSizeTextType="uniform"
       android:gravity="center"
-      app:autoSizeMinTextSize="12sp"
+      android:maxLines="1"
+      android:paddingHorizontal="@dimen/padding_8"
       android:paddingVertical="@dimen/padding_2"
       android:textAppearance="?textAppearanceBody1"
       android:textColor="@color/white"
-      tools:text="12" />
+      app:autoSizeMinTextSize="12sp"
+      app:autoSizeTextType="uniform"
+      tools:text="2" />
 
   </com.google.android.material.card.MaterialCardView>
 
@@ -67,9 +67,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/margin_4"
-    android:background="@color/gray_50"
+    android:background="?attr/selectableItemBackground"
     android:padding="@dimen/padding_8"
-    android:src="@drawable/ic_baseline_remove_circle_24"
+    android:src="@drawable/ic_baseline_remove_circle_32"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintTop_toTopOf="parent"

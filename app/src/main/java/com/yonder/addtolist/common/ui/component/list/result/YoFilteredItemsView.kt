@@ -12,6 +12,7 @@ import com.yonder.addtolist.common.ui.extensions.removeAnimator
 import com.yonder.addtolist.databinding.LayoutYoFilteredItemsBinding
 import com.yonder.addtolist.local.entity.ProductEntitySummary
 import com.yonder.addtolist.local.entity.UserListWithProducts
+import timber.log.Timber
 
 /**
  * @author yusuf.onder
@@ -43,23 +44,27 @@ class YoFilteredItemsView @JvmOverloads constructor(
     list: List<ProductEntitySummary>,
     query: String,
     productOperation: IProductOperation
-
   ) {
 
     val itemsList = ItemUiModelMapper.mapToUiModel(
       addedProducts = userListWithProducts.products,
       filteredProducts = list
     )
-
     binding.tvHeader.isVisible = query.isEmpty()
     if (adapter == null) {
       adapter = ProductListsAdapter().apply {
         iProductOperation = productOperation
+        this.query = query
         submitList(itemsList)
       }
+      adapter?.query = query
       binding.rvItems.adapter = adapter
     } else {
-      adapter?.submitList(itemsList)
+      adapter?.apply {
+        this.query = query
+        submitList(itemsList)
+        notifyDataSetChanged()
+      }
     }
   }
 

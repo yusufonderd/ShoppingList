@@ -18,7 +18,7 @@ class ProductListViewHolder(
 ) : RecyclerView.ViewHolder(view) {
   private val binding = ItemProductBinding.bind(view)
 
-  fun bind(value: ItemUiModel) {
-    binding.yoProductView.bind(value, listener)
+  fun bind(value: ItemUiModel, query: String) {
+    binding.yoProductView.bind(value, listener, query)
   }
 }

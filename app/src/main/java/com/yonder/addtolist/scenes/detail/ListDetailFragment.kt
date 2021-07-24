@@ -1,6 +1,7 @@
 package com.yonder.addtolist.scenes.detail
 
 import android.view.LayoutInflater
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -12,6 +13,7 @@ import com.yonder.addtolist.local.entity.ProductEntitySummary
 import com.yonder.addtolist.local.entity.UserListProductEntity
 import com.yonder.addtolist.local.entity.UserListWithProducts
 import com.yonder.addtolist.common.ui.component.list.result.IProductOperation
+import com.yonder.addtolist.common.utils.keyboard.KeyboardVisibilityEvent
 import com.yonder.statelayout.State
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -40,7 +42,17 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>() {
 
   override fun onResume() {
     super.onResume()
+    KeyboardVisibilityEvent.registerEventListener(activity) { isKeyboardOpened: Boolean ->
+      Timber.e("KeyboardVisibilityEvent isOpen => $isKeyboardOpened")
+      binding.yoFilteredItemsView.isVisible = isKeyboardOpened
+
+    }
     viewModel.fetchProducts(listUUID)
+  }
+
+  override fun onStop() {
+    super.onStop()
+    KeyboardVisibilityEvent.unRegisterEventListener(activity)
   }
 
   override fun initObservers() {
@@ -59,7 +71,11 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>() {
           }
 
           is ListDetailViewState.UserListContent -> {
-            onUserListContent(viewState.userListWithProducts, viewState.list, binding.etSearch.text.toString())
+            onUserListContent(
+              viewState.userListWithProducts,
+              viewState.list,
+              binding.etSearch.text.toString()
+            )
           }
 
           is ListDetailViewState.Error -> {
@@ -113,7 +129,12 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>() {
     query: String
   ) {
     Timber.d("onUserListContent => ${filteredProducts.count()}")
-    binding.yoFilteredItemsView.bind(userListWithProducts, filteredProducts, query, iProductOperation)
+    binding.yoFilteredItemsView.bind(
+      userListWithProducts,
+      filteredProducts,
+      query,
+      iProductOperation
+    )
   }
 
 
