@@ -1,7 +1,6 @@
 package com.yonder.addtolist.scenes.detail
 
 import android.view.LayoutInflater
-import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -16,6 +15,7 @@ import com.yonder.addtolist.common.ui.component.list.result.IProductOperation
 import com.yonder.statelayout.State
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import timber.log.Timber
 
 
 /**
@@ -59,7 +59,7 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>() {
           }
 
           is ListDetailViewState.UserListContent -> {
-            onUserListContent(viewState.userListWithProducts, viewState.list, viewState.query)
+            onUserListContent(viewState.userListWithProducts, viewState.list, binding.etSearch.text.toString())
           }
 
           is ListDetailViewState.Error -> {
@@ -109,10 +109,11 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>() {
 
   private fun onUserListContent(
     userListWithProducts: UserListWithProducts,
-    list: List<ProductEntitySummary>,
+    filteredProducts: List<ProductEntitySummary>,
     query: String
   ) {
-    binding.yoFilteredItemsView.bind(userListWithProducts, list, query, iProductOperation)
+    Timber.d("onUserListContent => ${filteredProducts.count()}")
+    binding.yoFilteredItemsView.bind(userListWithProducts, filteredProducts, query, iProductOperation)
   }
 
 

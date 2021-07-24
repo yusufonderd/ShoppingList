@@ -12,12 +12,16 @@ import com.yonder.addtolist.scenes.detail.domain.category.CategoryListUseCase
 import com.yonder.addtolist.scenes.detail.domain.product.ProductUseCase
 import com.yonder.addtolist.scenes.list.domain.usecase.LocalListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.zip
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -46,6 +50,8 @@ class ListDetailViewModel @Inject constructor(
     fetchCategories()
   }
 
+  var job : Job? = null
+
   fun fetchProducts(listUUID: String, query: String = EMPTY_STRING) {
     val flow1 = localUserListUseCase.getUserListByUUID(listUUID)
     val flow2 = if (query.trim().isEmpty()) {
@@ -53,12 +59,12 @@ class ListDetailViewModel @Inject constructor(
     } else {
       categoryListUseCase.fetchProductByQuery(query)
     }
-    viewModelScope.launch {
+    job?.cancel()
+    job =  viewModelScope.launch {
       flow1.combine(flow2) { userListWithProducts, listingProducts ->
         _state.value = ListDetailViewState.UserListContent(
           userListWithProducts,
-          listingProducts,
-          query
+          listingProducts
         )
       }.collect()
     }
@@ -128,8 +134,7 @@ sealed class ListDetailViewState {
 
   data class UserListContent(
     val userListWithProducts: UserListWithProducts,
-    val list: List<ProductEntitySummary>,
-    val query: String
+    val list: List<ProductEntitySummary>
   ) : ListDetailViewState()
 
   data class ShowContent(val categoryList: List<CategoryWithProducts>) : ListDetailViewState()
