@@ -5,16 +5,14 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isGone
-import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.yonder.addtolist.common.ui.component.items.adapter.ItemListAdapter
 import com.yonder.addtolist.common.ui.component.items.model.ItemUiModel
 import com.yonder.addtolist.common.ui.component.items.model.ItemUiModelMapper
-import com.yonder.addtolist.common.ui.extensions.addVerticalDivider
 import com.yonder.addtolist.common.ui.extensions.removeAnimator
 import com.yonder.addtolist.databinding.LayoutYoFilteredItemsBinding
 import com.yonder.addtolist.local.entity.ProductEntitySummary
-import com.yonder.addtolist.local.entity.UserListWithProducts
+import com.yonder.addtolist.local.entity.UserListProductEntity
 
 /**
  * @author yusuf.onder
@@ -46,24 +44,24 @@ class YoItemsView @JvmOverloads constructor(
   }
 
   fun bind(
-    userListWithProducts: UserListWithProducts,
+    products: List<UserListProductEntity>,
     list: List<ProductEntitySummary>,
     query: String,
-    productOperationListener: ItemOperationListener
+    itemOperationListener: ItemOperationListener
   ) {
 
     val itemsList = ItemUiModelMapper.mapToUiModel(
-      addedProducts = userListWithProducts.products,
+      addedProducts = products,
       filteredProducts = list
     )
 
     val isVisibleQuery = query.isNotEmpty()
     binding.yoProductQueryItem.isVisible = isVisibleQuery
     if (isVisibleQuery) {
-      val entity = userListWithProducts.products.find { it.name == query }
+      val entity = products.find { it.name == query }
       val queryItemModel = ItemUiModel(query, entity)
       binding.yoProductQueryItem.bind(
-        listener = productOperationListener,
+        listener = itemOperationListener,
         query = query,
         value = queryItemModel,
         boldEnabled = false
@@ -72,7 +70,7 @@ class YoItemsView @JvmOverloads constructor(
     binding.tvHeader.isGone = isVisibleQuery
     if (adapter == null) {
       adapter = ItemListAdapter().apply {
-        itemOperationListener = productOperationListener
+        this.itemOperationListener = itemOperationListener
         this.query = query
         submitList(itemsList)
       }

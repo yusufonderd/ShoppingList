@@ -4,11 +4,12 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isVisible
 import com.yonder.addtolist.common.ui.component.productlist.adapter.ListProductAdapter
 import com.yonder.addtolist.common.ui.extensions.addVerticalDivider
 import com.yonder.addtolist.common.ui.extensions.removeAnimator
 import com.yonder.addtolist.databinding.LayoutYoProductListBinding
-import com.yonder.addtolist.local.entity.UserListWithProducts
+import com.yonder.addtolist.local.entity.UserListProductEntity
 
 /**
  * @author yusuf.onder
@@ -31,20 +32,25 @@ class YoProductListView @JvmOverloads constructor(
     initRecyclerView()
   }
 
+  fun setVisible(isVisible: Boolean) {
+    this.isVisible = isVisible
+  }
+
   private fun initRecyclerView() = with(binding.rvProducts) {
     addVerticalDivider()
     removeAnimator()
   }
 
-  fun bind(userListWithProducts: UserListWithProducts){
+  fun bind(products: List<UserListProductEntity>, productOperationListener: IProductOperation) {
     if (adapter == null) {
       adapter = ListProductAdapter().apply {
-        submitList(userListWithProducts.products)
+        submitList(products)
+        this.iProductOperation = productOperationListener
       }
       binding.rvProducts.adapter = adapter
     } else {
       adapter?.apply {
-        submitList(userListWithProducts.products)
+        submitList(products)
       }
     }
   }

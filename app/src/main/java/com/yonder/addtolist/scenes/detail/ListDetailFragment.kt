@@ -1,31 +1,24 @@
 package com.yonder.addtolist.scenes.detail
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
-import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.yonder.addtolist.common.ui.base.BaseFragment
 import com.yonder.addtolist.common.ui.component.items.ItemOperationListener
+import com.yonder.addtolist.common.ui.component.productlist.IProductOperation
 import com.yonder.addtolist.common.ui.extensions.setSafeOnClickListener
 import com.yonder.addtolist.common.utils.keyboard.KeyboardVisibilityEvent
 import com.yonder.addtolist.common.utils.keyboard.hideKeyboardFor
-import com.yonder.addtolist.core.extensions.EMPTY_STRING
 import com.yonder.addtolist.databinding.FragmentListDetailBinding
 import com.yonder.addtolist.local.entity.ProductEntitySummary
 import com.yonder.addtolist.local.entity.UserListProductEntity
-import com.yonder.addtolist.local.entity.UserListWithProducts
 import com.yonder.statelayout.State
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import timber.log.Timber
 
 /**
  * @author yusuf.onder
@@ -33,7 +26,8 @@ import timber.log.Timber
  */
 
 @AndroidEntryPoint
-class ListDetailFragment : BaseFragment<FragmentListDetailBinding>() {
+class ListDetailFragment : BaseFragment<FragmentListDetailBinding>(), IProductOperation,
+  ItemOperationListener {
 
   private val args: ListDetailFragmentArgs by navArgs()
 
@@ -50,8 +44,8 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>() {
     super.onResume()
     KeyboardVisibilityEvent.registerEventListener(activity) { isKeyboardOpened: Boolean ->
       binding.yoFilteredItemsView.setVisibility(isVisible = isKeyboardOpened)
+      binding.yoProductListView.setVisible(!isKeyboardOpened)
       binding.btnCancel.isVisible = isKeyboardOpened
-      binding.yoProductListView.isGone = isKeyboardOpened
       if (!isKeyboardOpened) {
         binding.btnCancel.performClick()
       }
@@ -79,8 +73,8 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>() {
             binding.stateLayout.setState(State.CONTENT)
           }
           is ListDetailViewState.UserListContent -> {
-            onUserListContent(
-              viewState.userListWithProducts,
+            loadListContent(
+              viewState.userListWithProducts.products,
               viewState.list,
               viewState.query
             )
@@ -116,40 +110,49 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>() {
     }
   }
 
-  private val iProductOperation = object : ItemOperationListener {
-    override fun decreaseProductQuantity(productEntity: UserListProductEntity) {
-      viewModel.decreaseQuantity(listId, productEntity)
-    }
-
-    override fun increaseProductQuantity(productEntity: UserListProductEntity) {
-      viewModel.increaseQuantity(listId, productEntity)
-    }
-
-    override fun removeProductEntity(productEntity: UserListProductEntity) {
-      viewModel.removeProduct(productEntity)
-    }
-
-    override fun addProduct(productName: String) {
-      viewModel.addProduct(
-        listId = listId,
-        userListUUID = listUUID,
-        productName = productName
-      )
-    }
-
+  override fun decreaseProductQuantity(productEntity: UserListProductEntity) {
+    viewModel.decreaseQuantity(listId, productEntity)
   }
 
-  private fun onUserListContent(
-    userListWithProducts: UserListWithProducts,
+  override fun increaseProductQuantity(productEntity: UserListProductEntity) {
+    viewModel.increaseQuantity(listId, productEntity)
+  }
+
+  override fun removeProductEntity(productEntity: UserListProductEntity) {
+    viewModel.removeProduct(productEntity)
+  }
+
+  override fun addProduct(productName: String) {
+    viewModel.addProduct(
+      listId = listId,
+      userListUUID = listUUID,
+      productName = productName
+    )
+  }
+
+  override fun edit(product: UserListProductEntity) {
+    findNavController().navigate(
+      ListDetailFragmentDirections.actionShoppingListDetailToProductDetail(
+        product
+      )
+    )
+  }
+
+
+  private fun loadListContent(
+    products: List<UserListProductEntity>,
     filteredProducts: List<ProductEntitySummary>,
     query: String
   ) = with(binding) {
-    yoProductListView.bind(userListWithProducts)
+    yoProductListView.bind(
+      products = products,
+      productOperationListener = this@ListDetailFragment
+    )
     yoFilteredItemsView.bind(
-      userListWithProducts,
-      filteredProducts,
-      query,
-      iProductOperation
+      products = products,
+      list = filteredProducts,
+      query = query,
+      itemOperationListener = this@ListDetailFragment
     )
   }
 

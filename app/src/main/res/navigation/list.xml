@@ -79,14 +79,31 @@
 
     <argument
       android:name="userList"
-      app:nullable="false"
-      app:argType="com.yonder.addtolist.local.entity.UserListEntity" />
+      app:argType="com.yonder.addtolist.local.entity.UserListEntity"
+      app:nullable="false" />
 
     <argument
       android:name="title"
       app:argType="string" />
 
+    <action
+      android:id="@+id/action_shopping_list_detail_to_product_detail"
+      app:destination="@id/productDetailFragment" />
+
   </fragment>
 
+
+  <fragment
+    android:id="@+id/productDetailFragment"
+    android:name="com.yonder.addtolist.scenes.productdetail.ProductDetailFragment"
+    android:label="@string/product_details"
+    tools:layout="@layout/fragment_product_detail">
+
+    <argument
+      android:name="userListProduct"
+      app:argType="com.yonder.addtolist.local.entity.UserListProductEntity"
+      app:nullable="false" />
+
+  </fragment>
 
 </navigation>

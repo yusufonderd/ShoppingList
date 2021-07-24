@@ -8,6 +8,7 @@ import com.yonder.addtolist.common.ui.base.BaseListAdapter
 import com.yonder.addtolist.common.ui.component.items.ItemOperationListener
 import com.yonder.addtolist.common.ui.component.items.adapter.ItemListViewHolder
 import com.yonder.addtolist.common.ui.component.items.model.ItemUiModel
+import com.yonder.addtolist.common.ui.component.productlist.IProductOperation
 import com.yonder.addtolist.core.extensions.EMPTY_STRING
 import com.yonder.addtolist.local.entity.UserListProductEntity
 
@@ -21,6 +22,8 @@ class ListProductAdapter :
     itemsSame = { old, new -> old.id == new.id },
     contentsSame = { old, new -> old == new }
   ) {
+
+  lateinit var iProductOperation: IProductOperation
 
   override fun onCreateViewHolder(
     parent: ViewGroup,
@@ -36,7 +39,7 @@ class ListProductAdapter :
     when (holder) {
       is ListProductViewHolder -> {
         val product = getItem(position)
-        holder.bind(product)
+        holder.bind(product, iProductOperation)
       }
     }
   }
