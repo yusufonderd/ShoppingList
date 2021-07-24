@@ -69,12 +69,12 @@ object UserListProductMapper {
 
   fun mapProductEntitySummaryToRequest(
     listId: String,
-    product: ProductEntitySummary
+    productName: String
   ): CreateUserListProductRequest {
     return CreateUserListProductRequest(
       userListId = listId,
-      name = product.name,
-      category_image = product.categoryImage.orEmpty()
+      name = productName,
+      category_image = ""
     )
   }
 }

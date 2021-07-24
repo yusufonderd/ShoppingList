@@ -1,4 +1,4 @@
-package com.yonder.addtolist.scenes.detail.adapter.productlist
+package com.yonder.addtolist.common.ui.component.list.result
 
 import com.yonder.addtolist.local.entity.ProductEntitySummary
 import com.yonder.addtolist.local.entity.UserListProductEntity
@@ -11,5 +11,5 @@ interface IProductOperation {
   fun decreaseProductQuantity(productEntity: UserListProductEntity)
   fun increaseProductQuantity(productEntity: UserListProductEntity)
   fun removeProductEntity(productEntity: UserListProductEntity)
-  fun addProduct(product: ProductEntitySummary)
+  fun addProduct(productName: String)
 }

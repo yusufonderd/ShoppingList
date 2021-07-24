@@ -29,17 +29,14 @@ class CategoryListRepositoryImpl @Inject constructor(
   private val mapper: CategoryProductsMapper
 ) : CategoryListRepository {
 
-  override fun fetchWord(query: String): Flow<Result<List<ProductEntitySummary>>> = flow {
-    emit(Result.Loading)
-    emit(Result.Success(categoryDataSource.getProductsByQuery(query)))
-  }.catch { e ->
-    e.printStackTrace()
-    emit(Result.Error(RoomResultException()))
+  override fun fetchWord(query: String): Flow<List<ProductEntitySummary>> = flow {
+    val popularProducts = categoryDataSource.getProductsByQuery(query)
+    emit(popularProducts)
   }
 
   override fun fetchPopularProducts(): Flow<List<ProductEntitySummary>> = flow {
     val popularProducts = categoryDataSource.getPopularProducts()
-    emit((popularProducts))
+    emit(popularProducts)
   }
 
   override fun fetchCategories(): Flow<Result<List<CategoryWithProducts>>> = flow {

@@ -13,7 +13,7 @@ interface ProductUseCase {
   fun addProduct(
     listId: String,
     listUUID: String,
-    product: ProductEntitySummary
+    productName: String
   ): Flow<Result<UserListProductEntity>>
 
   fun removeProduct(productEntity: UserListProductEntity): Flow<Result<UserListProductEntity>>

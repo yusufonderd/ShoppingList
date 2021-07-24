@@ -1,7 +1,8 @@
-package com.yonder.addtolist.scenes.detail.adapter.productlist
+package com.yonder.addtolist.common.ui.component.list.result
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.yonder.addtolist.common.ui.component.list.result.model.ItemUiModel
 import com.yonder.addtolist.databinding.ItemProductBinding
 import com.yonder.addtolist.local.entity.ProductEntitySummary
 import com.yonder.addtolist.local.entity.UserListProductEntity
@@ -17,8 +18,7 @@ class ProductListViewHolder(
 ) : RecyclerView.ViewHolder(view) {
   private val binding = ItemProductBinding.bind(view)
 
-  fun bind(value: ProductEntitySummary, product: UserListProductEntity? = null) = with(binding) {
-    binding.yoProductView.bind(value, listener, product)
-
+  fun bind(value: ItemUiModel) {
+    binding.yoProductView.bind(value, listener)
   }
 }

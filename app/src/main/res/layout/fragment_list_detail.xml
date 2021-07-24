@@ -27,45 +27,19 @@
   </com.google.android.material.textfield.TextInputLayout>
 
 
-  <TextView
-    android:id="@+id/tvHeader"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/margin_8"
-    android:background="@color/gray_100"
-    android:padding="@dimen/padding_8"
-    android:text="@string/popular_items"
-    android:textAppearance="?textAppearanceBody1"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/tilSearch"
-    tools:visibility="invisible" />
 
-  <TextView
-    android:id="@+id/tvSearchQuery"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/margin_8"
-    android:padding="@dimen/padding_8"
-    android:textAppearance="?textAppearanceBody1"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/tilSearch"
-    tools:text="@tools:sample/lorem">
 
-  </TextView>
-
-  <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/rvItems"
+  <com.yonder.addtolist.common.ui.component.list.result.YoFilteredItemsView
+    android:id="@+id/yoFilteredItemsView"
     android:layout_width="match_parent"
     android:layout_height="0dp"
-    android:orientation="vertical"
-    android:overScrollMode="never"
-    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    android:layout_marginTop="@dimen/margin_8"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/tvHeader"
-    tools:listitem="@layout/item_product" />
+    app:layout_constraintTop_toBottomOf="@+id/tilSearch">
+
+  </com.yonder.addtolist.common.ui.component.list.result.YoFilteredItemsView>
+
 
 </com.yonder.statelayout.StateLayoutView>

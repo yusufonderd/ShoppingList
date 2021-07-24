@@ -1,10 +1,11 @@
-package com.yonder.addtolist.scenes.detail.adapter.productlist
+package com.yonder.addtolist.common.ui.component.list.result
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.yonder.addtolist.R
 import com.yonder.addtolist.common.ui.base.BaseListAdapter
+import com.yonder.addtolist.common.ui.component.list.result.model.ItemUiModel
 import com.yonder.addtolist.local.entity.ProductEntitySummary
 import com.yonder.addtolist.local.entity.UserListProductEntity
 
@@ -13,19 +14,13 @@ import com.yonder.addtolist.local.entity.UserListProductEntity
  * Created on 19.07.2021
  */
 
-class ProductListsAdapter() :
-  BaseListAdapter<ProductEntitySummary>(
-    itemsSame = { old, new -> old.name == new.name },
-    contentsSame = { old, new -> old == new }
+class ProductListsAdapter :
+  BaseListAdapter<ItemUiModel>(
+    itemsSame = { old, new -> old.name == new.name || old.entity?.quantity == new.entity?.quantity },
+    contentsSame = { old, new -> old == new || old.entity == new.entity }
   ) {
 
   lateinit var iProductOperation: IProductOperation
-  var userListProducts: ArrayList<UserListProductEntity> = arrayListOf()
-
-  fun addProduct(entity: UserListProductEntity) {
-    userListProducts.add(entity)
-    notifyDataSetChanged()
-  }
 
   override fun onCreateViewHolder(
     parent: ViewGroup,
@@ -40,13 +35,9 @@ class ProductListsAdapter() :
     when (holder) {
       is ProductListViewHolder -> {
         val product = getItem(position)
-        holder.bind(product, getUserListProduct(product))
+        holder.bind(product)
       }
     }
-  }
-
-  private fun getUserListProduct(value: ProductEntitySummary): UserListProductEntity? {
-    return userListProducts.find { value.name == it.name }
   }
 
 }

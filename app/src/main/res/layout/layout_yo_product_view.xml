@@ -2,16 +2,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
-  android:background="?attr/selectableItemBackground"
   android:layout_width="match_parent"
-  android:layout_height="wrap_content">
+  android:layout_height="wrap_content"
+  android:background="?attr/selectableItemBackground">
 
   <ImageView
     android:id="@+id/ivAdd"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="@dimen/padding_8"
-    android:src="@drawable/ic_baseline_add_circle_outline_24"
+    android:src="@drawable/ic_baseline_add_circle_outline_32"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
@@ -19,28 +19,32 @@
 
   <com.google.android.material.card.MaterialCardView
     android:id="@+id/cvProductQuantity"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/colorPrimary"
+    android:layout_width="@dimen/item_yo_product_circle_size"
+    android:layout_height="@dimen/item_yo_product_circle_size"
     android:padding="@dimen/padding_8"
+    android:src="@drawable/ic_baseline_add_circle_outline_32"
+    app:cardBackgroundColor="@color/colorPrimary"
     app:cardCornerRadius="@dimen/radius_16"
-    android:src="@drawable/ic_baseline_add_circle_outline_24"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="@+id/ivAdd"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     tools:visibility="visible">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
       android:id="@+id/tvProductQuantity"
       android:layout_width="wrap_content"
-      android:layout_gravity="center"
-      android:textColor="@color/white"
-      android:paddingVertical="@dimen/padding_2"
-      android:paddingHorizontal="@dimen/padding_8"
-      android:textAppearance="?textAppearanceBody1"
       android:layout_height="wrap_content"
-      tools:text="1" />
+      android:layout_gravity="center"
+      android:paddingHorizontal="@dimen/padding_8"
+      android:maxLines="1"
+      app:autoSizeTextType="uniform"
+      android:gravity="center"
+      app:autoSizeMinTextSize="12sp"
+      android:paddingVertical="@dimen/padding_2"
+      android:textAppearance="?textAppearanceBody1"
+      android:textColor="@color/white"
+      tools:text="12" />
 
   </com.google.android.material.card.MaterialCardView>
 
@@ -58,10 +62,12 @@
     app:layout_constraintTop_toTopOf="parent"
     tools:text="Bread" />
 
-  <ImageView
+  <androidx.appcompat.widget.AppCompatImageButton
     android:id="@+id/ivIncreaseOrDelete"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_4"
+    android:background="@color/gray_50"
     android:padding="@dimen/padding_8"
     android:src="@drawable/ic_baseline_remove_circle_24"
     app:layout_constraintBottom_toBottomOf="parent"
@@ -69,7 +75,7 @@
     app:layout_constraintTop_toTopOf="parent"
     app:tint="@color/colorRed">
 
-  </ImageView>
+  </androidx.appcompat.widget.AppCompatImageButton>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

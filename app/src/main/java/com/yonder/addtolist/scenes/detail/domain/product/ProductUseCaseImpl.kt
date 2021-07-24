@@ -21,10 +21,10 @@ class ProductUseCaseImpl @Inject constructor(
   override fun addProduct(
     listId: String,
     listUUID: String,
-    product: ProductEntitySummary
+    productName: String
   ): Flow<Result<UserListProductEntity>> {
     val createUserListProductRequest =
-      UserListProductMapper.mapProductEntitySummaryToRequest(listId,product)
+      UserListProductMapper.mapProductEntitySummaryToRequest(listId,productName)
     return productRepository
       .addProduct(listUUID, createUserListProductRequest)
       .flowOn(dispatcher.io)

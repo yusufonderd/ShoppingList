@@ -1,4 +1,4 @@
-package com.yonder.addtolist.common.ui.component
+package com.yonder.addtolist.common.ui.component.basic
 
 import android.content.Context
 import android.util.AttributeSet
@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isGone
 import androidx.core.view.isInvisible
-import androidx.core.view.isVisible
 import com.yonder.addtolist.common.ui.extensions.setSafeOnClickListener
 import com.yonder.addtolist.core.extensions.orZero
 import com.yonder.addtolist.databinding.LayoutYoProductViewBinding
 import com.yonder.addtolist.local.entity.ProductEntitySummary
 import com.yonder.addtolist.local.entity.UserListProductEntity
-import com.yonder.addtolist.scenes.detail.adapter.productlist.IProductOperation
+import com.yonder.addtolist.common.ui.component.list.result.IProductOperation
+import com.yonder.addtolist.common.ui.component.list.result.model.ItemUiModel
 
 private const val PRODUCT_QUANTITY_ONE = 1.0
 /**
@@ -30,10 +30,10 @@ class YoProductItemView @JvmOverloads constructor(
   }
 
   fun bind(
-    value: ProductEntitySummary,
+    value: ItemUiModel,
     listener: IProductOperation,
-    product: UserListProductEntity? = null
   ) {
+    val product = value.entity
     binding.tvProductTitle.text = value.name
     binding.ivAdd.isInvisible = (product == null).not()
     binding.ivIncreaseOrDelete.isGone = product == null
@@ -41,7 +41,7 @@ class YoProductItemView @JvmOverloads constructor(
     binding.tvProductQuantity.text = "${product?.quantity.orZero().toInt()}"
     binding.root.setSafeOnClickListener {
       if (product == null) {
-        listener.addProduct(value)
+        listener.addProduct(value.name)
       } else {
         listener.increaseProductQuantity(product)
       }

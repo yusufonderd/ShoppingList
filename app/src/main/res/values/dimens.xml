@@ -36,10 +36,12 @@
 
   <!-- Settings -->
   <dimen name="settings_profile_size">36dp</dimen>
-
-
   <dimen name="view_height_1">1dp</dimen>
 
 
+
+  <!-- Yo Product View-->
+
+  <dimen name="item_yo_product_circle_size">32dp</dimen>
 
 </resources>

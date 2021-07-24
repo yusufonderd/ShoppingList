@@ -6,7 +6,7 @@
   android:layout_height="match_parent"
   tools:context=".scenes.settings.presentation.SettingsFragment">
 
-  <com.yonder.addtolist.common.ui.component.YoImageTextView
+  <com.yonder.addtolist.common.ui.component.basic.YoImageTextView
     android:id="@+id/yoAccount"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -16,7 +16,7 @@
     app:yo_imageResId="@drawable/ic_baseline_person_outline_24"
     app:yo_text="@string/account" />
 
-  <com.yonder.addtolist.common.ui.component.YoImageTextView
+  <com.yonder.addtolist.common.ui.component.basic.YoImageTextView
     android:id="@+id/yoAbout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
     app:yo_imageResId="@drawable/ic_baseline_info_24"
     app:yo_text="@string/about" />
 
-  <com.yonder.addtolist.common.ui.component.YoImageTextView
+  <com.yonder.addtolist.common.ui.component.basic.YoImageTextView
     android:id="@+id/yoLanguage"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
     app:yo_imageResId="@drawable/ic_baseline_language_24"
     app:yo_text="@string/language" />
 
-  <com.yonder.addtolist.common.ui.component.YoImageTextView
+  <com.yonder.addtolist.common.ui.component.basic.YoImageTextView
     android:id="@+id/yoPremium"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
     app:yo_left_text="@string/premium_emo"
     app:yo_text="@string/be_premium" />
 
-  <com.yonder.addtolist.common.ui.component.YoImageTextView
+  <com.yonder.addtolist.common.ui.component.basic.YoImageTextView
     android:id="@+id/yoTranslate"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
     app:yo_left_text="@string/world_emo"
     app:yo_text="@string/help_us_to_translate_app" />
 
-  <com.yonder.addtolist.common.ui.component.YoImageTextView
+  <com.yonder.addtolist.common.ui.component.basic.YoImageTextView
     android:id="@+id/yoRateUs"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
     app:yo_imageResId="@drawable/ic_baseline_rate_review_24"
     app:yo_text="@string/rate_us" />
 
-  <com.yonder.addtolist.common.ui.component.YoImageTextView
+  <com.yonder.addtolist.common.ui.component.basic.YoImageTextView
     android:id="@+id/yoShareApp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
     app:yo_imageResId="@drawable/ic_baseline_share_24"
     app:yo_text="@string/share_app" />
 
-  <com.yonder.addtolist.common.ui.component.YoImageTextView
+  <com.yonder.addtolist.common.ui.component.basic.YoImageTextView
     android:id="@+id/yoInstagram"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
     app:yo_text="@string/instagram" />
 
 
-  <com.yonder.addtolist.common.ui.component.YoImageTextView
+  <com.yonder.addtolist.common.ui.component.basic.YoImageTextView
     android:id="@+id/yoTwitter"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
