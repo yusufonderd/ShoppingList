@@ -29,6 +29,7 @@ import javax.inject.Inject
  * Created on 19.07.2021
  */
 
+private const val QUERY_LIMIT = 10
 
 @HiltViewModel
 class ListDetailViewModel @Inject constructor(
@@ -51,7 +52,10 @@ class ListDetailViewModel @Inject constructor(
     val flow2 = if (query.trim().isEmpty()) {
       categoryListUseCase.fetchPopularProducts()
     } else {
-      categoryListUseCase.fetchProductByQuery(query)
+      categoryListUseCase.fetchProductByQuery(
+        query = query,
+        limit = QUERY_LIMIT
+      )
     }
     job?.cancel()
     job = viewModelScope.launch {

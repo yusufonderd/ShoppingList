@@ -29,8 +29,8 @@ class CategoryListRepositoryImpl @Inject constructor(
   private val mapper: CategoryProductsMapper
 ) : CategoryListRepository {
 
-  override fun fetchWord(query: String): Flow<List<ProductEntitySummary>> = flow {
-    val popularProducts = categoryDataSource.getProductsByQuery(query)
+  override fun fetchWord(query: String,limit: Int): Flow<List<ProductEntitySummary>> = flow {
+    val popularProducts = categoryDataSource.getProductsByQuery(query,limit)
     emit(popularProducts)
   }
 

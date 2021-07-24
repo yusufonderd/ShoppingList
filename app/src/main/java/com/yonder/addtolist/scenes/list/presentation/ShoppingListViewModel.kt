@@ -29,10 +29,10 @@ class ShoppingListItemsViewModel @Inject constructor(
         } else {
           _state.value = ShoppingListItemsViewState.Result(userLists)
         }
-      }.onError { error ->
+      }/*.onError { error ->
         _state.value =
           ShoppingListItemsViewState.Error(error.toReadableMessage())
-      }
+      }*/
     }.launchIn(viewModelScope)
   }
 

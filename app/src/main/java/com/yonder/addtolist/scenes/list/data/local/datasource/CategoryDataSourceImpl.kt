@@ -22,8 +22,8 @@ class CategoryDataSourceImpl @Inject constructor(private val appDatabase: AppDat
     return appDatabase.categoryDao().insertAll(products)
   }
 
-  override suspend fun getProductsByQuery(query: String): List<ProductEntitySummary> {
-    return appDatabase.productDao().fetchProducts(1, query)
+  override suspend fun getProductsByQuery(query: String, limit: Int): List<ProductEntitySummary> {
+    return appDatabase.productDao().fetchProducts(1, query, limit)
   }
 
   override suspend fun getPopularProducts(): List<ProductEntitySummary> {
@@ -33,6 +33,7 @@ class CategoryDataSourceImpl @Inject constructor(private val appDatabase: AppDat
   override suspend fun delete(product: UserListProductEntity) {
     return appDatabase.userListProductDao().delete(product)
   }
+
   override suspend fun insert(category: CategoryEntity) {
     return appDatabase.categoryDao().insert(category)
   }
@@ -40,15 +41,16 @@ class CategoryDataSourceImpl @Inject constructor(private val appDatabase: AppDat
   override suspend fun update(product: UserListProductEntity) {
     return appDatabase.userListProductDao().update(product)
   }
+
   override suspend fun insertAll(list: List<CategoryEntity>) {
     return appDatabase.categoryDao().insertAll(list);
   }
 
   override suspend fun getProductByEntity(productName: String): ProductEntity? {
-    return appDatabase.productDao().findProduct(1,productName);
+    return appDatabase.productDao().findProduct(1, productName);
   }
 
   override suspend fun insert(product: UserListProductEntity) {
-   return appDatabase.userListProductDao().insert(product)
+    return appDatabase.userListProductDao().insert(product)
   }
 }

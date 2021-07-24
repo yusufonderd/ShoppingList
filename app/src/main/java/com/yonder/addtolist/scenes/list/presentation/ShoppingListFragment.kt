@@ -59,7 +59,7 @@ class ShoppingListFragment : BaseFragment<ShoppingListFragmentBinding>() {
             onListLoaded(viewState.userLists)
           }
           is ShoppingListItemsViewState.Loading -> {
-            onLoading()
+          //  onLoading()
           }
 
           is ShoppingListItemsViewState.Error ->

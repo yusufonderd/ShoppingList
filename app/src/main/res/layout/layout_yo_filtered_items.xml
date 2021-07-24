@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="match_parent">
+  android:layout_height="wrap_content">
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
 
   <com.yonder.addtolist.common.ui.component.basic.YoProductItemView
     android:id="@+id/yoProductQueryItem"
@@ -24,22 +29,23 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/yoProductQueryItem"
-    tools:visibility="visible" />
+    tools:visibility="gone" />
 
 
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/rvItems"
     android:layout_width="match_parent"
-    android:layout_height="0dp"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:overScrollMode="never"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/tvHeader"
-    tools:itemCount="10"
-    tools:listitem="@layout/item_product" />
+    tools:itemCount="20"
+    tools:listitem="@layout/item_yo_color_picker" />
+  </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

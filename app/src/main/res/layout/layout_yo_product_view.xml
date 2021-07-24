@@ -11,10 +11,10 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="@dimen/padding_8"
-    android:src="@drawable/ic_baseline_add_circle_outline_32"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
+    app:srcCompat="@drawable/ic_baseline_add_circle_outline_32"
     tools:visibility="invisible" />
 
   <com.google.android.material.card.MaterialCardView
@@ -22,7 +22,6 @@
     android:layout_width="@dimen/item_yo_product_circle_size"
     android:layout_height="@dimen/item_yo_product_circle_size"
     android:padding="@dimen/padding_8"
-    android:src="@drawable/ic_baseline_add_circle_outline_32"
     app:cardBackgroundColor="@color/colorPrimary"
     app:cardCornerRadius="@dimen/radius_16"
     app:layout_constraintBottom_toBottomOf="parent"
@@ -69,13 +68,21 @@
     android:layout_margin="@dimen/margin_4"
     android:background="?attr/selectableItemBackground"
     android:padding="@dimen/padding_8"
-    android:src="@drawable/ic_baseline_remove_circle_32"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintTop_toTopOf="parent"
+    app:srcCompat="@drawable/ic_baseline_remove_circle_32"
     app:tint="@color/colorRed">
 
   </androidx.appcompat.widget.AppCompatImageButton>
 
+
+  <View
+    android:layout_width="match_parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:layout_height="@dimen/view_height_1"
+    android:background="@color/gray_100"
+    app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

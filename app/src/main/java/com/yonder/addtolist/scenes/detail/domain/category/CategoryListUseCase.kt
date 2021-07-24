@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
  */
 interface CategoryListUseCase {
   fun getCategories(): Flow<Result<List<CategoryWithProducts>>>
-  fun fetchProductByQuery(query: String): Flow<List<ProductEntitySummary>>
+  fun fetchProductByQuery(query: String,limit : Int): Flow<List<ProductEntitySummary>>
   fun fetchPopularProducts(): Flow<List<ProductEntitySummary>>
 
 }

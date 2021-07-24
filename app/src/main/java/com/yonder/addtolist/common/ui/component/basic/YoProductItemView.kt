@@ -36,12 +36,13 @@ class YoProductItemView @JvmOverloads constructor(
   fun bind(
     value: ItemUiModel,
     listener: ItemOperationListener,
-    query: String
+    query: String,
+    boldEnabled: Boolean = true
   ) {
     val product = value.entity
 
     val productName = SpannableStringBuilder(value.name)
-    if (query.isNotEmpty()) {
+    if (query.isNotEmpty() && boldEnabled) {
       val index = value.name.indexOf(query)
       if (index != INDEX_NOT_FOUND) {
         productName.setSpan(

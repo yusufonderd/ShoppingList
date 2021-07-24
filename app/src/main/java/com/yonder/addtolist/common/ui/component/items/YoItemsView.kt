@@ -37,8 +37,12 @@ class YoItemsView @JvmOverloads constructor(
   }
 
   private fun initRecyclerView() = with(binding.rvItems) {
-    addVerticalDivider()
     removeAnimator()
+    isNestedScrollingEnabled = false
+  }
+
+  fun setVisibility(isVisible : Boolean) {
+    this.isVisible = isVisible
   }
 
   fun bind(
@@ -61,10 +65,10 @@ class YoItemsView @JvmOverloads constructor(
       binding.yoProductQueryItem.bind(
         listener = productOperationListener,
         query = query,
-        value = queryItemModel
+        value = queryItemModel,
+        boldEnabled = false
       )
     }
-
     binding.tvHeader.isGone = isVisibleQuery
     if (adapter == null) {
       adapter = ItemListAdapter().apply {

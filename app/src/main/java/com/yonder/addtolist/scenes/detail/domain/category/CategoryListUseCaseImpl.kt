@@ -23,8 +23,8 @@ class CategoryListUseCaseImpl @Inject constructor(
       .flowOn(dispatcher.io)
   }
 
-  override fun fetchProductByQuery(query: String): Flow<List<ProductEntitySummary>> {
-    return categoryListRepository.fetchWord(query).flowOn(dispatcher.io)
+  override fun fetchProductByQuery(query: String,limit : Int): Flow<List<ProductEntitySummary>> {
+    return categoryListRepository.fetchWord(query,limit).flowOn(dispatcher.io)
   }
 
   override fun fetchPopularProducts(): Flow<List<ProductEntitySummary>> {
