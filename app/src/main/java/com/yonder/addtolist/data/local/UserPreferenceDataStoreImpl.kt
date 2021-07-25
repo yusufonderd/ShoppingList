@@ -8,9 +8,23 @@ import javax.inject.Inject
  * Yusuf Onder on 07,May,2021
  */
 
+//Default language is English
+private const val DEFAULT_LANGUAGE_ID = 2
+
 class UserPreferenceDataStoreImpl @Inject constructor(private val sharedPreferences: SharedPreferences) :
   UserPreferenceDataStore {
 
+  override fun setAppLanguageId(languageId: Int) {
+    sharedPreferences.edit().apply {
+      putInt(KEY_LANGUAGE, languageId)
+      apply()
+    }
+  }
+
+  override fun getAppLanguageId(): Int {
+    return sharedPreferences.getInt(KEY_LANGUAGE, DEFAULT_LANGUAGE_ID)
+
+  }
   override fun saveToken(token: String?) {
     Timber.d("saveToken => $token")
     sharedPreferences.edit().apply {
@@ -51,5 +65,7 @@ class UserPreferenceDataStoreImpl @Inject constructor(private val sharedPreferen
     const val KEY_APP_PREFERENCES = "app_preferences"
     const val KEY_APP_TOKEN = "key_app_token"
     const val KEY_UUID = "key_uuid"
+    const val KEY_LANGUAGE = "key_language"
+
   }
 }

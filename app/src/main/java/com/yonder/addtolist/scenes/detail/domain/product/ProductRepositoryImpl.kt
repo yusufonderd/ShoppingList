@@ -4,6 +4,7 @@ import com.yonder.addtolist.core.extensions.orZero
 import com.yonder.addtolist.core.network.exceptions.ServerResultException
 import com.yonder.addtolist.core.network.request.CreateUserListProductRequest
 import com.yonder.addtolist.core.network.responses.Result
+import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.local.entity.ProductEntity
 import com.yonder.addtolist.local.entity.UserListProductEntity
 import com.yonder.addtolist.scenes.detail.domain.mapper.UserListProductMapper
@@ -20,21 +21,23 @@ import javax.inject.Inject
  */
 class ProductRepositoryImpl @Inject constructor(
   private val api: ApiService,
+  private val userPreferenceDataStore: UserPreferenceDataStore,
   private val localDataSource: CategoryDataSource
 ) : ProductRepository {
 
-
   override fun getProductEntityByName(productName: String): Flow<ProductEntity?> = flow {
-    val popularProducts = localDataSource.getProductByEntity(productName)
+    val popularProducts =
+      localDataSource.getProductByEntity(productName, userPreferenceDataStore.getAppLanguageId())
     emit(popularProducts)
   }
+
   override fun updateProduct(
     listId: String,
     product: UserListProductEntity
   ): Flow<Result<UserListProductEntity>> = flow {
     emit(Result.Loading)
-    val request = UserListProductMapper.mapEntityToResponse(listId,product)
-    val response = api.updateProduct(product.id,request)
+    val request = UserListProductMapper.mapEntityToResponse(listId, product)
+    val response = api.updateProduct(product.id, request)
     if (response.success == true) {
       localDataSource.update(product)
     }
@@ -43,6 +46,7 @@ class ProductRepositoryImpl @Inject constructor(
     e.printStackTrace()
     emit(Result.Error(e))
   }
+
   override fun removeProduct(
     product: UserListProductEntity
   ): Flow<Result<UserListProductEntity>> = flow {

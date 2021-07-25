@@ -5,6 +5,8 @@ package com.yonder.addtolist.data.local
  */
 
 interface UserPreferenceDataStore {
+  fun getAppLanguageId() : Int
+  fun setAppLanguageId(languageId: Int)
   fun getUUID(): String?
   fun getToken(): String?
   fun saveUUID(uuid: String)

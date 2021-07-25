@@ -42,7 +42,7 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
         is ProductDetailViewState.Load -> {
           viewState.userListProduct?.let { product ->
             setProduct(product)
-            initSpinner(viewState.categories,product)
+            initSpinner(viewState.categories, product)
           }
         }
       }
@@ -53,16 +53,16 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
     categories: List<CategoryEntity>,
     userListProduct: UserListProductEntity
   ) = with(binding.etAutoComplete) {
-    Timber.d("initSpinner => ${categories.size}")
     val userListProductCategory = categories.find { it.image == userListProduct.categoryImage }
-    val list = ArrayList<CategoryEntity>(categories.sortedBy { it.name })
+    val list =
+      ArrayList<CategoryEntity>(categories.sortedBy { it.name }).map { it.wrappedFormattedName() }
     val adapter = MaterialSpinnerAdapter(context, R.layout.item_material_spinner, list)
-    binding.etAutoComplete.setText(userListProductCategory?.toString())
+    binding.etAutoComplete.setText(userListProductCategory?.wrappedFormattedName().orEmpty())
     binding.etAutoComplete.setAdapter(adapter)
     binding.etAutoComplete.setOnItemClickListener { adapterView, view, position, id ->
       if (position < list.size) {
         val category = list[position]
-      //  viewModel.updateCategory(category, userListProduct)
+        //  viewModel.updateCategory(category, userListProduct)
       }
     }
   }
