@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.yonder.addtolist.R
@@ -16,6 +18,7 @@ import com.yonder.addtolist.local.entity.CategoryEntity
 import com.yonder.addtolist.local.entity.UserListProductEntity
 import com.yonder.addtolist.scenes.productdetail.adapter.MaterialSpinnerAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import timber.log.Timber
 
 /**
@@ -37,39 +40,48 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
     FragmentProductDetailBinding.inflate(inflater)
 
   override fun initObservers() {
-    viewModel.combinedLiveData.observe(viewLifecycleOwner) { viewState ->
-      when (viewState) {
-        is ProductDetailViewState.Load -> {
-          viewState.userListProduct?.let { product ->
-            setProduct(product)
-            initSpinner(viewState.categories, product)
+    lifecycleScope.launchWhenResumed {
+      viewModel.state.collect { viewState ->
+        when (viewState) {
+          is ProductDetailViewState.Load -> {
+            viewState.userListProduct?.let { product ->
+              setProduct(product)
+              initSpinner(viewState.categories, product)
+            }
           }
+          else -> Unit
         }
       }
     }
+
   }
+
+  var adapterSpinner: MaterialSpinnerAdapter<String>? = null
 
   private fun initSpinner(
     categories: List<CategoryEntity>,
     userListProduct: UserListProductEntity
   ) = with(binding.etAutoComplete) {
-    val userListProductCategory = categories.find { it.image == userListProduct.categoryImage }
-    val list =
-      ArrayList<CategoryEntity>(categories.sortedBy { it.name }).map { it.wrappedFormattedName() }
-    val adapter = MaterialSpinnerAdapter(context, R.layout.item_material_spinner, list)
-    binding.etAutoComplete.setText(userListProductCategory?.wrappedFormattedName().orEmpty())
-    binding.etAutoComplete.setAdapter(adapter)
-    binding.etAutoComplete.setOnItemClickListener { adapterView, view, position, id ->
-      if (position < list.size) {
-        val category = list[position]
-        //  viewModel.updateCategory(category, userListProduct)
+    if (adapterSpinner == null) {
+      val userListProductCategory = categories.find { it.image == userListProduct.categoryImage }
+      val list =
+        ArrayList<CategoryEntity>(categories.sortedBy { it.name }).map { it.wrappedFormattedName() }
+      adapterSpinner = MaterialSpinnerAdapter(context, R.layout.item_material_spinner, list)
+      binding.etAutoComplete.setText(userListProductCategory?.wrappedFormattedName().orEmpty())
+      binding.etAutoComplete.setAdapter(adapterSpinner)
+      binding.etAutoComplete.setOnItemClickListener { adapterView, view, position, id ->
+        if (position < list.size) {
+          val category = list[position]
+          //  viewModel.updateCategory(category, userListProduct)
+        }
       }
     }
+
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    viewModel.getProductById(productId = product.id)
+    viewModel.fetchProductId(product.id)
   }
 
   override fun initViews() {
@@ -87,14 +99,23 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
 
   private fun setClickListeners() = with(binding) {
     btnDeleteItem.setSafeOnClickListener {
-
+      viewModel.delete(product)
+      closeFragment()
     }
 
+    btnDecrease.setSafeOnClickListener {
+      viewModel.decreaseQuantity(product)
+    }
+    btnIncreate.setSafeOnClickListener {
+      viewModel.increaseQuantity(product)
+    }
     btnAddFavorite.setSafeOnClickListener {
       viewModel.toggleFavorite(product)
     }
-    btnDone.setSafeOnClickListener {
 
+    btnDone.setSafeOnClickListener {
+      viewModel.done(product)
+      closeFragment()
     }
   }
 

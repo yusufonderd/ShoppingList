@@ -9,6 +9,8 @@
   <color name="white">#FFFFFFFF</color>
   <color name="main_color">#933AE2</color>
   <color name="colorPrimary">#933AE2</color>
+  <color name="colorAccent">#4CAF50</color>
+
   <color name="colorPrimaryDark">#7A1DCD</color>
   <color name="gray_100">#C8C8C8</color>
   <color name="colorRed">#F44336</color>

@@ -8,5 +8,6 @@ import com.yonder.addtolist.local.entity.UserListProductEntity
  */
 interface IProductOperation {
   fun edit(product: UserListProductEntity)
-  fun openKeyboard()
+  fun toggleDone(product: UserListProductEntity)
+
 }

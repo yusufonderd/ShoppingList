@@ -90,4 +90,8 @@ class UserListProductEntity(
   fun wrappedFavorite(): Boolean {
     return favorite == 1
   }
+
+  fun wrappedDone(): Boolean {
+    return done == 1
+  }
 }

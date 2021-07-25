@@ -5,12 +5,13 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
-import com.yonder.addtolist.R
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.yonder.addtolist.common.ui.component.productlist.adapter.ListProductAdapter
 import com.yonder.addtolist.common.ui.extensions.addVerticalDivider
 import com.yonder.addtolist.common.ui.extensions.removeAnimator
 import com.yonder.addtolist.databinding.LayoutYoProductListBinding
 import com.yonder.addtolist.local.entity.UserListProductEntity
+import okhttp3.internal.notify
 
 /**
  * @author yusuf.onder
@@ -35,33 +36,31 @@ class YoProductListView @JvmOverloads constructor(
 
   fun setVisible(isVisible: Boolean) {
     this.isVisible = isVisible
-    binding.yoNoItemView.isVisible = isVisible
   }
 
   private fun initRecyclerView() = with(binding.rvProducts) {
     addVerticalDivider()
-    removeAnimator()
+
   }
 
   fun bind(products: List<UserListProductEntity>, productOperationListener: IProductOperation) {
-    binding.yoNoItemView.isVisible = products.isEmpty()
-    if (products.isEmpty()){
-      binding.yoNoItemView.initView(R.string.empty_list,R.string.add_item){
-        productOperationListener.openKeyboard()
+    val sortedProducts = products.sortedBy { it.wrappedDone() }
+    if (adapter == null) {
+      //Disable blinking animation
+      (binding.rvProducts.itemAnimator as? SimpleItemAnimator)
+        ?.supportsChangeAnimations = false
+
+      adapter = ListProductAdapter().apply {
+        submitList(sortedProducts)
+        this.iProductOperation = productOperationListener
       }
-    }else{
-      if (adapter == null) {
-        adapter = ListProductAdapter().apply {
-          submitList(products)
-          this.iProductOperation = productOperationListener
-        }
-        binding.rvProducts.adapter = adapter
-      } else {
-        adapter?.apply {
-          submitList(products)
-        }
+      binding.rvProducts.adapter = adapter
+    } else {
+      adapter?.apply {
+        submitList(sortedProducts)
       }
     }
+
 
   }
 }

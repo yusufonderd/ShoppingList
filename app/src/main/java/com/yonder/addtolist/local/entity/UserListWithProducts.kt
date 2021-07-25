@@ -14,4 +14,11 @@ data class UserListWithProducts(
     entityColumn = "userListUUID"
   )
   val products: List<UserListProductEntity>
-)
+){
+  fun wrappedUncompletedItems(): String {
+    return products.filter { !it.wrappedDone() }
+      .take(5)
+      .map { it.name }
+      .joinToString(",")
+  }
+}

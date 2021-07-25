@@ -46,8 +46,7 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>(), IProductOp
     super.onResume()
     KeyboardVisibilityEvent.registerEventListener(activity) { isKeyboardOpened: Boolean ->
       binding.yoFilteredItemsView.setVisibility(isVisible = isKeyboardOpened)
-      binding.yoProductListView.setVisible(!isKeyboardOpened)
-      Timber.d("keyboard fix $isKeyboardOpened")
+      binding.yoProductListView.setVisible(isVisible = !isKeyboardOpened)
       binding.btnCancel.isVisible = isKeyboardOpened
       if (!isKeyboardOpened) {
         binding.btnCancel.performClick()
@@ -134,8 +133,11 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>(), IProductOp
     )
   }
 
-  override fun openKeyboard() {
-    binding.yoFilteredItemsView.setVisibility(isVisible = true)
+  override fun toggleDone(product: UserListProductEntity) {
+    viewModel.toggleDone(product)
+  }
+
+  private fun openKeyboard() {
     binding.btnCancel.isVisible = true
     binding.etSearch.openWithKeyboard(requireContext())
   }
@@ -145,9 +147,6 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>(), IProductOp
     filteredProducts: List<ProductEntitySummary>,
     query: String
   ) = with(binding) {
-
-    Timber.d("keyboard loadListContent ${products.size}")
-
 
     yoProductListView.bind(
       products = products,

@@ -30,6 +30,7 @@
     android:id="@+id/linearLayout2"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
+    android:gravity="center|start"
     android:orientation="horizontal"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toStartOf="@+id/linearLayout"
@@ -51,12 +52,13 @@
       android:layout_height="wrap_content"
       app:srcCompat="@drawable/ic_baseline_star_24"
       app:tint="@color/colorOrange"
-      tools:visibility="gone" />
+      tools:visibility="visible" />
 
 
     <LinearLayout
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_gravity="center"
       android:layout_marginStart="@dimen/padding_8"
       android:orientation="vertical">
 
@@ -64,10 +66,8 @@
         android:id="@+id/titleTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:maxLines="@integer/lines_1"
         android:textAppearance="?textAppearanceBody1"
-        tools:text="@tools:sample/lorem/random" />
+        tools:text="@tools:sample/lorem" />
 
       <TextView
         android:id="@+id/tvNote"
@@ -75,6 +75,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="@integer/lines_2"
+        tools:visibility="gone"
         android:textAppearance="?textAppearanceBody2"
         tools:text="@tools:sample/lorem/random" />
     </LinearLayout>

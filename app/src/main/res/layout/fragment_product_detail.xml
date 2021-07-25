@@ -96,6 +96,7 @@
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+          android:id="@+id/btnIncreate"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           app:backgroundTint="@color/colorGreen"
@@ -106,6 +107,7 @@
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+          android:id="@+id/btnDecrease"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           app:backgroundTint="@color/colorRed"

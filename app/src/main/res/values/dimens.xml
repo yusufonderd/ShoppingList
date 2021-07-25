@@ -35,6 +35,10 @@
   <dimen name="item_color_picker_selected_height">48dp</dimen>
   <dimen name="item_color_picker_selected_radius">24dp</dimen>
 
+  <!-- Item user list -->
+
+  <dimen name="item_user_list_product_count_circle_size">42dp</dimen>
+
 
   <!-- Settings -->
   <dimen name="settings_profile_size">36dp</dimen>
@@ -43,7 +47,6 @@
 
 
   <!-- Yo Product View-->
-
   <dimen name="item_yo_product_circle_size">32dp</dimen>
 
 </resources>

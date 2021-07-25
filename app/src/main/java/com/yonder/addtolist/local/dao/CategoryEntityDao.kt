@@ -10,6 +10,7 @@ import com.yonder.addtolist.local.entity.CategoryEntity
 import com.yonder.addtolist.local.entity.CategoryWithProducts
 import com.yonder.addtolist.local.entity.ProductEntity
 import com.yonder.addtolist.local.entity.UserListEntity
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Yusuf Onder on 12,May,2021
@@ -27,7 +28,7 @@ interface CategoryEntityDao {
   fun loadAll(): LiveData<List<CategoryEntity>>
 
   @Query("SELECT * FROM category WHERE language_id  = :languageId")
-  fun findByLanguageId(languageId: Int): LiveData<List<CategoryEntity>>
+  fun findByLanguageId(languageId: Int): Flow<List<CategoryEntity>>
 
   @Transaction
   @Query("SELECT * FROM category WHERE categoryId  = :categoryId")

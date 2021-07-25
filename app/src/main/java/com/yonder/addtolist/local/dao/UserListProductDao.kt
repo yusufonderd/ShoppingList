@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.Flow
 interface UserListProductDao {
 
   @Query("SELECT * FROM user_list_products WHERE id = :id")
-  fun findById(id: Int?): LiveData<UserListProductEntity>
+  fun findById(id: Int?): Flow<UserListProductEntity?>
 
 
   @Query("SELECT * FROM user_list_products")
@@ -46,14 +46,14 @@ interface UserListProductDao {
   @Query("SELECT * FROM userList WHERE uuid = :uuid")
   fun getUserListWithProductsBy(uuid: String): Flow<UserListWithProducts>
 
-  @Delete
-  suspend fun delete(product: UserListProductEntity)
-
   @Query("SELECT * FROM user_list_products WHERE name = :productName and userListUUID = :listUUID LIMIT 1 ")
   fun findByListUUID(listUUID: String, productName: String): Flow<UserListProductEntity?>
 
   @Update
-  fun update(item: UserListProductEntity)
+  suspend fun update(item: UserListProductEntity)
+
+  @Delete
+  suspend fun delete(product: UserListProductEntity)
 
   @Insert
   suspend fun insertAll(products: List<UserListProductEntity>)

@@ -9,6 +9,7 @@ import com.yonder.addtolist.local.entity.UserListProductEntity
 import com.yonder.addtolist.scenes.detail.domain.category.ProductQueryUseCase
 import com.yonder.addtolist.scenes.detail.domain.product.ProductUseCase
 import com.yonder.addtolist.scenes.list.domain.usecase.LocalListUseCase
+import com.yonder.addtolist.scenes.productdetail.domain.usecase.LocalProductUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,10 +26,13 @@ import javax.inject.Inject
 
 private const val QUERY_LIMIT = 10
 
+private const val DONE_VALUE = 1
+private const val NO_DONE_VALUE = 0
 @HiltViewModel
 class ListDetailViewModel @Inject constructor(
   private val productQueryUseCase: ProductQueryUseCase,
   private val productUseCase: ProductUseCase,
+  private val localProductUseCase: LocalProductUseCase,
   private val localUserListUseCase: LocalListUseCase
 ) : ViewModel() {
 
@@ -37,9 +41,6 @@ class ListDetailViewModel @Inject constructor(
   val state: StateFlow<ListDetailViewState> get() = _state
   var job: Job? = null
 
-  init {
-  //  fetchCategories()
-  }
 
   fun fetchProducts(listUUID: String, query: String = EMPTY_STRING) {
     val flow1 = localUserListUseCase.getUserListByUUID(listUUID)
@@ -112,6 +113,19 @@ class ListDetailViewModel @Inject constructor(
         .collect()
     }
   }
+
+  fun toggleDone(product: UserListProductEntity) {
+    if (product.wrappedDone()) {
+      product.done = NO_DONE_VALUE
+    } else {
+      product.done = DONE_VALUE
+    }
+    viewModelScope.launch {
+      localProductUseCase.update(product)
+    }
+  }
+
+
 
   fun removeProduct(product: UserListProductEntity) = with(viewModelScope) {
     launch {
