@@ -2,8 +2,8 @@ package com.yonder.addtolist.scenes.detail.domain
 
 import com.yonder.addtolist.scenes.detail.domain.category.CategoryListRepository
 import com.yonder.addtolist.scenes.detail.domain.category.CategoryListRepositoryImpl
-import com.yonder.addtolist.scenes.detail.domain.category.CategoryListUseCase
-import com.yonder.addtolist.scenes.detail.domain.category.CategoryListUseCaseImpl
+import com.yonder.addtolist.scenes.detail.domain.category.ProductQueryUseCase
+import com.yonder.addtolist.scenes.detail.domain.category.ProductQueryUseCaseImpl
 import com.yonder.addtolist.scenes.detail.domain.product.ProductUseCase
 import com.yonder.addtolist.scenes.detail.domain.product.ProductUseCaseImpl
 import com.yonder.addtolist.scenes.detail.domain.product.ProductRepository
@@ -23,7 +23,7 @@ import dagger.hilt.android.components.ViewModelComponent
 interface ListDetailModule {
 
   @get:[Binds]
-  val CategoryListUseCaseImpl.useCase: CategoryListUseCase
+  val ProductQueryUseCaseImpl.useCase: ProductQueryUseCase
 
   @get:[Binds]
   val CategoryListRepositoryImpl.repository: CategoryListRepository

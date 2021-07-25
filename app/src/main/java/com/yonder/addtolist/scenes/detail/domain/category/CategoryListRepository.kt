@@ -11,6 +11,4 @@ import kotlinx.coroutines.flow.Flow
  */
 interface CategoryListRepository {
   fun fetchCategories(): Flow<Result<List<CategoryWithProducts>>>
-  fun fetchWord(query : String,limit :Int): Flow<List<ProductEntitySummary>>
-  fun fetchPopularProducts(): Flow<List<ProductEntitySummary>>
 }

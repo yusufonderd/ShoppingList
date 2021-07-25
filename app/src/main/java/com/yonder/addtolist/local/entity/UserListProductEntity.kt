@@ -51,6 +51,7 @@ class UserListProductEntity(
     }
     return image
   }
+
   fun wrappedPrice(): String {
     val format: NumberFormat = NumberFormat.getCurrencyInstance()
     format.maximumFractionDigits = 0
@@ -83,7 +84,10 @@ class UserListProductEntity(
         formattedUnit = ""
       }
     }
-
     return "x$formatted $formattedUnit"
+  }
+
+  fun wrappedFavorite(): Boolean {
+    return favorite == 1
   }
 }

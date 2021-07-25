@@ -12,4 +12,8 @@ data class CategoryProductResponse(
   @SerializedName("image") var image: String?,
   @SerializedName("translations") var translationResponses: ArrayList<TranslationResponse>?,
   @SerializedName("products") var products: ArrayList<ProductResponse>?
-)
+) {
+  fun wrappedName(): String {
+    return translationResponses?.firstOrNull()?.name.orEmpty()
+  }
+}

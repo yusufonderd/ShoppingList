@@ -17,7 +17,7 @@ import com.yonder.addtolist.local.entity.UserListEntity
 @Dao
 interface CategoryEntityDao {
 
-  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  @Insert
   fun insertAll(categoryList: List<CategoryEntity>)
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -37,7 +37,7 @@ interface CategoryEntityDao {
   @Query("SELECT * FROM category")
   suspend fun getAllUserListWithProducts(): List<CategoryWithProducts>
 
-  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  @Insert
   suspend fun insertAll(products: List<ProductEntity>)
 
 }

@@ -1,34 +1,29 @@
-package com.yonder.addtolist.scenes.detail.domain.category
+package com.yonder.addtolist.scenes.splash.domain
 
 import com.yonder.addtolist.core.network.responses.Result
 import com.yonder.addtolist.core.network.thread.CoroutineThread
 import com.yonder.addtolist.local.entity.CategoryWithProducts
-import com.yonder.addtolist.local.entity.ProductEntitySummary
+import com.yonder.addtolist.scenes.detail.domain.category.CategoryListRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 /**
  * @author yusuf.onder
- * Created on 19.07.2021
+ * Created on 25.07.2021
  */
-class CategoryListUseCaseImpl @Inject constructor(
+
+interface CategoriesUseCase {
+  fun getCategories(): Flow<Result<List<CategoryWithProducts>>>
+}
+
+class CategoriesUseCaseImpl @Inject constructor(
   private val categoryListRepository: CategoryListRepository,
   private val dispatcher: CoroutineThread
-) : CategoryListUseCase {
-
+) : CategoriesUseCase {
   override fun getCategories(): Flow<Result<List<CategoryWithProducts>>> {
     return categoryListRepository
       .fetchCategories()
       .flowOn(dispatcher.io)
   }
-
-  override fun fetchProductByQuery(query: String,limit : Int): Flow<List<ProductEntitySummary>> {
-    return categoryListRepository.fetchWord(query,limit).flowOn(dispatcher.io)
-  }
-
-  override fun fetchPopularProducts(): Flow<List<ProductEntitySummary>> {
-    return categoryListRepository.fetchPopularProducts().flowOn(dispatcher.io)
-  }
-
 }

@@ -66,12 +66,6 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>(), IProductOp
     lifecycleScope.launchWhenResumed {
       viewModel.state.collect { viewState ->
         when (viewState) {
-          ListDetailViewState.Loading -> {
-            binding.stateLayout.setState(State.LOADING)
-          }
-          is ListDetailViewState.ShowContent -> {
-            binding.stateLayout.setState(State.CONTENT)
-          }
           is ListDetailViewState.UserListContent -> {
             loadListContent(
               viewState.userListWithProducts.products,
@@ -79,12 +73,7 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>(), IProductOp
               viewState.query
             )
           }
-          is ListDetailViewState.Error -> {
-            binding.stateLayout.setState(State.ERROR)
-          }
-          is ListDetailViewState.Initial -> {
-            binding.stateLayout.setState(State.CONTENT)
-          }
+          else -> Unit
         }
       }
     }
@@ -98,9 +87,9 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>(), IProductOp
   }
 
   private fun resetEditText() {
-    binding.etSearch.text?.clear()
     context.hideKeyboardFor(binding.etSearch)
     binding.etSearch.clearFocus()
+    binding.etSearch.text?.clear()
   }
 
   private fun initEditText() = with(binding.etSearch) {

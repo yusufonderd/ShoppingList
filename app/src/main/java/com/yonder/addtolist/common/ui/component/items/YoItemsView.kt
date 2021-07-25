@@ -39,7 +39,7 @@ class YoItemsView @JvmOverloads constructor(
     isNestedScrollingEnabled = false
   }
 
-  fun setVisibility(isVisible : Boolean) {
+  fun setVisibility(isVisible: Boolean) {
     this.isVisible = isVisible
   }
 
@@ -55,9 +55,12 @@ class YoItemsView @JvmOverloads constructor(
       filteredProducts = list
     )
 
+
     val isVisibleQuery = query.isNotEmpty()
-    binding.yoProductQueryItem.isVisible = isVisibleQuery
-    if (isVisibleQuery) {
+    val isQueryExist: Boolean = itemsList.any { it.name == query }
+    val shouldVisibleQueryItem = isVisibleQuery && isQueryExist.not()
+    binding.yoProductQueryItem.isVisible = shouldVisibleQueryItem
+    if (shouldVisibleQueryItem) {
       val entity = products.find { it.name == query }
       val queryItemModel = ItemUiModel(query, entity)
       binding.yoProductQueryItem.bind(
@@ -67,6 +70,7 @@ class YoItemsView @JvmOverloads constructor(
         boldEnabled = false
       )
     }
+
     binding.tvHeader.isGone = isVisibleQuery
     if (adapter == null) {
       adapter = ItemListAdapter().apply {

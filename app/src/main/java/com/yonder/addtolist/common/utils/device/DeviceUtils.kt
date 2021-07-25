@@ -31,4 +31,45 @@ object DeviceUtils {
     }
   }
 
+
+  fun getLanguageId(): Int {
+
+    when (Locale.getDefault().language) {
+      "tr" -> {
+        return 1
+      }
+      "en" -> {
+        return 2
+      }
+      "de" -> {
+        return 3
+      }
+      "fr" -> {
+        return 4
+      }
+      "ru" -> {
+        return 5
+      }
+      "es" -> {
+        return 6
+      }
+      "ar" -> {
+        return 7
+      }
+      "hi" -> {
+        return 8
+      }
+      "ro" -> {
+        return 9
+      }
+      else -> {
+        return 2
+      }
+    }
+
+  }
+
+
+
+
 }

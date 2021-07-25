@@ -12,6 +12,7 @@ import com.yonder.addtolist.scenes.detail.domain.mapper.ProductEntityMapper
 import com.yonder.addtolist.scenes.list.data.local.datasource.CategoryDataSource
 import com.yonder.addtolist.scenes.list.data.remote.ApiService
 import com.yonder.addtolist.scenes.list.domain.mapper.CategoryProductsMapper
+import com.yonder.addtolist.scenes.list.domain.model.CategoryProductsUiModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
@@ -29,25 +30,17 @@ class CategoryListRepositoryImpl @Inject constructor(
   private val mapper: CategoryProductsMapper
 ) : CategoryListRepository {
 
-  override fun fetchWord(query: String,limit: Int): Flow<List<ProductEntitySummary>> = flow {
-    val popularProducts = categoryDataSource.getProductsByQuery(query,limit)
-    emit(popularProducts)
-  }
-
-  override fun fetchPopularProducts(): Flow<List<ProductEntitySummary>> = flow {
-    val popularProducts = categoryDataSource.getPopularProducts()
-    emit(popularProducts)
-  }
-
   override fun fetchCategories(): Flow<Result<List<CategoryWithProducts>>> = flow {
     if (!userPreferenceDataStore.isFetchedCategories()) {
       emit(Result.Loading)
       val result = apiService.getCategories(null)
-      val entities = mapper.map(result)
+      val entities: CategoryProductsUiModel = mapper.map(result)
       entities.list.forEach { category ->
         val categories = ListMapperImpl(
           CategoryEntityMapper(categoryImage = category.image)
-        ).map(category.translationResponses)
+        ).map(category.translationResponses).distinctBy {
+          it.categoryId + it.languageId
+        }
         val products = ListMapperImpl(
           ProductEntityMapper(
             categoryImage = category.image,

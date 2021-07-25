@@ -12,6 +12,17 @@ class CategoryEntityMapper(
   private val categoryImage: String
 ) : Mapper<TranslationUiModel, CategoryEntity> {
   override fun map(input: TranslationUiModel): CategoryEntity {
-    return CategoryEntity("${input.categoryId}", input.name, categoryImage, input.languageId)
+    return CategoryEntity(
+      categoryId = "${input.categoryId}$SEPARATOR${input.languageId}",
+      name = input.name,
+      image = categoryImage,
+      languageId = input.languageId
+    )
+  }
+
+  companion object {
+    private const val SEPARATOR = "-"
   }
 }
+
+

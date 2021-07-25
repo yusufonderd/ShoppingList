@@ -3,13 +3,9 @@ package com.yonder.addtolist.scenes.detail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.core.extensions.EMPTY_STRING
-import com.yonder.addtolist.core.extensions.toReadableMessage
 import com.yonder.addtolist.local.entity.CATEGORY_OTHER_IMAGE
-import com.yonder.addtolist.local.entity.CategoryWithProducts
-import com.yonder.addtolist.local.entity.ProductEntitySummary
 import com.yonder.addtolist.local.entity.UserListProductEntity
-import com.yonder.addtolist.local.entity.UserListWithProducts
-import com.yonder.addtolist.scenes.detail.domain.category.CategoryListUseCase
+import com.yonder.addtolist.scenes.detail.domain.category.ProductQueryUseCase
 import com.yonder.addtolist.scenes.detail.domain.product.ProductUseCase
 import com.yonder.addtolist.scenes.list.domain.usecase.LocalListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,10 +14,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -33,7 +26,7 @@ private const val QUERY_LIMIT = 10
 
 @HiltViewModel
 class ListDetailViewModel @Inject constructor(
-  private val categoryListUseCase: CategoryListUseCase,
+  private val productQueryUseCase: ProductQueryUseCase,
   private val productUseCase: ProductUseCase,
   private val localUserListUseCase: LocalListUseCase
 ) : ViewModel() {
@@ -44,15 +37,15 @@ class ListDetailViewModel @Inject constructor(
   var job: Job? = null
 
   init {
-    fetchCategories()
+  //  fetchCategories()
   }
 
   fun fetchProducts(listUUID: String, query: String = EMPTY_STRING) {
     val flow1 = localUserListUseCase.getUserListByUUID(listUUID)
     val flow2 = if (query.trim().isEmpty()) {
-      categoryListUseCase.fetchPopularProducts()
+      productQueryUseCase.fetchPopularProducts()
     } else {
-      categoryListUseCase.fetchProductByQuery(
+      productQueryUseCase.fetchProductByQuery(
         query = query,
         limit = QUERY_LIMIT
       )
@@ -70,7 +63,7 @@ class ListDetailViewModel @Inject constructor(
 
   }
 
-  private fun fetchCategories() {
+  /*private fun fetchCategories() {
     categoryListUseCase.getCategories()
       .onEach { result ->
         result.onSuccess {
@@ -81,7 +74,7 @@ class ListDetailViewModel @Inject constructor(
           _state.value = ListDetailViewState.Error(error.toReadableMessage())
         }
       }.launchIn(viewModelScope)
-  }
+  }*/
 
 
   fun addProduct(listId: String, userListUUID: String, productName: String) = with(viewModelScope) {
