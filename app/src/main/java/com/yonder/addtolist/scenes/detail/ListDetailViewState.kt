@@ -16,7 +16,7 @@ sealed class ListDetailViewState {
     val list: List<ProductEntitySummary>,
     val query: String
   ) : ListDetailViewState()
+  object OpenKeyboard : ListDetailViewState()
 
-  data class ShowContent(val categoryList: List<CategoryWithProducts>) : ListDetailViewState()
   data class Error(var errorMessage: String) : ListDetailViewState()
 }

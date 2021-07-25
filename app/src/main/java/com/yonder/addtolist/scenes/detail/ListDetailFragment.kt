@@ -10,6 +10,7 @@ import androidx.navigation.fragment.navArgs
 import com.yonder.addtolist.common.ui.base.BaseFragment
 import com.yonder.addtolist.common.ui.component.items.ItemOperationListener
 import com.yonder.addtolist.common.ui.component.productlist.IProductOperation
+import com.yonder.addtolist.common.ui.extensions.openWithKeyboard
 import com.yonder.addtolist.common.ui.extensions.setSafeOnClickListener
 import com.yonder.addtolist.common.utils.keyboard.KeyboardVisibilityEvent
 import com.yonder.addtolist.common.utils.keyboard.hideKeyboardFor
@@ -73,11 +74,15 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>(), IProductOp
               viewState.query
             )
           }
+          is ListDetailViewState.OpenKeyboard -> {
+            openKeyboard()
+          }
           else -> Unit
         }
       }
     }
   }
+
 
   override fun initViews() {
     initEditText()
@@ -86,10 +91,10 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>(), IProductOp
     }
   }
 
-  private fun resetEditText() {
-    context.hideKeyboardFor(binding.etSearch)
-    binding.etSearch.clearFocus()
-    binding.etSearch.text?.clear()
+  private fun resetEditText() = with(binding.etSearch) {
+    context.hideKeyboardFor(this)
+    clearFocus()
+    text?.clear()
   }
 
   private fun initEditText() = with(binding.etSearch) {
@@ -127,12 +132,18 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>(), IProductOp
     )
   }
 
+  override fun openKeyboard() {
+    binding.yoFilteredItemsView.setVisibility(isVisible = true)
+    binding.btnCancel.isVisible = true
+    binding.etSearch.openWithKeyboard(requireContext())
+  }
 
   private fun loadListContent(
     products: List<UserListProductEntity>,
     filteredProducts: List<ProductEntitySummary>,
     query: String
   ) = with(binding) {
+
     yoProductListView.bind(
       products = products,
       productOperationListener = this@ListDetailFragment

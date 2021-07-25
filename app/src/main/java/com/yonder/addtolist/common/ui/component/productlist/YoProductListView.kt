@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
+import com.yonder.addtolist.R
 import com.yonder.addtolist.common.ui.component.productlist.adapter.ListProductAdapter
 import com.yonder.addtolist.common.ui.extensions.addVerticalDivider
 import com.yonder.addtolist.common.ui.extensions.removeAnimator
@@ -42,17 +43,25 @@ class YoProductListView @JvmOverloads constructor(
   }
 
   fun bind(products: List<UserListProductEntity>, productOperationListener: IProductOperation) {
-    if (adapter == null) {
-      adapter = ListProductAdapter().apply {
-        submitList(products)
-        this.iProductOperation = productOperationListener
+    binding.yoNoItemView.isVisible = products.isEmpty()
+    if (products.isEmpty()){
+      binding.yoNoItemView.initView(R.string.empty_list,R.string.add_item){
+        productOperationListener.openKeyboard()
       }
-      binding.rvProducts.adapter = adapter
-    } else {
-      adapter?.apply {
-        submitList(products)
+    }else{
+      if (adapter == null) {
+        adapter = ListProductAdapter().apply {
+          submitList(products)
+          this.iProductOperation = productOperationListener
+        }
+        binding.rvProducts.adapter = adapter
+      } else {
+        adapter?.apply {
+          submitList(products)
+        }
       }
     }
+
   }
 }
 

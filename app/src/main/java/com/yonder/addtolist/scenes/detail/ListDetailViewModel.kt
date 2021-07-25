@@ -2,6 +2,7 @@ package com.yonder.addtolist.scenes.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.yonder.addtolist.common.ui.extensions.openWithKeyboard
 import com.yonder.addtolist.core.extensions.EMPTY_STRING
 import com.yonder.addtolist.local.entity.CATEGORY_OTHER_IMAGE
 import com.yonder.addtolist.local.entity.UserListProductEntity
@@ -53,6 +54,9 @@ class ListDetailViewModel @Inject constructor(
     job?.cancel()
     job = viewModelScope.launch {
       flow1.combine(flow2) { userListWithProducts, listingProducts ->
+        if (userListWithProducts.products.isEmpty()){
+          _state.value = ListDetailViewState.OpenKeyboard
+        }
         _state.value = ListDetailViewState.UserListContent(
           userListWithProducts,
           listingProducts,
