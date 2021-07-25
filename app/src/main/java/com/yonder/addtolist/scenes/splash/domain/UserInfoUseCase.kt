@@ -13,8 +13,8 @@ import javax.inject.Inject
 class UserInfoUseCase @Inject constructor(private val userPreferenceDataStore: UserPreferenceDataStore) {
 
   fun getUuid() = flow<Any> {
-    if (userPreferenceDataStore.uuid != null){
-      emit(userPreferenceDataStore.uuid!!)
+    if (userPreferenceDataStore.getUUID() != null){
+      emit(userPreferenceDataStore.getUUID()!!)
     }else{
       val randomUuid = UUID.randomUUID().toString()
       userPreferenceDataStore.saveUUID(randomUuid)
@@ -24,7 +24,7 @@ class UserInfoUseCase @Inject constructor(private val userPreferenceDataStore: U
 
   fun isLoggedIn(): Flow<Boolean> {
     return flow {
-      emit(userPreferenceDataStore.token != null)
+      emit(userPreferenceDataStore.getToken() != null)
     }
   }
 

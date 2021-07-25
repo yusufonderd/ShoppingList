@@ -1,6 +1,7 @@
 package com.yonder.addtolist.data.local
 
 import android.content.SharedPreferences
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -11,6 +12,7 @@ class UserPreferenceDataStoreImpl @Inject constructor(private val sharedPreferen
   UserPreferenceDataStore {
 
   override fun saveToken(token: String?) {
+    Timber.d("saveToken => $token")
     sharedPreferences.edit().apply {
       putString(KEY_APP_TOKEN, token)
       apply()
@@ -35,9 +37,13 @@ class UserPreferenceDataStoreImpl @Inject constructor(private val sharedPreferen
     return sharedPreferences.getBoolean(KEY_IS_FETCHED_CATEGORIES, false)
   }
 
-  override val uuid: String? = sharedPreferences.getString(KEY_UUID, null)
+  override fun getUUID(): String? = sharedPreferences.getString(KEY_UUID, null)
 
-  override val token: String? = sharedPreferences.getString(KEY_APP_TOKEN, null)
+  override fun getToken(): String? {
+    val token = sharedPreferences.getString(KEY_APP_TOKEN, null)
+    Timber.d("getToken => $token")
+    return token
+  }
 
   companion object {
     const val KEY_IS_FETCHED_CATEGORIES = "key_fetched_categories"

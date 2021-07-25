@@ -83,7 +83,7 @@ class LoginViewModel @Inject constructor(
   private fun createNewUser(createUserRegisterRequest: UserRegisterRequest) {
     getFirebaseToken { token ->
       createUserRegisterRequest.fcmToken = token.orEmpty()
-      createUserRegisterRequest.deviceUUID = userPreferenceDataStore.uuid.orEmpty()
+      createUserRegisterRequest.deviceUUID = userPreferenceDataStore.getUUID().orEmpty()
       loginUseCase.login(createUserRegisterRequest)
         .onEach { result ->
           result.onSuccess { userUiModel ->

@@ -5,8 +5,8 @@ package com.yonder.addtolist.data.local
  */
 
 interface UserPreferenceDataStore {
-  val uuid: String?
-  val token: String?
+  fun getUUID(): String?
+  fun getToken(): String?
   fun saveUUID(uuid: String)
   fun saveToken(token: String?)
   fun isFetchedCategories(): Boolean
