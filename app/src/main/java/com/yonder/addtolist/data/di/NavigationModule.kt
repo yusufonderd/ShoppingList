@@ -6,9 +6,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.yonder.addtolist.R
-import com.yonder.addtolist.scenes.list.presentation.ShoppingListNavigatorImpl
-import com.yonder.addtolist.scenes.list.presentation.ShoppingListNavigator
-import dagger.Binds
+
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,9 +21,6 @@ import dagger.hilt.android.components.ActivityComponent
 @InstallIn(ActivityComponent::class)
 @Module
 interface NavigationModule {
-
-  @get:Binds
-  val ShoppingListNavigatorImpl.shoppingListNavigator: ShoppingListNavigator
 
   companion object {
 

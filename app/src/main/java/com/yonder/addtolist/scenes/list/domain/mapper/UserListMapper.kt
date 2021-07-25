@@ -30,7 +30,7 @@ class UserListRequestMapper @Inject constructor() :
       id = null,
       uuid = input?.uuid.orEmpty(),
       name = input?.name.orEmpty(),
-      sync = true,
+      sync = false,
       color = input?.color.orEmpty(),
 
     )

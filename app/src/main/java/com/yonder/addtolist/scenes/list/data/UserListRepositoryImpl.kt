@@ -35,6 +35,7 @@ class UserListRepositoryImpl @Inject constructor(
     val entity = UserListRequestMapper().map(request)
     if (response.success == true) {
       entity.id = response.data?.id
+      entity.sync = true
       emit(Result.Success(entity))
     } else {
       emit(Result.Error<UserListEntity>(ServerResultException()))

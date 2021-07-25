@@ -44,9 +44,6 @@ class CreateListFragment : BaseFragment<FragmentCreateListBinding>() {
         is CreateListViewState.ListCreated -> {
           findNavController().popBackStack()
         }
-        is CreateListViewState.Error -> {
-          showSnackBar(viewState.errorMessage)
-        }
         else -> Unit
       }
     }

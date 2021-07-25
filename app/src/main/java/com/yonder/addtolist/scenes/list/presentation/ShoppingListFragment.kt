@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.yonder.addtolist.R
 import com.yonder.addtolist.common.ui.base.BaseFragment
 import com.yonder.addtolist.common.ui.extensions.addVerticalDivider
@@ -27,8 +28,6 @@ class ShoppingListFragment : BaseFragment<ShoppingListFragmentBinding>() {
   override fun initBinding(inflater: LayoutInflater) =
     ShoppingListFragmentBinding.inflate(inflater)
 
-  @Inject
-  lateinit var shoppingListNavigator: ShoppingListNavigator
 
   override fun onResume() {
     super.onResume()
@@ -37,7 +36,7 @@ class ShoppingListFragment : BaseFragment<ShoppingListFragmentBinding>() {
 
   override fun initViews() {
     binding.fabAdd.setSafeOnClickListener {
-      shoppingListNavigator.navigateCreateListFragment()
+      findNavController().navigate(R.id.action_shopping_list_to_create_list)
     }
     initRecyclerView()
   }
@@ -59,7 +58,7 @@ class ShoppingListFragment : BaseFragment<ShoppingListFragmentBinding>() {
             onListLoaded(viewState.userLists)
           }
           is ShoppingListItemsViewState.Loading -> {
-          //  onLoading()
+            onLoading()
           }
 
           is ShoppingListItemsViewState.Error ->
@@ -82,11 +81,16 @@ class ShoppingListFragment : BaseFragment<ShoppingListFragmentBinding>() {
     ytCreateList.isVisible = true
     fabAdd.isVisible = false
     ytCreateList.initView(R.string.create_your_first_list, R.string.create_list) {
-      shoppingListNavigator.navigateCreateListFragment()
+      findNavController().navigate(R.id.action_shopping_list_to_create_list)
     }
   }
   private fun onClickUserList(userListWithProduct: UserListWithProducts) {
-    shoppingListNavigator.navigateList(userListWithProduct.userList)
+    findNavController().navigate(
+      ShoppingListFragmentDirections.actionShoppingListToListDetail(
+        userList = userListWithProduct.userList,
+        title = userListWithProduct.userList.name
+      )
+    )
   }
 
   private fun onListLoaded(userLists: List<UserListWithProducts>) = with(binding) {

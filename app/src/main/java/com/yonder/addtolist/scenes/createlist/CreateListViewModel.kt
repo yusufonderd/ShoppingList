@@ -33,9 +33,9 @@ class CreateListViewModel @Inject constructor(
           result.onLoading {
             _state.value = CreateListViewState.Loading
           }.onSuccess {
-            _state.value = CreateListViewState.ListCreated
+            _state.value = CreateListViewState.ListCreated()
           }.onError {
-            _state.value = CreateListViewState.Error(it.toReadableMessage())
+            _state.value = CreateListViewState.ListCreated(it.toReadableMessage())
           }
         }
         .launchIn(viewModelScope)
