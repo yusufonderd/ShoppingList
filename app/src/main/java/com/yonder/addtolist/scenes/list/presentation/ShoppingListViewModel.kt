@@ -30,8 +30,7 @@ class ShoppingListItemsViewModel @Inject constructor(
           _state.value = ShoppingListItemsViewState.Result(userLists)
         }
       }.onError { error ->
-        _state.value =
-          ShoppingListItemsViewState.Error(error.toReadableMessage())
+        error.printStackTrace()
       }
     }.launchIn(viewModelScope)
   }
@@ -41,6 +40,6 @@ class ShoppingListItemsViewModel @Inject constructor(
 sealed class ShoppingListItemsViewState {
   object Loading : ShoppingListItemsViewState()
   object CreateNewListContent : ShoppingListItemsViewState()
-  data class Result(var userLists: List<UserListWithProducts>) : ShoppingListItemsViewState()
-  data class Error(var errorMessage: String) : ShoppingListItemsViewState()
+  data class Result(var userLists: List<UserListWithProducts> = emptyList()) :
+    ShoppingListItemsViewState()
 }

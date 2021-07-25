@@ -35,6 +35,7 @@ class YoProductListView @JvmOverloads constructor(
 
   fun setVisible(isVisible: Boolean) {
     this.isVisible = isVisible
+    binding.yoNoItemView.isVisible = isVisible
   }
 
   private fun initRecyclerView() = with(binding.rvProducts) {

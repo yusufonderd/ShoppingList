@@ -60,16 +60,9 @@ class ShoppingListFragment : BaseFragment<ShoppingListFragmentBinding>() {
           is ShoppingListItemsViewState.Loading -> {
             onLoading()
           }
-
-          is ShoppingListItemsViewState.Error ->
-            onError()
         }
       }
     }
-  }
-
-  private fun onError(){
-    binding.stateLayout.setState(State.ERROR)
   }
 
   private fun onLoading(){

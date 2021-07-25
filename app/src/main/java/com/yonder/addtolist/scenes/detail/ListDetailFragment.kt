@@ -20,6 +20,7 @@ import com.yonder.addtolist.local.entity.UserListProductEntity
 import com.yonder.statelayout.State
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import timber.log.Timber
 
 /**
  * @author yusuf.onder
@@ -46,6 +47,7 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>(), IProductOp
     KeyboardVisibilityEvent.registerEventListener(activity) { isKeyboardOpened: Boolean ->
       binding.yoFilteredItemsView.setVisibility(isVisible = isKeyboardOpened)
       binding.yoProductListView.setVisible(!isKeyboardOpened)
+      Timber.d("keyboard fix $isKeyboardOpened")
       binding.btnCancel.isVisible = isKeyboardOpened
       if (!isKeyboardOpened) {
         binding.btnCancel.performClick()
@@ -143,6 +145,9 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>(), IProductOp
     filteredProducts: List<ProductEntitySummary>,
     query: String
   ) = with(binding) {
+
+    Timber.d("keyboard loadListContent ${products.size}")
+
 
     yoProductListView.bind(
       products = products,

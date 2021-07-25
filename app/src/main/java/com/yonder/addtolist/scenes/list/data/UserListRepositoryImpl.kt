@@ -81,13 +81,15 @@ class UserListRepositoryImpl @Inject constructor(
         insertLists(userLists)
         insertProducts(userLists)
       }
-      emit(Result.Success(localDataSource.getUserListWithProducts()))
     } else {
       emit(Result.Error<List<UserListWithProducts>>(ServerResultException()))
     }
+    emit(Result.Success(localDataSource.getUserListWithProducts()))
+
   }.catch { error ->
     error.printStackTrace()
     emit(Result.Error<List<UserListWithProducts>>(error))
+    emit(Result.Success(localDataSource.getUserListWithProducts()))
   }
 
 
