@@ -2,10 +2,12 @@ package com.yonder.addtolist.scenes.productdetail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.yonder.addtolist.core.data.SingleLiveEvent
 import com.yonder.addtolist.core.extensions.orZero
 import com.yonder.addtolist.local.entity.CategoryEntity
 import com.yonder.addtolist.local.entity.UserListProductEntity
 import com.yonder.addtolist.scenes.productdetail.domain.usecase.LocalProductUseCase
+import com.yonder.addtolist.scenes.productdetail.model.ProductUnit
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,18 +33,19 @@ class ProductDetailViewModel @Inject constructor(
   private val productUseCase: LocalProductUseCase
 ) : ViewModel() {
 
-  var job: Job? = null
-
-  private val _state: MutableStateFlow<ProductDetailViewState> =
-    MutableStateFlow(ProductDetailViewState.Initial)
-  val state: StateFlow<ProductDetailViewState> get() = _state
+  private val _state: SingleLiveEvent<ProductDetailViewState> =
+    SingleLiveEvent()
+  val state: SingleLiveEvent<ProductDetailViewState> get() = _state
 
   fun fetchProductId(selectedProductId: Int?) {
-    val flow1 = productUseCase.getCategories()
-    val flow2 = productUseCase.getProductById(selectedProductId)
-    flow1.combine(flow2) { categories, productEntity ->
-      _state.value = ProductDetailViewState.Load(categories, productEntity)
-    }.launchIn(viewModelScope)
+    if (selectedProductId != null) {
+      val flow1 = productUseCase.getCategories()
+      val flow2 = productUseCase.getProductById(selectedProductId)
+      flow1.combine(flow2) { categories, productEntity ->
+        _state.value = ProductDetailViewState.Load(categories, productEntity)
+      }.launchIn(viewModelScope)
+    }
+
   }
 
   fun toggleFavorite(item: UserListProductEntity) {
@@ -86,11 +89,31 @@ class ProductDetailViewModel @Inject constructor(
     update(product)
   }
 
+  fun updateUnit(product: UserListProductEntity, unit: ProductUnit) {
+    if (product.unit != unit.value) {
+      product.unit = unit.value
+      update(product)
+    }
+  }
 
-  fun updateCategory(newCategory: CategoryEntity, product: UserListProductEntity) {
-    if (newCategory.image != product.categoryImage) {
-      product.categoryName = newCategory.name
-      product.categoryImage = newCategory.image
+  fun updateProductName(product: UserListProductEntity, name: String?) {
+    if (product.name != name && name.isNullOrEmpty().not()) {
+      product.name = name
+      update(product)
+    }
+  }
+
+  fun updateProductNote(product: UserListProductEntity, note: String?) {
+    if (product.note != note) {
+      product.note = note
+      update(product)
+    }
+  }
+
+  fun updateCategory(product: UserListProductEntity, category: CategoryEntity) {
+    if (category.image != product.categoryImage) {
+      product.categoryName = category.name
+      product.categoryImage = category.image
       update(product)
     }
   }

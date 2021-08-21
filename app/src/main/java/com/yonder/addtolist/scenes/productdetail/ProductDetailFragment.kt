@@ -3,9 +3,9 @@ package com.yonder.addtolist.scenes.productdetail
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.yonder.addtolist.R
@@ -17,9 +17,8 @@ import com.yonder.addtolist.databinding.FragmentProductDetailBinding
 import com.yonder.addtolist.local.entity.CategoryEntity
 import com.yonder.addtolist.local.entity.UserListProductEntity
 import com.yonder.addtolist.scenes.productdetail.adapter.MaterialSpinnerAdapter
+import com.yonder.addtolist.scenes.productdetail.model.ProductUnit
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import timber.log.Timber
 
 /**
  * @author yusuf.onder
@@ -29,34 +28,30 @@ import timber.log.Timber
 @AndroidEntryPoint
 class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
 
-
   private val args: ProductDetailFragmentArgs by navArgs()
 
   private val product get() = args.userListProduct
 
   val viewModel: ProductDetailViewModel by viewModels()
 
+  var adapterSpinner: MaterialSpinnerAdapter<String>? = null
+
   override fun initBinding(inflater: LayoutInflater) =
     FragmentProductDetailBinding.inflate(inflater)
 
   override fun initObservers() {
     lifecycleScope.launchWhenResumed {
-      viewModel.state.collect { viewState ->
+      viewModel.state.observe(viewLifecycleOwner) { viewState ->
         when (viewState) {
           is ProductDetailViewState.Load -> {
-            viewState.userListProduct?.let { product ->
-              setProduct(product)
-              initSpinner(viewState.categories, product)
-            }
+            setProduct(viewState.userListProduct)
+            initSpinner(viewState.categories, product)
           }
           else -> Unit
         }
       }
     }
-
   }
-
-  var adapterSpinner: MaterialSpinnerAdapter<String>? = null
 
   private fun initSpinner(
     categories: List<CategoryEntity>,
@@ -64,19 +59,18 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
   ) = with(binding.etAutoComplete) {
     if (adapterSpinner == null) {
       val userListProductCategory = categories.find { it.image == userListProduct.categoryImage }
-      val list =
-        ArrayList<CategoryEntity>(categories.sortedBy { it.name }).map { it.wrappedFormattedName() }
-      adapterSpinner = MaterialSpinnerAdapter(context, R.layout.item_material_spinner, list)
-      binding.etAutoComplete.setText(userListProductCategory?.wrappedFormattedName().orEmpty())
-      binding.etAutoComplete.setAdapter(adapterSpinner)
-      binding.etAutoComplete.setOnItemClickListener { adapterView, view, position, id ->
-        if (position < list.size) {
-          val category = list[position]
-          //  viewModel.updateCategory(category, userListProduct)
+      val sortedCategories = ArrayList<CategoryEntity>(categories.sortedBy { it.name })
+      val categoryNameList = sortedCategories.map { it.wrappedFormattedName() }
+      adapterSpinner = MaterialSpinnerAdapter(context, R.layout.item_material_spinner, categoryNameList)
+      with(binding.etAutoComplete){
+        setText(userListProductCategory?.wrappedFormattedName().orEmpty())
+        setAdapter(adapterSpinner)
+        setOnItemClickListener { _, _, position, _ ->
+          val category = sortedCategories[position]
+          viewModel.updateCategory(product = product, category = category)
         }
       }
     }
-
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -86,15 +80,29 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
 
   override fun initViews() {
     setClickListeners()
+    initTextChangedListeners()
   }
 
-
   private fun setProduct(product: UserListProductEntity) {
-    binding.etProductName.setText(product.name)
+    if (binding.etProductName.text?.isBlank() == true) {
+      binding.etProductName.setText(product.name)
+    }
+    if (binding.etNote.text?.isBlank() == true) {
+      binding.etNote.setText(product.note)
+    }
     binding.etPrice.setText(product.wrappedPrice())
     binding.etQuantity.setText(product.wrappedQuantityWith(requireContext()))
     setUnit(binding.toggleButton, product.unit)
     setFavorite(product.wrappedFavorite())
+  }
+
+  private fun initTextChangedListeners() {
+    binding.etNote.addTextChangedListener {
+      viewModel.updateProductNote(product = product, note = it.toString())
+    }
+    binding.etProductName.addTextChangedListener{
+      viewModel.updateProductName(product = product,name = it.toString())
+    }
   }
 
   private fun setClickListeners() = with(binding) {
@@ -103,6 +111,23 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
       closeFragment()
     }
 
+    toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
+      if (!isChecked) return@addOnButtonCheckedListener
+      when (checkedId) {
+        binding.button1.id -> {
+          viewModel.updateUnit(product = product, unit = ProductUnit.Piece)
+        }
+        binding.button2.id -> {
+          viewModel.updateUnit(product = product, unit = ProductUnit.Package)
+        }
+        binding.button3.id -> {
+          viewModel.updateUnit(product = product, unit = ProductUnit.Kg)
+        }
+        binding.button4.id -> {
+          viewModel.updateUnit(product = product, unit = ProductUnit.Lt)
+        }
+      }
+    }
     btnDecrease.setSafeOnClickListener {
       viewModel.decreaseQuantity(product)
     }
@@ -136,28 +161,20 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
 
   private fun setUnit(group: MaterialButtonToggleGroup, unit: String?) {
     when (unit) {
-      PIECE -> {
+      ProductUnit.Piece.value -> {
         group.check(R.id.button1)
       }
-      PACKAGE -> {
+      ProductUnit.Package.value -> {
         group.check(R.id.button2)
       }
-      KG -> {
+      ProductUnit.Kg.value -> {
         group.check(R.id.button3)
       }
-      LT -> {
+      ProductUnit.Lt.value -> {
         group.check(R.id.button4)
       }
     }
 
-  }
-
-  companion object {
-    const val VIBRATE_MILLISECOND: Long = 50
-    const val KG = "kg"
-    const val LT = "lt"
-    const val PACKAGE = "package"
-    const val PIECE = "piece"
   }
 
 

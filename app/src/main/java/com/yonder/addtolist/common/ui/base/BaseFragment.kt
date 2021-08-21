@@ -24,6 +24,7 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
   protected open val binding get() = _binding!!
   var physicalBackButtonBehavior: (() -> Unit)? = null
 
+  var isFragmentLoadedBefore = false
   abstract fun initObservers()
   abstract fun initViews()
   override fun onCreateView(

@@ -19,7 +19,7 @@ import javax.inject.Inject
 interface LocalProductUseCase {
   suspend fun delete(product: UserListProductEntity)
   suspend fun update(product: UserListProductEntity)
-  fun getProductById(id: Int?): Flow<UserListProductEntity?>
+  fun getProductById(id: Int): Flow<UserListProductEntity>
   fun getCategories() : Flow<List<CategoryEntity>>
 }
 
@@ -36,7 +36,7 @@ class LocalProductUseCaseImpl @Inject constructor(
   override suspend fun delete(product: UserListProductEntity) {
     return appDatabase.userListProductDao().delete(product)
   }
-  override fun getProductById(id: Int?):  Flow<UserListProductEntity?> {
+  override fun getProductById(id: Int):  Flow<UserListProductEntity> {
     return appDatabase.userListProductDao().findById(id).flowOn(dispatcher.io)
   }
 

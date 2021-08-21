@@ -6,7 +6,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.yonder.addtolist.R
+import com.yonder.addtolist.core.extensions.EMPTY_STRING
 import com.yonder.addtolist.scenes.productdetail.ProductDetailFragment
+import com.yonder.addtolist.scenes.productdetail.model.ProductUnit
 import kotlinx.parcelize.Parcelize
 import java.lang.Exception
 import java.text.DecimalFormat
@@ -18,8 +20,8 @@ import java.util.*
  * Created on 20.07.2021
  */
 
- const val CATEGORY_OTHER_NAME = "Other"
- const val CATEGORY_OTHER_IMAGE = "U+1F3F7"
+const val CATEGORY_OTHER_NAME = "Other"
+const val CATEGORY_OTHER_IMAGE = "U+1F3F7"
 
 @Parcelize
 @Entity(tableName = "user_list_products")
@@ -36,7 +38,7 @@ class UserListProductEntity(
   @field:ColumnInfo(name = "quantity") var quantity: Double? = 1.0,
   @field:ColumnInfo(name = "price") var price: Double? = 0.0,
   @field:ColumnInfo(name = "sync") var sync: Boolean? = false
-):Parcelable{
+) : Parcelable {
 
   fun wrappedCategoryImage(): String {
     val image = (categoryImage ?: CATEGORY_OTHER_IMAGE)
@@ -68,20 +70,20 @@ class UserListProductEntity(
     val formatted = decimalFormat.format(quantity)
     val formattedUnit: String
     when (unit) {
-      ProductDetailFragment.PIECE -> {
+      ProductUnit.Piece.value -> {
         formattedUnit = context.getString(R.string.unit_piece)
       }
-      ProductDetailFragment.PACKAGE -> {
+      ProductUnit.Package.value -> {
         formattedUnit = context.getString(R.string.unit_package)
       }
-      ProductDetailFragment.KG -> {
+      ProductUnit.Kg.value -> {
         formattedUnit = context.getString(R.string.unit_kg)
       }
-      ProductDetailFragment.LT -> {
+      ProductUnit.Lt.value -> {
         formattedUnit = context.getString(R.string.unit_lt)
       }
       else -> {
-        formattedUnit = ""
+        formattedUnit = EMPTY_STRING
       }
     }
     return "x$formatted $formattedUnit"
