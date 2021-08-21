@@ -40,14 +40,14 @@ class UserPreferenceDataStoreImpl @Inject constructor(private val sharedPreferen
     }
   }
 
-  override fun setFetchedCategories() {
+  override fun setFetchedCategoriesAndProducts() {
     sharedPreferences.edit().apply {
       putBoolean(KEY_IS_FETCHED_CATEGORIES, true)
       apply()
     }
   }
 
-  override fun isFetchedCategories(): Boolean {
+  override fun isFetchedCategoriesAndProducts(): Boolean {
     return sharedPreferences.getBoolean(KEY_IS_FETCHED_CATEGORIES, false)
   }
 

@@ -8,8 +8,8 @@ import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.local.entity.ProductEntity
 import com.yonder.addtolist.local.entity.UserListProductEntity
 import com.yonder.addtolist.scenes.detail.domain.mapper.UserListProductMapper
-import com.yonder.addtolist.scenes.list.data.local.datasource.CategoryDataSource
-import com.yonder.addtolist.scenes.list.data.remote.ApiService
+import com.yonder.addtolist.scenes.home.data.local.datasource.CategoryDataSource
+import com.yonder.addtolist.scenes.home.data.remote.ApiService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow

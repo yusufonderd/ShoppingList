@@ -1,22 +1,19 @@
 package com.yonder.addtolist.scenes.detail.domain.category
 
 import com.yonder.addtolist.core.mapper.ListMapperImpl
-import com.yonder.addtolist.core.network.exceptions.RoomResultException
 import com.yonder.addtolist.core.network.exceptions.ServerResultException
 import com.yonder.addtolist.core.network.responses.Result
 import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.local.entity.CategoryWithProducts
-import com.yonder.addtolist.local.entity.ProductEntitySummary
 import com.yonder.addtolist.scenes.detail.domain.mapper.CategoryEntityMapper
 import com.yonder.addtolist.scenes.detail.domain.mapper.ProductEntityMapper
-import com.yonder.addtolist.scenes.list.data.local.datasource.CategoryDataSource
-import com.yonder.addtolist.scenes.list.data.remote.ApiService
-import com.yonder.addtolist.scenes.list.domain.mapper.CategoryProductsMapper
-import com.yonder.addtolist.scenes.list.domain.model.CategoryProductsUiModel
+import com.yonder.addtolist.scenes.home.data.local.datasource.CategoryDataSource
+import com.yonder.addtolist.scenes.home.data.remote.ApiService
+import com.yonder.addtolist.scenes.home.domain.mapper.CategoryProductsMapper
+import com.yonder.addtolist.scenes.home.domain.model.CategoryProductsUiModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -31,7 +28,7 @@ class CategoryListRepositoryImpl @Inject constructor(
 ) : CategoryListRepository {
 
   override fun fetchCategories(): Flow<Result<List<CategoryWithProducts>>> = flow {
-    if (!userPreferenceDataStore.isFetchedCategories()) {
+    if (!userPreferenceDataStore.isFetchedCategoriesAndProducts()) {
       emit(Result.Loading)
       val result = apiService.getCategories(null)
       val entities: CategoryProductsUiModel = mapper.map(result)
@@ -49,7 +46,7 @@ class CategoryListRepositoryImpl @Inject constructor(
         ).map(category.products)
         categoryDataSource.insertAll(categories)
         categoryDataSource.insertAllProducts(products)
-        userPreferenceDataStore.setFetchedCategories()
+        userPreferenceDataStore.setFetchedCategoriesAndProducts()
       }
     }
     emit(Result.Success(categoryDataSource.getCategories()))

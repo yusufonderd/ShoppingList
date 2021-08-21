@@ -5,9 +5,8 @@ import com.yonder.addtolist.core.extensions.toBoolean
 import com.yonder.addtolist.core.extensions.toInt
 import com.yonder.addtolist.core.network.request.CreateUserListProductRequest
 import com.yonder.addtolist.core.network.request.UserListProductRequest
-import com.yonder.addtolist.local.entity.ProductEntitySummary
 import com.yonder.addtolist.local.entity.UserListProductEntity
-import com.yonder.addtolist.scenes.list.data.remote.response.UserListProductResponse
+import com.yonder.addtolist.scenes.home.data.remote.response.UserListProductResponse
 
 /**
  * @author yusuf.onder

@@ -8,8 +8,8 @@ import com.yonder.addtolist.scenes.detail.domain.product.ProductUseCase
 import com.yonder.addtolist.scenes.detail.domain.product.ProductUseCaseImpl
 import com.yonder.addtolist.scenes.detail.domain.product.ProductRepository
 import com.yonder.addtolist.scenes.detail.domain.product.ProductRepositoryImpl
-import com.yonder.addtolist.scenes.list.data.local.datasource.CategoryDataSource
-import com.yonder.addtolist.scenes.list.data.local.datasource.CategoryDataSourceImpl
+import com.yonder.addtolist.scenes.home.data.local.datasource.CategoryDataSource
+import com.yonder.addtolist.scenes.home.data.local.datasource.CategoryDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

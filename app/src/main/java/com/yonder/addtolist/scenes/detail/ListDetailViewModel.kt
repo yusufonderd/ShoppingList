@@ -2,13 +2,12 @@ package com.yonder.addtolist.scenes.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.yonder.addtolist.common.ui.extensions.openWithKeyboard
 import com.yonder.addtolist.core.extensions.EMPTY_STRING
 import com.yonder.addtolist.local.entity.CATEGORY_OTHER_IMAGE
 import com.yonder.addtolist.local.entity.UserListProductEntity
 import com.yonder.addtolist.scenes.detail.domain.category.ProductQueryUseCase
 import com.yonder.addtolist.scenes.detail.domain.product.ProductUseCase
-import com.yonder.addtolist.scenes.list.domain.usecase.LocalListUseCase
+import com.yonder.addtolist.scenes.home.domain.usecase.LocalListUseCase
 import com.yonder.addtolist.scenes.productdetail.domain.usecase.LocalProductUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job

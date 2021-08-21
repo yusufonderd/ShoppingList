@@ -11,6 +11,6 @@ interface UserPreferenceDataStore {
   fun getToken(): String?
   fun saveUUID(uuid: String)
   fun saveToken(token: String?)
-  fun isFetchedCategories(): Boolean
-  fun setFetchedCategories()
+  fun isFetchedCategoriesAndProducts(): Boolean
+  fun setFetchedCategoriesAndProducts()
 }

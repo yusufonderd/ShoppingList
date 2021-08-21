@@ -2,7 +2,7 @@ package com.yonder.addtolist.scenes.detail.domain.mapper
 
 import com.yonder.addtolist.core.mapper.Mapper
 import com.yonder.addtolist.local.entity.CategoryEntity
-import com.yonder.addtolist.scenes.list.domain.model.TranslationUiModel
+import com.yonder.addtolist.scenes.home.domain.model.TranslationUiModel
 
 /**
  * @author yusuf.onder
