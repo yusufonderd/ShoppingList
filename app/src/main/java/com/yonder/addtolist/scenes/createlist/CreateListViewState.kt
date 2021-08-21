@@ -6,7 +6,7 @@ package com.yonder.addtolist.scenes.createlist
  */
 
 sealed class CreateListViewState {
-  object EmptyListName : CreateListViewState()
+  object ShowBlankListNameError : CreateListViewState()
   object Loading : CreateListViewState()
   data class ListCreated(var errorMessage: String? = null) : CreateListViewState()
 }

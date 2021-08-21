@@ -25,8 +25,8 @@ class CreateListViewModel @Inject constructor(
   val state: LiveData<CreateListViewState> = _state
 
   fun createList(listName: String, listColor: String) {
-    if (listName.trim().isEmpty()) {
-      _state.value = CreateListViewState.EmptyListName
+    if (listName.isBlank()) {
+      _state.value = CreateListViewState.ShowBlankListNameError
     } else {
       userListUseCase.createList(listName, listColor)
         .onEach { result ->

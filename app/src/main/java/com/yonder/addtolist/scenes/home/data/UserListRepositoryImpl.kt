@@ -9,7 +9,7 @@ import com.yonder.addtolist.scenes.home.data.remote.ApiService
 import com.yonder.addtolist.core.network.request.CreateUserListRequest
 import com.yonder.addtolist.local.entity.UserListWithProducts
 import com.yonder.addtolist.scenes.home.data.remote.response.UserListResponse
-import com.yonder.addtolist.scenes.home.domain.mapper.UserListMapper
+import com.yonder.addtolist.scenes.home.domain.mapper.UserListResponseToEntityMapper
 import com.yonder.addtolist.scenes.home.domain.mapper.UserListProductMapper
 import com.yonder.addtolist.scenes.home.domain.mapper.UserListRequestMapper
 import com.yonder.addtolist.scenes.home.domain.repository.UserListRepository
@@ -26,13 +26,14 @@ import javax.inject.Inject
 class UserListRepositoryImpl @Inject constructor(
   private val apiService: ApiService,
   private val localDataSource: UserListDataSource,
-  private val mapper: UserListMapper
+  private val userListRequestToEntityMapper : UserListRequestMapper,
+  private val responseToEntityMapper: UserListResponseToEntityMapper
 ) : UserListRepository {
 
   override fun createUserList(request: CreateUserListRequest): Flow<Result<UserListEntity>> = flow {
     emit(Result.Loading)
     val response = apiService.createUserList(request)
-    val entity = UserListRequestMapper().map(request)
+    val entity = userListRequestToEntityMapper.map(request)
     if (response.success == true) {
       entity.id = response.data?.id
       entity.sync = true
@@ -42,7 +43,7 @@ class UserListRepositoryImpl @Inject constructor(
     }
     localDataSource.insert(entity)
   }.catch { error ->
-    localDataSource.insert(UserListRequestMapper().map(request))
+    localDataSource.insert(userListRequestToEntityMapper.map(request))
     error.printStackTrace()
     emit(Result.Error<UserListEntity>(error))
   }
@@ -50,7 +51,7 @@ class UserListRepositoryImpl @Inject constructor(
 
   private suspend fun insertLists(list: List<UserListResponse>?) {
     localDataSource.insertAll(
-      ListMapperImpl(mapper)
+      ListMapperImpl(responseToEntityMapper)
         .map(list.orEmpty())
     )
   }

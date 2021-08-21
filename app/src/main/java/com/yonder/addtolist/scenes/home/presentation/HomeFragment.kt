@@ -1,8 +1,6 @@
 package com.yonder.addtolist.scenes.home.presentation
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -16,7 +14,6 @@ import com.yonder.addtolist.common.ui.extensions.setSafeOnClickListener
 import com.yonder.addtolist.databinding.FragmentHomeBinding
 import com.yonder.addtolist.local.entity.UserListWithProducts
 import com.yonder.addtolist.scenes.home.presentation.adapter.UserListAdapter
-import com.yonder.statelayout.State
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -28,9 +25,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
   override fun initBinding(inflater: LayoutInflater) =
     FragmentHomeBinding.inflate(inflater)
 
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-  }
   override fun onResume() {
     super.onResume()
     viewModel.getShoppingItems()
@@ -74,14 +68,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
       findNavController().navigate(R.id.action_shopping_list_to_create_list)
     }
   }
-  private fun onClickUserList(userListWithProduct: UserListWithProducts) {
-    findNavController().navigate(
-      HomeFragmentDirections.actionShoppingListToListDetail(
-        userList = userListWithProduct.userList,
-        title = userListWithProduct.userList.name
-      )
-    )
-  }
 
   private fun onListLoaded(userLists: List<UserListWithProducts>) = with(binding) {
     binding.fabAdd.isVisible = true
@@ -89,6 +75,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     rvUserList.adapter = UserListAdapter(::onClickUserList).apply {
       submitList(userLists)
     }
+  }
+
+  private fun onClickUserList(userListWithProduct: UserListWithProducts) {
+    navigateUserListDetail(userListWithProduct)
+  }
+
+  private fun navigateUserListDetail(userListWithProduct: UserListWithProducts){
+    findNavController().navigate(
+      HomeFragmentDirections.actionShoppingListToListDetail(
+        userList = userListWithProduct.userList,
+        title = userListWithProduct.userList.name
+      )
+    )
   }
 
 }

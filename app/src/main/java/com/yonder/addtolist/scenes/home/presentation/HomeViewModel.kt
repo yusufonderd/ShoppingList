@@ -40,6 +40,6 @@ class ShoppingListItemsViewModel @Inject constructor(
 sealed class ShoppingListItemsViewState {
   data class SetLayoutState(val layoutState : LayoutState): ShoppingListItemsViewState()
   object CreateNewListContent : ShoppingListItemsViewState()
-  data class Result(var userLists: List<UserListWithProducts> = emptyList()) :
+  data class Result(var userLists: List<UserListWithProducts>) :
     ShoppingListItemsViewState()
 }

@@ -11,7 +11,7 @@ import javax.inject.Inject
  * @date: 05/06/2021
  */
 
-class UserListMapper @Inject constructor() : Mapper<UserListResponse?, UserListEntity> {
+class UserListResponseToEntityMapper @Inject constructor() : Mapper<UserListResponse?, UserListEntity> {
   override fun map(input: UserListResponse?): UserListEntity {
     return UserListEntity(
       id = input?.id,
@@ -23,20 +23,6 @@ class UserListMapper @Inject constructor() : Mapper<UserListResponse?, UserListE
   }
 }
 
-class UserListRequestMapper @Inject constructor() :
-  Mapper<CreateUserListRequest?, UserListEntity> {
-  override fun map(input: CreateUserListRequest?): UserListEntity {
-    return UserListEntity(
-      id = null,
-      uuid = input?.uuid.orEmpty(),
-      name = input?.name.orEmpty(),
-      sync = false,
-      color = input?.color.orEmpty(),
-
-    )
-  }
-
-}
 
 
 

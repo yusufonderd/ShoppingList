@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import androidx.core.text.trimmedLength
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.yonder.addtolist.R
 import com.yonder.addtolist.common.ui.base.BaseFragment
 import com.yonder.addtolist.common.ui.extensions.cursorEnd
@@ -35,14 +34,14 @@ class CreateListFragment : BaseFragment<FragmentCreateListBinding>() {
   override fun initObservers() {
     viewModel.state.observe(viewLifecycleOwner) { viewState ->
       when (viewState) {
-        is CreateListViewState.EmptyListName -> {
+        is CreateListViewState.ShowBlankListNameError -> {
           showEmptyListError()
         }
         is CreateListViewState.Loading -> {
           binding.stateLayout.setState(State.LOADING)
         }
         is CreateListViewState.ListCreated -> {
-          findNavController().popBackStack()
+          closeFragment()
         }
         else -> Unit
       }
