@@ -16,7 +16,7 @@ object Versions {
   const val dataStore = "1.0.0-alpha06"
   const val hilt_version = "2.35"
   const val core_ktx = "1.3.2"
-  const val material = "1.3.0"
+  const val material = "1.5.0-alpha02"
   const val constraint_layout = "2.0.4"
   const val jetbrains_kotlin = "1.5.0"
   const val espresso_core = "3.3.0"
@@ -30,5 +30,6 @@ object Versions {
   const val firebase_bom = "26.0.0"
   const val room = "2.3.0"
   const val state_layout = "0.1.1"
+  const val currency_edit_text = "0.0.9"
 
 }

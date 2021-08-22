@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.core.base.LayoutState
 import com.yonder.addtolist.core.base.getLayoutState
+import com.yonder.addtolist.core.data.SingleLiveEvent
 import com.yonder.addtolist.local.entity.UserListWithProducts
 import com.yonder.addtolist.scenes.home.domain.usecase.UserListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,9 +19,9 @@ class ShoppingListItemsViewModel @Inject constructor(
   private val userListUseCase: UserListUseCase
 ) : ViewModel() {
 
-  private val _state: MutableStateFlow<ShoppingListItemsViewState> =
-    MutableStateFlow(ShoppingListItemsViewState.SetLayoutState(LayoutState.LOADING))
-  val state: StateFlow<ShoppingListItemsViewState> get() = _state
+  private val _state: SingleLiveEvent<ShoppingListItemsViewState> =
+    SingleLiveEvent()
+  val state: SingleLiveEvent<ShoppingListItemsViewState> get() = _state
 
   fun getShoppingItems() {
     userListUseCase.getUserLists().onEach { result ->

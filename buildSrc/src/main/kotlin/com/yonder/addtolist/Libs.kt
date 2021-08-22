@@ -83,6 +83,7 @@ object Libs {
   }
 
   object Design {
+    const val currencyEditText =  "com.cottacush:CurrencyEditText:"+Versions.currency_edit_text
     const val material: String = "com.google.android.material:material:" + Versions.material
   }
 

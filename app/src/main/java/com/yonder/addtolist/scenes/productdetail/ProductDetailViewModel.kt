@@ -6,12 +6,9 @@ import com.yonder.addtolist.core.data.SingleLiveEvent
 import com.yonder.addtolist.core.extensions.orZero
 import com.yonder.addtolist.local.entity.CategoryEntity
 import com.yonder.addtolist.local.entity.UserListProductEntity
-import com.yonder.addtolist.scenes.productdetail.domain.usecase.LocalProductUseCase
-import com.yonder.addtolist.scenes.productdetail.model.ProductUnit
+import com.yonder.addtolist.scenes.productdetail.domain.LocalProductUseCase
+import com.yonder.addtolist.scenes.productdetail.model.ProductUnitType
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.launch
@@ -45,7 +42,6 @@ class ProductDetailViewModel @Inject constructor(
         _state.value = ProductDetailViewState.Load(categories, productEntity)
       }.launchIn(viewModelScope)
     }
-
   }
 
   fun toggleFavorite(item: UserListProductEntity) {
@@ -89,7 +85,7 @@ class ProductDetailViewModel @Inject constructor(
     update(product)
   }
 
-  fun updateUnit(product: UserListProductEntity, unit: ProductUnit) {
+  fun updateUnit(product: UserListProductEntity, unit: ProductUnitType) {
     if (product.unit != unit.value) {
       product.unit = unit.value
       update(product)
@@ -99,6 +95,13 @@ class ProductDetailViewModel @Inject constructor(
   fun updateProductName(product: UserListProductEntity, name: String?) {
     if (product.name != name && name.isNullOrEmpty().not()) {
       product.name = name
+      update(product)
+    }
+  }
+
+  fun updateProductPrice(product: UserListProductEntity, price: Double?) {
+    if (product.price != price && price != null) {
+      product.price = price
       update(product)
     }
   }

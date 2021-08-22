@@ -6,3 +6,5 @@ package com.yonder.addtolist.core.extensions
  */
 
 const val EMPTY_STRING = ""
+
+fun String.toNumericString() = this.filter { it.isDigit() }

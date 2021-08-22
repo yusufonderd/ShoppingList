@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
@@ -68,7 +67,6 @@
       <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/txtFieldQuantity"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_8"
@@ -82,9 +80,9 @@
           android:id="@+id/etQuantity"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_gravity="center"
           android:clickable="false"
           android:focusable="false"
-          android:layout_gravity="center"
           android:inputType="numberDecimal" />
       </com.google.android.material.textfield.TextInputLayout>
 
@@ -96,7 +94,6 @@
         android:layout_centerVertical="true"
         android:orientation="horizontal">
 
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
           android:id="@+id/btnIncreate"
           android:layout_width="wrap_content"
@@ -106,7 +103,6 @@
           app:fabSize="mini"
           app:srcCompat="@drawable/ic_baseline_add_24"
           app:tint="@color/white" />
-
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
           android:id="@+id/btnDecrease"
@@ -168,9 +164,7 @@
         android:textAllCaps="false"
         app:backgroundTint="@color/white" />
 
-
     </com.google.android.material.button.MaterialButtonToggleGroup>
-
 
     <com.google.android.material.textfield.TextInputLayout
       android:id="@+id/txtFieldPrice"
@@ -180,22 +174,20 @@
       android:layout_marginTop="8dp"
       android:hint="@string/product_unit_price"
       app:boxBackgroundColor="@color/white"
+      app:expandedHintEnabled="true"
       app:hintAnimationEnabled="false"
       app:layout_constraintEnd_toEndOf="parent"
-
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/toggleButton"
       app:startIconDrawable="@drawable/ic_baseline_label_24">
 
-      <com.google.android.material.textfield.TextInputEditText
+      <com.cottacush.android.currencyedittext.CurrencyEditText
         android:id="@+id/etPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:inputType="numberDecimal" />
+        app:useCurrencySymbolAsHint="true" />
 
     </com.google.android.material.textfield.TextInputLayout>
-
 
     <com.google.android.material.textfield.TextInputLayout
       android:id="@+id/txtFieldNote"
@@ -260,7 +252,6 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/btnAddFavorite" />
-
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 

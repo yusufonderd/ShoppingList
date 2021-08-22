@@ -91,6 +91,7 @@ dependencies {
   kapt Libs.DaggerHilt.daggerHiltCompiler
 
   implementation Libs.Design.material
+  implementation Libs.Design.currencyEditText
 
   implementation Libs.GoogleServices.auth
   implementation Libs.Facebook.login
@@ -107,7 +108,6 @@ dependencies {
 
   implementation Libs.Log.timber
 
-
   testImplementation Libs.UnitTest.junit
 
   androidTestImplementation Libs.UnitTest.junit_test
@@ -118,6 +118,5 @@ dependencies {
   implementation Libs.Network.converter
   implementation Libs.Network.okhttp
   implementation Libs.Network.interceptor
-
 
 }

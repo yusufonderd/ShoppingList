@@ -1,4 +1,4 @@
-package com.yonder.addtolist.scenes.productdetail.adapter
+package com.yonder.addtolist.common.ui.component.adapter
 
 import android.content.Context
 import android.widget.ArrayAdapter
@@ -10,7 +10,8 @@ import android.widget.Filter
  */
 class MaterialSpinnerAdapter<String>(context: Context, layout: Int, var values: List<String>) :
   ArrayAdapter<String>(context, layout, values) {
-  private val filter_that_does_nothing = object: Filter() {
+
+  private val filter = object: Filter() {
     override fun performFiltering(constraint: CharSequence?): FilterResults {
       val results = FilterResults()
       results.values = values
@@ -23,7 +24,7 @@ class MaterialSpinnerAdapter<String>(context: Context, layout: Int, var values: 
   }
 
   override fun getFilter(): Filter {
-    return filter_that_does_nothing
+    return filter
   }
 }
 

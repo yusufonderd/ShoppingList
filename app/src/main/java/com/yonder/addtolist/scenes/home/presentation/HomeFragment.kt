@@ -44,21 +44,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
   }
 
   override fun initObservers() {
-    lifecycleScope.launchWhenResumed {
-      viewModel.state.collect { viewState ->
-        when (viewState) {
-          is ShoppingListItemsViewState.SetLayoutState ->{
-            binding.stateLayout.setState(viewState.layoutState)
-          }
-          is ShoppingListItemsViewState.CreateNewListContent -> {
-            showCreateListView()
-          }
-          is ShoppingListItemsViewState.Result -> {
-            onListLoaded(viewState.userLists)
-          }
+    viewModel.state.observe(viewLifecycleOwner){ viewState ->
+      when (viewState) {
+        is ShoppingListItemsViewState.SetLayoutState ->{
+          binding.stateLayout.setState(viewState.layoutState)
+        }
+        is ShoppingListItemsViewState.CreateNewListContent -> {
+          showCreateListView()
+        }
+        is ShoppingListItemsViewState.Result -> {
+          onListLoaded(viewState.userLists)
         }
       }
     }
+
   }
 
   private fun showCreateListView() = with(binding){

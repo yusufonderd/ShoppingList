@@ -6,13 +6,13 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.yonder.addtolist.R
+import com.yonder.addtolist.common.utils.formatter.currency.ProductCurrencyFormatter
 import com.yonder.addtolist.core.extensions.EMPTY_STRING
-import com.yonder.addtolist.scenes.productdetail.ProductDetailFragment
-import com.yonder.addtolist.scenes.productdetail.model.ProductUnit
+import com.yonder.addtolist.core.extensions.orZero
+import com.yonder.addtolist.scenes.productdetail.model.ProductUnitType
 import kotlinx.parcelize.Parcelize
 import java.lang.Exception
 import java.text.DecimalFormat
-import java.text.NumberFormat
 import java.util.*
 
 /**
@@ -48,21 +48,16 @@ class UserListProductEntity(
         val chars = Character.toChars(codepoint)
         String(chars)
       } catch (e: Exception) {
-        ""
+        EMPTY_STRING
       }
     }
     return image
   }
 
+  fun getTotalPrice() = price.orZero() * quantity.orZero()
+
   fun wrappedPrice(): String {
-    val format: NumberFormat = NumberFormat.getCurrencyInstance()
-    format.maximumFractionDigits = 0
-    format.currency = Currency.getInstance(Locale.getDefault())
-    if ((quantity ?: 0.0) > 0) {
-      val totalPrice = (price ?: 0.0) * (quantity ?: 0.0)
-      return format.format(totalPrice)
-    }
-    return format.format(price)
+    return ProductCurrencyFormatter().format(value = price.orZero())
   }
 
   fun wrappedQuantityWith(context: Context): String {
@@ -70,16 +65,16 @@ class UserListProductEntity(
     val formatted = decimalFormat.format(quantity)
     val formattedUnit: String
     when (unit) {
-      ProductUnit.Piece.value -> {
+      ProductUnitType.Piece.value -> {
         formattedUnit = context.getString(R.string.unit_piece)
       }
-      ProductUnit.Package.value -> {
+      ProductUnitType.Package.value -> {
         formattedUnit = context.getString(R.string.unit_package)
       }
-      ProductUnit.Kg.value -> {
+      ProductUnitType.Kg.value -> {
         formattedUnit = context.getString(R.string.unit_kg)
       }
-      ProductUnit.Lt.value -> {
+      ProductUnitType.Lt.value -> {
         formattedUnit = context.getString(R.string.unit_lt)
       }
       else -> {

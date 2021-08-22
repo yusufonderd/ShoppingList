@@ -8,7 +8,7 @@ import com.yonder.addtolist.local.entity.UserListProductEntity
 import com.yonder.addtolist.scenes.detail.domain.category.ProductQueryUseCase
 import com.yonder.addtolist.scenes.detail.domain.product.ProductUseCase
 import com.yonder.addtolist.scenes.home.domain.usecase.LocalListUseCase
-import com.yonder.addtolist.scenes.productdetail.domain.usecase.LocalProductUseCase
+import com.yonder.addtolist.scenes.productdetail.domain.LocalProductUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow

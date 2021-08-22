@@ -1,24 +1,28 @@
 package com.yonder.addtolist.scenes.productdetail
 
-import android.os.Bundle
+import android.text.InputFilter
 import android.view.LayoutInflater
-import android.view.View
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.yonder.addtolist.R
 import com.yonder.addtolist.common.ui.base.BaseFragment
+import com.yonder.addtolist.common.ui.component.adapter.MaterialSpinnerAdapter
 import com.yonder.addtolist.common.ui.extensions.compatColor
 import com.yonder.addtolist.common.ui.extensions.compatDrawable
 import com.yonder.addtolist.common.ui.extensions.setSafeOnClickListener
+import com.yonder.addtolist.common.utils.formatter.currency.CurrencyProvider
+import com.yonder.addtolist.core.extensions.orZero
+import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.databinding.FragmentProductDetailBinding
 import com.yonder.addtolist.local.entity.CategoryEntity
 import com.yonder.addtolist.local.entity.UserListProductEntity
-import com.yonder.addtolist.scenes.productdetail.adapter.MaterialSpinnerAdapter
-import com.yonder.addtolist.scenes.productdetail.model.ProductUnit
+import com.yonder.addtolist.scenes.productdetail.model.ProductUnitType
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
+import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 /**
  * @author yusuf.onder
@@ -32,6 +36,9 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
 
   private val product get() = args.userListProduct
 
+  @Inject
+  lateinit var userPreferencesDataStore: UserPreferenceDataStore
+
   val viewModel: ProductDetailViewModel by viewModels()
 
   var adapterSpinner: MaterialSpinnerAdapter<String>? = null
@@ -40,17 +47,16 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
     FragmentProductDetailBinding.inflate(inflater)
 
   override fun initObservers() {
-    lifecycleScope.launchWhenResumed {
-      viewModel.state.observe(viewLifecycleOwner) { viewState ->
-        when (viewState) {
-          is ProductDetailViewState.Load -> {
-            setProduct(viewState.userListProduct)
-            initSpinner(viewState.categories, product)
-          }
-          else -> Unit
+    viewModel.state.observe(viewLifecycleOwner) { viewState ->
+      when (viewState) {
+        is ProductDetailViewState.Load -> {
+          setProduct(viewState.userListProduct)
+          initSpinner(viewState.categories, product)
         }
+        else -> Unit
       }
     }
+
   }
 
   private fun initSpinner(
@@ -61,36 +67,45 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
       val userListProductCategory = categories.find { it.image == userListProduct.categoryImage }
       val sortedCategories = ArrayList<CategoryEntity>(categories.sortedBy { it.name })
       val categoryNameList = sortedCategories.map { it.wrappedFormattedName() }
-      adapterSpinner = MaterialSpinnerAdapter(context, R.layout.item_material_spinner, categoryNameList)
-      with(binding.etAutoComplete){
-        setText(userListProductCategory?.wrappedFormattedName().orEmpty())
-        setAdapter(adapterSpinner)
-        setOnItemClickListener { _, _, position, _ ->
-          val category = sortedCategories[position]
-          viewModel.updateCategory(product = product, category = category)
-        }
+      adapterSpinner =
+        MaterialSpinnerAdapter(context, R.layout.item_material_spinner, categoryNameList)
+      setText(userListProductCategory?.wrappedFormattedName().orEmpty())
+      setAdapter(adapterSpinner)
+      setOnItemClickListener { _, _, position, _ ->
+        val category = sortedCategories[position]
+        viewModel.updateCategory(product = product, category = category)
       }
     }
   }
 
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
+
+  override fun onResume() {
+    super.onResume()
     viewModel.fetchProductId(product.id)
   }
 
   override fun initViews() {
+    binding.etPrice.setCurrencySymbol(CurrencyProvider.DEFAULT_CURRENCY_SIGN)
+    binding.etPrice.filters = arrayOf(InputFilter.LengthFilter(8))
     setClickListeners()
     initTextChangedListeners()
   }
 
   private fun setProduct(product: UserListProductEntity) {
+
     if (binding.etProductName.text?.isBlank() == true) {
       binding.etProductName.setText(product.name)
     }
+
     if (binding.etNote.text?.isBlank() == true) {
       binding.etNote.setText(product.note)
     }
-    binding.etPrice.setText(product.wrappedPrice())
+
+    if (binding.etPrice.text?.isBlank() == true) {
+      binding.etPrice.setText(product.price.orZero().toString())
+    }
+
+
     binding.etQuantity.setText(product.wrappedQuantityWith(requireContext()))
     setUnit(binding.toggleButton, product.unit)
     setFavorite(product.wrappedFavorite())
@@ -100,12 +115,19 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
     binding.etNote.addTextChangedListener {
       viewModel.updateProductNote(product = product, note = it.toString())
     }
-    binding.etProductName.addTextChangedListener{
-      viewModel.updateProductName(product = product,name = it.toString())
+    binding.etProductName.addTextChangedListener {
+      viewModel.updateProductName(product = product, name = it.toString())
+    }
+    binding.etPrice.addTextChangedListener {
+      viewModel.updateProductPrice(
+        product = product,
+        price = binding.etPrice.getNumericValue()
+      )
     }
   }
 
   private fun setClickListeners() = with(binding) {
+
     btnDeleteItem.setSafeOnClickListener {
       viewModel.delete(product)
       closeFragment()
@@ -115,16 +137,16 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
       if (!isChecked) return@addOnButtonCheckedListener
       when (checkedId) {
         binding.button1.id -> {
-          viewModel.updateUnit(product = product, unit = ProductUnit.Piece)
+          viewModel.updateUnit(product = product, unit = ProductUnitType.Piece)
         }
         binding.button2.id -> {
-          viewModel.updateUnit(product = product, unit = ProductUnit.Package)
+          viewModel.updateUnit(product = product, unit = ProductUnitType.Package)
         }
         binding.button3.id -> {
-          viewModel.updateUnit(product = product, unit = ProductUnit.Kg)
+          viewModel.updateUnit(product = product, unit = ProductUnitType.Kg)
         }
         binding.button4.id -> {
-          viewModel.updateUnit(product = product, unit = ProductUnit.Lt)
+          viewModel.updateUnit(product = product, unit = ProductUnitType.Lt)
         }
       }
     }
@@ -161,16 +183,16 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
 
   private fun setUnit(group: MaterialButtonToggleGroup, unit: String?) {
     when (unit) {
-      ProductUnit.Piece.value -> {
+      ProductUnitType.Piece.value -> {
         group.check(R.id.button1)
       }
-      ProductUnit.Package.value -> {
+      ProductUnitType.Package.value -> {
         group.check(R.id.button2)
       }
-      ProductUnit.Kg.value -> {
+      ProductUnitType.Kg.value -> {
         group.check(R.id.button3)
       }
-      ProductUnit.Lt.value -> {
+      ProductUnitType.Lt.value -> {
         group.check(R.id.button4)
       }
     }

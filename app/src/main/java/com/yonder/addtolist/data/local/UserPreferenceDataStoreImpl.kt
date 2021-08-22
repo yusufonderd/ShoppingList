@@ -1,7 +1,9 @@
 package com.yonder.addtolist.data.local
 
 import android.content.SharedPreferences
+import com.yonder.addtolist.common.extensions.usLocale
 import timber.log.Timber
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -23,10 +25,36 @@ class UserPreferenceDataStoreImpl @Inject constructor(private val sharedPreferen
 
   override fun getAppLanguageId(): Int {
     return sharedPreferences.getInt(KEY_LANGUAGE, DEFAULT_LANGUAGE_ID)
-
   }
+
+  override fun setLocale(locale: Locale) {
+    sharedPreferences.edit().apply {
+      putString(KEY_LOCALE, locale.language)
+      apply()
+    }
+  }
+
+  override fun getLocale(): Locale {
+    val localeLanguage = sharedPreferences.getString(KEY_LOCALE, null)
+    return if (localeLanguage != null) {
+      Locale(localeLanguage)
+    } else {
+      Locale.ENGLISH
+    }
+  }
+
+  override fun setCurrency(currency: String) {
+    sharedPreferences.edit().apply {
+      putString(KEY_CURRENCY, currency)
+      apply()
+    }
+  }
+
+  override fun getCurrency(): String {
+    return sharedPreferences.getString(KEY_CURRENCY, "$").orEmpty()
+  }
+
   override fun saveToken(token: String?) {
-    Timber.d("saveToken => $token")
     sharedPreferences.edit().apply {
       putString(KEY_APP_TOKEN, token)
       apply()
@@ -54,18 +82,17 @@ class UserPreferenceDataStoreImpl @Inject constructor(private val sharedPreferen
   override fun getUUID(): String? = sharedPreferences.getString(KEY_UUID, null)
 
   override fun getToken(): String? {
-    val token = sharedPreferences.getString(KEY_APP_TOKEN, null)
-    Timber.d("getToken => $token")
-    return token
+    return sharedPreferences.getString(KEY_APP_TOKEN, null)
   }
 
   companion object {
     const val KEY_IS_FETCHED_CATEGORIES = "key_fetched_categories"
-
     const val KEY_APP_PREFERENCES = "app_preferences"
     const val KEY_APP_TOKEN = "key_app_token"
     const val KEY_UUID = "key_uuid"
     const val KEY_LANGUAGE = "key_language"
+    const val KEY_LOCALE = "key_locale"
+    const val KEY_CURRENCY = "key_currency"
 
   }
 }

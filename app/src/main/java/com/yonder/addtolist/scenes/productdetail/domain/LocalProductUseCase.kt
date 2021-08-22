@@ -1,12 +1,10 @@
-package com.yonder.addtolist.scenes.productdetail.domain.usecase
+package com.yonder.addtolist.scenes.productdetail.domain
 
-import androidx.lifecycle.LiveData
 import com.yonder.addtolist.core.network.thread.CoroutineThread
 import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.local.AppDatabase
 import com.yonder.addtolist.local.entity.CategoryEntity
 import com.yonder.addtolist.local.entity.UserListProductEntity
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject

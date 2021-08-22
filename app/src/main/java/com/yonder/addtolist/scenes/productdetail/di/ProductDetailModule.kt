@@ -1,7 +1,7 @@
 package com.yonder.addtolist.scenes.productdetail.di
 
-import com.yonder.addtolist.scenes.productdetail.domain.usecase.LocalProductUseCase
-import com.yonder.addtolist.scenes.productdetail.domain.usecase.LocalProductUseCaseImpl
+import com.yonder.addtolist.scenes.productdetail.domain.LocalProductUseCase
+import com.yonder.addtolist.scenes.productdetail.domain.LocalProductUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
