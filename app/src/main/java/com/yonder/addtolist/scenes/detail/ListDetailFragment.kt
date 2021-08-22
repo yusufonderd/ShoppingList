@@ -155,7 +155,7 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>(), IProductOp
     yoFilteredItemsView.bind(
       products = products,
       list = filteredProducts,
-      query = query,
+      query = query.trimStart(),
       itemOperationListener = this@ListDetailFragment
     )
   }

@@ -55,8 +55,7 @@ class YoItemsView @JvmOverloads constructor(
       filteredProducts = list
     )
 
-
-    val isVisibleQuery = query.isNotEmpty()
+    val isVisibleQuery = query.isBlank().not()
     val isQueryExist: Boolean = itemsList.any { it.name == query }
     val shouldVisibleQueryItem = isVisibleQuery && isQueryExist.not()
     binding.yoProductQueryItem.isVisible = shouldVisibleQueryItem
@@ -80,11 +79,9 @@ class YoItemsView @JvmOverloads constructor(
       }
       binding.rvItems.adapter = adapter
     } else {
-      adapter?.apply {
-        this.query = query
-        submitList(itemsList)
-        notifyDataSetChanged()
-      }
+      adapter?.query = query
+      adapter?.submitList(itemsList)
+      adapter?.notifyDataSetChanged()
     }
   }
 
