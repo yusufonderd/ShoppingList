@@ -67,20 +67,6 @@ class ListDetailViewModel @Inject constructor(
 
   }
 
-  /*private fun fetchCategories() {
-    categoryListUseCase.getCategories()
-      .onEach { result ->
-        result.onSuccess {
-          _state.value = ListDetailViewState.ShowContent(it)
-        }.onLoading {
-          _state.value = ListDetailViewState.Loading
-        }.onError { error ->
-          _state.value = ListDetailViewState.Error(error.toReadableMessage())
-        }
-      }.launchIn(viewModelScope)
-  }*/
-
-
   fun addProduct(listId: String, userListUUID: String, productName: String) = with(viewModelScope) {
     launch {
       productUseCase.getProductEntityForName(productName).collect { productEntity ->

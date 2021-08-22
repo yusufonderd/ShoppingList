@@ -133,7 +133,7 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
       closeFragment()
     }
 
-    toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
+    toggleButton.addOnButtonCheckedListener { _, checkedId, isChecked ->
       if (!isChecked) return@addOnButtonCheckedListener
       when (checkedId) {
         binding.button1.id -> {
