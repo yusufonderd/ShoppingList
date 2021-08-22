@@ -3,16 +3,13 @@ package com.yonder.addtolist.scenes.splash.presentation
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.yonder.addtolist.local.entity.CategoryWithProducts
 import com.yonder.addtolist.scenes.splash.domain.CategoriesUseCase
 import com.yonder.addtolist.scenes.splash.domain.UserInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,14 +28,11 @@ class SplashViewModel @Inject constructor(
 
   private fun getUuid() {
     viewModelScope.launch {
-      userInfoUseCase.getUuid().collect {
-        Timber.d("success $it")
-      }
+      userInfoUseCase.getUuid().collect()
     }
   }
 
   private fun checkIsLoggedIn(){
-    Timber.d("checkIsLoggedIn")
     viewModelScope.launch {
       userInfoUseCase.isLoggedIn().collect { isLoggedIn ->
         _state.value = getNavigateDestination(isLoggedIn)
@@ -46,20 +40,13 @@ class SplashViewModel @Inject constructor(
     }
   }
 
-  private fun startSplashFlow(splashDelay: Long = DELAY_SPLASH) {
-    Timber.d("startSplashFlow")
+  private fun startSplashFlow() {
     viewModelScope.launch {
       categoryUseCase.getCategories().collect { result ->
         result.onSuccess {
           checkIsLoggedIn()
-        }.onError {
-          Timber.d("startSplashFlow onError => ${it}")
         }
       }
-      /*delay(splashDelay)
-      userInfoUseCase.isLoggedIn().collect { isLoggedIn ->
-        _state.value = getNavigateDestination(isLoggedIn)
-      }*/
     }
   }
 
@@ -70,10 +57,6 @@ class SplashViewModel @Inject constructor(
     } else {
       SplashViewState.GoLogin
     }
-  }
-
-  companion object {
-    const val DELAY_SPLASH = 1000L * 2
   }
 
 }

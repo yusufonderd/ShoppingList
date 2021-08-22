@@ -6,14 +6,12 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.yonder.addtolist.R
-import com.yonder.addtolist.common.utils.formatter.currency.ProductCurrencyFormatter
 import com.yonder.addtolist.core.extensions.EMPTY_STRING
 import com.yonder.addtolist.core.extensions.orZero
 import com.yonder.addtolist.scenes.productdetail.model.ProductUnitType
 import kotlinx.parcelize.Parcelize
 import java.lang.Exception
 import java.text.DecimalFormat
-import java.util.*
 
 /**
  * @author yusuf.onder
@@ -55,10 +53,6 @@ class UserListProductEntity(
   }
 
   fun getTotalPrice() = price.orZero() * quantity.orZero()
-
-  fun wrappedPrice(): String {
-    return ProductCurrencyFormatter().format(value = price.orZero())
-  }
 
   fun wrappedQuantityWith(context: Context): String {
     val decimalFormat = DecimalFormat("#.#")
