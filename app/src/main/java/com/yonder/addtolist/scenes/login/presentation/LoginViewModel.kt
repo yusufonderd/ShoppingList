@@ -39,11 +39,8 @@ class LoginViewModel @Inject constructor(
   private val facebookGraphExecute: FacebookGraphUseCase
 ) : ViewModel() {
 
-
   private val _state = MutableLiveData<LoginViewState>()
   val state: LiveData<LoginViewState> = _state
-
-
 
   internal val facebookCallback = object : FacebookCallback<LoginResult> {
     override fun onSuccess(result: LoginResult?) {
@@ -71,7 +68,7 @@ class LoginViewModel @Inject constructor(
   }
 
 
-  private fun getFirebaseToken(invoker: (fcmToken: String?) -> Unit) {
+  private inline fun getFirebaseToken(crossinline invoker: (fcmToken: String?) -> Unit) {
     FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
       if (task.isSuccessful) {
         invoker.invoke(task.result)
@@ -82,10 +79,10 @@ class LoginViewModel @Inject constructor(
   }
 
   private fun createNewUser(createUserRegisterRequest: UserRegisterRequest) {
-    getFirebaseToken { token ->
+    getFirebaseToken { token: String? ->
       createUserRegisterRequest.fcmToken = token.orEmpty()
       createUserRegisterRequest.deviceUUID = userPreferenceDataStore.getUUID().orEmpty()
-      loginUseCase.login(createUserRegisterRequest)
+      loginUseCase(createUserRegisterRequest)
         .onEach { result ->
           result.onSuccess { userUiModel ->
             onLoginSuccess(userUiModel)

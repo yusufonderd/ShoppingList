@@ -10,5 +10,5 @@ import kotlinx.coroutines.flow.Flow
  */
 
 interface LoginUseCase {
-  fun login(userRegisterParam: UserRegisterRequest): Flow<Result<UserUiModel>>
+  operator fun invoke(userRegisterParam: UserRegisterRequest): Flow<Result<UserUiModel>>
 }

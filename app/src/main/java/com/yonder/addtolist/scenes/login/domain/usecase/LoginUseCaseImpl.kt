@@ -22,7 +22,7 @@ class LoginUseCaseImpl @Inject constructor(
   private val dispatcher: CoroutineThread
 ) : LoginUseCase {
 
-  override fun login(userRegisterParam: UserRegisterRequest): Flow<Result<UserUiModel>> {
+  override operator fun invoke(userRegisterParam: UserRegisterRequest): Flow<Result<UserUiModel>> {
     return flow {
       emit(Result.Loading)
       emit(Result.Success(loginMapper.map(repository.login(userRegisterParam))))

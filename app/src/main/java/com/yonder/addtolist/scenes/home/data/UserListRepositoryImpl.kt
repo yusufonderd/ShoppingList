@@ -14,6 +14,7 @@ import com.yonder.addtolist.scenes.home.domain.repository.UserListRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -37,8 +38,12 @@ class UserListRepositoryImpl @Inject constructor(
     }
     localDataSource.insert(userListEntity)
     emit(userListEntity)
-  }.catch {
-    localDataSource.insert(userListRequestToEntityMapper.map(request))
+  }.catch { exception ->
+    Timber.d("EEE => ${exception.localizedMessage}")
+    exception.printStackTrace()
+    val userListEntity = userListRequestToEntityMapper.map(request)
+    localDataSource.insert(userListEntity)
+    emit(userListEntity)
   }
 
   private suspend fun insertLists(list: List<UserListResponse>) {

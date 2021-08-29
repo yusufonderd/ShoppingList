@@ -8,6 +8,8 @@ import com.yonder.addtolist.core.extensions.toReadableMessage
 import com.yonder.addtolist.scenes.home.domain.usecase.CreateListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,9 +32,9 @@ class CreateListViewModel @Inject constructor(
     } else {
       _state.value = CreateListViewState.Loading
       viewModelScope.launch {
-        createListUseCase.invoke(listName, listColor).collect {
+        createListUseCase(listName, listColor).onEach {
           _state.value = CreateListViewState.ListCreated
-        }
+        }.launchIn(viewModelScope)
       }
     }
   }
