@@ -8,17 +8,3 @@ import com.yonder.addtolist.core.network.responses.Result
  */
 
 typealias LayoutState =  State
-
-fun <T> Result<T>.getLayoutState(): LayoutState {
-  return when (this) {
-    is Result.Success -> {
-      LayoutState.CONTENT
-    }
-    is Result.Error -> {
-      LayoutState.ERROR
-    }
-    is Result.Loading -> {
-      LayoutState.LOADING
-    }
-  }
-}

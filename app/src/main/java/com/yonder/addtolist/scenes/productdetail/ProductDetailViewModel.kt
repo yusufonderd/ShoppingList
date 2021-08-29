@@ -53,13 +53,11 @@ class ProductDetailViewModel @Inject constructor(
     }
   }
 
-
   private fun update(product: UserListProductEntity) {
     viewModelScope.launch {
       updateProductUseCase(product)
     }
   }
-
 
   fun toggleFavorite() {
     getProductEntity { product ->
@@ -81,7 +79,6 @@ class ProductDetailViewModel @Inject constructor(
       }
       update(product)
     }
-
   }
 
   fun delete() {
@@ -156,7 +153,7 @@ class ProductDetailViewModel @Inject constructor(
   }
 
   private inline fun getProductEntity(
-    productInvoker: (UserListProductEntity) -> Unit = {},
+    productInvoker: (UserListProductEntity) -> Unit,
   ) {
     val viewState = state.value
     if (viewState is ProductDetailViewState.Load) {

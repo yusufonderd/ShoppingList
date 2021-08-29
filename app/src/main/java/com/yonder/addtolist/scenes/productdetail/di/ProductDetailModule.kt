@@ -11,7 +11,6 @@ import com.yonder.addtolist.scenes.productdetail.domain.UpdateProductUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 

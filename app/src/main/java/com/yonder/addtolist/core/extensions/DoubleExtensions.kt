@@ -7,4 +7,4 @@ package com.yonder.addtolist.core.extensions
 
 const val ZERO: Double = 0.0
 
-fun Double?.orZero() = this ?: 0.0
+fun Double?.orZero() = this ?: ZERO

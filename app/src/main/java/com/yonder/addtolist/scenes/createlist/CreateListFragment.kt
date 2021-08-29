@@ -54,30 +54,32 @@ class CreateListFragment : BaseFragment<FragmentCreateListBinding>() {
   }
 
   override fun initViews() {
-
-    with(binding) {
-      horizontalPicker.initView(listNames) { listName ->
-        binding.tilName.setText(listName)
-        binding.tilName.cursorEnd()
-      }
-
-      yoColorPicker.initView(listColors)
-
-      btnCreateList.setSafeOnClickListener {
-        val listName = tilName.text.toString()
-        viewModel.createList(
-          listName = listName,
-          listColor = colorDecider.convertToHexString(yoColorPicker.getSelectedColorResId())
-        )
-      }
-    }
-
+    initHorizontalPicker()
+    initCreateBtn()
     initEditText()
+  }
+
+  private fun initCreateBtn() = with(binding) {
+    btnCreateList.setSafeOnClickListener {
+      val listName = tilName.text.toString()
+      viewModel.createList(
+        listName = listName,
+        listColor = colorDecider.convertToHexString(yoColorPicker.getSelectedColorResId())
+      )
+    }
+  }
+
+  private fun initHorizontalPicker() = with(binding) {
+    horizontalPicker.initView(listNames) { listName ->
+      tilName.setText(listName)
+      tilName.cursorEnd()
+    }
+    yoColorPicker.initView(listColors)
   }
 
   private fun initEditText() = with(binding.tilName) {
     addTextChangedListener { editable ->
-      if (editable?.trimmedLength().orZero() > LENGTH_ZERO){
+      if (editable?.trimmedLength().orZero() > LENGTH_ZERO) {
         binding.textField.isErrorEnabled = false
       }
     }
