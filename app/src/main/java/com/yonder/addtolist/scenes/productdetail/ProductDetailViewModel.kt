@@ -27,6 +27,7 @@ private const val NO_DONE_VALUE = 0
  * @author yusuf.onder
  * Created on 24.07.2021
  */
+@Suppress("TooManyFunctions")
 @HiltViewModel
 class ProductDetailViewModel @Inject constructor(
   private val getProductUseCase: GetProductUseCase,

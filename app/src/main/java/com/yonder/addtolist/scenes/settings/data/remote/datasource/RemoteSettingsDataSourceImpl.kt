@@ -8,6 +8,4 @@ import javax.inject.Inject
  */
 
 class RemoteSettingsDataSourceImpl @Inject constructor(private val loginService: LoginService) :
-  RemoteSettingsDataSource {
-
-}
+  RemoteSettingsDataSource

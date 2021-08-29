@@ -31,6 +31,9 @@ import kotlin.collections.ArrayList
  * Created on 24.07.2021
  */
 
+private const val MAX_LINE_LENGTH_PRICE = 8
+
+@Suppress("TooManyFunctions")
 @AndroidEntryPoint
 class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
 
@@ -68,7 +71,8 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
     if (adapterSpinner == null) {
       val userListProductCategory = categories.find { it.image == userListProduct.categoryImage }
       val categoryNames = CategoryNameMapper().map(categories)
-      adapterSpinner = MaterialSpinnerAdapter(context, R.layout.item_material_spinner, categoryNames.map { it.wrappedName })
+      val categoryList = categoryNames.map { it.wrappedName }
+      adapterSpinner = MaterialSpinnerAdapter(context, R.layout.item_material_spinner, categoryList)
       setText(userListProductCategory?.wrappedName().orEmpty())
       setAdapter(adapterSpinner)
     }
@@ -87,7 +91,7 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
 
   private fun initPriceEditText() = with(binding.etPrice) {
     setCurrencySymbol(CurrencyProvider.DEFAULT_CURRENCY_SIGN)
-    filters = arrayOf(InputFilter.LengthFilter(8))
+    filters = arrayOf(InputFilter.LengthFilter(MAX_LINE_LENGTH_PRICE))
   }
 
   private fun setProduct(product: UserListProductEntity) {

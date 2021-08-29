@@ -11,6 +11,5 @@ data class CategoryUIModel(
   val name: String,
   val image: String
 ){
-  val wrappedName: String = CategoryNameWrapper.wrap(image, name)
-  val wrappedImage : String = CategoryImageWrapper.wrap(image)
+  val wrappedName: String = CategoryNameWrapper(image, name)
 }

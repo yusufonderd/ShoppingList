@@ -15,6 +15,7 @@ abstract class UserProvider {
 
   abstract val context: Context
 
+  @Suppress("LongParameterList")
   fun createUserRegisterRequest(
     context: Context,
     providerType: ProviderType,
@@ -46,6 +47,5 @@ abstract class UserProvider {
       fcmToken = "",
     )
   }
-
 
 }

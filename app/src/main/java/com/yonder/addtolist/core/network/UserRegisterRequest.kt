@@ -6,7 +6,7 @@ import com.yonder.addtolist.BuildConfig
 /**
  * Yusuf Onder on 09,May,2021
  */
-
+@Suppress("ConstructorParameterNaming")
 data class UserRegisterRequest(
   @SerializedName("provider_type") var providerType: String?,
   @SerializedName("device_uuid") var deviceUUID: String,

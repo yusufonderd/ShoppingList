@@ -32,5 +32,4 @@ class UserInfoUseCase @Inject constructor(private val userPreferenceDataStore: U
     userPreferenceDataStore.saveToken(null)
   }
 
-
 }

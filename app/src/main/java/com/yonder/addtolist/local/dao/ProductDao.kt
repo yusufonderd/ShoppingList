@@ -1,6 +1,5 @@
 package com.yonder.addtolist.local.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
 import com.yonder.addtolist.local.entity.ProductEntity
@@ -10,6 +9,7 @@ import com.yonder.addtolist.local.entity.ProductEntitySummary
  * @author yusuf.onder
  * Created on 19.07.2021
  */
+@Suppress("MaxLineLength")
 @Dao
 interface ProductDao {
 

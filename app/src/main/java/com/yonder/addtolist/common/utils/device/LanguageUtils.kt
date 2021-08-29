@@ -3,7 +3,7 @@ package com.yonder.addtolist.common.utils.device
 /**
  * Yusuf Onder on 09,May,2021
  */
-
+@Suppress("MagicNumber")
 object LanguageUtils {
 
   fun getLanguageIdBy(language: String) = LANGUAGES.find { it.first == language }?.second ?: EN.second

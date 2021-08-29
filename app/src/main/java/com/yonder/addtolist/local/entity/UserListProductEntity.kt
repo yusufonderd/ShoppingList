@@ -21,6 +21,7 @@ import java.text.DecimalFormat
 const val CATEGORY_OTHER_NAME = "Other"
 const val CATEGORY_OTHER_IMAGE = "U+1F3F7"
 
+@Suppress("LongParameterList","TooGenericExceptionCaught","MagicNumber")
 @Parcelize
 @Entity(tableName = "user_list_products")
 class UserListProductEntity(

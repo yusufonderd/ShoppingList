@@ -10,4 +10,4 @@ import com.yonder.addtolist.core.network.responses.BaseUiResult
 data class UserUiModel(
   override val result: BaseUiResult,
   var token: String?
-) : BaseUiModel()
+) : BaseUiModel(result)

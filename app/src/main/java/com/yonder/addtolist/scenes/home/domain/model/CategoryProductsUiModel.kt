@@ -10,7 +10,7 @@ import com.yonder.addtolist.core.network.responses.BaseUiResult
 data class CategoryProductsUiModel(
   override val result: BaseUiResult,
   var list: List<CategoryWithProductsUiModel>
-) : BaseUiModel()
+) : BaseUiModel(result)
 
 
 

@@ -14,6 +14,8 @@ buildscript {
     classpath Libs.DaggerHilt.daggerHiltGradlePlugin
     classpath Libs.GoogleServices.service_plugin
     classpath Libs.AndroidX.nav_args_plugin
+    classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.14.2"
+
   }
 }
 
@@ -21,6 +23,9 @@ allprojects {
   repositories {
     google()
     jcenter()
+    maven { url "https://plugins.gradle.org/m2/" }
+
+    mavenCentral()
     maven { url 'https://jitpack.io' }
   }
 }
@@ -28,3 +33,7 @@ allprojects {
 task clean(type: Delete) {
   delete rootProject.buildDir
 }
+/*
+plugins {
+  id("io.gitlab.arturbosch.detekt").version("1.18.0")
+}*/

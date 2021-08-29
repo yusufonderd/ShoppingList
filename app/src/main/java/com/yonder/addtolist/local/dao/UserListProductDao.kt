@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.Flow
  * @author yusuf.onder
  * Created on 20.07.2021
  */
+@Suppress("TooManyFunctions","LongParameterList")
 @Dao
 interface UserListProductDao {
 
@@ -60,6 +61,5 @@ interface UserListProductDao {
 
   @Insert
   suspend fun insert(item: UserListProductEntity)
-
 
 }

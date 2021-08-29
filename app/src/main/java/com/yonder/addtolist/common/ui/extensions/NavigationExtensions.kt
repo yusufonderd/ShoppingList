@@ -33,6 +33,7 @@ import com.yonder.addtolist.R
  *
  * This sample is a workaround until the Navigation Component supports multiple back stacks.
  */
+@Suppress("LongMethod")
 fun BottomNavigationView.setupWithNavController(
   navGraphIds: List<Int>,
   fragmentManager: FragmentManager,

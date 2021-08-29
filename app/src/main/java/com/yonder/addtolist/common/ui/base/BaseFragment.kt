@@ -17,6 +17,7 @@ import timber.log.Timber
  * Yusuf Onder on 08,May,2021
  */
 
+@Suppress("TooManyFunctions")
 abstract class BaseFragment<T : ViewBinding> : Fragment() {
 
   private var _binding: T? = null

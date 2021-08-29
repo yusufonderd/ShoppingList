@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
+@Suppress("UnnecessaryAbstractClass")
 abstract class BaseRepository {
   fun <T : Any> apiCall(dispatcher: CoroutineDispatcher = Dispatchers.IO, call: suspend () -> T): Flow<State<T>> =
     flow {
@@ -21,6 +22,7 @@ abstract class BaseRepository {
       emit(State.Error(error))
     }.flowOn(dispatcher)
 }
+
 
 
 

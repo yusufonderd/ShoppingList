@@ -26,7 +26,7 @@ import timber.log.Timber
  * @author yusuf.onder
  * Created on 19.07.2021
  */
-
+@Suppress("TooManyFunctions")
 @AndroidEntryPoint
 class ListDetailFragment : BaseFragment<FragmentListDetailBinding>(), IProductOperation,
   ItemOperationListener {

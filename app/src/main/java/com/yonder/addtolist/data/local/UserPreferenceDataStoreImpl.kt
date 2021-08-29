@@ -11,6 +11,7 @@ import javax.inject.Inject
 //Default language is English
 private const val DEFAULT_LANGUAGE_ID = 2
 
+@Suppress("TooManyFunctions")
 class UserPreferenceDataStoreImpl @Inject constructor(private val sharedPreferences: SharedPreferences) :
   UserPreferenceDataStore {
 

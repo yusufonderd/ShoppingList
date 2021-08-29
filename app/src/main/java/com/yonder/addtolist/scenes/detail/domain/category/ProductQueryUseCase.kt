@@ -13,5 +13,4 @@ import kotlinx.coroutines.flow.Flow
 interface ProductQueryUseCase {
   fun fetchProductByQuery(query: String,limit : Int): Flow<List<ProductEntitySummary>>
   fun fetchPopularProducts(): Flow<List<ProductEntitySummary>>
-
 }

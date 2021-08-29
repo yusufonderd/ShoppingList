@@ -8,7 +8,7 @@ import com.yonder.addtolist.local.entity.CATEGORY_OTHER_NAME
  * @author yusuf.onder
  * Created on 22.07.2021
  */
-
+@Suppress("ConstructorParameterNaming")
 data class CreateUserListProductRequest(
   @SerializedName("user_list_id") val userListId: String,
   @SerializedName("name") val name: String,
@@ -23,7 +23,7 @@ data class CreateUserListProductRequest(
   @SerializedName("favorite") val favorite: Boolean = false
 )
 
-
+@Suppress("ConstructorParameterNaming")
 data class UserListProductRequest(
   @SerializedName("name") val name: String,
   @SerializedName("quantity") val quantity: Double = 0.0,

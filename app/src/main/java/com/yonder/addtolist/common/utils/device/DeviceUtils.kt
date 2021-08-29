@@ -31,45 +31,42 @@ object DeviceUtils {
     }
   }
 
-
+  @Suppress("MagicNumber")
   fun getLanguageId(): Int {
 
-    when (Locale.getDefault().language) {
+    return when (Locale.getDefault().language) {
       "tr" -> {
-        return 1
+        1
       }
       "en" -> {
-        return 2
+        2
       }
       "de" -> {
-        return 3
+        3
       }
       "fr" -> {
-        return 4
+        4
       }
       "ru" -> {
-        return 5
+        5
       }
       "es" -> {
-        return 6
+        6
       }
       "ar" -> {
-        return 7
+        7
       }
       "hi" -> {
-        return 8
+        8
       }
       "ro" -> {
-        return 9
+        9
       }
       else -> {
-        return 2
+        2
       }
     }
 
   }
-
-
-
 
 }

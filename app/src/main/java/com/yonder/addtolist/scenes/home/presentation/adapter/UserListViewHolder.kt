@@ -31,6 +31,7 @@ class UserListViewHolder(
     bindClickListeners(userList)
   }
 
+  @Suppress("TooGenericExceptionCaught")
   private fun bindProductCountText(userList: UserListWithProducts){
     binding.cvListProductsCount.isGone = userList.products.isEmpty()
     binding.tvListProductCount.text = "${userList.products.size}"
@@ -52,6 +53,4 @@ class UserListViewHolder(
       onClickUserList.invoke(value)
     }
   }
-
-
 }

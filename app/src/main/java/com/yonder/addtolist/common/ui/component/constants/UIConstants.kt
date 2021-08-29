@@ -1,4 +1,4 @@
-package com.yonder.addtolist.common.ui.component
+package com.yonder.addtolist.common.ui.component.constants
 
 /**
  * @author yusuf.onder

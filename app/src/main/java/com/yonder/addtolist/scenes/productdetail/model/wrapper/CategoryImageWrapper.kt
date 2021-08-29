@@ -7,9 +7,10 @@ import java.lang.Exception
  * Created on 28.08.2021
  */
 
+@Suppress("TooGenericExceptionCaught","MagicNumber")
 object CategoryImageWrapper {
 
-  fun wrap(image: String): String {
+  operator fun invoke(image: String): String {
     if (image.isNotEmpty()) {
       return try {
         val codepoint: Int = image.substring(2).toInt(16)

@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import com.yonder.addtolist.R
-import com.yonder.addtolist.common.ui.component.GRID_SPAN_COUNT_6
+import com.yonder.addtolist.common.ui.component.constants.GRID_SPAN_COUNT_6
 import com.yonder.addtolist.common.ui.component.colorpicker.adapter.YoColorPickerAdapter
 import com.yonder.addtolist.core.extensions.FIRST_INDEX
 import com.yonder.addtolist.databinding.LayoutYoColorPickerBinding
