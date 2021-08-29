@@ -17,6 +17,8 @@ This app inspired from Trendyol's Android app architecture.
 * [Gson](https://github.com/google/gson)
 * [Jetpack Components](https://developer.android.com/jetpack) - ViewModel, ViewBinding and more
 * [StateLayout](https://github.com/yusufonderd/StateLayout) - For managing view states
+* [Detekt](https://github.com/detekt/detekt) - Code analysis tool
+
 
 
 ## TODOs
