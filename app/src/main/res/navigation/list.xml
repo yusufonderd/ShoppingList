@@ -101,7 +101,7 @@
 
     <argument
       android:name="userListProduct"
-      app:argType="com.yonder.addtolist.local.entity.UserListProductEntity"
+      app:argType="com.yonder.uicomponent.base.model.UserListProductUiModel"
       app:nullable="false" />
 
   </fragment>

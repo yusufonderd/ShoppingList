@@ -4,12 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.core.extensions.EMPTY_STRING
 import com.yonder.addtolist.local.entity.CATEGORY_OTHER_IMAGE
-import com.yonder.addtolist.local.entity.UserListProductEntity
 import com.yonder.addtolist.scenes.listdetail.domain.category.ProductQueryUseCase
 import com.yonder.addtolist.scenes.listdetail.domain.product.ProductUseCase
 import com.yonder.addtolist.scenes.home.domain.usecase.GetUserListUseCase
 import com.yonder.addtolist.scenes.listdetail.domain.AddProductUseCase
 import com.yonder.addtolist.scenes.productdetail.domain.UpdateProductUseCase
+import com.yonder.uicomponent.base.model.UserListProductUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,7 +35,7 @@ class ListDetailViewModel @Inject constructor(
   private val productUseCase: ProductUseCase,
   private val addProductUseCase: AddProductUseCase,
   private val updateProductUseCase: UpdateProductUseCase,
-  private val getUserUserListUseCase: GetUserListUseCase
+  private val getUserListUseCase: GetUserListUseCase
 ) : ViewModel() {
 
   private val _state: MutableStateFlow<ListDetailViewState> =
@@ -45,7 +45,7 @@ class ListDetailViewModel @Inject constructor(
 
 
   fun fetchProducts(listUUID: String, query: String = EMPTY_STRING) {
-    val flow1 = getUserUserListUseCase(listUUID)
+    val flow1 = getUserListUseCase(listUUID)
     val flow2 = if (query.trim().isEmpty()) {
       productQueryUseCase.fetchPopularProducts()
     } else {
@@ -87,36 +87,36 @@ class ListDetailViewModel @Inject constructor(
   }
 
 
-  fun increaseQuantity(product: UserListProductEntity) {
-    product.quantity = product.quantity?.plus(1.0)
+  fun increaseQuantity(product: UserListProductUiModel) {
+   /* product.quantity = product.quantity?.plus(1.0)
     viewModelScope.launch {
       updateProductUseCase(product)
-    }
+    }*/
   }
 
-  fun decreaseQuantity(product: UserListProductEntity) {
-    product.quantity = product.quantity?.minus(1.0)
+  fun decreaseQuantity(product: UserListProductUiModel) {
+   /* product.quantity = product.quantity?.minus(1.0)
     viewModelScope.launch {
       updateProductUseCase.invoke(product)
-    }
+    }*/
   }
 
-  fun toggleDone(product: UserListProductEntity) {
-    if (product.wrappedDone()) {
+  fun toggleDone(product: UserListProductUiModel) {
+   /* if (product.wrappedDone()) {
       product.done = NO_DONE_VALUE
     } else {
       product.done = DONE_VALUE
     }
     viewModelScope.launch {
       updateProductUseCase(product)
-    }
+    }*/
   }
 
 
-  fun removeProduct(product: UserListProductEntity) {
-    viewModelScope.launch {
+  fun removeProduct(product: UserListProductUiModel) {
+    /*viewModelScope.launch {
       productUseCase.removeProduct(product).collect()
-    }
+    }*/
   }
 }
 

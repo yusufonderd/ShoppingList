@@ -89,6 +89,7 @@ dependencies {
   implementation Libs.Kotlin.org_jetbrains_kotlin
 
   implementation Libs.DaggerHilt.daggerHilt
+  implementation project(path: ':ui-component')
   kapt Libs.DaggerHilt.daggerHiltCompiler
 
   implementation Libs.Design.material

@@ -44,7 +44,7 @@
 
   </com.google.android.material.textfield.TextInputLayout>
 
-  <com.yonder.addtolist.common.ui.component.horizontalpicker.YoHorizontalPickerView
+  <com.yonder.uicomponent.horizontalpicker.YoHorizontalPickerView
     android:id="@+id/horizontalPicker"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
     app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
     app:layout_constraintTop_toBottomOf="@+id/horizontalPicker" />
 
-  <com.yonder.addtolist.common.ui.component.colorpicker.YoColorPickerView
+  <com.yonder.uicomponent.colorpicker.YoColorPickerView
     android:id="@+id/yoColorPicker"
     android:layout_width="0dp"
     android:layout_height="wrap_content"

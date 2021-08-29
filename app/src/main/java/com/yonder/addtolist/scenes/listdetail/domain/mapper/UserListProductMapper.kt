@@ -3,18 +3,44 @@ package com.yonder.addtolist.scenes.listdetail.domain.mapper
 import com.yonder.addtolist.core.extensions.orZero
 import com.yonder.addtolist.core.extensions.toBoolean
 import com.yonder.addtolist.core.extensions.toInt
+import com.yonder.addtolist.core.mapper.Mapper
 import com.yonder.addtolist.core.network.request.CreateUserListProductRequest
 import com.yonder.addtolist.core.network.request.UserListProductRequest
+import com.yonder.addtolist.local.entity.ProductEntitySummary
 import com.yonder.addtolist.local.entity.UserListProductEntity
 import com.yonder.addtolist.scenes.home.data.remote.response.UserListProductResponse
+import com.yonder.uicomponent.base.model.UserListProductSummaryUiModel
+import com.yonder.uicomponent.base.model.UserListProductUiModel
 
 /**
  * @author yusuf.onder
  * Created on 22.07.2021
  */
+
+
+class UserListProductSummaryToUiModelMapper: Mapper<ProductEntitySummary,UserListProductSummaryUiModel>{
+  override fun map(input: ProductEntitySummary): UserListProductSummaryUiModel {
+    return UserListProductSummaryUiModel(name = input.name,categoryImage = input.categoryImage.orEmpty())
+  }
+
+}
+
+class UserListProductToUiModelMapper: Mapper<UserListProductEntity,UserListProductUiModel>{
+  override fun map(input: UserListProductEntity): UserListProductUiModel {
+    return UserListProductUiModel(
+      id = input.id,
+      name = input.name.orEmpty(),
+      quantity = input.quantity.orZero(),
+      isDone = input.wrappedDone(),
+      isFavorite = input.wrappedFavorite(),
+      note = input.note.orEmpty(),
+      categoryImage = input.wrappedCategoryImage()
+    )
+  }
+}
 object UserListProductMapper {
 
-  fun mapEntityToResponse(listId: String,input: UserListProductEntity): UserListProductRequest {
+  fun mapEntityToResponse(listId: String, input: UserListProductEntity): UserListProductRequest {
     return UserListProductRequest(
       name = input.name.orEmpty(),
       userListId = listId,
@@ -28,6 +54,7 @@ object UserListProductMapper {
       price = input.price.orZero(),
     )
   }
+
 
   fun mapResponseToEntity(listUUID: String, input: UserListProductResponse): UserListProductEntity {
     return UserListProductEntity(

@@ -8,7 +8,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.yonder.addtolist.R
 import com.yonder.addtolist.common.ui.base.BaseFragment
-import com.yonder.addtolist.common.ui.component.adapter.MaterialSpinnerAdapter
+import com.yonder.uicomponent.adapter.MaterialSpinnerAdapter
 import com.yonder.addtolist.common.ui.extensions.compatColor
 import com.yonder.addtolist.common.ui.extensions.compatDrawable
 import com.yonder.addtolist.common.ui.extensions.setSafeOnClickListener
@@ -116,16 +116,15 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
   private fun initTextChangedListeners() {
 
     binding.etNote.addTextChangedListener {
-      viewModel.updateProductNote(product = product, note = it.toString())
+      viewModel.updateProductNote( note = it.toString())
     }
 
     binding.etProductName.addTextChangedListener {
-      viewModel.updateProductName(product = product, name = it.toString())
+      viewModel.updateProductName(name = it.toString())
     }
 
     binding.etPrice.addTextChangedListener {
       viewModel.updateProductPrice(
-        product = product,
         price = binding.etPrice.getNumericValue()
       )
     }
@@ -139,7 +138,7 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
     }
 
     btnDeleteItem.setSafeOnClickListener {
-      viewModel.delete(product)
+      viewModel.delete()
       closeFragment()
     }
 
@@ -147,34 +146,34 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
       if (!isChecked) return@addOnButtonCheckedListener
       when (checkedId) {
         binding.button1.id -> {
-          viewModel.updateUnit(product = product, unit = ProductUnitType.Piece)
+          viewModel.updateUnit( unit = ProductUnitType.Piece)
         }
         binding.button2.id -> {
-          viewModel.updateUnit(product = product, unit = ProductUnitType.Package)
+          viewModel.updateUnit( unit = ProductUnitType.Package)
         }
         binding.button3.id -> {
-          viewModel.updateUnit(product = product, unit = ProductUnitType.Kg)
+          viewModel.updateUnit( unit = ProductUnitType.Kg)
         }
         binding.button4.id -> {
-          viewModel.updateUnit(product = product, unit = ProductUnitType.Lt)
+          viewModel.updateUnit( unit = ProductUnitType.Lt)
         }
       }
     }
 
     btnDecrease.setOnClickListener {
-      viewModel.decreaseQuantity(product)
+      viewModel.decreaseQuantity()
     }
 
     btnIncrease.setOnClickListener {
-      viewModel.increaseQuantity(product)
+      viewModel.increaseQuantity()
     }
 
     btnAddFavorite.setSafeOnClickListener {
-      viewModel.toggleFavorite(product)
+      viewModel.toggleFavorite()
     }
 
     btnDone.setSafeOnClickListener {
-      viewModel.done(product)
+      viewModel.done()
       closeFragment()
     }
 

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.core.data.SingleLiveEvent
 import com.yonder.addtolist.core.extensions.orZero
+import com.yonder.addtolist.local.entity.CategoryEntity
 import com.yonder.addtolist.local.entity.UserListProductEntity
 import com.yonder.addtolist.scenes.productdetail.domain.DeleteProductUseCase
 import com.yonder.addtolist.scenes.productdetail.domain.GetCategoriesUseCase
@@ -13,6 +14,7 @@ import com.yonder.addtolist.scenes.productdetail.model.enums.DoneType
 import com.yonder.addtolist.scenes.productdetail.model.enums.FavoriteType
 import com.yonder.addtolist.scenes.productdetail.model.enums.ProductUnitType
 import com.yonder.addtolist.scenes.productdetail.utils.CategoryFinder
+import com.yonder.uicomponent.base.model.UserListProductUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
@@ -51,15 +53,6 @@ class ProductDetailViewModel @Inject constructor(
     }
   }
 
-  fun toggleFavorite(item: UserListProductEntity) {
-    if (item.wrappedFavorite()) {
-      item.favorite = FavoriteType.UnFavorite.value
-    } else {
-      item.favorite = FavoriteType.Favorite.value
-    }
-    update(item)
-  }
-
 
   private fun update(product: UserListProductEntity) {
     viewModelScope.launch {
@@ -67,68 +60,118 @@ class ProductDetailViewModel @Inject constructor(
     }
   }
 
-  fun done(product: UserListProductEntity) {
-    if (product.wrappedDone()) {
-      product.done = DoneType.UnDone.value
-    } else {
-      product.done = DoneType.Done.value
+
+  fun toggleFavorite() {
+    getProductEntity { product ->
+      if (product.wrappedFavorite()) {
+        product.favorite = FavoriteType.UnFavorite.value
+      } else {
+        product.favorite = FavoriteType.Favorite.value
+      }
+      update(product)
     }
-    update(product)
   }
 
-  fun delete(product: UserListProductEntity) {
+  fun done() {
+    getProductEntity { product ->
+      if (product.wrappedDone()) {
+        product.done = DoneType.UnDone.value
+      } else {
+        product.done = DoneType.Done.value
+      }
+      update(product)
+    }
+
+  }
+
+  fun delete() {
     viewModelScope.launch {
-      deleteProductUseCase(product)
+      getProductEntity { product ->
+        deleteProductUseCase(product)
+      }
     }
   }
 
-  fun increaseQuantity(product: UserListProductEntity) {
-    product.quantity = product.quantity.orZero().plus(1)
-    update(product)
-  }
-
-  fun decreaseQuantity(product: UserListProductEntity) {
-    product.quantity = product.quantity.orZero().minus(1)
-    update(product)
-  }
-
-  fun updateUnit(product: UserListProductEntity, unit: ProductUnitType) {
-    if (product.unit != unit.value) {
-      product.unit = unit.value
+  fun increaseQuantity() {
+    getProductEntity { product ->
+      product.quantity = product.quantity.orZero().plus(1)
       update(product)
     }
   }
 
-  fun updateProductName(product: UserListProductEntity, name: String?) {
-    if (product.name != name && name.isNullOrEmpty().not()) {
-      product.name = name
+  fun decreaseQuantity() {
+    getProductEntity { product ->
+      product.quantity = product.quantity.orZero().minus(1)
       update(product)
     }
   }
 
-  fun updateProductPrice(product: UserListProductEntity, price: Double?) {
-    if (product.price != price && price != null) {
-      product.price = price
-      update(product)
+  fun updateUnit(unit: ProductUnitType) {
+    getProductEntity { product ->
+      if (product.unit != unit.value) {
+        product.unit = unit.value
+        update(product)
+      }
     }
   }
 
-  fun updateProductNote(product: UserListProductEntity, note: String?) {
-    if (product.note != note) {
-      product.note = note
-      update(product)
+  fun updateProductName(name: String?) {
+    getProductEntity { product ->
+      if (product.name != name && name.isNullOrEmpty().not()) {
+        product.name = name
+        update(product)
+      }
+    }
+
+  }
+
+  fun updateProductPrice(price: Double?) {
+    getProductEntity { product ->
+      if (product.price != price && price != null) {
+        product.price = price
+        update(product)
+      }
     }
   }
 
-  fun updateCategory(product: UserListProductEntity, categoryPosition: Int) {
+  fun updateProductNote(note: String?) {
+    getProductEntity { product ->
+      if (product.note != note) {
+        product.note = note
+        update(product)
+      }
+    }
+  }
+
+  fun updateCategory(product: UserListProductUiModel, categoryPosition: Int) {
+    getCategoryEntity(categoryPosition) { categoryEntity: CategoryEntity ->
+      getProductEntity { userListProductEntity: UserListProductEntity ->
+        if (categoryEntity.image != product.categoryImage) {
+          userListProductEntity.categoryName = categoryEntity.name
+          userListProductEntity.categoryImage = categoryEntity.image
+          update(userListProductEntity)
+        }
+      }
+    }
+  }
+
+  private inline fun getProductEntity(
+    productInvoker: (UserListProductEntity) -> Unit = {},
+  ) {
     val viewState = state.value
     if (viewState is ProductDetailViewState.Load) {
-      viewState.categories.getOrNull(categoryPosition)?.let { selectedCategory ->
-        if (selectedCategory.image != product.categoryImage) {
-          product.categoryName = selectedCategory.name
-          product.categoryImage = selectedCategory.image
-          update(product)
-        }
+      productInvoker.invoke(viewState.product)
+    }
+  }
+
+  private inline fun getCategoryEntity(
+    position: Int,
+    productInvoker: (CategoryEntity) -> Unit = {},
+  ) {
+    val viewState = state.value
+    if (viewState is ProductDetailViewState.Load) {
+      viewState.categories.getOrNull(position)?.let { selectedCategory ->
+        productInvoker.invoke(selectedCategory)
       }
     }
   }
