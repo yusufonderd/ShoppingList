@@ -1,10 +1,10 @@
-package com.yonder.addtolist.scenes.detail.domain.product
+package com.yonder.addtolist.scenes.listdetail.domain.product
 
 import com.yonder.addtolist.core.network.responses.Result
 import com.yonder.addtolist.core.network.thread.CoroutineThread
 import com.yonder.addtolist.local.entity.ProductEntity
 import com.yonder.addtolist.local.entity.UserListProductEntity
-import com.yonder.addtolist.scenes.detail.domain.mapper.UserListProductMapper
+import com.yonder.addtolist.scenes.listdetail.domain.mapper.UserListProductMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
@@ -23,22 +23,7 @@ class ProductUseCaseImpl @Inject constructor(
       .flowOn(dispatcher.io)
   }
 
-  override fun addProduct(
-    listId: String,
-    listUUID: String,
-    productName: String,
-    productCategoryImage: String
-  ): Flow<Result<UserListProductEntity>> {
-    val createUserListProductRequest =
-      UserListProductMapper.mapProductEntitySummaryToRequest(
-        listId,
-        productName,
-        productCategoryImage
-      )
-    return productRepository
-      .addProduct(listUUID, createUserListProductRequest)
-      .flowOn(dispatcher.io)
-  }
+
 
   override fun removeProduct(
     productEntity: UserListProductEntity

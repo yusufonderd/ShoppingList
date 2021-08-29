@@ -1,13 +1,14 @@
-package com.yonder.addtolist.scenes.detail
+package com.yonder.addtolist.scenes.listdetail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.core.extensions.EMPTY_STRING
 import com.yonder.addtolist.local.entity.CATEGORY_OTHER_IMAGE
 import com.yonder.addtolist.local.entity.UserListProductEntity
-import com.yonder.addtolist.scenes.detail.domain.category.ProductQueryUseCase
-import com.yonder.addtolist.scenes.detail.domain.product.ProductUseCase
+import com.yonder.addtolist.scenes.listdetail.domain.category.ProductQueryUseCase
+import com.yonder.addtolist.scenes.listdetail.domain.product.ProductUseCase
 import com.yonder.addtolist.scenes.home.domain.usecase.GetUserListUseCase
+import com.yonder.addtolist.scenes.listdetail.domain.AddProductUseCase
 import com.yonder.addtolist.scenes.productdetail.domain.UpdateProductUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -27,10 +28,12 @@ private const val QUERY_LIMIT = 10
 
 private const val DONE_VALUE = 1
 private const val NO_DONE_VALUE = 0
+
 @HiltViewModel
 class ListDetailViewModel @Inject constructor(
   private val productQueryUseCase: ProductQueryUseCase,
   private val productUseCase: ProductUseCase,
+  private val addProductUseCase: AddProductUseCase,
   private val updateProductUseCase: UpdateProductUseCase,
   private val getUserUserListUseCase: GetUserListUseCase
 ) : ViewModel() {
@@ -42,7 +45,7 @@ class ListDetailViewModel @Inject constructor(
 
 
   fun fetchProducts(listUUID: String, query: String = EMPTY_STRING) {
-    val flow1 = getUserUserListUseCase (listUUID)
+    val flow1 = getUserUserListUseCase(listUUID)
     val flow2 = if (query.trim().isEmpty()) {
       productQueryUseCase.fetchPopularProducts()
     } else {
@@ -54,7 +57,7 @@ class ListDetailViewModel @Inject constructor(
     job?.cancel()
     job = viewModelScope.launch {
       flow1.combine(flow2) { userListWithProducts, listingProducts ->
-        if (userListWithProducts.products.isEmpty()){
+        if (userListWithProducts.products.isEmpty()) {
           _state.value = ListDetailViewState.OpenKeyboard
         }
         _state.value = ListDetailViewState.UserListContent(
@@ -67,35 +70,34 @@ class ListDetailViewModel @Inject constructor(
 
   }
 
-  fun addProduct(listId: String, userListUUID: String, productName: String) = with(viewModelScope) {
-    launch {
-      productUseCase.getProductEntityForName(productName).collect { productEntity ->
-        val categoryImage = productEntity?.categoryImage ?: CATEGORY_OTHER_IMAGE
-        productUseCase.addProduct(
-          listId = listId,
-          listUUID = userListUUID,
-          productName = productName,
-          productCategoryImage = categoryImage
-        ).collect()
+  fun addProduct(listId: Int?, userListUUID: String, productName: String) {
+    listId?.let {
+      viewModelScope.launch {
+        productUseCase.getProductEntityForName(productName).collect { productEntity ->
+          val categoryImage = productEntity?.categoryImage ?: CATEGORY_OTHER_IMAGE
+          addProductUseCase.invoke(
+            listId = listId.toString(),
+            listUUID = userListUUID,
+            productName = productName,
+            productCategoryImage = categoryImage
+          ).collect()
+        }
       }
     }
-
   }
 
 
-  fun increaseQuantity(listId: String, product: UserListProductEntity) = with(viewModelScope) {
+  fun increaseQuantity(product: UserListProductEntity) {
     product.quantity = product.quantity?.plus(1.0)
-    launch {
-      productUseCase.updateProduct(listId, product)
-        .collect()
+    viewModelScope.launch {
+      updateProductUseCase(product)
     }
   }
 
-  fun decreaseQuantity(listId: String, product: UserListProductEntity) = with(viewModelScope) {
+  fun decreaseQuantity(product: UserListProductEntity) {
     product.quantity = product.quantity?.minus(1.0)
-    launch {
-      productUseCase.updateProduct(listId, product)
-        .collect()
+    viewModelScope.launch {
+      updateProductUseCase.invoke(product)
     }
   }
 
@@ -106,14 +108,13 @@ class ListDetailViewModel @Inject constructor(
       product.done = DONE_VALUE
     }
     viewModelScope.launch {
-      updateProductUseCase.invoke(product)
+      updateProductUseCase(product)
     }
   }
 
 
-
-  fun removeProduct(product: UserListProductEntity) = with(viewModelScope) {
-    launch {
+  fun removeProduct(product: UserListProductEntity) {
+    viewModelScope.launch {
       productUseCase.removeProduct(product).collect()
     }
   }

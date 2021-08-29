@@ -1,4 +1,4 @@
-package com.yonder.addtolist.scenes.detail.domain.product
+package com.yonder.addtolist.scenes.listdetail.domain.product
 
 import com.yonder.addtolist.core.extensions.orZero
 import com.yonder.addtolist.core.network.exceptions.ServerResultException
@@ -7,7 +7,7 @@ import com.yonder.addtolist.core.network.responses.Result
 import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.local.entity.ProductEntity
 import com.yonder.addtolist.local.entity.UserListProductEntity
-import com.yonder.addtolist.scenes.detail.domain.mapper.UserListProductMapper
+import com.yonder.addtolist.scenes.listdetail.domain.mapper.UserListProductMapper
 import com.yonder.addtolist.scenes.home.data.local.datasource.CategoryDataSource
 import com.yonder.addtolist.scenes.home.data.remote.ApiService
 import kotlinx.coroutines.flow.Flow

@@ -58,14 +58,14 @@ class YoProductItemView @JvmOverloads constructor(
     binding.ivIncreaseOrDelete.isInvisible = product == null
     binding.cvProductQuantity.isInvisible = (product == null)
     binding.tvProductQuantity.text = "${product?.quantity.orZero().toInt()}"
-    binding.root.setSafeOnClickListener {
+    binding.root.setOnClickListener {
       if (product == null) {
         listener.addProduct(value.name)
       } else {
         listener.increaseProductQuantity(product)
       }
     }
-    binding.ivIncreaseOrDelete.setSafeOnClickListener {
+    binding.ivIncreaseOrDelete.setOnClickListener {
       product?.let {
         if (product.quantity.orZero() <= PRODUCT_QUANTITY_ONE) {
           listener.removeProductEntity(product)

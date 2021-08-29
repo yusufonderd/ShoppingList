@@ -16,7 +16,7 @@ import javax.inject.Inject
  * Created on 29.08.2021
  */
 interface CreateListUseCase {
-  suspend operator fun invoke(listName: String, listColor: String): Flow<Result<UserListEntity>>
+  suspend operator fun invoke(listName: String, listColor: String): Flow<UserListEntity>
 }
 
 class CreateListUseCaseImpl @Inject constructor(
@@ -24,11 +24,12 @@ class CreateListUseCaseImpl @Inject constructor(
   private val dispatcher: CoroutineThread
 ) : CreateListUseCase {
 
-  override suspend fun invoke(listName: String, listColor: String): Flow<Result<UserListEntity>> {
+  override suspend fun invoke(listName: String, listColor: String): Flow<UserListEntity> {
+    val listUUID = UUID.randomUUID().toString()
+    val createUserRequest = CreateUserListRequest(listName, listColor, listUUID)
     return repository
-      .createUserList(CreateUserListRequest(listName, listColor, UUID.randomUUID().toString()))
+      .createUserList(createUserRequest)
       .flowOn(dispatcher.io)
   }
-
 
 }

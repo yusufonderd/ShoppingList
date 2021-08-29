@@ -1,4 +1,4 @@
-package com.yonder.addtolist.scenes.detail.domain.category
+package com.yonder.addtolist.scenes.listdetail.domain.category
 
 import com.yonder.addtolist.core.network.thread.CoroutineThread
 import com.yonder.addtolist.data.local.UserPreferenceDataStore

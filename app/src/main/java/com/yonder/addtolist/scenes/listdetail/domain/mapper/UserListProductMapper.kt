@@ -1,4 +1,4 @@
-package com.yonder.addtolist.scenes.detail.domain.mapper
+package com.yonder.addtolist.scenes.listdetail.domain.mapper
 
 import com.yonder.addtolist.core.extensions.orZero
 import com.yonder.addtolist.core.extensions.toBoolean
@@ -67,12 +67,12 @@ object UserListProductMapper {
   }
 
   fun mapProductEntitySummaryToRequest(
-    listId: String,
+    listId: String?,
     productName: String,
     productCategoryImage: String,
   ): CreateUserListProductRequest {
     return CreateUserListProductRequest(
-      userListId = listId,
+      userListId = listId.orEmpty(),
       name = productName,
       category_image = productCategoryImage
     )

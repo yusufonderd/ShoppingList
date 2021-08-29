@@ -1,12 +1,12 @@
-package com.yonder.addtolist.scenes.detail.domain.category
+package com.yonder.addtolist.scenes.listdetail.domain.category
 
 import com.yonder.addtolist.core.mapper.ListMapperImpl
 import com.yonder.addtolist.core.network.exceptions.ServerResultException
 import com.yonder.addtolist.core.network.responses.Result
 import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.local.entity.CategoryWithProducts
-import com.yonder.addtolist.scenes.detail.domain.mapper.CategoryEntityMapper
-import com.yonder.addtolist.scenes.detail.domain.mapper.ProductEntityMapper
+import com.yonder.addtolist.scenes.listdetail.domain.mapper.CategoryEntityMapper
+import com.yonder.addtolist.scenes.listdetail.domain.mapper.ProductEntityMapper
 import com.yonder.addtolist.scenes.home.data.local.datasource.CategoryDataSource
 import com.yonder.addtolist.scenes.home.data.remote.ApiService
 import com.yonder.addtolist.scenes.home.domain.mapper.CategoryProductsMapper

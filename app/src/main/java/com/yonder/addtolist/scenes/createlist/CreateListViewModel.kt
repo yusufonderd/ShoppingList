@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CreateListViewModel @Inject constructor(
-  private val userListUseCase: CreateListUseCase
+  private val createListUseCase: CreateListUseCase
 ) : ViewModel() {
 
   private val _state = MutableLiveData<CreateListViewState>()
@@ -28,15 +28,10 @@ class CreateListViewModel @Inject constructor(
     if (listName.isBlank()) {
       _state.value = CreateListViewState.ShowBlankListNameError
     } else {
+      _state.value = CreateListViewState.Loading
       viewModelScope.launch {
-        userListUseCase.invoke(listName, listColor).collect { result ->
-          result.onLoading {
-            _state.value = CreateListViewState.Loading
-          }.onSuccess {
-            _state.value = CreateListViewState.ListCreated()
-          }.onError {
-            _state.value = CreateListViewState.ListCreated(it.toReadableMessage())
-          }
+        createListUseCase.invoke(listName, listColor).collect {
+          _state.value = CreateListViewState.ListCreated
         }
       }
     }

@@ -1,4 +1,4 @@
-package com.yonder.addtolist.scenes.detail.domain.mapper
+package com.yonder.addtolist.scenes.listdetail.domain.mapper
 
 import com.yonder.addtolist.core.mapper.Mapper
 import com.yonder.addtolist.local.entity.CategoryEntity

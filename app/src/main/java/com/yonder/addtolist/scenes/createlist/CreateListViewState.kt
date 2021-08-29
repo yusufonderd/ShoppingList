@@ -8,6 +8,6 @@ package com.yonder.addtolist.scenes.createlist
 sealed class CreateListViewState {
   object ShowBlankListNameError : CreateListViewState()
   object Loading : CreateListViewState()
-  data class ListCreated(var errorMessage: String? = null) : CreateListViewState()
+  object ListCreated : CreateListViewState()
 }
 

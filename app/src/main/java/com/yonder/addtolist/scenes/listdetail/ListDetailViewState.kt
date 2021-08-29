@@ -1,6 +1,5 @@
-package com.yonder.addtolist.scenes.detail
+package com.yonder.addtolist.scenes.listdetail
 
-import com.yonder.addtolist.local.entity.CategoryWithProducts
 import com.yonder.addtolist.local.entity.ProductEntitySummary
 import com.yonder.addtolist.local.entity.UserListWithProducts
 

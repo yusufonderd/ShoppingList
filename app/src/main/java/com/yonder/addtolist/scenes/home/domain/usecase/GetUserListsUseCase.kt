@@ -1,6 +1,5 @@
 package com.yonder.addtolist.scenes.home.domain.usecase
 
-import com.yonder.addtolist.core.network.responses.Result
 import com.yonder.addtolist.core.network.thread.CoroutineThread
 import com.yonder.addtolist.local.entity.UserListWithProducts
 import com.yonder.addtolist.scenes.home.domain.repository.UserListRepository
@@ -17,7 +16,7 @@ class GetUserListsUseCaseImpl @Inject constructor(
   private val repository: UserListRepository,
   private val dispatcher: CoroutineThread
 ) : GetUserListsUseCase {
-  override suspend fun invoke(): Flow<Result<List<UserListWithProducts>>> {
+  override suspend fun invoke(): Flow<List<UserListWithProducts>> {
     return repository
       .getUserLists()
       .flowOn(dispatcher.io)
@@ -25,5 +24,5 @@ class GetUserListsUseCaseImpl @Inject constructor(
 }
 
 interface GetUserListsUseCase {
-  suspend operator fun invoke(): Flow<Result<List<UserListWithProducts>>>
+  suspend operator fun invoke(): Flow<List<UserListWithProducts>>
 }

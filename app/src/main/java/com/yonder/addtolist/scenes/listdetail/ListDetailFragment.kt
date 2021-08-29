@@ -1,4 +1,4 @@
-package com.yonder.addtolist.scenes.detail
+package com.yonder.addtolist.scenes.listdetail
 
 import android.view.LayoutInflater
 import androidx.core.view.isVisible
@@ -17,10 +17,8 @@ import com.yonder.addtolist.common.utils.keyboard.hideKeyboardFor
 import com.yonder.addtolist.databinding.FragmentListDetailBinding
 import com.yonder.addtolist.local.entity.ProductEntitySummary
 import com.yonder.addtolist.local.entity.UserListProductEntity
-import com.yonder.statelayout.State
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import timber.log.Timber
 
 /**
  * @author yusuf.onder
@@ -35,7 +33,7 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>(), IProductOp
 
   private val viewModel: ListDetailViewModel by viewModels()
 
-  private val listId get() = args.userList.id.toString()
+  private val listId get() = args.userList.id
 
   private val listUUID get() = args.userList.uuid
 
@@ -106,11 +104,11 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>(), IProductOp
   }
 
   override fun decreaseProductQuantity(productEntity: UserListProductEntity) {
-    viewModel.decreaseQuantity(listId, productEntity)
+      viewModel.decreaseQuantity(productEntity)
   }
 
   override fun increaseProductQuantity(productEntity: UserListProductEntity) {
-    viewModel.increaseQuantity(listId, productEntity)
+      viewModel.increaseQuantity(productEntity)
   }
 
   override fun removeProductEntity(productEntity: UserListProductEntity) {

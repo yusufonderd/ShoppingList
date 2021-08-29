@@ -1,4 +1,4 @@
-package com.yonder.addtolist.scenes.detail.domain.product
+package com.yonder.addtolist.scenes.listdetail.domain.product
 
 import com.yonder.addtolist.core.network.request.CreateUserListProductRequest
 import com.yonder.addtolist.core.network.responses.Result

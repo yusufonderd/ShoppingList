@@ -3,7 +3,6 @@ package com.yonder.addtolist.scenes.home.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.core.base.LayoutState
-import com.yonder.addtolist.core.base.getLayoutState
 import com.yonder.addtolist.core.data.SingleLiveEvent
 import com.yonder.addtolist.local.entity.UserListWithProducts
 import com.yonder.addtolist.scenes.home.domain.usecase.GetUserListsUseCase
@@ -23,14 +22,13 @@ class ShoppingListItemsViewModel @Inject constructor(
 
   fun getShoppingItems() {
     viewModelScope.launch {
-      getUserListsUseCase().collect { result ->
-        _state.value = ShoppingListItemsViewState.SetLayoutState(layoutState = result.getLayoutState())
-        result.onSuccess { userLists ->
-          if (userLists.isEmpty()) {
-            _state.value = ShoppingListItemsViewState.CreateNewListContent
-          } else {
-            _state.value = ShoppingListItemsViewState.Result(userLists)
-          }
+      _state.value = ShoppingListItemsViewState.SetLayoutState(LayoutState.LOADING)
+      getUserListsUseCase().collect { userLists ->
+        _state.value = ShoppingListItemsViewState.SetLayoutState(LayoutState.CONTENT)
+        if (userLists.isEmpty()) {
+          _state.value = ShoppingListItemsViewState.CreateNewListContent
+        } else {
+          _state.value = ShoppingListItemsViewState.Result(userLists)
         }
       }
     }
@@ -38,7 +36,7 @@ class ShoppingListItemsViewModel @Inject constructor(
 }
 
 sealed class ShoppingListItemsViewState {
-  data class SetLayoutState(val layoutState : LayoutState): ShoppingListItemsViewState()
+  data class SetLayoutState(val layoutState: LayoutState) : ShoppingListItemsViewState()
   object CreateNewListContent : ShoppingListItemsViewState()
   data class Result(var userLists: List<UserListWithProducts>) :
     ShoppingListItemsViewState()
