@@ -24,5 +24,4 @@ This app inspired from Trendyol's Android app architecture.
 ## TODOs
 - Better UI and error handling
 - UI test.
-- Detekt Impl
 - More Unit tests
