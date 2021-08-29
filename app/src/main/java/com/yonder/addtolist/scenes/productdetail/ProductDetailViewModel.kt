@@ -9,19 +9,15 @@ import com.yonder.addtolist.scenes.productdetail.domain.DeleteProductUseCase
 import com.yonder.addtolist.scenes.productdetail.domain.GetCategoriesUseCase
 import com.yonder.addtolist.scenes.productdetail.domain.GetProductUseCase
 import com.yonder.addtolist.scenes.productdetail.domain.UpdateProductUseCase
+import com.yonder.addtolist.scenes.productdetail.model.enums.DoneType
+import com.yonder.addtolist.scenes.productdetail.model.enums.FavoriteType
 import com.yonder.addtolist.scenes.productdetail.model.enums.ProductUnitType
+import com.yonder.addtolist.scenes.productdetail.utils.CategoryFinder
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
-private const val FAVORITE_VALUE = 1
-private const val NO_FAVORITE_VALUE = 0
-
-private const val DONE_VALUE = 1
-private const val NO_DONE_VALUE = 0
-
 
 /**
  * @author yusuf.onder
@@ -32,8 +28,8 @@ private const val NO_DONE_VALUE = 0
 class ProductDetailViewModel @Inject constructor(
   private val getProductUseCase: GetProductUseCase,
   private val deleteProductUseCase: DeleteProductUseCase,
-  private val updateProductUseCase:  UpdateProductUseCase,
-  private val getCategoriesUseCase : GetCategoriesUseCase
+  private val updateProductUseCase: UpdateProductUseCase,
+  private val getCategoriesUseCase: GetCategoriesUseCase
 ) : ViewModel() {
 
   private val _state: SingleLiveEvent<ProductDetailViewState> =
@@ -42,19 +38,24 @@ class ProductDetailViewModel @Inject constructor(
 
   fun fetchProductId(selectedProductId: Int?) {
     if (selectedProductId != null) {
-      val flow1 = getCategoriesUseCase()
+      val flow1 = getCategoriesUseCase.invoke()
       val flow2 = getProductUseCase.invoke(selectedProductId)
       flow1.combine(flow2) { categories, productEntity ->
-        _state.value = ProductDetailViewState.Load(categories, productEntity)
+        val categoryOfProduct = CategoryFinder(categories).find(productEntity.categoryImage)
+        _state.value = ProductDetailViewState.Load(
+          categories = categories,
+          product = productEntity,
+          categoryOfProduct = categoryOfProduct
+        )
       }.launchIn(viewModelScope)
     }
   }
 
   fun toggleFavorite(item: UserListProductEntity) {
     if (item.wrappedFavorite()) {
-      item.favorite = NO_FAVORITE_VALUE
+      item.favorite = FavoriteType.UnFavorite.value
     } else {
-      item.favorite = FAVORITE_VALUE
+      item.favorite = FavoriteType.Favorite.value
     }
     update(item)
   }
@@ -68,9 +69,9 @@ class ProductDetailViewModel @Inject constructor(
 
   fun done(product: UserListProductEntity) {
     if (product.wrappedDone()) {
-      product.done = NO_DONE_VALUE
+      product.done = DoneType.UnDone.value
     } else {
-      product.done = DONE_VALUE
+      product.done = DoneType.Done.value
     }
     update(product)
   }

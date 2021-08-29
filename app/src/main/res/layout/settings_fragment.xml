@@ -79,7 +79,6 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/yoShareApp"
-    app:yo_imageResId="@drawable/instagram_sketched"
     app:yo_text="@string/instagram" />
 
 
@@ -90,7 +89,6 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/yoInstagram"
-    app:yo_imageResId="@drawable/twitter"
     app:yo_text="@string/twitter" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

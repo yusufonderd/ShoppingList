@@ -8,6 +8,8 @@ import androidx.room.PrimaryKey
 import com.yonder.addtolist.R
 import com.yonder.addtolist.core.extensions.EMPTY_STRING
 import com.yonder.addtolist.core.extensions.orZero
+import com.yonder.addtolist.scenes.productdetail.model.enums.DoneType
+import com.yonder.addtolist.scenes.productdetail.model.enums.FavoriteType
 import com.yonder.addtolist.scenes.productdetail.model.enums.ProductUnitType
 import kotlinx.parcelize.Parcelize
 import java.lang.Exception
@@ -80,10 +82,10 @@ class UserListProductEntity(
   }
 
   fun wrappedFavorite(): Boolean {
-    return favorite == 1
+    return favorite == FavoriteType.Favorite.value
   }
 
   fun wrappedDone(): Boolean {
-    return done == 1
+    return done == DoneType.Done.value
   }
 }

@@ -6,17 +6,15 @@ import com.yonder.addtolist.core.base.LayoutState
 import com.yonder.addtolist.core.base.getLayoutState
 import com.yonder.addtolist.core.data.SingleLiveEvent
 import com.yonder.addtolist.local.entity.UserListWithProducts
-import com.yonder.addtolist.scenes.home.domain.usecase.UserListUseCase
+import com.yonder.addtolist.scenes.home.domain.usecase.GetUserListsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ShoppingListItemsViewModel @Inject constructor(
-  private val userListUseCase: UserListUseCase
+  private val getUserListsUseCase: GetUserListsUseCase
 ) : ViewModel() {
 
   private val _state: SingleLiveEvent<ShoppingListItemsViewState> =
@@ -24,18 +22,19 @@ class ShoppingListItemsViewModel @Inject constructor(
   val state: SingleLiveEvent<ShoppingListItemsViewState> get() = _state
 
   fun getShoppingItems() {
-    userListUseCase.getUserLists().onEach { result ->
-      _state.value = ShoppingListItemsViewState.SetLayoutState(layoutState = result.getLayoutState())
-      result.onSuccess { userLists ->
-        if (userLists.isEmpty()) {
-          _state.value = ShoppingListItemsViewState.CreateNewListContent
-        } else {
-          _state.value = ShoppingListItemsViewState.Result(userLists)
+    viewModelScope.launch {
+      getUserListsUseCase().collect { result ->
+        _state.value = ShoppingListItemsViewState.SetLayoutState(layoutState = result.getLayoutState())
+        result.onSuccess { userLists ->
+          if (userLists.isEmpty()) {
+            _state.value = ShoppingListItemsViewState.CreateNewListContent
+          } else {
+            _state.value = ShoppingListItemsViewState.Result(userLists)
+          }
         }
       }
-    }.launchIn(viewModelScope)
+    }
   }
-
 }
 
 sealed class ShoppingListItemsViewState {

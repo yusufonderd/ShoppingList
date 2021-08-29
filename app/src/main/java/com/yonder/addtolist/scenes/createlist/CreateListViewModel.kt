@@ -5,10 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.core.extensions.toReadableMessage
-import com.yonder.addtolist.scenes.home.domain.usecase.UserListUseCase
+import com.yonder.addtolist.scenes.home.domain.usecase.CreateListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CreateListViewModel @Inject constructor(
-  private val userListUseCase: UserListUseCase
+  private val userListUseCase: CreateListUseCase
 ) : ViewModel() {
 
   private val _state = MutableLiveData<CreateListViewState>()
@@ -28,8 +28,8 @@ class CreateListViewModel @Inject constructor(
     if (listName.isBlank()) {
       _state.value = CreateListViewState.ShowBlankListNameError
     } else {
-      userListUseCase.createList(listName, listColor)
-        .onEach { result ->
+      viewModelScope.launch {
+        userListUseCase.invoke(listName, listColor).collect { result ->
           result.onLoading {
             _state.value = CreateListViewState.Loading
           }.onSuccess {
@@ -38,8 +38,7 @@ class CreateListViewModel @Inject constructor(
             _state.value = CreateListViewState.ListCreated(it.toReadableMessage())
           }
         }
-        .launchIn(viewModelScope)
+      }
     }
-
   }
 }

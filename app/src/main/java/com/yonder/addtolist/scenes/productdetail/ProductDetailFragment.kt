@@ -18,13 +18,11 @@ import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.databinding.FragmentProductDetailBinding
 import com.yonder.addtolist.local.entity.CategoryEntity
 import com.yonder.addtolist.local.entity.UserListProductEntity
-import com.yonder.addtolist.scenes.productdetail.model.CategoryUIModel
 import com.yonder.addtolist.scenes.productdetail.model.enums.ProductUnitType
 import com.yonder.addtolist.scenes.productdetail.model.mapper.CategoryNameMapper
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 /**
  * @author yusuf.onder
@@ -55,8 +53,11 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
     viewModel.state.observe(viewLifecycleOwner) { viewState ->
       when (viewState) {
         is ProductDetailViewState.Load -> {
-          setProduct(viewState.userListProduct)
-          initSpinner(viewState.categories, product)
+          setProduct(viewState.product)
+          initSpinner(
+            categories = viewState.categories,
+            productCategory = viewState.categoryOfProduct
+          )
         }
         else -> Unit
       }
@@ -66,14 +67,13 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
 
   private fun initSpinner(
     categories: List<CategoryEntity>,
-    userListProduct: UserListProductEntity
+    productCategory: CategoryEntity?
   ) = with(binding.etAutoComplete) {
     if (adapterSpinner == null) {
-      val userListProductCategory = categories.find { it.image == userListProduct.categoryImage }
       val categoryNames = CategoryNameMapper().map(categories)
       val categoryList = categoryNames.map { it.wrappedName }
       adapterSpinner = MaterialSpinnerAdapter(context, R.layout.item_material_spinner, categoryList)
-      setText(userListProductCategory?.wrappedName().orEmpty())
+      setText(productCategory?.wrappedName())
       setAdapter(adapterSpinner)
     }
   }
@@ -135,7 +135,6 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
   private fun setClickListeners() = with(binding) {
 
     etAutoComplete.setOnItemClickListener { _, _, position, _ ->
-     // val category = categoryNames[position]
       viewModel.updateCategory(product = product, categoryPosition = position)
     }
 
@@ -162,11 +161,11 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
       }
     }
 
-    btnDecrease.setSafeOnClickListener {
+    btnDecrease.setOnClickListener {
       viewModel.decreaseQuantity(product)
     }
 
-    btnIncreate.setSafeOnClickListener {
+    btnIncrease.setOnClickListener {
       viewModel.increaseQuantity(product)
     }
 

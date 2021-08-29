@@ -7,7 +7,7 @@ import com.yonder.addtolist.local.entity.CATEGORY_OTHER_IMAGE
 import com.yonder.addtolist.local.entity.UserListProductEntity
 import com.yonder.addtolist.scenes.detail.domain.category.ProductQueryUseCase
 import com.yonder.addtolist.scenes.detail.domain.product.ProductUseCase
-import com.yonder.addtolist.scenes.home.domain.usecase.LocalListUseCase
+import com.yonder.addtolist.scenes.home.domain.usecase.GetUserListUseCase
 import com.yonder.addtolist.scenes.productdetail.domain.UpdateProductUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -32,7 +32,7 @@ class ListDetailViewModel @Inject constructor(
   private val productQueryUseCase: ProductQueryUseCase,
   private val productUseCase: ProductUseCase,
   private val updateProductUseCase: UpdateProductUseCase,
-  private val localUserListUseCase: LocalListUseCase
+  private val getUserUserListUseCase: GetUserListUseCase
 ) : ViewModel() {
 
   private val _state: MutableStateFlow<ListDetailViewState> =
@@ -42,7 +42,7 @@ class ListDetailViewModel @Inject constructor(
 
 
   fun fetchProducts(listUUID: String, query: String = EMPTY_STRING) {
-    val flow1 = localUserListUseCase.getUserListByUUID(listUUID)
+    val flow1 = getUserUserListUseCase (listUUID)
     val flow2 = if (query.trim().isEmpty()) {
       productQueryUseCase.fetchPopularProducts()
     } else {

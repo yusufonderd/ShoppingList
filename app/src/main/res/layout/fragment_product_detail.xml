@@ -30,7 +30,8 @@
       <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/etProductName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:maxLines="@integer/lines_1" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -39,7 +40,7 @@
       style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="8dp"
+      android:layout_marginTop="@dimen/margin_8"
       android:hint="@string/select_category"
       app:boxBackgroundColor="@color/white"
       app:hintAnimationEnabled="false"
@@ -59,10 +60,9 @@
       android:id="@+id/relativeLayout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="8dp"
+      android:layout_marginTop="@dimen/margin_8"
       android:gravity="center"
-      app:layout_constraintTop_toBottomOf="@+id/tilCategory"
-      tools:layout_editor_absoluteX="16dp">
+      app:layout_constraintTop_toBottomOf="@+id/tilCategory">
 
       <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/txtFieldQuantity"
@@ -95,7 +95,7 @@
         android:orientation="horizontal">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-          android:id="@+id/btnIncreate"
+          android:id="@+id/btnIncrease"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           app:backgroundTint="@color/colorGreen"
@@ -171,7 +171,7 @@
       style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="8dp"
+      android:layout_marginTop="@dimen/margin_8"
       android:hint="@string/product_unit_price"
       app:boxBackgroundColor="@color/white"
       app:expandedHintEnabled="true"
@@ -194,7 +194,7 @@
       style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginTop="8dp"
+      android:layout_marginTop="@dimen/margin_8"
       android:hint="@string/add_note"
       app:boxBackgroundColor="@color/white"
       app:hintAnimationEnabled="false"
@@ -206,7 +206,8 @@
       <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/etNote"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:maxLines="@integer/lines_2" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -215,7 +216,7 @@
       style="@style/Widget.App.Button.OutlinedButton.IconOnly"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginTop="8dp"
+      android:layout_marginTop="@dimen/margin_8"
       android:text="@string/check_done"
       android:textColor="@color/colorBlue"
       app:backgroundTint="@color/white"
@@ -231,7 +232,7 @@
       style="@style/Widget.App.Button.OutlinedButton.IconOnly"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginTop="8dp"
+      android:layout_marginTop="@dimen/margin_8"
       app:backgroundTint="@color/white"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -243,7 +244,7 @@
       style="@style/Widget.App.Button.OutlinedButton.IconOnly"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginTop="8dp"
+      android:layout_marginTop="@dimen/margin_8"
       android:text="@string/delete_item"
       android:textColor="@color/colorRed"
       app:backgroundTint="@color/white"

@@ -11,5 +11,7 @@ import com.yonder.addtolist.local.entity.UserListProductEntity
 sealed class ProductDetailViewState {
   data class Load(
     var categories: List<CategoryEntity>,
-    var userListProduct: UserListProductEntity) : ProductDetailViewState()
+    var product: UserListProductEntity,
+    var categoryOfProduct: CategoryEntity?
+    ) : ProductDetailViewState()
 }
