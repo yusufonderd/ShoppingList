@@ -1,11 +1,19 @@
 package com.yonder.addtolist.scenes.productdetail.di
 
-import com.yonder.addtolist.scenes.productdetail.domain.LocalProductUseCase
-import com.yonder.addtolist.scenes.productdetail.domain.LocalProductUseCaseImpl
+import com.yonder.addtolist.scenes.productdetail.domain.DeleteProductUseCase
+import com.yonder.addtolist.scenes.productdetail.domain.DeleteProductUseCaseImpl
+import com.yonder.addtolist.scenes.productdetail.domain.GetCategoriesUseCase
+import com.yonder.addtolist.scenes.productdetail.domain.GetCategoriesUseCaseImpl
+import com.yonder.addtolist.scenes.productdetail.domain.GetProductUseCase
+import com.yonder.addtolist.scenes.productdetail.domain.GetProductUseCaseImpl
+import com.yonder.addtolist.scenes.productdetail.domain.UpdateProductUseCase
+import com.yonder.addtolist.scenes.productdetail.domain.UpdateProductUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 /**
  * @author yusuf.onder
@@ -13,10 +21,20 @@ import dagger.hilt.android.components.ViewModelComponent
  */
 
 
-@[Module InstallIn(ViewModelComponent::class)]
+@[Module InstallIn(SingletonComponent::class)]
 interface ProductDetailModule {
 
-  @get:[Binds]
-  val LocalProductUseCaseImpl.localProductUseCase: LocalProductUseCase
+  @get:[Binds Singleton]
+  val DeleteProductUseCaseImpl.deleteProduct: DeleteProductUseCase
+
+  @get:[Binds Singleton]
+  val UpdateProductUseCaseImpl.updateProduct: UpdateProductUseCase
+
+  @get:[Binds Singleton]
+  val GetProductUseCaseImpl.getProduct: GetProductUseCase
+
+  @get:[Binds Singleton]
+  val GetCategoriesUseCaseImpl.getCategories: GetCategoriesUseCase
+
 
 }

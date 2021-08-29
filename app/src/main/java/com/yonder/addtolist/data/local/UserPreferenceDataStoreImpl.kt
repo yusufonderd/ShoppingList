@@ -1,8 +1,6 @@
 package com.yonder.addtolist.data.local
 
 import android.content.SharedPreferences
-import com.yonder.addtolist.common.extensions.usLocale
-import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 

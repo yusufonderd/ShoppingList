@@ -1,4 +1,4 @@
-package com.yonder.addtolist.scenes.productdetail.model
+package com.yonder.addtolist.scenes.productdetail.model.enums
 
 /**
  * @author yusuf.onder

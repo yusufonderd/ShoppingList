@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 import com.yonder.addtolist.R
 import com.yonder.addtolist.core.extensions.EMPTY_STRING
 import com.yonder.addtolist.core.extensions.orZero
-import com.yonder.addtolist.scenes.productdetail.model.ProductUnitType
+import com.yonder.addtolist.scenes.productdetail.model.enums.ProductUnitType
 import kotlinx.parcelize.Parcelize
 import java.lang.Exception
 import java.text.DecimalFormat

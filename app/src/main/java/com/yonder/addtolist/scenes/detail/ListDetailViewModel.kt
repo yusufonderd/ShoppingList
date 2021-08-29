@@ -8,7 +8,7 @@ import com.yonder.addtolist.local.entity.UserListProductEntity
 import com.yonder.addtolist.scenes.detail.domain.category.ProductQueryUseCase
 import com.yonder.addtolist.scenes.detail.domain.product.ProductUseCase
 import com.yonder.addtolist.scenes.home.domain.usecase.LocalListUseCase
-import com.yonder.addtolist.scenes.productdetail.domain.LocalProductUseCase
+import com.yonder.addtolist.scenes.productdetail.domain.UpdateProductUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,7 +31,7 @@ private const val NO_DONE_VALUE = 0
 class ListDetailViewModel @Inject constructor(
   private val productQueryUseCase: ProductQueryUseCase,
   private val productUseCase: ProductUseCase,
-  private val localProductUseCase: LocalProductUseCase,
+  private val updateProductUseCase: UpdateProductUseCase,
   private val localUserListUseCase: LocalListUseCase
 ) : ViewModel() {
 
@@ -106,7 +106,7 @@ class ListDetailViewModel @Inject constructor(
       product.done = DONE_VALUE
     }
     viewModelScope.launch {
-      localProductUseCase.update(product)
+      updateProductUseCase.invoke(product)
     }
   }
 

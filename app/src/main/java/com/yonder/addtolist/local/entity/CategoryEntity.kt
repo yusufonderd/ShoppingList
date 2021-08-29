@@ -3,12 +3,12 @@ package com.yonder.addtolist.local.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.lang.Exception
+import com.yonder.addtolist.scenes.productdetail.model.wrapper.CategoryImageWrapper
+import com.yonder.addtolist.scenes.productdetail.model.wrapper.CategoryNameWrapper
 
 /**
  * Yusuf Onder on 12,May,2021
  */
-
 
 @Entity(tableName = "category")
 class CategoryEntity(
@@ -17,21 +17,6 @@ class CategoryEntity(
   @field:ColumnInfo(name = "image") val image: String,
   @field:ColumnInfo(name = "language_id") val languageId: Int
 ){
-  fun wrappedCategoryImage(): String {
-    val image = image
-    if (image.isNotEmpty()) {
-      return try {
-        val codepoint: Int = image.substring(2).toInt(16)
-        val chars = Character.toChars(codepoint)
-        String(chars)
-      } catch (e: Exception) {
-        ""
-      }
-    }
-    return image
-  }
-
-  fun wrappedFormattedName(): String{
-    return "${wrappedCategoryImage()} $name"
-  }
+  fun wrappedCategoryImage(): String = CategoryImageWrapper.wrap(image)
+  fun wrappedName(): String = CategoryNameWrapper.wrap(image,name)
 }

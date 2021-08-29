@@ -18,7 +18,9 @@ import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.databinding.FragmentProductDetailBinding
 import com.yonder.addtolist.local.entity.CategoryEntity
 import com.yonder.addtolist.local.entity.UserListProductEntity
-import com.yonder.addtolist.scenes.productdetail.model.ProductUnitType
+import com.yonder.addtolist.scenes.productdetail.model.CategoryUIModel
+import com.yonder.addtolist.scenes.productdetail.model.enums.ProductUnitType
+import com.yonder.addtolist.scenes.productdetail.model.mapper.CategoryNameMapper
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import javax.inject.Inject
@@ -65,19 +67,12 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
   ) = with(binding.etAutoComplete) {
     if (adapterSpinner == null) {
       val userListProductCategory = categories.find { it.image == userListProduct.categoryImage }
-      val sortedCategories = ArrayList<CategoryEntity>(categories.sortedBy { it.name })
-      val categoryNameList = sortedCategories.map { it.wrappedFormattedName() }
-      adapterSpinner =
-        MaterialSpinnerAdapter(context, R.layout.item_material_spinner, categoryNameList)
-      setText(userListProductCategory?.wrappedFormattedName().orEmpty())
+      val categoryNames = CategoryNameMapper().map(categories)
+      adapterSpinner = MaterialSpinnerAdapter(context, R.layout.item_material_spinner, categoryNames.map { it.wrappedName })
+      setText(userListProductCategory?.wrappedName().orEmpty())
       setAdapter(adapterSpinner)
-      setOnItemClickListener { _, _, position, _ ->
-        val category = sortedCategories[position]
-        viewModel.updateCategory(product = product, category = category)
-      }
     }
   }
-
 
   override fun onResume() {
     super.onResume()
@@ -85,10 +80,14 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
   }
 
   override fun initViews() {
-    binding.etPrice.setCurrencySymbol(CurrencyProvider.DEFAULT_CURRENCY_SIGN)
-    binding.etPrice.filters = arrayOf(InputFilter.LengthFilter(8))
+    initPriceEditText()
     setClickListeners()
     initTextChangedListeners()
+  }
+
+  private fun initPriceEditText() = with(binding.etPrice) {
+    setCurrencySymbol(CurrencyProvider.DEFAULT_CURRENCY_SIGN)
+    filters = arrayOf(InputFilter.LengthFilter(8))
   }
 
   private fun setProduct(product: UserListProductEntity) {
@@ -105,28 +104,36 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
       binding.etPrice.setText(product.price.orZero().toString())
     }
 
-
     binding.etQuantity.setText(product.wrappedQuantityWith(requireContext()))
     setUnit(binding.toggleButton, product.unit)
     setFavorite(product.wrappedFavorite())
   }
 
   private fun initTextChangedListeners() {
+
     binding.etNote.addTextChangedListener {
       viewModel.updateProductNote(product = product, note = it.toString())
     }
+
     binding.etProductName.addTextChangedListener {
       viewModel.updateProductName(product = product, name = it.toString())
     }
+
     binding.etPrice.addTextChangedListener {
       viewModel.updateProductPrice(
         product = product,
         price = binding.etPrice.getNumericValue()
       )
     }
+
   }
 
   private fun setClickListeners() = with(binding) {
+
+    etAutoComplete.setOnItemClickListener { _, _, position, _ ->
+     // val category = categoryNames[position]
+      viewModel.updateCategory(product = product, categoryPosition = position)
+    }
 
     btnDeleteItem.setSafeOnClickListener {
       viewModel.delete(product)
@@ -150,12 +157,15 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
         }
       }
     }
+
     btnDecrease.setSafeOnClickListener {
       viewModel.decreaseQuantity(product)
     }
+
     btnIncreate.setSafeOnClickListener {
       viewModel.increaseQuantity(product)
     }
+
     btnAddFavorite.setSafeOnClickListener {
       viewModel.toggleFavorite(product)
     }
@@ -164,6 +174,7 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
       viewModel.done(product)
       closeFragment()
     }
+
   }
 
   private fun setFavorite(isFavorite: Boolean) = with(binding.btnAddFavorite) {
@@ -196,8 +207,6 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
         group.check(R.id.button4)
       }
     }
-
   }
-
 
 }

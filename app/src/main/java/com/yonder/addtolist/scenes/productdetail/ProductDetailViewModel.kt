@@ -4,10 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.core.data.SingleLiveEvent
 import com.yonder.addtolist.core.extensions.orZero
-import com.yonder.addtolist.local.entity.CategoryEntity
 import com.yonder.addtolist.local.entity.UserListProductEntity
-import com.yonder.addtolist.scenes.productdetail.domain.LocalProductUseCase
-import com.yonder.addtolist.scenes.productdetail.model.ProductUnitType
+import com.yonder.addtolist.scenes.productdetail.domain.DeleteProductUseCase
+import com.yonder.addtolist.scenes.productdetail.domain.GetCategoriesUseCase
+import com.yonder.addtolist.scenes.productdetail.domain.GetProductUseCase
+import com.yonder.addtolist.scenes.productdetail.domain.UpdateProductUseCase
+import com.yonder.addtolist.scenes.productdetail.model.enums.ProductUnitType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
@@ -27,7 +29,10 @@ private const val NO_DONE_VALUE = 0
  */
 @HiltViewModel
 class ProductDetailViewModel @Inject constructor(
-  private val productUseCase: LocalProductUseCase
+  private val getProductUseCase: GetProductUseCase,
+  private val deleteProductUseCase: DeleteProductUseCase,
+  private val updateProductUseCase:  UpdateProductUseCase,
+  private val getCategoriesUseCase : GetCategoriesUseCase
 ) : ViewModel() {
 
   private val _state: SingleLiveEvent<ProductDetailViewState> =
@@ -36,8 +41,8 @@ class ProductDetailViewModel @Inject constructor(
 
   fun fetchProductId(selectedProductId: Int?) {
     if (selectedProductId != null) {
-      val flow1 = productUseCase.getCategories()
-      val flow2 = productUseCase.getProductById(selectedProductId)
+      val flow1 = getCategoriesUseCase()
+      val flow2 = getProductUseCase.invoke(selectedProductId)
       flow1.combine(flow2) { categories, productEntity ->
         _state.value = ProductDetailViewState.Load(categories, productEntity)
       }.launchIn(viewModelScope)
@@ -56,7 +61,7 @@ class ProductDetailViewModel @Inject constructor(
 
   private fun update(product: UserListProductEntity) {
     viewModelScope.launch {
-      productUseCase.update(product)
+      updateProductUseCase(product)
     }
   }
 
@@ -71,7 +76,7 @@ class ProductDetailViewModel @Inject constructor(
 
   fun delete(product: UserListProductEntity) {
     viewModelScope.launch {
-      productUseCase.delete(product)
+      deleteProductUseCase(product)
     }
   }
 
@@ -113,11 +118,16 @@ class ProductDetailViewModel @Inject constructor(
     }
   }
 
-  fun updateCategory(product: UserListProductEntity, category: CategoryEntity) {
-    if (category.image != product.categoryImage) {
-      product.categoryName = category.name
-      product.categoryImage = category.image
-      update(product)
+  fun updateCategory(product: UserListProductEntity, categoryPosition: Int) {
+    val viewState = state.value
+    if (viewState is ProductDetailViewState.Load) {
+      viewState.categories.getOrNull(categoryPosition)?.let { selectedCategory ->
+        if (selectedCategory.image != product.categoryImage) {
+          product.categoryName = selectedCategory.name
+          product.categoryImage = selectedCategory.image
+          update(product)
+        }
+      }
     }
   }
 
