@@ -1,6 +1,7 @@
 
 # Addtolist Shopping Grocery List App
-No more forgetting what you will buy when you go to the market with the shopping list. Designed with a user-friendly interface, shopping list helps you list all your needs. Thanks to its customizable structure, you can prepare shopping reminder lists in different colors and share them with your friend or spouse.
+No more forgetting what you will buy when you go to the market with the shopping list. Designed with a user-friendly interface, shopping list helps you list all your needs. Thanks to its customizable structure, you can prepare shopping reminder lists in different colors and share them with your friend or spouse. Many of us leave the house and go shopping to the market to get our shortcomings. But there may be something that we forget to buy from the market. In fact, most of the time, we forget to write down what needs to be taken while preparing the shopping list, or we forget to take the list we have prepared with us. In order to avoid this situation, you can easily use the shopping list program where you can prepare a shopping list.
+
 
 # Previews
 
@@ -31,3 +32,5 @@ This app inspired from Trendyol's Android app architecture.
 - Better UI and error handling
 - UI test.
 - More Unit tests
+- Share list with the others
+- Dark theme
