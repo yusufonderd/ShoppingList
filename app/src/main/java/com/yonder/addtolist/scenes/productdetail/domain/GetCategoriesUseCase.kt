@@ -5,7 +5,7 @@ import com.yonder.addtolist.core.network.thread.CoroutineThread
 import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.local.AppDatabase
 import com.yonder.addtolist.scenes.productdetail.domain.mapper.CategoryEntityToUiModelMapper
-import com.yonder.addtolist.scenes.productdetail.model.CategoryUiModel
+import com.yonder.addtolist.scenes.home.domain.model.CategoryUiModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map

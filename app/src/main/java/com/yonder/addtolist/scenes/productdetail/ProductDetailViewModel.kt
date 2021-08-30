@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.core.data.SingleLiveEvent
 import com.yonder.addtolist.core.extensions.orZero
-import com.yonder.addtolist.local.entity.CategoryEntity
 import com.yonder.addtolist.local.entity.UserListProductEntity
 import com.yonder.addtolist.scenes.productdetail.domain.DeleteProductUseCase
 import com.yonder.addtolist.scenes.productdetail.domain.GetCategoriesUseCase
@@ -12,7 +11,6 @@ import com.yonder.addtolist.scenes.productdetail.domain.GetProductUseCase
 import com.yonder.addtolist.scenes.productdetail.domain.UpdateProductUseCase
 import com.yonder.addtolist.scenes.productdetail.model.enums.ProductUnitType
 import com.yonder.addtolist.scenes.productdetail.utils.CategoryFinder
-import com.yonder.uicomponent.base.model.Item
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
@@ -159,17 +157,7 @@ class ProductDetailViewModel @Inject constructor(
     }*/
   }
 
-  private inline fun getCategoryEntity(
-    position: Int,
-    productInvoker: (CategoryEntity) -> Unit = {},
-  ) {
-   /* val viewState = state.value
-    if (viewState is ProductDetailViewState.Load) {
-      viewState.categories.getOrNull(position)?.let { selectedCategory ->
-        productInvoker.invoke(selectedCategory)
-      }
-    }*/
-  }
+
 
 }
 

@@ -1,4 +1,4 @@
-package com.yonder.addtolist.scenes.productdetail.model
+package com.yonder.addtolist.scenes.home.domain.model
 
 import android.os.Parcelable
 import com.yonder.addtolist.scenes.productdetail.model.wrapper.CategoryNameWrapper
@@ -12,7 +12,6 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class CategoryUiModel(
   val name: String,
-  val image: String
-) : Parcelable {
-  val wrappedName: String = CategoryNameWrapper(image, name)
-}
+  val image: String,
+  val formattedName: String = CategoryNameWrapper(image, name)
+) : Parcelable

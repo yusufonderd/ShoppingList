@@ -6,6 +6,8 @@ import com.yonder.addtolist.local.entity.UserListProductEntity
 import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
 import com.yonder.addtolist.scenes.productdetail.model.enums.DoneType
 import com.yonder.addtolist.scenes.productdetail.model.enums.FavoriteType
+import com.yonder.addtolist.scenes.productdetail.model.wrapper.CategoryImageWrapper
+import com.yonder.addtolist.scenes.productdetail.model.wrapper.CategoryNameWrapper
 import javax.inject.Inject
 
 /**
@@ -18,15 +20,20 @@ class UserListProductEntityToUiModel @Inject constructor() :
   override fun map(input: UserListProductEntity): UserListProductUiModel {
     return UserListProductUiModel(
       id = input.id,
+      listUUID = input.listUUID,
       name = input.name.orEmpty(),
       isFavorite = input.favorite == FavoriteType.Favorite.value,
       isDone = input.done == DoneType.Done.value,
       note = input.note.orEmpty(),
       unit = input.unit.orEmpty(),
       price = input.price.orZero().toString(),
+      priceValue = input.price.orZero(),
       quantity = input.quantity.orZero().toString(),
       quantityValue = input.quantity.orZero(),
-      categoryImage = input.categoryImage.orEmpty()
+      categoryImage = input.categoryImage.orEmpty(),
+      categoryUnicode = CategoryImageWrapper.invoke(
+        image = input.categoryImage.orEmpty()
+      )
     )
   }
 }

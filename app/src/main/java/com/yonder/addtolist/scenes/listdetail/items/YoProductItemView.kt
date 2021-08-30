@@ -52,7 +52,7 @@ class YoProductItemView @JvmOverloads constructor(
     binding.tvProductTitle.text = productName
     binding.ivAdd.isInvisible = (product == null).not()
     binding.ivIncreaseOrDelete.isInvisible = product == null
-    binding.cvProductQuantity.isInvisible = (product == null)
+    binding.cvProductQuantity.isInvisible = product == null
     binding.tvProductQuantity.text = product?.quantity
     binding.root.setOnClickListener {
       if (product == null) {

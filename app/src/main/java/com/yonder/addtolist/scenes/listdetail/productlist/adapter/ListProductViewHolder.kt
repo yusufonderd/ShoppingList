@@ -22,21 +22,11 @@ class ListProductViewHolder(
   private val binding = ItemListProductBinding.bind(view)
 
   fun bind(product: UserListProductUiModel, productOperationListener: UserListProductOperationListener) = with(binding) {
-   /* val isDone = product.wrappedDone()
-    val isFavorite = product.favorite.toBoolean()
-    bindTitle(product.name, isDone)
-    bindNote(product.note)
-    bindCategory(product.wrappedCategoryImage(), isDone)
-    bindEditBtn(product, productOperation)
-    bindFavorite(isFavorite)
-    itemView.setOnClickListener {
-      productOperation.toggleDone(product)
-    }*/
     val isDone = product.isDone
     val isFavorite = product.isFavorite
     bindTitle(product.name, isDone)
     bindNote(product.note)
-    bindCategory(product.categoryImage, isDone)
+    bindCategory(product.categoryUnicode, isDone)
     bindEditBtn(product, productOperationListener)
     bindFavorite(isFavorite)
     itemView.setOnClickListener {

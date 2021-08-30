@@ -2,7 +2,7 @@ package com.yonder.addtolist.scenes.productdetail.domain.mapper
 
 import com.yonder.addtolist.core.mapper.Mapper
 import com.yonder.addtolist.local.entity.CategoryEntity
-import com.yonder.addtolist.scenes.productdetail.model.CategoryUiModel
+import com.yonder.addtolist.scenes.home.domain.model.CategoryUiModel
 import javax.inject.Inject
 
 /**

@@ -15,7 +15,7 @@ import com.yonder.addtolist.common.utils.formatter.currency.CurrencyProvider
 import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.databinding.FragmentProductDetailBinding
 import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
-import com.yonder.addtolist.scenes.productdetail.model.CategoryUiModel
+import com.yonder.addtolist.scenes.home.domain.model.CategoryUiModel
 import com.yonder.addtolist.scenes.productdetail.model.enums.ProductUnitType
 import com.yonder.uicomponent.adapter.MaterialSpinnerAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -68,9 +68,9 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
     categoryOfProduct: CategoryUiModel?
   ) = with(binding.etAutoComplete) {
     if (adapterSpinner == null) {
-      val categoryList = categories.map { it.wrappedName }
+      val categoryList = categories.map { it.formattedName }
       adapterSpinner = MaterialSpinnerAdapter(context, R.layout.item_material_spinner, categoryList)
-      setText(categoryOfProduct?.name)
+      setText(categoryOfProduct?.formattedName)
       setAdapter(adapterSpinner)
     }
   }
