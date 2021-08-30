@@ -8,18 +8,16 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.yonder.addtolist.R
 import com.yonder.addtolist.common.ui.base.BaseFragment
-import com.yonder.uicomponent.adapter.MaterialSpinnerAdapter
 import com.yonder.addtolist.common.ui.extensions.compatColor
 import com.yonder.addtolist.common.ui.extensions.compatDrawable
 import com.yonder.addtolist.common.ui.extensions.setSafeOnClickListener
 import com.yonder.addtolist.common.utils.formatter.currency.CurrencyProvider
-import com.yonder.addtolist.core.extensions.orZero
 import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.databinding.FragmentProductDetailBinding
-import com.yonder.addtolist.local.entity.CategoryEntity
-import com.yonder.addtolist.local.entity.UserListProductEntity
+import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
+import com.yonder.addtolist.scenes.productdetail.model.CategoryUiModel
 import com.yonder.addtolist.scenes.productdetail.model.enums.ProductUnitType
-import com.yonder.addtolist.scenes.productdetail.model.mapper.CategoryNameMapper
+import com.yonder.uicomponent.adapter.MaterialSpinnerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import javax.inject.Inject
@@ -56,7 +54,7 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
           setProduct(viewState.product)
           initSpinner(
             categories = viewState.categories,
-            productCategory = viewState.categoryOfProduct
+            categoryOfProduct = viewState.categoryOfProduct
           )
         }
         else -> Unit
@@ -66,14 +64,13 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
   }
 
   private fun initSpinner(
-    categories: List<CategoryEntity>,
-    productCategory: CategoryEntity?
+    categories: List<CategoryUiModel>,
+    categoryOfProduct: CategoryUiModel?
   ) = with(binding.etAutoComplete) {
     if (adapterSpinner == null) {
-      val categoryNames = CategoryNameMapper().map(categories)
-      val categoryList = categoryNames.map { it.wrappedName }
+      val categoryList = categories.map { it.wrappedName }
       adapterSpinner = MaterialSpinnerAdapter(context, R.layout.item_material_spinner, categoryList)
-      setText(productCategory?.wrappedName())
+      setText(categoryOfProduct?.name)
       setAdapter(adapterSpinner)
     }
   }
@@ -94,7 +91,7 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
     filters = arrayOf(InputFilter.LengthFilter(MAX_LINE_LENGTH_PRICE))
   }
 
-  private fun setProduct(product: UserListProductEntity) {
+  private fun setProduct(product: UserListProductUiModel) {
 
     if (binding.etProductName.text?.isBlank() == true) {
       binding.etProductName.setText(product.name)
@@ -105,12 +102,12 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
     }
 
     if (binding.etPrice.text?.isBlank() == true) {
-      binding.etPrice.setText(product.price.orZero().toString())
+      binding.etPrice.setText(product.price)
     }
 
-    binding.etQuantity.setText(product.wrappedQuantityWith(requireContext()))
+    binding.etQuantity.setText(product.quantity)
     setUnit(binding.toggleButton, product.unit)
-    setFavorite(product.wrappedFavorite())
+    setFavorite(product.isFavorite)
   }
 
   private fun initTextChangedListeners() {
@@ -134,7 +131,7 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
   private fun setClickListeners() = with(binding) {
 
     etAutoComplete.setOnItemClickListener { _, _, position, _ ->
-      viewModel.updateCategory(product = product, categoryPosition = position)
+      viewModel.updateCategory( categoryPosition = position)
     }
 
     btnDeleteItem.setSafeOnClickListener {

@@ -89,7 +89,7 @@ dependencies {
   implementation Libs.Kotlin.org_jetbrains_kotlin
 
   implementation Libs.DaggerHilt.daggerHilt
-  implementation project(path: ':ui-component')
+  implementation project(path: ':local')
   kapt Libs.DaggerHilt.daggerHiltCompiler
 
   implementation Libs.Design.material
@@ -120,5 +120,8 @@ dependencies {
   implementation Libs.Network.converter
   implementation Libs.Network.okhttp
   implementation Libs.Network.interceptor
+
+  implementation project(path: ':ui-component')
+
 
 }

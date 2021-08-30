@@ -12,7 +12,7 @@ import javax.inject.Inject
  * @author yusuf.onder
  * Created on 19.07.2021
  */
-class CategoryDataSourceImpl @Inject constructor(private val appDatabase: AppDatabase) :
+class CategoryDataSourceImpl @Inject constructor(private val appDatabase: com.yonder.addtolist.local.AppDatabase) :
   CategoryDataSource {
   override suspend fun getCategories(): List<CategoryWithProducts> {
     return appDatabase.categoryDao().getAllUserListWithProducts()

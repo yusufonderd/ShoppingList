@@ -1,6 +1,7 @@
 package com.yonder.addtolist.scenes.listdetail.domain.category
 
 import com.yonder.addtolist.local.entity.ProductEntitySummary
+import com.yonder.addtolist.scenes.listdetail.domain.model.ProductEntityUiModel
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -8,6 +9,6 @@ import kotlinx.coroutines.flow.Flow
  * Created on 19.07.2021
  */
 interface ProductQueryUseCase {
-  fun fetchProductByQuery(query: String,limit : Int): Flow<List<ProductEntitySummary>>
-  fun fetchPopularProducts(): Flow<List<ProductEntitySummary>>
+  fun fetchProductByQuery(query: String,limit : Int): Flow<List<ProductEntityUiModel>>
+  fun fetchPopularProducts(): Flow<List<ProductEntityUiModel>>
 }

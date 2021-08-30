@@ -10,11 +10,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.yonder.addtolist.R
 import com.yonder.addtolist.common.ui.base.BaseListAdapter
-import com.yonder.addtolist.local.entity.UserListWithProducts
+import com.yonder.addtolist.scenes.home.domain.model.UserListUiModel
 
-class UserListAdapter(private val onClickUserList: ((value: UserListWithProducts) -> Unit)) :
-  BaseListAdapter<UserListWithProducts>(
-    itemsSame = { old, new -> old.userList.id == new.userList.id },
+class UserListAdapter(private val onClickUserList: ((value: UserListUiModel) -> Unit)) :
+  BaseListAdapter<UserListUiModel>(
+    itemsSame = { old, new -> old.id == new.id },
     contentsSame = { old, new -> old == new }
   ) {
   override fun onCreateViewHolder(

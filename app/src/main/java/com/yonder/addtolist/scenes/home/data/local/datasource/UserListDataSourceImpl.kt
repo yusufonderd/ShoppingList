@@ -11,7 +11,7 @@ import javax.inject.Inject
  * Yusuf Onder on 12,May,2021
  */
 
-class UserListDataSourceImpl @Inject constructor(private val appDatabase: AppDatabase) :
+class UserListDataSourceImpl @Inject constructor(private val appDatabase: com.yonder.addtolist.local.AppDatabase) :
   UserListDataSource {
 
   override suspend fun insert(userList: UserListEntity) {

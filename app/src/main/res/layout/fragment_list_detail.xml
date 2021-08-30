@@ -45,7 +45,7 @@
   </com.google.android.material.button.MaterialButton>
 
 
-  <com.yonder.uicomponent.items.YoItemsView
+  <com.yonder.addtolist.scenes.listdetail.items.YoItemsView
     android:id="@+id/yoFilteredItemsView"
     android:layout_width="match_parent"
     android:layout_height="0dp"
@@ -58,7 +58,7 @@
     tools:visibility="visible" />
 
 
-  <com.yonder.uicomponent.productlist.YoProductListView
+  <com.yonder.addtolist.scenes.listdetail.productlist.YoProductListView
     android:id="@+id/yoProductListView"
     android:layout_width="match_parent"
     android:layout_height="0dp"

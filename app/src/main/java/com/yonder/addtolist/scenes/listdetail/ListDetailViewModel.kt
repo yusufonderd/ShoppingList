@@ -4,12 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.core.extensions.EMPTY_STRING
 import com.yonder.addtolist.local.entity.CATEGORY_OTHER_IMAGE
+import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
 import com.yonder.addtolist.scenes.listdetail.domain.category.ProductQueryUseCase
 import com.yonder.addtolist.scenes.listdetail.domain.product.ProductUseCase
 import com.yonder.addtolist.scenes.home.domain.usecase.GetUserListUseCase
 import com.yonder.addtolist.scenes.listdetail.domain.AddProductUseCase
 import com.yonder.addtolist.scenes.productdetail.domain.UpdateProductUseCase
-import com.yonder.uicomponent.base.model.UserListProductUiModel
+import com.yonder.uicomponent.base.model.Item
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,8 +27,6 @@ import javax.inject.Inject
 
 private const val QUERY_LIMIT = 10
 
-private const val DONE_VALUE = 1
-private const val NO_DONE_VALUE = 0
 
 @HiltViewModel
 class ListDetailViewModel @Inject constructor(
@@ -56,12 +55,12 @@ class ListDetailViewModel @Inject constructor(
     }
     job?.cancel()
     job = viewModelScope.launch {
-      flow1.combine(flow2) { userListWithProducts, listingProducts ->
-        if (userListWithProducts.products.isEmpty()) {
+      flow1.combine(flow2) { userList, listingProducts ->
+        if (userList.products.isEmpty()) {
           _state.value = ListDetailViewState.OpenKeyboard
         }
         _state.value = ListDetailViewState.UserListContent(
-          userListWithProducts,
+          userList,
           listingProducts,
           query
         )

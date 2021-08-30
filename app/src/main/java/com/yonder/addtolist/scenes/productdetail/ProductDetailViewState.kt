@@ -1,7 +1,7 @@
 package com.yonder.addtolist.scenes.productdetail
 
-import com.yonder.addtolist.local.entity.CategoryEntity
-import com.yonder.addtolist.local.entity.UserListProductEntity
+import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
+import com.yonder.addtolist.scenes.productdetail.model.CategoryUiModel
 
 /**
  * @author yusuf.onder
@@ -10,8 +10,8 @@ import com.yonder.addtolist.local.entity.UserListProductEntity
 
 sealed class ProductDetailViewState {
   data class Load(
-    var categories: List<CategoryEntity>,
-    var product: UserListProductEntity,
-    var categoryOfProduct: CategoryEntity?
+    var categories: List<CategoryUiModel>,
+    var product: UserListProductUiModel,
+    var categoryOfProduct: CategoryUiModel?
     ) : ProductDetailViewState()
 }

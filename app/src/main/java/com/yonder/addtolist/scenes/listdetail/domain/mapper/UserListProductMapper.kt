@@ -10,7 +10,6 @@ import com.yonder.addtolist.local.entity.ProductEntitySummary
 import com.yonder.addtolist.local.entity.UserListProductEntity
 import com.yonder.addtolist.scenes.home.data.remote.response.UserListProductResponse
 import com.yonder.uicomponent.base.model.UserListProductSummaryUiModel
-import com.yonder.uicomponent.base.model.UserListProductUiModel
 
 /**
  * @author yusuf.onder
@@ -24,7 +23,7 @@ class UserListProductSummaryToUiModelMapper: Mapper<ProductEntitySummary,UserLis
   }
 
 }
-
+/*
 class UserListProductToUiModelMapper: Mapper<UserListProductEntity,UserListProductUiModel>{
   override fun map(input: UserListProductEntity): UserListProductUiModel {
     return UserListProductUiModel(
@@ -37,7 +36,8 @@ class UserListProductToUiModelMapper: Mapper<UserListProductEntity,UserListProdu
       categoryImage = input.wrappedCategoryImage()
     )
   }
-}
+}*/
+
 object UserListProductMapper {
 
   fun mapEntityToResponse(listId: String, input: UserListProductEntity): UserListProductRequest {

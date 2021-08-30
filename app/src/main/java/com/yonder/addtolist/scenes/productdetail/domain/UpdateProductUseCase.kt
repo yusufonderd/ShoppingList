@@ -9,7 +9,7 @@ import javax.inject.Inject
  * Created on 28.08.2021
  */
 
-class UpdateProductUseCaseImpl @Inject constructor(private val appDatabase: AppDatabase): UpdateProductUseCase {
+class UpdateProductUseCaseImpl @Inject constructor(private val appDatabase: com.yonder.addtolist.local.AppDatabase): UpdateProductUseCase {
   override suspend operator fun invoke(product: UserListProductEntity) {
     appDatabase.userListProductDao().update(product)
   }

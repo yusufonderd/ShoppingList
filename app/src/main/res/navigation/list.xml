@@ -79,7 +79,7 @@
 
     <argument
       android:name="userList"
-      app:argType="com.yonder.addtolist.local.entity.UserListEntity"
+      app:argType="com.yonder.addtolist.scenes.home.domain.model.UserListUiModel"
       app:nullable="false" />
 
     <argument
@@ -101,7 +101,7 @@
 
     <argument
       android:name="userListProduct"
-      app:argType="com.yonder.uicomponent.base.model.UserListProductUiModel"
+      app:argType="com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel"
       app:nullable="false" />
 
   </fragment>

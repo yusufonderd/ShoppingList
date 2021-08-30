@@ -1,7 +1,7 @@
 package com.yonder.addtolist.scenes.listdetail
 
-import com.yonder.addtolist.local.entity.ProductEntitySummary
-import com.yonder.addtolist.local.entity.UserListWithProducts
+import com.yonder.addtolist.scenes.home.domain.model.UserListUiModel
+import com.yonder.addtolist.scenes.listdetail.domain.model.ProductEntityUiModel
 
 /**
  * @author yusuf.onder
@@ -11,11 +11,10 @@ sealed class ListDetailViewState {
   object Initial : ListDetailViewState()
   object Loading : ListDetailViewState()
   data class UserListContent(
-    val userListWithProducts: UserListWithProducts,
-    val list: List<ProductEntitySummary>,
+    val userList: UserListUiModel,
+    val list: List<ProductEntityUiModel>,
     val query: String
   ) : ListDetailViewState()
   object OpenKeyboard : ListDetailViewState()
 
-  data class Error(var errorMessage: String) : ListDetailViewState()
 }

@@ -8,20 +8,16 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.yonder.addtolist.common.ui.base.BaseFragment
-import com.yonder.uicomponent.items.ItemOperationListener
-import com.yonder.uicomponent.productlist.IProductOperation
 import com.yonder.addtolist.common.ui.extensions.openWithKeyboard
 import com.yonder.addtolist.common.ui.extensions.setSafeOnClickListener
 import com.yonder.addtolist.common.utils.keyboard.KeyboardVisibilityEvent
 import com.yonder.addtolist.common.utils.keyboard.hideKeyboardFor
-import com.yonder.addtolist.core.mapper.ListMapperImpl
 import com.yonder.addtolist.databinding.FragmentListDetailBinding
-import com.yonder.addtolist.local.entity.ProductEntitySummary
-import com.yonder.addtolist.local.entity.UserListProductEntity
-import com.yonder.addtolist.scenes.listdetail.domain.mapper.UserListProductMapper
-import com.yonder.addtolist.scenes.listdetail.domain.mapper.UserListProductSummaryToUiModelMapper
-import com.yonder.addtolist.scenes.listdetail.domain.mapper.UserListProductToUiModelMapper
-import com.yonder.uicomponent.base.model.UserListProductUiModel
+import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
+import com.yonder.addtolist.scenes.listdetail.domain.model.ProductEntityUiModel
+import com.yonder.uicomponent.base.model.Item
+import com.yonder.addtolist.scenes.listdetail.items.ItemOperationListener
+import com.yonder.addtolist.scenes.listdetail.productlist.UserListProductOperationListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -31,7 +27,7 @@ import kotlinx.coroutines.flow.collect
  */
 @Suppress("TooManyFunctions")
 @AndroidEntryPoint
-class ListDetailFragment : BaseFragment<FragmentListDetailBinding>(), IProductOperation,
+class ListDetailFragment : BaseFragment<FragmentListDetailBinding>(), UserListProductOperationListener,
   ItemOperationListener {
 
   private val args: ListDetailFragmentArgs by navArgs()
@@ -73,9 +69,9 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>(), IProductOp
         when (viewState) {
           is ListDetailViewState.UserListContent -> {
             loadListContent(
-              viewState.userListWithProducts.products,
-              viewState.list,
-              viewState.query
+              products = viewState.userList.products,
+              filteredProducts = viewState.list,
+              query = viewState.query
             )
           }
           is ListDetailViewState.OpenKeyboard -> {
@@ -108,36 +104,36 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>(), IProductOp
     }
   }
 
-  override fun decreaseProductQuantity(productEntity: UserListProductUiModel) {
-    viewModel.decreaseQuantity(productEntity)
+  override fun decreaseQuantity(item: UserListProductUiModel) {
+    viewModel.decreaseQuantity(item)
   }
 
-  override fun increaseProductQuantity(productEntity: UserListProductUiModel) {
-    viewModel.increaseQuantity(productEntity)
+  override fun increaseQuantity(item: UserListProductUiModel) {
+    viewModel.increaseQuantity(item)
   }
 
-  override fun removeProductEntity(productEntity: UserListProductUiModel) {
-    viewModel.removeProduct(productEntity)
+  override fun removeProduct(item: UserListProductUiModel) {
+    viewModel.removeProduct(item)
   }
 
-  override fun addProduct(productName: String) {
+  override fun addProduct(itemName: String) {
     viewModel.addProduct(
       listId = listId,
       userListUUID = listUUID,
-      productName = productName
+      productName = itemName
     )
   }
 
-  override fun edit(product: UserListProductUiModel) {
+  override fun edit(item: UserListProductUiModel) {
     findNavController().navigate(
       ListDetailFragmentDirections.actionShoppingListDetailToProductDetail(
-        product
+        item
       )
     )
   }
 
-  override fun toggleDone(product: UserListProductUiModel) {
-    viewModel.toggleDone(product)
+  override fun toggleDone(item: UserListProductUiModel) {
+    viewModel.toggleDone(item)
   }
 
   private fun openKeyboard() {
@@ -146,25 +142,23 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>(), IProductOp
   }
 
   private fun loadListContent(
-    products: List<UserListProductEntity>,
-    filteredProducts: List<ProductEntitySummary>,
+    products: List<UserListProductUiModel>,
+    filteredProducts: List<ProductEntityUiModel>,
     query: String
   ) = with(binding) {
-    val productsUIModel = ListMapperImpl(UserListProductToUiModelMapper()).map(products)
 
-    val productsSummaryUIModel =
-      ListMapperImpl(UserListProductSummaryToUiModelMapper()).map(filteredProducts)
     yoProductListView.bind(
-      products = productsUIModel,
-      productOperationListener = this@ListDetailFragment
+      products = products,
+      productOperationListenerListener = this@ListDetailFragment
     )
 
     yoFilteredItemsView.bind(
-      products = productsUIModel,
-      list = productsSummaryUIModel,
+      products = products,
+      list = filteredProducts,
       query = query.trimStart(),
       itemOperationListener = this@ListDetailFragment
     )
+
   }
 
 }

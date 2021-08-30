@@ -10,11 +10,9 @@ import com.yonder.addtolist.scenes.productdetail.domain.DeleteProductUseCase
 import com.yonder.addtolist.scenes.productdetail.domain.GetCategoriesUseCase
 import com.yonder.addtolist.scenes.productdetail.domain.GetProductUseCase
 import com.yonder.addtolist.scenes.productdetail.domain.UpdateProductUseCase
-import com.yonder.addtolist.scenes.productdetail.model.enums.DoneType
-import com.yonder.addtolist.scenes.productdetail.model.enums.FavoriteType
 import com.yonder.addtolist.scenes.productdetail.model.enums.ProductUnitType
 import com.yonder.addtolist.scenes.productdetail.utils.CategoryFinder
-import com.yonder.uicomponent.base.model.UserListProductUiModel
+import com.yonder.uicomponent.base.model.Item
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
@@ -42,11 +40,11 @@ class ProductDetailViewModel @Inject constructor(
     if (selectedProductId != null) {
       val flow1 = getCategoriesUseCase.invoke()
       val flow2 = getProductUseCase.invoke(selectedProductId)
-      flow1.combine(flow2) { categories, productEntity ->
-        val categoryOfProduct = CategoryFinder(categories).find(productEntity.categoryImage)
+      flow1.combine(flow2) { categories, product ->
+        val categoryOfProduct = CategoryFinder(categories).find(product.categoryImage)
         _state.value = ProductDetailViewState.Load(
           categories = categories,
-          product = productEntity,
+          product = product,
           categoryOfProduct = categoryOfProduct
         )
       }.launchIn(viewModelScope)
@@ -60,25 +58,25 @@ class ProductDetailViewModel @Inject constructor(
   }
 
   fun toggleFavorite() {
-    getProductEntity { product ->
+    /*getProductEntity { product ->
       if (product.wrappedFavorite()) {
         product.favorite = FavoriteType.UnFavorite.value
       } else {
         product.favorite = FavoriteType.Favorite.value
       }
       update(product)
-    }
+    }*/
   }
 
   fun done() {
-    getProductEntity { product ->
+   /* getProductEntity { product ->
       if (product.wrappedDone()) {
         product.done = DoneType.UnDone.value
       } else {
         product.done = DoneType.Done.value
       }
       update(product)
-    }
+    }*/
   }
 
   fun delete() {
@@ -123,25 +121,25 @@ class ProductDetailViewModel @Inject constructor(
   }
 
   fun updateProductPrice(price: Double?) {
-    getProductEntity { product ->
+   /* getProductEntity { product ->
       if (product.price != price && price != null) {
         product.price = price
         update(product)
       }
-    }
+    }*/
   }
 
   fun updateProductNote(note: String?) {
-    getProductEntity { product ->
+    /*getProductEntity { product ->
       if (product.note != note) {
         product.note = note
         update(product)
       }
-    }
+    }*/
   }
 
-  fun updateCategory(product: UserListProductUiModel, categoryPosition: Int) {
-    getCategoryEntity(categoryPosition) { categoryEntity: CategoryEntity ->
+  fun updateCategory(categoryPosition: Int) {
+   /* getCategoryEntity(categoryPosition) { categoryEntity: CategoryEntity ->
       getProductEntity { userListProductEntity: UserListProductEntity ->
         if (categoryEntity.image != product.categoryImage) {
           userListProductEntity.categoryName = categoryEntity.name
@@ -149,28 +147,28 @@ class ProductDetailViewModel @Inject constructor(
           update(userListProductEntity)
         }
       }
-    }
+    }*/
   }
 
   private inline fun getProductEntity(
     productInvoker: (UserListProductEntity) -> Unit,
   ) {
     val viewState = state.value
-    if (viewState is ProductDetailViewState.Load) {
+    /*if (viewState is ProductDetailViewState.Load) {
       productInvoker.invoke(viewState.product)
-    }
+    }*/
   }
 
   private inline fun getCategoryEntity(
     position: Int,
     productInvoker: (CategoryEntity) -> Unit = {},
   ) {
-    val viewState = state.value
+   /* val viewState = state.value
     if (viewState is ProductDetailViewState.Load) {
       viewState.categories.getOrNull(position)?.let { selectedCategory ->
         productInvoker.invoke(selectedCategory)
       }
-    }
+    }*/
   }
 
 }

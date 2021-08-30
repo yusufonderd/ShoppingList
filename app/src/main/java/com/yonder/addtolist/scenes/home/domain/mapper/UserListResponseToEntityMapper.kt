@@ -2,7 +2,6 @@ package com.yonder.addtolist.scenes.home.domain.mapper
 
 import com.yonder.addtolist.core.mapper.Mapper
 import com.yonder.addtolist.local.entity.UserListEntity
-import com.yonder.addtolist.core.network.request.CreateUserListRequest
 import com.yonder.addtolist.scenes.home.data.remote.response.UserListResponse
 import javax.inject.Inject
 

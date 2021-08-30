@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.core.base.LayoutState
 import com.yonder.addtolist.core.data.SingleLiveEvent
 import com.yonder.addtolist.local.entity.UserListWithProducts
+import com.yonder.addtolist.scenes.home.domain.model.UserListUiModel
 import com.yonder.addtolist.scenes.home.domain.usecase.GetUserListsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
@@ -38,6 +39,6 @@ class ShoppingListItemsViewModel @Inject constructor(
 sealed class ShoppingListItemsViewState {
   data class SetLayoutState(val layoutState: LayoutState) : ShoppingListItemsViewState()
   object CreateNewListContent : ShoppingListItemsViewState()
-  data class Result(var userLists: List<UserListWithProducts>) :
+  data class Result(var userLists: List<UserListUiModel>) :
     ShoppingListItemsViewState()
 }

@@ -1,10 +1,8 @@
 package com.yonder.addtolist.scenes.home.domain.usecase
 
 import com.yonder.addtolist.core.network.request.CreateUserListRequest
-import com.yonder.addtolist.core.network.responses.Result
 import com.yonder.addtolist.core.network.thread.CoroutineThread
 import com.yonder.addtolist.local.entity.UserListEntity
-import com.yonder.addtolist.local.entity.UserListProductEntity
 import com.yonder.addtolist.scenes.home.domain.repository.UserListRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
