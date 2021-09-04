@@ -53,11 +53,11 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
         is ProductDetailViewEvent.Load -> {
           setProduct(viewState.product)
           initSpinner(
-            categories = viewState.categories,
+            categories = viewState.categories.map { it.formattedName },
             categoryOfProduct = viewState.categoryOfProduct
           )
         }
-        is ProductDetailViewEvent.NotFound -> {
+        is ProductDetailViewEvent.ProductNotFound -> {
           closeFragment()
         }
         else -> Unit
@@ -67,12 +67,11 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
   }
 
   private fun initSpinner(
-    categories: List<CategoryUiModel>,
+    categories: List<String>,
     categoryOfProduct: CategoryUiModel?
   ) = with(binding.etAutoComplete) {
     if (adapterSpinner == null) {
-      val categoryList = categories.map { it.formattedName }
-      adapterSpinner = MaterialSpinnerAdapter(context, R.layout.item_material_spinner, categoryList)
+      adapterSpinner = MaterialSpinnerAdapter(context, R.layout.item_material_spinner, categories)
       setText(categoryOfProduct?.formattedName)
       setAdapter(adapterSpinner)
     }
@@ -113,7 +112,7 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
 
     // If user marked item as done
     // Product detail page closing automatically
-    if (product.isDone){
+    if (product.isDone) {
       closeFragment()
     }
   }
@@ -129,7 +128,8 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
     }
 
     binding.etPrice.addTextChangedListener {
-      viewModel.updateProductPrice(product,
+      viewModel.updateProductPrice(
+        product,
         price = binding.etPrice.getNumericValue()
       )
     }
@@ -152,16 +152,16 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
     toggleButton.addOnButtonCheckedListener { _, checkedId, isChecked ->
       when (checkedId) {
         binding.button1.id -> {
-          viewModel.updateUnit(product,unit = ProductUnitType.Piece)
+          viewModel.updateUnit(product, unit = ProductUnitType.Piece)
         }
         binding.button2.id -> {
-          viewModel.updateUnit(product,unit = ProductUnitType.Package)
+          viewModel.updateUnit(product, unit = ProductUnitType.Package)
         }
         binding.button3.id -> {
-          viewModel.updateUnit(product,unit = ProductUnitType.Kg)
+          viewModel.updateUnit(product, unit = ProductUnitType.Kg)
         }
         binding.button4.id -> {
-          viewModel.updateUnit(product,unit = ProductUnitType.Lt)
+          viewModel.updateUnit(product, unit = ProductUnitType.Lt)
         }
       }
     }

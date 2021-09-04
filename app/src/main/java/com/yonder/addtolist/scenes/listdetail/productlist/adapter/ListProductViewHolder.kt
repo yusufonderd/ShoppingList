@@ -10,6 +10,7 @@ import com.yonder.addtolist.common.ui.extensions.setStrikeThrough
 import com.yonder.addtolist.databinding.ItemListProductBinding
 import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
 import com.yonder.addtolist.scenes.listdetail.productlist.UserListProductOperationListener
+
 /**
  * @author yusuf.onder
  * Created on 24.07.2021
@@ -20,7 +21,10 @@ class ListProductViewHolder(
 ) : RecyclerView.ViewHolder(view) {
   private val binding = ItemListProductBinding.bind(view)
 
-  fun bind(product: UserListProductUiModel, productOperationListener: UserListProductOperationListener) = with(binding) {
+  fun bind(
+    product: UserListProductUiModel,
+    productOperationListener: UserListProductOperationListener
+  ) = with(binding) {
     val isDone = product.isDone
     val isFavorite = product.isFavorite
     bindTitle(product.name, isDone)
@@ -51,7 +55,10 @@ class ListProductViewHolder(
     }
   }
 
-  private fun bindEditBtn(product: UserListProductUiModel, productOperationListener: UserListProductOperationListener) =
+  private fun bindEditBtn(
+    product: UserListProductUiModel,
+    productOperationListener: UserListProductOperationListener
+  ) =
     with(binding.imgBtnEdit) {
       setOnClickListener {
         productOperationListener.edit(product)

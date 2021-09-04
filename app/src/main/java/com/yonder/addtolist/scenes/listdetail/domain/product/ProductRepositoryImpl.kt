@@ -9,7 +9,9 @@ import com.yonder.addtolist.local.entity.ProductEntity
 import com.yonder.addtolist.local.entity.UserListProductEntity
 import com.yonder.addtolist.scenes.listdetail.domain.mapper.UserListProductMapper
 import com.yonder.addtolist.scenes.home.data.local.datasource.CategoryDataSource
+import com.yonder.addtolist.scenes.home.data.local.datasource.UserListDataSource
 import com.yonder.addtolist.scenes.home.data.remote.ApiService
+import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
@@ -22,12 +24,13 @@ import javax.inject.Inject
 class ProductRepositoryImpl @Inject constructor(
   private val api: ApiService,
   private val userPreferenceDataStore: UserPreferenceDataStore,
-  private val localDataSource: CategoryDataSource
+  private val categoryDataSource: CategoryDataSource,
+  private val userListDataSource: UserListDataSource
 ) : ProductRepository {
 
   override fun getProductEntityByName(productName: String): Flow<ProductEntity?> = flow {
     val popularProducts =
-      localDataSource.getProductByEntity(productName, userPreferenceDataStore.getAppLanguageId())
+      categoryDataSource.getProductByEntity(productName, userPreferenceDataStore.getAppLanguageId())
     emit(popularProducts)
   }
 
@@ -39,7 +42,7 @@ class ProductRepositoryImpl @Inject constructor(
     val request = UserListProductMapper.mapEntityToResponse(listId, product)
     val response = api.updateProduct(product.id, request)
     if (response.success == true) {
-      localDataSource.update(product)
+      categoryDataSource.update(product)
     }
     emit(Result.Success<UserListProductEntity>(product))
   }.catch { e ->
@@ -47,9 +50,13 @@ class ProductRepositoryImpl @Inject constructor(
     emit(Result.Error(e))
   }
 
-  override suspend fun removeProduct(product: UserListProductEntity) {
+  override suspend fun delete(product: UserListProductUiModel) {
+    val productEntity = userListDataSource.findProduct(
+      listUUID = product.listUUID,
+      productName = product.name
+    )
     api.removeProduct(product.id)
-    localDataSource.delete(product)
+    categoryDataSource.delete(productEntity)
   }
 
   override fun addProduct(
@@ -66,11 +73,11 @@ class ProductRepositoryImpl @Inject constructor(
     } else {
       emit(Result.Error<UserListProductEntity>(ServerResultException()))
     }
-    localDataSource.insert(entity)
+    categoryDataSource.insert(entity)
     emit(Result.Success<UserListProductEntity>(entity))
   }.catch { e ->
     e.printStackTrace()
-    localDataSource.insert(
+    categoryDataSource.insert(
       UserListProductMapper.mapRequestToEntity(listUUID, product)
     )
     emit(Result.Error(e))

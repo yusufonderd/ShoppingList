@@ -9,7 +9,7 @@ import com.yonder.addtolist.scenes.home.domain.model.CategoryUiModel
  */
 
 sealed class ProductDetailViewEvent {
-  object NotFound : ProductDetailViewEvent()
+  object ProductNotFound : ProductDetailViewEvent()
   data class Load(
     var categories: List<CategoryUiModel>,
     var product: UserListProductUiModel,

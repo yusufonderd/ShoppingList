@@ -11,7 +11,7 @@ import javax.inject.Inject
  * Yusuf Onder on 12,May,2021
  */
 
-class UserListDataSourceImpl @Inject constructor(private val appDatabase: com.yonder.addtolist.local.AppDatabase) :
+class UserListDataSourceImpl @Inject constructor(private val appDatabase: AppDatabase) :
   UserListDataSource {
 
   override suspend fun insert(userList: UserListEntity) {
@@ -37,4 +37,14 @@ class UserListDataSourceImpl @Inject constructor(private val appDatabase: com.yo
   override  fun getUserListByUUID(listUUID: String): Flow<UserListWithProducts> {
     return appDatabase.userListProductDao().getUserListWithProductsBy(listUUID)
   }
+
+  override suspend fun findProduct(
+    listUUID: String,
+    productName: String
+  ): UserListProductEntity {
+    return appDatabase.userListProductDao()
+      .findByListUUID(listUUID = listUUID, productName = productName)
+  }
+
+
 }

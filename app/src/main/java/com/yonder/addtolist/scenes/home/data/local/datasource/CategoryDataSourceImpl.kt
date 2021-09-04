@@ -12,7 +12,7 @@ import javax.inject.Inject
  * @author yusuf.onder
  * Created on 19.07.2021
  */
-class CategoryDataSourceImpl @Inject constructor(private val appDatabase: com.yonder.addtolist.local.AppDatabase) :
+class CategoryDataSourceImpl @Inject constructor(private val appDatabase: AppDatabase) :
   CategoryDataSource {
   override suspend fun getCategories(): List<CategoryWithProducts> {
     return appDatabase.categoryDao().getAllUserListWithProducts()
@@ -34,7 +34,7 @@ class CategoryDataSourceImpl @Inject constructor(private val appDatabase: com.yo
     return appDatabase.userListProductDao().delete(product)
   }
 
-  override suspend fun insert(category: CategoryEntity) {
+  override suspend fun  insert(category: CategoryEntity) {
     return appDatabase.categoryDao().insert(category)
   }
 

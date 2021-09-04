@@ -4,6 +4,7 @@ import com.yonder.addtolist.core.network.request.CreateUserListProductRequest
 import com.yonder.addtolist.core.network.responses.Result
 import com.yonder.addtolist.local.entity.ProductEntity
 import com.yonder.addtolist.local.entity.UserListProductEntity
+import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -16,7 +17,7 @@ interface ProductRepository {
     product: CreateUserListProductRequest
   ): Flow<Result<UserListProductEntity>>
 
-  suspend fun removeProduct(product: UserListProductEntity)
+  suspend fun delete(product: UserListProductUiModel)
   fun updateProduct(
     listId: String,
     product: UserListProductEntity

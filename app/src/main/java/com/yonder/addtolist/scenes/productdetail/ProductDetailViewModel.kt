@@ -40,15 +40,15 @@ class ProductDetailViewModel @Inject constructor(
       val flow1 = getCategoriesUseCase.invoke()
       val flow2 = getProductUseCase.invoke(selectedProductId)
       flow1.combine(flow2) { categories, product ->
-        if (product != null){
+        if (product != null) {
           val categoryOfProduct = CategoryFinder(categories).find(product.categoryImage)
           _event.value = ProductDetailViewEvent.Load(
             categories = categories,
             product = product,
             categoryOfProduct = categoryOfProduct
           )
-        }else{
-          _event.value = ProductDetailViewEvent.NotFound
+        } else {
+          _event.value = ProductDetailViewEvent.ProductNotFound
         }
       }.launchIn(viewModelScope)
     }
