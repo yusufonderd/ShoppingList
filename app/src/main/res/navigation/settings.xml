@@ -42,8 +42,14 @@
       app:destination="@id/accountDetailFragment" />
 
     <action
+      android:id="@+id/action_settings_to_language_selection"
+      app:destination="@id/languageSelectionFrafgment" />
+
+    <action
       android:id="@+id/action_shopping_list_items_to_login"
       app:destination="@id/loginScreen" />
+
+
 
   </fragment>
 
@@ -57,6 +63,15 @@
     <action
       android:id="@+id/action_account_detail_to_login"
       app:destination="@id/loginScreen" />
+
+  </fragment>
+
+  <fragment
+    android:id="@+id/languageSelectionFrafgment"
+    android:name="com.yonder.addtolist.scenes.languageselection.LanguageSelectionFragment"
+    android:label="@string/title_language_selection"
+    tools:layout="@layout/fragment_language_selection">
+
 
   </fragment>
 

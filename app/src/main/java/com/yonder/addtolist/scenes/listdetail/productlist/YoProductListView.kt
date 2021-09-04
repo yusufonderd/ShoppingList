@@ -48,7 +48,7 @@ class YoProductListView @JvmOverloads constructor(
   ) {
     this.listener = listener
     val sortedProducts = products.sortedBy { it.isDone }
-    if (adapter != null) {
+    if (adapter == null) {
       binding.rvProducts.adapter = ListProductAdapter().apply {
         submitList(sortedProducts)
         userListProductOperationListener = this@YoProductListView

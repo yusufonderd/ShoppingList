@@ -20,6 +20,9 @@ class SettingsFragment : BaseFragment<SettingsFragmentBinding>() {
     binding.yoAccount.onClickLayout = {
       findNavController().navigate(SettingsFragmentDirections.actionSettingsToAccountDetail())
     }
+    binding.yoLanguage.onClickLayout = {
+      findNavController().navigate(SettingsFragmentDirections.actionSettingsToLanguageSelection())
+    }
   }
 
   override fun initObservers() = Unit

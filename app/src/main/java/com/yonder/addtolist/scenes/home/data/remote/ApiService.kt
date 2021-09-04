@@ -7,6 +7,8 @@ import com.yonder.addtolist.core.network.request.UserListProductRequest
 import com.yonder.addtolist.scenes.home.data.remote.response.CategoryProductResponse
 import com.yonder.addtolist.scenes.home.data.remote.response.UserListProductResponse
 import com.yonder.addtolist.scenes.home.data.remote.response.UserListResponse
+import com.yonder.addtolist.scenes.languageselection.data.model.LanguageResponse
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -46,5 +48,8 @@ interface ApiService {
 
   @POST("newLists")
   suspend fun createUserList(@Body request: CreateUserListRequest): BaseResponse<UserListResponse>
+
+  @GET("languages")
+  suspend fun getLanguages(): Response<BaseResponse<List<LanguageResponse>>>
 
 }
