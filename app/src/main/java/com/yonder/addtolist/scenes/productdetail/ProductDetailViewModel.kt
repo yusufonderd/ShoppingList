@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.core.data.SingleLiveEvent
 import com.yonder.addtolist.core.extensions.orZero
-import com.yonder.addtolist.local.entity.UserListProductEntity
+import com.yonder.addtolist.scenes.home.domain.model.CategoryUiModel
 import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
 import com.yonder.addtolist.scenes.productdetail.domain.DeleteProductUseCase
 import com.yonder.addtolist.scenes.productdetail.domain.GetCategoriesUseCase
@@ -52,95 +52,116 @@ class ProductDetailViewModel @Inject constructor(
     }
   }
 
-
   fun toggleFavorite(product: UserListProductUiModel) {
     product.isFavorite = !product.isFavorite
-    viewModelScope.launch {
-      updateProductUseCase(product)
-    }
+    update(
+      productName = product.name,
+      product = product
+    )
   }
 
   fun toggleDone(product: UserListProductUiModel) {
     product.isDone = !product.isDone
-    viewModelScope.launch {
-      updateProductUseCase(product)
-    }
+    update(
+      productName = product.name,
+      product = product
+    )
   }
 
   fun delete(product: UserListProductUiModel) {
     viewModelScope.launch {
-      deleteProductUseCase.delete(product).collect()
+      deleteProductUseCase(product)
     }
   }
-
 
   fun increaseQuantity(product: UserListProductUiModel) {
-    viewModelScope.launch {
-      product.quantityValue = product.quantityValue.plus(1.0)
-      updateProductUseCase(product)
-    }
+    product.quantityValue = product.quantityValue.plus(1.0)
+    update(
+      productName = product.name,
+      product = product
+    )
   }
-
 
   fun decreaseQuantity(product: UserListProductUiModel) {
     product.quantityValue = product.quantityValue.minus(1.0)
-    viewModelScope.launch {
-      updateProductUseCase(product)
-    }
+    update(
+      productName = product.name,
+      product = product
+    )
   }
 
   fun updateUnit(product: UserListProductUiModel, unit: ProductUnitType) {
     if (product.unit != unit.value) {
       product.unit = unit.value
-      viewModelScope.launch {
-        updateProductUseCase(product)
-      }
+      update(
+        productName = product.name,
+        product = product
+      )
     }
   }
 
   fun updateProductName(product: UserListProductUiModel, name: String) {
     if (product.name != name) {
+      val previousProductName = product.name
       product.name = name
-      viewModelScope.launch {
-        updateProductUseCase(product)
-      }
+      update(
+        productName = previousProductName,
+        product = product
+      )
+    }
+  }
+
+  private fun update(productName: String, product: UserListProductUiModel) {
+    viewModelScope.launch {
+      updateProductUseCase(
+        productName = productName,
+        listUUID = product.listUUID,
+        product = product
+      )
     }
   }
 
   fun updateProductPrice(product: UserListProductUiModel, price: Double?) {
-    Timber.d("updateProductPrice => $price")
     if (product.priceValue != price) {
       product.priceValue = price.orZero()
-      viewModelScope.launch {
-        updateProductUseCase(product)
-      }
+
+      update(
+        productName = product.name,
+        product = product
+      )
+
+
     }
   }
 
   fun updateProductNote(product: UserListProductUiModel, note: String?) {
     if (product.note != note) {
       product.note = note.orEmpty()
-      viewModelScope.launch {
-        updateProductUseCase(product)
-      }
+      update(
+        productName = product.name,
+        product = product
+      )
     }
   }
 
-  fun updateCategory(product: UserListProductUiModel,categoryPosition: Int) {
-    Timber.d("updateCategory => $product $categoryPosition")
-    val viewState = state.value
-    if (viewState is ProductDetailViewState.Load){
-      viewState.categories.getOrNull(categoryPosition)?.let { selectedCategoryUIModel ->
-        if (selectedCategoryUIModel.image != product.categoryImage) {
-          product.categoryImage = selectedCategoryUIModel.image
-          product.name = selectedCategoryUIModel.name
-          Timber.e("updateCategory2 => $product $categoryPosition")
-           viewModelScope.launch {
-             updateProductUseCase(product)
-           }
-        }
-      }
+  fun updateCategory(product: UserListProductUiModel, categoryPosition: Int) {
+    val selectedCategories = getCategories()?.getOrNull(categoryPosition)
+    if (selectedCategories != null && selectedCategories.image != product.categoryImage) {
+      product.categoryImage = selectedCategories.image
+      product.categoryName = selectedCategories.name
+      update(
+        productName = product.name,
+        product = product
+      )
     }
+  }
+
+  private fun getCategories(): List<CategoryUiModel>? {
+    val viewState = state.value
+    if (viewState is ProductDetailViewState.Load) {
+      return viewState.categories
+    }
+    return null
   }
 
 }

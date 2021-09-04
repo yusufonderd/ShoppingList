@@ -89,31 +89,44 @@ class ListDetailViewModel @Inject constructor(
 
 
   fun increaseQuantity(product: UserListProductUiModel) {
-    viewModelScope.launch {
-      product.quantityValue = product.quantityValue.plus(1.0)
-      updateProductUseCase(product)
-    }
+    product.quantityValue = product.quantityValue.plus(1.0)
+
+    update(
+      productName = product.name,
+      product = product
+    )
   }
 
   fun decreaseQuantity(product: UserListProductUiModel) {
     product.quantityValue = product.quantityValue.minus(1.0)
-    viewModelScope.launch {
-      updateProductUseCase(product)
-    }
+
+    update(
+      productName = product.name,
+      product = product
+    )
   }
 
   fun toggleDone(product: UserListProductUiModel) {
     product.isDone = !product.isDone
+    update(
+      productName = product.name,
+      product = product
+    )
+  }
+
+  private fun update(productName: String, product: UserListProductUiModel) {
     viewModelScope.launch {
-      updateProductUseCase(product)
+      updateProductUseCase(
+        productName = productName,
+        listUUID = product.listUUID,
+        product = product
+      )
     }
   }
 
-  fun removeProduct(product: UserListProductUiModel) {
+  fun deleteProduct(product: UserListProductUiModel) {
     viewModelScope.launch {
-      deleteProductUseCase.delete(product).collect {
-        Timber.d("sssx")
-      }
+      deleteProductUseCase(product)
     }
   }
 }

@@ -15,7 +15,6 @@ import com.yonder.addtolist.common.utils.keyboard.hideKeyboardFor
 import com.yonder.addtolist.databinding.FragmentListDetailBinding
 import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
 import com.yonder.addtolist.scenes.listdetail.domain.model.ProductEntityUiModel
-import com.yonder.uicomponent.base.model.Item
 import com.yonder.addtolist.scenes.listdetail.items.ItemOperationListener
 import com.yonder.addtolist.scenes.listdetail.productlist.UserListProductOperationListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -113,7 +112,7 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>(), UserListPr
   }
 
   override fun removeProduct(item: UserListProductUiModel) {
-    viewModel.removeProduct(item)
+    viewModel.deleteProduct(item)
   }
 
   override fun addProduct(itemName: String) {

@@ -3,6 +3,7 @@ package com.yonder.addtolist.scenes.productdetail.domain
 import com.yonder.addtolist.core.extensions.toInt
 import com.yonder.addtolist.local.AppDatabase
 import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -13,9 +14,15 @@ import javax.inject.Inject
 class UpdateProductUseCaseImpl @Inject constructor(private val appDatabase: AppDatabase) :
   UpdateProductUseCase {
 
-  override suspend operator fun invoke(product: UserListProductUiModel) {
-    val productEntity = appDatabase.userListProductDao()
-      .findByListUUID(listUUID = product.listUUID, productName = product.name)
+  override suspend operator fun invoke(
+    productName: String,
+    listUUID: String,
+    product: UserListProductUiModel
+  ) {
+    val productEntity =
+      appDatabase
+      .userListProductDao()
+      .findByListUUID(listUUID = listUUID, productName = productName)
     productEntity.let {
       productEntity.name = product.name
       productEntity.quantity = product.quantityValue
@@ -33,5 +40,9 @@ class UpdateProductUseCaseImpl @Inject constructor(private val appDatabase: AppD
 }
 
 interface UpdateProductUseCase {
-  suspend operator fun invoke(product: UserListProductUiModel)
+  suspend operator fun invoke(
+    productName: String,
+    listUUID: String,
+    product: UserListProductUiModel
+  )
 }

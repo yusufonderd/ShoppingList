@@ -19,7 +19,6 @@ import com.yonder.addtolist.scenes.home.domain.model.CategoryUiModel
 import com.yonder.addtolist.scenes.productdetail.model.enums.ProductUnitType
 import com.yonder.uicomponent.adapter.MaterialSpinnerAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -108,6 +107,12 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
     binding.etQuantity.setText(product.quantity)
     setUnit(binding.toggleButton, product.unit)
     setFavorite(product.isFavorite)
+
+    // If user marked item as done
+    // Product detail page closing automatically
+    if (product.isDone){
+      closeFragment()
+    }
   }
 
   private fun initTextChangedListeners() {
@@ -139,7 +144,6 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
 
     btnDeleteItem.setSafeOnClickListener {
       viewModel.delete(product)
-      closeFragment()
     }
 
     toggleButton.addOnButtonCheckedListener { _, checkedId, isChecked ->
@@ -173,7 +177,6 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
 
     btnDone.setSafeOnClickListener {
       viewModel.toggleDone(product)
-      closeFragment()
     }
 
   }
