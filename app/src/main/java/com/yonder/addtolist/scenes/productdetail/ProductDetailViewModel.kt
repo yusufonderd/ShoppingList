@@ -13,11 +13,9 @@ import com.yonder.addtolist.scenes.productdetail.domain.UpdateProductUseCase
 import com.yonder.addtolist.scenes.productdetail.model.enums.ProductUnitType
 import com.yonder.addtolist.scenes.productdetail.utils.CategoryFinder
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -33,39 +31,37 @@ class ProductDetailViewModel @Inject constructor(
   private val getCategoriesUseCase: GetCategoriesUseCase
 ) : ViewModel() {
 
-  private val _state: SingleLiveEvent<ProductDetailViewState> =
+  private val _event: SingleLiveEvent<ProductDetailViewEvent> =
     SingleLiveEvent()
-  val state: SingleLiveEvent<ProductDetailViewState> get() = _state
+  val event: SingleLiveEvent<ProductDetailViewEvent> get() = _event
 
   fun fetchProductId(selectedProductId: Int?) {
     if (selectedProductId != null) {
       val flow1 = getCategoriesUseCase.invoke()
       val flow2 = getProductUseCase.invoke(selectedProductId)
       flow1.combine(flow2) { categories, product ->
-        val categoryOfProduct = CategoryFinder(categories).find(product.categoryImage)
-        _state.value = ProductDetailViewState.Load(
-          categories = categories,
-          product = product,
-          categoryOfProduct = categoryOfProduct
-        )
+        if (product != null){
+          val categoryOfProduct = CategoryFinder(categories).find(product.categoryImage)
+          _event.value = ProductDetailViewEvent.Load(
+            categories = categories,
+            product = product,
+            categoryOfProduct = categoryOfProduct
+          )
+        }else{
+          _event.value = ProductDetailViewEvent.NotFound
+        }
       }.launchIn(viewModelScope)
     }
   }
 
   fun toggleFavorite(product: UserListProductUiModel) {
     product.isFavorite = !product.isFavorite
-    update(
-      productName = product.name,
-      product = product
-    )
+    update(product)
   }
 
   fun toggleDone(product: UserListProductUiModel) {
     product.isDone = !product.isDone
-    update(
-      productName = product.name,
-      product = product
-    )
+    update(product)
   }
 
   fun delete(product: UserListProductUiModel) {
@@ -76,27 +72,18 @@ class ProductDetailViewModel @Inject constructor(
 
   fun increaseQuantity(product: UserListProductUiModel) {
     product.quantityValue = product.quantityValue.plus(1.0)
-    update(
-      productName = product.name,
-      product = product
-    )
+    update(product)
   }
 
   fun decreaseQuantity(product: UserListProductUiModel) {
     product.quantityValue = product.quantityValue.minus(1.0)
-    update(
-      productName = product.name,
-      product = product
-    )
+    update(product)
   }
 
   fun updateUnit(product: UserListProductUiModel, unit: ProductUnitType) {
     if (product.unit != unit.value) {
       product.unit = unit.value
-      update(
-        productName = product.name,
-        product = product
-      )
+      update(product)
     }
   }
 
@@ -111,7 +98,7 @@ class ProductDetailViewModel @Inject constructor(
     }
   }
 
-  private fun update(productName: String, product: UserListProductUiModel) {
+  private fun update(product: UserListProductUiModel, productName: String = product.name) {
     viewModelScope.launch {
       updateProductUseCase(
         productName = productName,
@@ -124,23 +111,14 @@ class ProductDetailViewModel @Inject constructor(
   fun updateProductPrice(product: UserListProductUiModel, price: Double?) {
     if (product.priceValue != price) {
       product.priceValue = price.orZero()
-
-      update(
-        productName = product.name,
-        product = product
-      )
-
-
+      update(product)
     }
   }
 
   fun updateProductNote(product: UserListProductUiModel, note: String?) {
     if (product.note != note) {
       product.note = note.orEmpty()
-      update(
-        productName = product.name,
-        product = product
-      )
+      update(product)
     }
   }
 
@@ -149,16 +127,13 @@ class ProductDetailViewModel @Inject constructor(
     if (selectedCategories != null && selectedCategories.image != product.categoryImage) {
       product.categoryImage = selectedCategories.image
       product.categoryName = selectedCategories.name
-      update(
-        productName = product.name,
-        product = product
-      )
+      update(product)
     }
   }
 
   private fun getCategories(): List<CategoryUiModel>? {
-    val viewState = state.value
-    if (viewState is ProductDetailViewState.Load) {
+    val viewState = event.value
+    if (viewState is ProductDetailViewEvent.Load) {
       return viewState.categories
     }
     return null

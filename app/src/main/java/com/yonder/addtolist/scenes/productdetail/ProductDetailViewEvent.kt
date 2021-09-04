@@ -8,10 +8,11 @@ import com.yonder.addtolist.scenes.home.domain.model.CategoryUiModel
  * Created on 25.07.2021
  */
 
-sealed class ProductDetailViewState {
+sealed class ProductDetailViewEvent {
+  object NotFound : ProductDetailViewEvent()
   data class Load(
     var categories: List<CategoryUiModel>,
     var product: UserListProductUiModel,
     var categoryOfProduct: CategoryUiModel?
-    ) : ProductDetailViewState()
+    ) : ProductDetailViewEvent()
 }

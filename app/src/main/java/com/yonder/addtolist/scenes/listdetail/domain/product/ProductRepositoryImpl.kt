@@ -47,9 +47,7 @@ class ProductRepositoryImpl @Inject constructor(
     emit(Result.Error(e))
   }
 
-  override  suspend fun removeProduct(
-    product: UserListProductEntity
-  ) {
+  override suspend fun removeProduct(product: UserListProductEntity) {
     api.removeProduct(product.id)
     localDataSource.delete(product)
   }

@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.Flow
 interface UserListProductDao {
 
   @Query("SELECT * FROM user_list_products WHERE id = :id")
-  fun findById(id: Int): Flow<UserListProductEntity>
+  fun findById(id: Int): Flow<UserListProductEntity?>
 
 
   @Query("SELECT * FROM user_list_products")

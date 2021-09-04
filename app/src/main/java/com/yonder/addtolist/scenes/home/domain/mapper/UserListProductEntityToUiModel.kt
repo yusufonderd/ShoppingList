@@ -9,7 +9,6 @@ import com.yonder.addtolist.scenes.home.domain.wrapper.ProductQuantityWrapper
 import com.yonder.addtolist.scenes.productdetail.model.enums.DoneType
 import com.yonder.addtolist.scenes.productdetail.model.enums.FavoriteType
 import com.yonder.addtolist.scenes.productdetail.model.wrapper.CategoryImageWrapper
-import com.yonder.addtolist.scenes.productdetail.model.wrapper.CategoryNameWrapper
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
@@ -19,8 +18,11 @@ import javax.inject.Inject
  */
 
 class UserListProductEntityToUiModel @Inject constructor(@ApplicationContext private val context: Context) :
-  Mapper<UserListProductEntity, UserListProductUiModel> {
-  override fun map(input: UserListProductEntity): UserListProductUiModel {
+  Mapper<UserListProductEntity?, UserListProductUiModel?> {
+  override fun map(input: UserListProductEntity?): UserListProductUiModel? {
+    if (input == null) {
+      return null
+    }
     return UserListProductUiModel(
       id = input.id,
       listUUID = input.listUUID,

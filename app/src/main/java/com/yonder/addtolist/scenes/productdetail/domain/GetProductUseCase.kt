@@ -20,7 +20,7 @@ class GetProductUseCaseImpl @Inject constructor(
   private val dispatcher: CoroutineThread
 ) : GetProductUseCase {
 
-  override operator fun invoke(id: Int): Flow<UserListProductUiModel> {
+  override operator fun invoke(id: Int): Flow<UserListProductUiModel?> {
     return appDatabase.userListProductDao()
       .findById(id)
       .map { mapper.map(it) }
@@ -29,5 +29,5 @@ class GetProductUseCaseImpl @Inject constructor(
 }
 
 interface GetProductUseCase {
-  operator fun invoke(id: Int): Flow<UserListProductUiModel>
+  operator fun invoke(id: Int): Flow<UserListProductUiModel?>
 }

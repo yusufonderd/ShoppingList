@@ -48,14 +48,17 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
     FragmentProductDetailBinding.inflate(inflater)
 
   override fun initObservers() {
-    viewModel.state.observe(viewLifecycleOwner) { viewState ->
+    viewModel.event.observe(viewLifecycleOwner) { viewState ->
       when (viewState) {
-        is ProductDetailViewState.Load -> {
+        is ProductDetailViewEvent.Load -> {
           setProduct(viewState.product)
           initSpinner(
             categories = viewState.categories,
             categoryOfProduct = viewState.categoryOfProduct
           )
+        }
+        is ProductDetailViewEvent.NotFound -> {
+          closeFragment()
         }
         else -> Unit
       }

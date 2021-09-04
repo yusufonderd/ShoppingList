@@ -18,7 +18,7 @@ class DeleteProductUseCaseImpl @Inject constructor(
   override suspend fun invoke(product: UserListProductUiModel) {
     val productEntity = appDatabase.userListProductDao()
       .findByListUUID(listUUID = product.listUUID, productName = product.name)
-    appDatabase.userListProductDao().delete(productEntity)
+    productRepository.removeProduct(productEntity)
   }
 
 }

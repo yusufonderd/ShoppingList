@@ -90,31 +90,20 @@ class ListDetailViewModel @Inject constructor(
 
   fun increaseQuantity(product: UserListProductUiModel) {
     product.quantityValue = product.quantityValue.plus(1.0)
-
-    update(
-      productName = product.name,
-      product = product
-    )
+    update(product)
   }
 
   fun decreaseQuantity(product: UserListProductUiModel) {
     product.quantityValue = product.quantityValue.minus(1.0)
-
-    update(
-      productName = product.name,
-      product = product
-    )
+    update(product)
   }
 
   fun toggleDone(product: UserListProductUiModel) {
     product.isDone = !product.isDone
-    update(
-      productName = product.name,
-      product = product
-    )
+    update(product)
   }
 
-  private fun update(productName: String, product: UserListProductUiModel) {
+  private fun update(product: UserListProductUiModel,productName: String = product.name) {
     viewModelScope.launch {
       updateProductUseCase(
         productName = productName,

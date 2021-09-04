@@ -8,8 +8,10 @@ import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
  */
 object UncompletedItemsWrapper {
 
-  fun wrap(products: List<UserListProductUiModel>): String {
-    return products.filter { !it.isDone }
+  fun wrap(products: List<UserListProductUiModel>?): String {
+    return products
+      .orEmpty()
+      .filter { !it.isDone }
       .asSequence()
       .take(5)
       .joinToString(",")

@@ -22,13 +22,14 @@ class UserListWithProductsMapper @Inject constructor(@ApplicationContext private
   val mapper = UserListProductEntityToUiModel(context)
   override fun map(input: UserListWithProducts): UserListUiModel {
     val productsList = ListMapperImpl(mapper).map(input.products)
+   val safeProductList =  productsList.filterNotNull()
     return UserListUiModel(
       id = input.userList.id.orZero(),
       uuid = input.userList.uuid,
       name = input.userList.name,
       color = input.userList.color,
-      uncompletedItems = UncompletedItemsWrapper.wrap(productsList),
-      products = ListMapperImpl(mapper).map(input.products)
+      uncompletedItems = UncompletedItemsWrapper.wrap(safeProductList),
+      products = safeProductList
     )
   }
 
