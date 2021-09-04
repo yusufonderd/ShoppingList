@@ -13,13 +13,14 @@ import com.yonder.addtolist.scenes.home.data.local.datasource.CategoryDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.components.SingletonComponent
+
 /**
  * @author yusuf.onder
  * Created on 19.07.2021
  */
 
-@[Module InstallIn(ViewModelComponent::class)]
+@[Module InstallIn(SingletonComponent::class)]
 interface ListDetailModule {
 
   @get:[Binds]
@@ -30,9 +31,6 @@ interface ListDetailModule {
 
   @get:[Binds]
   val CategoryDataSourceImpl.dataSource: CategoryDataSource
-
-  @get:[Binds]
-  val ProductRepositoryImpl.productRepository: ProductRepository
 
   @get:[Binds]
   val ProductUseCaseImpl.productUseCase: ProductUseCase

@@ -23,14 +23,14 @@ class ProductUseCaseImpl @Inject constructor(
   }
 
 
-
+/*
   override fun removeProduct(
     productEntity: UserListProductEntity
   ): Flow<Result<UserListProductEntity>> {
     return productRepository
       .removeProduct(productEntity)
       .flowOn(dispatcher.io)
-  }
+  }*/
 
   override fun updateProduct(
     listId: String,

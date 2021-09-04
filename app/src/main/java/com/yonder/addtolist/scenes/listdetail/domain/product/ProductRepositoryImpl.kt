@@ -47,18 +47,11 @@ class ProductRepositoryImpl @Inject constructor(
     emit(Result.Error(e))
   }
 
-  override fun removeProduct(
+  override  suspend fun removeProduct(
     product: UserListProductEntity
-  ): Flow<Result<UserListProductEntity>> = flow {
-    emit(Result.Loading)
-    val response = api.removeProduct(product.id)
-    if (response.success == true) {
-      localDataSource.delete(product)
-    }
-    emit(Result.Success<UserListProductEntity>(product))
-  }.catch { e ->
-    e.printStackTrace()
-    emit(Result.Error(e))
+  ) {
+    api.removeProduct(product.id)
+    localDataSource.delete(product)
   }
 
   override fun addProduct(

@@ -47,7 +47,7 @@ interface UserListProductDao {
   fun getUserListWithProductsBy(uuid: String): Flow<UserListWithProducts>
 
   @Query("SELECT * FROM user_list_products WHERE name = :productName and userListUUID = :listUUID LIMIT 1 ")
-  fun findByListUUID(listUUID: String, productName: String): Flow<UserListProductEntity?>
+  suspend fun findByListUUID(listUUID: String, productName: String): UserListProductEntity
 
   @Update
   suspend fun update(item: UserListProductEntity)

@@ -2,7 +2,6 @@ package com.yonder.addtolist.scenes.home.domain.usecase
 
 import com.yonder.addtolist.local.AppDatabase
 import com.yonder.addtolist.local.entity.UserListProductEntity
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 /**
@@ -11,14 +10,13 @@ import javax.inject.Inject
  */
 
 interface GetUserListProductUseCase {
-  suspend operator fun invoke(listUUID: String, productName: String): Flow<UserListProductEntity?>
-
+  suspend operator fun invoke(listUUID: String, productName: String): UserListProductEntity?
 }
 
 class GetUserListProductUseCaseImpl @Inject constructor(
   private val appDatabase: AppDatabase
 ) : GetUserListProductUseCase {
-  override suspend fun invoke(listUUID: String, productName: String): Flow<UserListProductEntity?> {
+  override suspend fun invoke(listUUID: String, productName: String): UserListProductEntity? {
     return appDatabase.userListProductDao().findByListUUID(listUUID, productName)
   }
 

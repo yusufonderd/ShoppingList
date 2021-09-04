@@ -9,8 +9,8 @@ import com.yonder.addtolist.scenes.listdetail.domain.category.ProductQueryUseCas
 import com.yonder.addtolist.scenes.listdetail.domain.product.ProductUseCase
 import com.yonder.addtolist.scenes.home.domain.usecase.GetUserListUseCase
 import com.yonder.addtolist.scenes.listdetail.domain.AddProductUseCase
+import com.yonder.addtolist.scenes.productdetail.domain.DeleteProductUseCase
 import com.yonder.addtolist.scenes.productdetail.domain.UpdateProductUseCase
-import com.yonder.uicomponent.base.model.Item
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -34,6 +35,7 @@ class ListDetailViewModel @Inject constructor(
   private val productUseCase: ProductUseCase,
   private val addProductUseCase: AddProductUseCase,
   private val updateProductUseCase: UpdateProductUseCase,
+  private val deleteProductUseCase: DeleteProductUseCase,
   private val getUserListUseCase: GetUserListUseCase
 ) : ViewModel() {
 
@@ -87,35 +89,32 @@ class ListDetailViewModel @Inject constructor(
 
 
   fun increaseQuantity(product: UserListProductUiModel) {
-   /* product.quantity = product.quantity?.plus(1.0)
     viewModelScope.launch {
+      product.quantityValue = product.quantityValue.plus(1.0)
       updateProductUseCase(product)
-    }*/
+    }
   }
 
   fun decreaseQuantity(product: UserListProductUiModel) {
-   /* product.quantity = product.quantity?.minus(1.0)
+    product.quantityValue = product.quantityValue.minus(1.0)
     viewModelScope.launch {
-      updateProductUseCase.invoke(product)
-    }*/
+      updateProductUseCase(product)
+    }
   }
 
   fun toggleDone(product: UserListProductUiModel) {
-   /* if (product.wrappedDone()) {
-      product.done = NO_DONE_VALUE
-    } else {
-      product.done = DONE_VALUE
-    }
+    product.isDone = !product.isDone
     viewModelScope.launch {
       updateProductUseCase(product)
-    }*/
+    }
   }
 
-
   fun removeProduct(product: UserListProductUiModel) {
-    /*viewModelScope.launch {
-      productUseCase.removeProduct(product).collect()
-    }*/
+    viewModelScope.launch {
+      deleteProductUseCase.delete(product).collect {
+        Timber.d("sssx")
+      }
+    }
   }
 }
 

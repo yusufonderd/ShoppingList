@@ -18,13 +18,14 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 
 /**
  * Yusuf Onder on 12,May,2021
  */
 
-@[Module InstallIn(ViewModelComponent::class)]
+@[Module InstallIn(SingletonComponent::class)]
 interface HomeModule {
 
   @get:[Binds]

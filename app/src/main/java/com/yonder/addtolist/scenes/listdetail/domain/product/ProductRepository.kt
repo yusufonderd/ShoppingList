@@ -16,7 +16,7 @@ interface ProductRepository {
     product: CreateUserListProductRequest
   ): Flow<Result<UserListProductEntity>>
 
-  fun removeProduct(product: UserListProductEntity): Flow<Result<UserListProductEntity>>
+  suspend fun removeProduct(product: UserListProductEntity)
   fun updateProduct(
     listId: String,
     product: UserListProductEntity

@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.core.data.SingleLiveEvent
 import com.yonder.addtolist.core.extensions.orZero
 import com.yonder.addtolist.local.entity.UserListProductEntity
+import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
 import com.yonder.addtolist.scenes.productdetail.domain.DeleteProductUseCase
 import com.yonder.addtolist.scenes.productdetail.domain.GetCategoriesUseCase
 import com.yonder.addtolist.scenes.productdetail.domain.GetProductUseCase
@@ -12,9 +13,11 @@ import com.yonder.addtolist.scenes.productdetail.domain.UpdateProductUseCase
 import com.yonder.addtolist.scenes.productdetail.model.enums.ProductUnitType
 import com.yonder.addtolist.scenes.productdetail.utils.CategoryFinder
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -49,115 +52,96 @@ class ProductDetailViewModel @Inject constructor(
     }
   }
 
-  private fun update(product: UserListProductEntity) {
+
+  fun toggleFavorite(product: UserListProductUiModel) {
+    product.isFavorite = !product.isFavorite
     viewModelScope.launch {
       updateProductUseCase(product)
     }
   }
 
-  fun toggleFavorite() {
-    /*getProductEntity { product ->
-      if (product.wrappedFavorite()) {
-        product.favorite = FavoriteType.UnFavorite.value
-      } else {
-        product.favorite = FavoriteType.Favorite.value
-      }
-      update(product)
-    }*/
-  }
-
-  fun done() {
-   /* getProductEntity { product ->
-      if (product.wrappedDone()) {
-        product.done = DoneType.UnDone.value
-      } else {
-        product.done = DoneType.Done.value
-      }
-      update(product)
-    }*/
-  }
-
-  fun delete() {
+  fun toggleDone(product: UserListProductUiModel) {
+    product.isDone = !product.isDone
     viewModelScope.launch {
-      getProductEntity { product ->
-        deleteProductUseCase(product)
+      updateProductUseCase(product)
+    }
+  }
+
+  fun delete(product: UserListProductUiModel) {
+    viewModelScope.launch {
+      deleteProductUseCase.delete(product).collect()
+    }
+  }
+
+
+  fun increaseQuantity(product: UserListProductUiModel) {
+    viewModelScope.launch {
+      product.quantityValue = product.quantityValue.plus(1.0)
+      updateProductUseCase(product)
+    }
+  }
+
+
+  fun decreaseQuantity(product: UserListProductUiModel) {
+    product.quantityValue = product.quantityValue.minus(1.0)
+    viewModelScope.launch {
+      updateProductUseCase(product)
+    }
+  }
+
+  fun updateUnit(product: UserListProductUiModel, unit: ProductUnitType) {
+    if (product.unit != unit.value) {
+      product.unit = unit.value
+      viewModelScope.launch {
+        updateProductUseCase(product)
       }
     }
   }
 
-  fun increaseQuantity() {
-    getProductEntity { product ->
-      product.quantity = product.quantity.orZero().plus(1)
-      update(product)
-    }
-  }
-
-  fun decreaseQuantity() {
-    getProductEntity { product ->
-      product.quantity = product.quantity.orZero().minus(1)
-      update(product)
-    }
-  }
-
-  fun updateUnit(unit: ProductUnitType) {
-    getProductEntity { product ->
-      if (product.unit != unit.value) {
-        product.unit = unit.value
-        update(product)
+  fun updateProductName(product: UserListProductUiModel, name: String) {
+    if (product.name != name) {
+      product.name = name
+      viewModelScope.launch {
+        updateProductUseCase(product)
       }
     }
   }
 
-  fun updateProductName(name: String?) {
-    getProductEntity { product ->
-      if (product.name != name && name.isNullOrEmpty().not()) {
-        product.name = name
-        update(product)
+  fun updateProductPrice(product: UserListProductUiModel, price: Double?) {
+    Timber.d("updateProductPrice => $price")
+    if (product.priceValue != price) {
+      product.priceValue = price.orZero()
+      viewModelScope.launch {
+        updateProductUseCase(product)
       }
     }
-
   }
 
-  fun updateProductPrice(price: Double?) {
-   /* getProductEntity { product ->
-      if (product.price != price && price != null) {
-        product.price = price
-        update(product)
+  fun updateProductNote(product: UserListProductUiModel, note: String?) {
+    if (product.note != note) {
+      product.note = note.orEmpty()
+      viewModelScope.launch {
+        updateProductUseCase(product)
       }
-    }*/
+    }
   }
 
-  fun updateProductNote(note: String?) {
-    /*getProductEntity { product ->
-      if (product.note != note) {
-        product.note = note
-        update(product)
-      }
-    }*/
-  }
-
-  fun updateCategory(categoryPosition: Int) {
-   /* getCategoryEntity(categoryPosition) { categoryEntity: CategoryEntity ->
-      getProductEntity { userListProductEntity: UserListProductEntity ->
-        if (categoryEntity.image != product.categoryImage) {
-          userListProductEntity.categoryName = categoryEntity.name
-          userListProductEntity.categoryImage = categoryEntity.image
-          update(userListProductEntity)
+  fun updateCategory(product: UserListProductUiModel,categoryPosition: Int) {
+    Timber.d("updateCategory => $product $categoryPosition")
+    val viewState = state.value
+    if (viewState is ProductDetailViewState.Load){
+      viewState.categories.getOrNull(categoryPosition)?.let { selectedCategoryUIModel ->
+        if (selectedCategoryUIModel.image != product.categoryImage) {
+          product.categoryImage = selectedCategoryUIModel.image
+          product.name = selectedCategoryUIModel.name
+          Timber.e("updateCategory2 => $product $categoryPosition")
+           viewModelScope.launch {
+             updateProductUseCase(product)
+           }
         }
       }
-    }*/
+    }
   }
-
-  private inline fun getProductEntity(
-    productInvoker: (UserListProductEntity) -> Unit,
-  ) {
-    val viewState = state.value
-    /*if (viewState is ProductDetailViewState.Load) {
-      productInvoker.invoke(viewState.product)
-    }*/
-  }
-
-
 
 }
 

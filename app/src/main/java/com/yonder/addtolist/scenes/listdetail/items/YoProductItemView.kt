@@ -9,9 +9,9 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isInvisible
+import com.yonder.addtolist.core.extensions.INDEX_NOT_FOUND
+import com.yonder.addtolist.databinding.LayoutYoProductViewBinding
 import com.yonder.addtolist.scenes.listdetail.items.model.ItemUiModel
-import com.yonder.uicomponent.constants.INDEX_NOT_FOUND_INDEX
-import com.yonder.uicomponent.databinding.LayoutYoProductViewBinding
 
 private const val PRODUCT_QUANTITY_ONE = 1.0
 
@@ -40,7 +40,7 @@ class YoProductItemView @JvmOverloads constructor(
     val productName = SpannableStringBuilder(value.name)
     if (query.isNotEmpty() && boldEnabled) {
       val index = value.name.indexOf(query)
-      if (index != INDEX_NOT_FOUND_INDEX) {
+      if (index != INDEX_NOT_FOUND) {
         productName.setSpan(
           StyleSpan(Typeface.BOLD),
           index,

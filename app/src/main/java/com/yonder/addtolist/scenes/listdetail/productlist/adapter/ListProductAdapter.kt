@@ -3,8 +3,8 @@ package com.yonder.addtolist.scenes.listdetail.productlist.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.yonder.addtolist.R
 import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
-import com.yonder.uicomponent.R
 import com.yonder.addtolist.scenes.listdetail.productlist.UserListProductOperationListener
 import com.yonder.uicomponent.base.BaseListAdapter
 

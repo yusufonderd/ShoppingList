@@ -19,6 +19,7 @@ import com.yonder.addtolist.scenes.home.domain.model.CategoryUiModel
 import com.yonder.addtolist.scenes.productdetail.model.enums.ProductUnitType
 import com.yonder.uicomponent.adapter.MaterialSpinnerAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -92,7 +93,6 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
   }
 
   private fun setProduct(product: UserListProductUiModel) {
-
     if (binding.etProductName.text?.isBlank() == true) {
       binding.etProductName.setText(product.name)
     }
@@ -113,15 +113,15 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
   private fun initTextChangedListeners() {
 
     binding.etNote.addTextChangedListener {
-      viewModel.updateProductNote( note = it.toString())
+      viewModel.updateProductNote(product, note = it.toString())
     }
 
     binding.etProductName.addTextChangedListener {
-      viewModel.updateProductName(name = it.toString())
+      viewModel.updateProductName(product, name = it.toString())
     }
 
     binding.etPrice.addTextChangedListener {
-      viewModel.updateProductPrice(
+      viewModel.updateProductPrice(product,
         price = binding.etPrice.getNumericValue()
       )
     }
@@ -131,46 +131,48 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
   private fun setClickListeners() = with(binding) {
 
     etAutoComplete.setOnItemClickListener { _, _, position, _ ->
-      viewModel.updateCategory( categoryPosition = position)
+      viewModel.updateCategory(
+        product = product,
+        categoryPosition = position
+      )
     }
 
     btnDeleteItem.setSafeOnClickListener {
-      viewModel.delete()
+      viewModel.delete(product)
       closeFragment()
     }
 
     toggleButton.addOnButtonCheckedListener { _, checkedId, isChecked ->
-      if (!isChecked) return@addOnButtonCheckedListener
       when (checkedId) {
         binding.button1.id -> {
-          viewModel.updateUnit( unit = ProductUnitType.Piece)
+          viewModel.updateUnit(product,unit = ProductUnitType.Piece)
         }
         binding.button2.id -> {
-          viewModel.updateUnit( unit = ProductUnitType.Package)
+          viewModel.updateUnit(product,unit = ProductUnitType.Package)
         }
         binding.button3.id -> {
-          viewModel.updateUnit( unit = ProductUnitType.Kg)
+          viewModel.updateUnit(product,unit = ProductUnitType.Kg)
         }
         binding.button4.id -> {
-          viewModel.updateUnit( unit = ProductUnitType.Lt)
+          viewModel.updateUnit(product,unit = ProductUnitType.Lt)
         }
       }
     }
 
     btnDecrease.setOnClickListener {
-      viewModel.decreaseQuantity()
+      viewModel.decreaseQuantity(product)
     }
 
     btnIncrease.setOnClickListener {
-      viewModel.increaseQuantity()
+      viewModel.increaseQuantity(product)
     }
 
     btnAddFavorite.setSafeOnClickListener {
-      viewModel.toggleFavorite()
+      viewModel.toggleFavorite(product)
     }
 
     btnDone.setSafeOnClickListener {
-      viewModel.done()
+      viewModel.toggleDone(product)
       closeFragment()
     }
 

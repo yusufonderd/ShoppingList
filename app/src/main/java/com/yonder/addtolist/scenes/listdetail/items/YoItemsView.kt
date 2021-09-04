@@ -70,6 +70,14 @@ class YoItemsView @JvmOverloads constructor(
     }
 
     binding.tvHeader.isGone = isVisibleQuery
+    setAdapter(itemsList, query, itemOperationListener)
+  }
+
+  private fun setAdapter(
+    itemsList: List<ItemUiModel>,
+    query: String,
+    itemOperationListener: ItemOperationListener
+  ) {
     if (adapter == null) {
       adapter = ItemListAdapter().apply {
         this.itemOperationListener = itemOperationListener

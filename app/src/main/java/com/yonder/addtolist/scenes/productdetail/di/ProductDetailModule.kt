@@ -1,5 +1,7 @@
 package com.yonder.addtolist.scenes.productdetail.di
 
+import com.yonder.addtolist.scenes.listdetail.domain.product.ProductRepository
+import com.yonder.addtolist.scenes.listdetail.domain.product.ProductRepositoryImpl
 import com.yonder.addtolist.scenes.productdetail.domain.DeleteProductUseCase
 import com.yonder.addtolist.scenes.productdetail.domain.DeleteProductUseCaseImpl
 import com.yonder.addtolist.scenes.productdetail.domain.GetCategoriesUseCase
@@ -36,4 +38,11 @@ interface ProductDetailModule {
   val GetCategoriesUseCaseImpl.getCategories: GetCategoriesUseCase
 
 
+  @get:[Binds]
+  val ProductRepositoryImpl.productRepository: ProductRepository
+
+/*
+  @get:[Binds Singleton]
+  val RemoveProductUseCaseImpl.removeProductUseCase: RemoveProductUseCase
+*/
 }

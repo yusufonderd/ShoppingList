@@ -1,11 +1,13 @@
 package com.yonder.addtolist.scenes.home.domain.mapper
 
+import android.content.Context
 import com.yonder.addtolist.core.extensions.orZero
 import com.yonder.addtolist.core.mapper.ListMapperImpl
 import com.yonder.addtolist.core.mapper.Mapper
 import com.yonder.addtolist.local.entity.UserListWithProducts
 import com.yonder.addtolist.scenes.home.domain.model.UserListUiModel
 import com.yonder.addtolist.scenes.home.domain.wrapper.UncompletedItemsWrapper
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 /**
@@ -14,10 +16,10 @@ import javax.inject.Inject
  */
 
 
-class UserListWithProductsMapper @Inject constructor() :
+class UserListWithProductsMapper @Inject constructor(@ApplicationContext private val context: Context) :
   Mapper<UserListWithProducts, UserListUiModel> {
 
-  val mapper = UserListProductEntityToUiModel()
+  val mapper = UserListProductEntityToUiModel(context)
   override fun map(input: UserListWithProducts): UserListUiModel {
     val productsList = ListMapperImpl(mapper).map(input.products)
     return UserListUiModel(
