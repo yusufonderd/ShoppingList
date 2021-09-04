@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.SimpleItemAnimator
 import com.yonder.addtolist.databinding.LayoutYoProductListBinding
 import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
 import com.yonder.addtolist.scenes.listdetail.productlist.adapter.ListProductAdapter
@@ -20,13 +19,15 @@ class YoProductListView @JvmOverloads constructor(
   context: Context,
   attrs: AttributeSet? = null,
   defStyleAttr: Int = 0
-) : ConstraintLayout(context, attrs, defStyleAttr) {
+) : ConstraintLayout(context, attrs, defStyleAttr), UserListProductOperationListener {
 
   private val binding: LayoutYoProductListBinding by lazy {
     LayoutYoProductListBinding.inflate(LayoutInflater.from(context), this, true)
   }
 
-  var adapter: ListProductAdapter? = null
+  private var adapter: ListProductAdapter? = null
+  private var lastModifiedIndex: Int? = null
+  private lateinit var listener: UserListProductOperationListener
 
   init {
     initRecyclerView()
@@ -36,29 +37,40 @@ class YoProductListView @JvmOverloads constructor(
     this.isVisible = isVisible
   }
 
-  private fun initRecyclerView() = with(binding.rvProducts) {
-    addVerticalDivider()
+
+  private fun initRecyclerView() {
+    binding.rvProducts.addVerticalDivider()
   }
 
-  fun bind(products: List<UserListProductUiModel>, productOperationListenerListener: UserListProductOperationListener) {
+  fun bind(
+    products: List<UserListProductUiModel>,
+    listener: UserListProductOperationListener
+  ) {
+    this.listener = listener
     val sortedProducts = products.sortedBy { it.isDone }
-    if (adapter == null) {
-      //Disable blinking animation
-      (binding.rvProducts.itemAnimator as? SimpleItemAnimator)
-        ?.supportsChangeAnimations = false
-
-      adapter = ListProductAdapter().apply {
+    if (adapter != null) {
+      binding.rvProducts.adapter = ListProductAdapter().apply {
         submitList(sortedProducts)
-        this.userListProductOperationListener = productOperationListenerListener
-      }
-      binding.rvProducts.adapter = adapter
+        userListProductOperationListener = this@YoProductListView
+      }.also { adapter = it }
     } else {
       adapter?.apply {
         submitList(sortedProducts)
+        lastModifiedIndex?.let {
+          notifyItemChanged(it)
+        }
       }
     }
-
-
   }
+
+  override fun edit(item: UserListProductUiModel) {
+    listener.edit(item)
+  }
+
+  override fun toggleDone(item: UserListProductUiModel, productPosition: Int) {
+    lastModifiedIndex = productPosition
+    listener.toggleDone(item, productPosition)
+  }
+
 }
 

@@ -19,6 +19,7 @@ import com.yonder.addtolist.scenes.listdetail.items.ItemOperationListener
 import com.yonder.addtolist.scenes.listdetail.productlist.UserListProductOperationListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import timber.log.Timber
 
 /**
  * @author yusuf.onder
@@ -26,7 +27,8 @@ import kotlinx.coroutines.flow.collect
  */
 @Suppress("TooManyFunctions")
 @AndroidEntryPoint
-class ListDetailFragment : BaseFragment<FragmentListDetailBinding>(), UserListProductOperationListener,
+class ListDetailFragment : BaseFragment<FragmentListDetailBinding>(),
+  UserListProductOperationListener,
   ItemOperationListener {
 
   private val args: ListDetailFragmentArgs by navArgs()
@@ -115,11 +117,11 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>(), UserListPr
     viewModel.deleteProduct(item)
   }
 
-  override fun addProduct(itemName: String) {
+  override fun addProduct(productName: String) {
     viewModel.addProduct(
       listId = listId,
       userListUUID = listUUID,
-      productName = itemName
+      productName = productName
     )
   }
 
@@ -131,7 +133,7 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>(), UserListPr
     )
   }
 
-  override fun toggleDone(item: UserListProductUiModel) {
+  override fun toggleDone(item: UserListProductUiModel, productPosition: Int) {
     viewModel.toggleDone(item)
   }
 
@@ -146,9 +148,10 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>(), UserListPr
     query: String
   ) = with(binding) {
 
+    Timber.d("loadListContent => ${products.size} ${filteredProducts.size} $query")
     yoProductListView.bind(
       products = products,
-      productOperationListenerListener = this@ListDetailFragment
+      listener = this@ListDetailFragment
     )
 
     yoFilteredItemsView.bind(

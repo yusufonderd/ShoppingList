@@ -6,7 +6,6 @@ package com.yonder.addtolist.scenes.productdetail.model.enums
  */
 
 enum class DoneType(val value: Int) {
-  Done(1),
-  UnDone(0)
+  Done(1);
 }
 

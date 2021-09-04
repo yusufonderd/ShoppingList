@@ -1,7 +1,9 @@
 package com.yonder.addtolist.scenes.productdetail
 
+import android.os.Bundle
 import android.text.InputFilter
 import android.view.LayoutInflater
+import android.view.View
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -42,6 +44,11 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
   override fun initBinding(inflater: LayoutInflater) =
     FragmentProductDetailBinding.inflate(inflater)
 
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    viewModel.fetchProductId(product.id)
+  }
+
   override fun initObservers() {
     viewModel.event.observe(viewLifecycleOwner) { viewState ->
       when (viewState) {
@@ -70,11 +77,6 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
       setText(categoryOfProduct?.formattedName)
       setAdapter(adapterSpinner)
     }
-  }
-
-  override fun onResume() {
-    super.onResume()
-    viewModel.fetchProductId(product.id)
   }
 
   override fun initViews() {
@@ -124,7 +126,7 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
 
     binding.etPrice.addTextChangedListener {
       viewModel.updateProductPrice(
-        product,
+        product = product,
         price = binding.etPrice.getNumericValue()
       )
     }

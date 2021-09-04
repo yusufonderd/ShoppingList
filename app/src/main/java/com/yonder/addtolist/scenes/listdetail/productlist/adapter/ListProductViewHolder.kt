@@ -23,6 +23,7 @@ class ListProductViewHolder(
 
   fun bind(
     product: UserListProductUiModel,
+    position : Int,
     productOperationListener: UserListProductOperationListener
   ) = with(binding) {
     val isDone = product.isDone
@@ -33,7 +34,7 @@ class ListProductViewHolder(
     bindEditBtn(product, productOperationListener)
     bindFavorite(isFavorite)
     itemView.setOnClickListener {
-      productOperationListener.toggleDone(product)
+      productOperationListener.toggleDone(product,position)
     }
   }
 

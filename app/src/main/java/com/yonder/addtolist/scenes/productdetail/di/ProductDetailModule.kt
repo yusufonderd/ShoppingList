@@ -37,7 +37,6 @@ interface ProductDetailModule {
   @get:[Binds Singleton]
   val GetCategoriesUseCaseImpl.getCategories: GetCategoriesUseCase
 
-
   @get:[Binds]
   val ProductRepositoryImpl.productRepository: ProductRepository
 

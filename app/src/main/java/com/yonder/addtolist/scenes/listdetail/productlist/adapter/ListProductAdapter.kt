@@ -36,6 +36,7 @@ class ListProductAdapter :
       is ListProductViewHolder -> {
         holder.bind(
           product = getItem(position),
+          position = position,
           productOperationListener = userListProductOperationListener
         )
       }

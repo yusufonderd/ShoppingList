@@ -8,5 +8,5 @@ import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
  */
 interface UserListProductOperationListener {
   fun edit(item: UserListProductUiModel)
-  fun toggleDone(item: UserListProductUiModel)
+  fun toggleDone(item: UserListProductUiModel,productPosition : Int)
 }

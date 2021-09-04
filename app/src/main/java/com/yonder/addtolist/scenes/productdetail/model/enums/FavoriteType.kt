@@ -5,6 +5,5 @@ package com.yonder.addtolist.scenes.productdetail.model.enums
  * Created on 29.08.2021
  */
 enum class FavoriteType(val value: Int) {
-  Favorite(1),
-  UnFavorite(0)
+  Favorite(1);
 }
