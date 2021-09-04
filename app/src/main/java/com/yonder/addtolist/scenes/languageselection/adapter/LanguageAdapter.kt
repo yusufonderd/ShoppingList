@@ -15,6 +15,9 @@ class LanguageAdapter : BaseListAdapter<LanguageUiModel>(
   itemsSame = { old, new -> old.id == new.id },
   contentsSame = { old, new -> old == new }
 ) {
+
+  var onClickLanguage: ((LanguageUiModel) -> Unit)? = null
+
   override fun onCreateViewHolder(
     parent: ViewGroup,
     inflater: LayoutInflater,
@@ -27,7 +30,7 @@ class LanguageAdapter : BaseListAdapter<LanguageUiModel>(
   override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
     when (holder) {
       is LanguageViewHolder -> {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position),onClickLanguage)
       }
     }
   }

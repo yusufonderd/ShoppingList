@@ -15,7 +15,11 @@ class LanguageViewHolder(
 ) : RecyclerView.ViewHolder(view) {
   private val binding = ItemLanguageBinding.bind(view)
 
-  fun bind(language: LanguageUiModel) {
+  fun bind(language: LanguageUiModel,onClickLanguage: ((LanguageUiModel) -> Unit)? = null) {
     binding.tvLanguage.text = language.name
+    binding.tvLanguage.setOnClickListener {
+      onClickLanguage?.invoke(language)
+    }
   }
 }
+

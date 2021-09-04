@@ -1,5 +1,6 @@
 package com.yonder.addtolist.scenes.languageselection.domain
 
+import com.yonder.addtolist.common.utils.device.LanguageUtils
 import com.yonder.addtolist.core.data.State
 import com.yonder.addtolist.core.data.map
 import com.yonder.addtolist.core.mapper.ListMapperImpl
@@ -20,8 +21,11 @@ class GetLanguageUseCaseImpl @Inject constructor(
 ) : GetLanguageUseCase {
   override suspend fun invoke(): Flow<State<List<LanguageUiModel>>> {
     return languageRepository.fetchLanguages().map { state ->
-      state.map {
-        ListMapperImpl(mapper).map(it)
+      state.map { response ->
+        ListMapperImpl(mapper).map(response
+          // Doesn't support arabic and indian language for now
+          .filterNot { it.tag == LanguageUtils.AR.first || it.tag == LanguageUtils.IN.first }
+        )
       }
     }
   }

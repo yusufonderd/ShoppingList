@@ -26,18 +26,16 @@ class LanguageSelectionViewModel @Inject constructor(
   init {
     getLanguages()
   }
+
   private val _state: MutableStateFlow<LanguageSelectionViewEvent> =
     MutableStateFlow(LanguageSelectionViewEvent.SetLayoutState(State.Loading))
   val state: StateFlow<LanguageSelectionViewEvent> get() = _state
 
-  fun getLanguages() {
+  private fun getLanguages() {
     viewModelScope.launch {
       getLanguageUseCase()
         .doOnSuccess {
           _state.value = LanguageSelectionViewEvent.Load(it)
-        }
-        .onEach {
-          _state.value = LanguageSelectionViewEvent.SetLayoutState(it)
         }
         .launchIn(viewModelScope)
     }
