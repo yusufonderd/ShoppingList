@@ -12,7 +12,6 @@ import com.yonder.addtolist.common.ui.extensions.compatColor
 import com.yonder.addtolist.common.ui.extensions.compatDrawable
 import com.yonder.addtolist.common.ui.extensions.setSafeOnClickListener
 import com.yonder.addtolist.common.utils.formatter.currency.CurrencyProvider
-import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.databinding.FragmentProductDetailBinding
 import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
 import com.yonder.addtolist.scenes.home.domain.model.CategoryUiModel
@@ -20,7 +19,6 @@ import com.yonder.addtolist.scenes.productdetail.model.enums.ProductUnitType
 import com.yonder.uicomponent.adapter.MaterialSpinnerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
-import javax.inject.Inject
 
 /**
  * @author yusuf.onder
@@ -35,12 +33,9 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
 
   private val args: ProductDetailFragmentArgs by navArgs()
 
-  private val product get() = args.userListProduct
-
-  @Inject
-  lateinit var userPreferencesDataStore: UserPreferenceDataStore
-
   val viewModel: ProductDetailViewModel by viewModels()
+
+  private val product get() = args.userListProduct
 
   var adapterSpinner: MaterialSpinnerAdapter<String>? = null
 

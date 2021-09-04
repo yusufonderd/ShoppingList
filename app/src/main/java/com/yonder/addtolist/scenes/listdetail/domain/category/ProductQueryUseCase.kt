@@ -1,6 +1,5 @@
 package com.yonder.addtolist.scenes.listdetail.domain.category
 
-import com.yonder.addtolist.local.entity.ProductEntitySummary
 import com.yonder.addtolist.scenes.listdetail.domain.model.ProductEntityUiModel
 import kotlinx.coroutines.flow.Flow
 

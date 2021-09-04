@@ -15,10 +15,10 @@ interface CategoryDataSource {
   suspend fun insertAll(list: List<CategoryEntity>)
   suspend fun insertAllProducts(products: List<ProductEntity>)
   suspend fun getCategories(): List<CategoryWithProducts>
-  suspend fun getProductsByQuery(query: String,limit :Int): List<ProductEntitySummary>
+  suspend fun getProductsByQuery(query: String, limit: Int): List<ProductEntitySummary>
   suspend fun getPopularProducts(): List<ProductEntitySummary>
   suspend fun insert(product: UserListProductEntity)
   suspend fun delete(product: UserListProductEntity)
   suspend fun update(product: UserListProductEntity)
-  suspend fun getProductByEntity(productName: String,languageId: Int) : ProductEntity?
+  suspend fun getProductByEntity(productName: String, languageId: Int): ProductEntity?
 }

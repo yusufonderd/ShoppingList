@@ -1,4 +1,4 @@
-package com.yonder.addtolist.scenes.home.domain.usecase
+package com.yonder.addtolist.scenes.createlist.domain
 
 import com.yonder.addtolist.core.network.request.CreateUserListRequest
 import com.yonder.addtolist.core.network.thread.CoroutineThread

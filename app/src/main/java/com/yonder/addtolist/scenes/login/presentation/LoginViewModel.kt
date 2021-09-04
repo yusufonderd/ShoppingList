@@ -17,12 +17,9 @@ import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.core.network.UserRegisterRequest
 import com.yonder.addtolist.scenes.login.domain.model.UserUiModel
 import com.yonder.addtolist.core.extensions.toReadableMessage
-import com.yonder.addtolist.scenes.createlist.CreateListViewState
 import com.yonder.addtolist.scenes.login.domain.usecase.FacebookGraphUseCase
 import com.yonder.addtolist.scenes.login.domain.usecase.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject

@@ -6,6 +6,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.yonder.addtolist.R
+import com.yonder.addtolist.common.ui.extensions.showToastMessage
 import com.yonder.addtolist.core.extensions.toReadableMessage
 
 /**
@@ -17,10 +18,10 @@ internal fun LoginFragment.handleSignInResult(completedTask: Task<GoogleSignInAc
     completedTask.getResult(ApiException::class.java)?.let { account ->
       viewModel.continueWithGoogle(account)
     } ?: run {
-      showToastMessage(R.string.error_occurred)
+      context?.showToastMessage(R.string.error_occurred)
     }
   } catch (e: ApiException) {
-    showToastMessage(e.toReadableMessage())
+    context?.showToastMessage(e.toReadableMessage())
   }
 }
 

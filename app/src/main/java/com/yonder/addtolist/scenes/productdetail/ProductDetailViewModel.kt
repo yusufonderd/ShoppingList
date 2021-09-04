@@ -88,13 +88,10 @@ class ProductDetailViewModel @Inject constructor(
   }
 
   fun updateProductName(product: UserListProductUiModel, name: String) {
-    if (product.name != name) {
-      val previousProductName = product.name
+    val currentProductName = product.name
+    if (currentProductName != name) {
       product.name = name
-      update(
-        productName = previousProductName,
-        product = product
-      )
+      update(product = product, productName = currentProductName)
     }
   }
 

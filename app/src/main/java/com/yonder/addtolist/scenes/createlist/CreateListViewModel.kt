@@ -4,10 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.yonder.addtolist.core.extensions.toReadableMessage
-import com.yonder.addtolist.scenes.home.domain.usecase.CreateListUseCase
+import com.yonder.addtolist.scenes.createlist.domain.CreateListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -23,17 +21,17 @@ class CreateListViewModel @Inject constructor(
   private val createListUseCase: CreateListUseCase
 ) : ViewModel() {
 
-  private val _state = MutableLiveData<CreateListViewState>()
-  val state: LiveData<CreateListViewState> = _state
+  private val _state = MutableLiveData<CreateListViewEvent>()
+  val event: LiveData<CreateListViewEvent> = _state
 
   fun createList(listName: String, listColor: String) {
     if (listName.isBlank()) {
-      _state.value = CreateListViewState.ShowBlankListNameError
+      _state.value = CreateListViewEvent.ShowBlankListNameError
     } else {
-      _state.value = CreateListViewState.Loading
+      _state.value = CreateListViewEvent.Loading
       viewModelScope.launch {
         createListUseCase(listName, listColor).onEach {
-          _state.value = CreateListViewState.ListCreated
+          _state.value = CreateListViewEvent.ListCreated
         }.launchIn(viewModelScope)
       }
     }

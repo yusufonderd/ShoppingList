@@ -41,8 +41,4 @@ interface ProductDetailModule {
   @get:[Binds]
   val ProductRepositoryImpl.productRepository: ProductRepository
 
-/*
-  @get:[Binds Singleton]
-  val RemoveProductUseCaseImpl.removeProductUseCase: RemoveProductUseCase
-*/
 }

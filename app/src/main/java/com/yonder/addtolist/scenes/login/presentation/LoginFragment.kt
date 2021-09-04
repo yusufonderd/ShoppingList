@@ -11,6 +11,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.yonder.addtolist.R
 import com.yonder.addtolist.common.ui.base.BaseFragment
 import com.yonder.addtolist.common.ui.extensions.setSafeOnClickListener
+import com.yonder.addtolist.common.ui.extensions.showSnackBar
 import com.yonder.addtolist.databinding.LoginFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,7 +29,7 @@ class LoginFragment : BaseFragment<LoginFragmentBinding>() {
           findNavController().navigate(R.id.action_login_to_shopping_list_items)
         }
         is LoginViewState.Error -> {
-          showSnackBar(viewState.message)
+          binding.showSnackBar(viewState.message)
         }
         else -> Unit
       }

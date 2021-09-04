@@ -32,15 +32,15 @@ class CreateListFragment : BaseFragment<FragmentCreateListBinding>() {
 
 
   override fun initObservers() {
-    viewModel.state.observe(viewLifecycleOwner) { viewState ->
+    viewModel.event.observe(viewLifecycleOwner) { viewState ->
       when (viewState) {
-        is CreateListViewState.ShowBlankListNameError -> {
+        is CreateListViewEvent.ShowBlankListNameError -> {
           showEmptyListError()
         }
-        is CreateListViewState.Loading -> {
+        is CreateListViewEvent.Loading -> {
           binding.stateLayout.setState(State.LOADING)
         }
-        is CreateListViewState.ListCreated -> {
+        is CreateListViewEvent.ListCreated -> {
           closeFragment()
         }
         else -> Unit
