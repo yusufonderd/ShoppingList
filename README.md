@@ -1,6 +1,6 @@
 
 # Addtolist Shopping Grocery List App
-No more forgetting what you will buy when you go to the market with the shopping list. Designed with a user-friendly interface, shopping list helps you list all your needs. Thanks to its customizable structure, you can prepare shopping reminder lists in different colors and share them with your friend or spouse.
+Addtolist is a shopping list app  that aims to make your life easier. You can create shopping lists in different colors and easily add items to the shopping list you have created with the smart content in the app. No more forgetting what you will buy when you go to the market with the shopping list. Designed with a user-friendly interface, shopping list helps you list all your needs. Thanks to its customizable structure, you can prepare shopping reminder lists in different colors and share them with your friend or spouse.
 
 # Previews
 
