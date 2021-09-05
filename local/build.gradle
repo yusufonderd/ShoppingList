@@ -1,3 +1,4 @@
+import com.yonder.addtolist.Config
 import com.yonder.addtolist.Libs
 
 plugins {
@@ -10,14 +11,13 @@ plugins {
 }
 
 android {
-  compileSdkVersion 30
+  compileSdkVersion Config.compileSdkVersion
 
   defaultConfig {
-    minSdkVersion 19
-    targetSdkVersion 30
-    versionCode 1
-    versionName "1.0"
-
+    minSdkVersion Config.minSdkVersion
+    targetSdkVersion Config.targetSdkVersion
+    versionCode Config.versionCode
+    versionName Config.versionName
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     consumerProguardFiles "consumer-rules.pro"
   }

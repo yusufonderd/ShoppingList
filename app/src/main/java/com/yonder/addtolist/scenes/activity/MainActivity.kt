@@ -10,7 +10,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.yonder.addtolist.R
-import com.yonder.addtolist.core.extensions.setupWithNavController
+import com.yonder.addtolist.common.ui.extensions.setupWithNavController
 import com.yonder.addtolist.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 

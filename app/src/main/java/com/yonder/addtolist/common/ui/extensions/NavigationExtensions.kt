@@ -1,4 +1,4 @@
-package com.yonder.addtolist.core.extensions
+package com.yonder.addtolist.common.ui.extensions
 
 /*
  * Copyright 2019, The Android Open Source Project
@@ -19,7 +19,6 @@ package com.yonder.addtolist.core.extensions
 import android.content.Intent
 import android.util.SparseArray
 import androidx.core.util.forEach
-import androidx.core.util.set
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -68,7 +67,7 @@ fun BottomNavigationView.setupWithNavController(
     }
 
     // Save to the map
-    graphIdToTagMap[graphId] = fragmentTag
+    graphIdToTagMap.put(graphId,fragmentTag)
 
     // Attach or detach nav host fragment depending on whether it's the selected item.
     if (this.selectedItemId == graphId) {
