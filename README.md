@@ -21,7 +21,7 @@ This app inspired from Trendyol's Android app architecture.
 * [MVVM Architecture](https://developer.android.com/jetpack/guide) - Modern, maintainable, and Google suggested app architecture
 * [Retrofit2 & OkHttp3](https://github.com/square/retrofit)
 * [Gson](https://github.com/google/gson)
-* [Navigation Component](https://developer.android.com/guide/navigation) 
+* [Navigation Component](https://developer.android.com/guide/navigation) - Single activity multiple fragments approach
 * [View Binding](https://developer.android.com/topic/libraries/view-binding) 
 * [StateLayout](https://github.com/yusufonderd/StateLayout) - For managing view states
 * [Detekt](https://github.com/detekt/detekt) - Code analysis tool
