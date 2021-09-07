@@ -1,5 +1,6 @@
 import com.yonder.addtolist.Config
 import com.yonder.addtolist.Libs
+import com.yonder.addtolist.Versions
 
 plugins {
   id 'com.android.application'
@@ -10,8 +11,6 @@ plugins {
   id 'androidx.navigation.safeargs.kotlin'
   id 'kotlin-parcelize'
   id 'io.gitlab.arturbosch.detekt'
-
-
 }
 
 android {
@@ -63,6 +62,7 @@ android {
   
   buildFeatures {
     viewBinding true
+    compose true
   }
 
   compileOptions {
@@ -71,6 +71,10 @@ android {
   }
   kotlinOptions {
     jvmTarget = '1.8'
+  }
+  composeOptions {
+    kotlinCompilerExtensionVersion Versions.compose
+    kotlinCompilerVersion  Versions.jetbrains_kotlin
   }
 }
 
@@ -120,6 +124,8 @@ dependencies {
   implementation Libs.Network.converter
   implementation Libs.Network.okhttp
   implementation Libs.Network.interceptor
+
+  implementation Libs.Compose.compose_runtime
 
   implementation project(path: ':ui-component')
 

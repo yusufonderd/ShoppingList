@@ -1,9 +1,10 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 import com.yonder.addtolist.Libs
+import com.yonder.addtolist.Versions
 
 buildscript {
-  ext.kotlin_version = "1.4.32"
+  ext.kotlin_version = Versions.jetbrains_kotlin
   repositories {
     google()
     jcenter()
@@ -15,7 +16,7 @@ buildscript {
     classpath Libs.GoogleServices.service_plugin
     classpath Libs.AndroidX.nav_args_plugin
     classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.14.2"
-    classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21'
+    classpath Libs.Kotlin.gradlePlugin
   }
 }
 

@@ -6,8 +6,12 @@ package com.yonder.addtolist
 
 object Libs {
 
+  object Compose {
+    const val compose_runtime = "androidx.compose.runtime:runtime:" + Versions.compose
+  }
+
   object Gradle {
-    const val androidGradlePlugin = "com.android.tools.build:gradle:4.2.2"
+    const val androidGradlePlugin = "com.android.tools.build:gradle:7.0.0"
   }
 
   object Kotlin {
