@@ -125,6 +125,8 @@
   <!-- Premium -->
 
   <string name="cd_premium_image">Premium image</string>
+  <string name="cd_close_premium_screen">Close premium screen</string>
+  <string name="premium_brand_title">Addtolist Premium</string>
 
 
 </resources>

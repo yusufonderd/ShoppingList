@@ -1,5 +1,6 @@
 package com.yonder.addtolist.scenes.premium
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,25 +9,28 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
+import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.yonder.addtolist.R
 
@@ -35,7 +39,7 @@ import com.yonder.addtolist.R
  * Created on 11.11.2021
  */
 
-data class PremiumFeature(var titleResId : Int)
+data class PremiumFeature(var titleResId: Int)
 
 class PremiumBottomSheetFragment : BottomSheetDialogFragment() {
 
@@ -47,6 +51,16 @@ class PremiumBottomSheetFragment : BottomSheetDialogFragment() {
     return ComposeView(requireContext()).apply {
       setContent {
         MainContent()
+      }
+    }
+  }
+
+  override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+    return super.onCreateDialog(savedInstanceState).apply {
+      setOnShowListener {
+        (dialog as BottomSheetDialog).behavior.setState(
+          BottomSheetBehavior.STATE_EXPANDED
+        )
       }
     }
   }
@@ -73,22 +87,37 @@ class PremiumBottomSheetFragment : BottomSheetDialogFragment() {
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
           )
-        }
 
-        IconButton(modifier = Modifier
-          .then(Modifier.size(24.dp)
-        ,
-        ),
-          onClick = { }) {
-          Icon(
-            Icons.Filled.Search,
-            "contentDescription",
-            tint = Color.White
+          FloatingActionButton(
+            modifier = Modifier
+              .padding(8.dp)
+              .align(Alignment.TopEnd),
+            onClick = {
+              dismiss()
+            },
+            backgroundColor = Color.White.copy(alpha = 0.25f),
+            contentColor = Color.White
+          ) {
+            Icon(
+              Icons.Filled.Close,
+              getString(R.string.cd_close_premium_screen)
+            )
+          }
+
+          Text(
+            style = MaterialTheme.typography.h4,
+            fontWeight = FontWeight.Bold,
+            color = Color.White,
+            text = getString(R.string.premium_brand_title),
+            modifier = Modifier
+              .padding(16.dp)
+              .align(Alignment.BottomStart),
           )
+
+
         }
-
-
       }
+
       item {
         Text(
           text = getString(R.string.be_premium_text),
@@ -96,7 +125,6 @@ class PremiumBottomSheetFragment : BottomSheetDialogFragment() {
           modifier = Modifier.padding(8.dp)
         )
       }
-
 
       items(getPremiumFeatures()) { premiumFeature ->
         Text(
@@ -108,6 +136,7 @@ class PremiumBottomSheetFragment : BottomSheetDialogFragment() {
           textAlign = TextAlign.Left
         )
       }
+
       item {
         Button(
           onClick = {
