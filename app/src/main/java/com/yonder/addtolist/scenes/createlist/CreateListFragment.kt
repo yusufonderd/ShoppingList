@@ -12,6 +12,7 @@ import com.yonder.addtolist.common.utils.decider.ColorDecider
 import com.yonder.addtolist.core.extensions.LENGTH_ZERO
 import com.yonder.addtolist.core.extensions.orZero
 import com.yonder.addtolist.databinding.FragmentCreateListBinding
+import com.yonder.addtolist.scenes.premium.PremiumBottomSheetFragment
 import com.yonder.statelayout.State
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -74,7 +75,13 @@ class CreateListFragment : BaseFragment<FragmentCreateListBinding>() {
       tilName.setText(listName)
       tilName.cursorEnd()
     }
-    yoColorPicker.initView(listColors)
+    yoColorPicker.initView(listColors,onClickCreateOwnColor = {
+      val bottomSheet = PremiumBottomSheetFragment()
+      activity?.supportFragmentManager?.let {
+        bottomSheet.show(it, bottomSheet.tag)
+
+      }
+    })
   }
 
   private fun initEditText() = with(binding.tilName) {

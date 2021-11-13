@@ -48,12 +48,6 @@
   <string name="what_would_you_like_to_buy">What would you like to buy ?</string>
 
 
-
-
-
-
-
-
   <string name="very_close">Very close</string>
   <string name="product_name">Item name</string>
   <string name="product_details">Item details</string>
@@ -106,7 +100,7 @@
   <string name="be_premium_text">Addtolist application was developed by Yusuf Onder with the help of his cat Memoli 🐈. As an Addtolist supporter, you can help me work full time on the application, and benefit from some useful features.</string>
   <string name="upgrade">Upgrade</string>
   <string name="restore_purchase">Restore purchases</string>
-  <string name="unlimited_lists">✏✏️ Create unlimited number of lists</string>
+  <string name="unlimited_lists">✏️ Create unlimited number of lists</string>
   <string name="create_own_color">🥳 Create your own color</string>
   <string name="remove_all_ads">🤖 Remove all ads</string>
   <string name="unlimited_access_to_all_features">🤩 Unlimited access to all Addtolist features</string>
@@ -128,12 +122,9 @@
   <string name="empty_list">Shopping list is empty now</string>
 
 
+  <!-- Premium -->
 
-
-
-
-
-
+  <string name="cd_premium_image">Premium image</string>
 
 
 </resources>

@@ -125,7 +125,14 @@ dependencies {
   implementation Libs.Network.okhttp
   implementation Libs.Network.interceptor
 
-  implementation Libs.Compose.compose_runtime
+  implementation Libs.Compose.runtime
+  implementation Libs.Compose.activity
+  implementation Libs.Compose.animation
+  implementation Libs.Compose.material
+
+
+  implementation Libs.AndroidX.common
+  implementation Libs.AndroidX.runtime
 
   implementation project(path: ':ui-component')
 

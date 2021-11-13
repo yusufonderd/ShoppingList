@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -45,6 +46,8 @@ class SplashViewModel @Inject constructor(
       categoryUseCase.getCategories().collect { result ->
         result.onSuccess {
           checkIsLoggedIn()
+        }.onError {
+          Timber.e("onError => $it")
         }
       }
     }

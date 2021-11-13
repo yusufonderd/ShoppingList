@@ -7,7 +7,10 @@ package com.yonder.addtolist
 object Libs {
 
   object Compose {
-    const val compose_runtime = "androidx.compose.runtime:runtime:" + Versions.compose
+    const val runtime = "androidx.compose.runtime:runtime:" + Versions.compose
+    const val material = "androidx.compose.material:material:" + Versions.compose
+    const val activity = "androidx.activity:activity-compose:" + Versions.compose_activity
+    const val animation = "androidx.compose.animation:animation:"+ Versions.compose
   }
 
   object Gradle {
@@ -17,7 +20,7 @@ object Libs {
   object Kotlin {
     const val org_jetbrains_kotlin: String =
       "org.jetbrains.kotlin:kotlin-stdlib:" + Versions.jetbrains_kotlin
-    const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:" + Versions.gradle_plugin
+    const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:" + Versions.jetbrains_kotlin
   }
 
   object Room{
@@ -84,6 +87,9 @@ object Libs {
     const val live_data_ktx: String =
       "androidx.lifecycle:lifecycle-viewmodel-ktx:" + Versions.livedata
     const val dataStore: String = "androidx.datastore:datastore-preferences:" + Versions.dataStore
+
+    const val runtime = "androidx.lifecycle:lifecycle-runtime-ktx:" + Versions.lifecycle
+    const val common = "androidx.lifecycle:lifecycle-common-java8:" + Versions.lifecycle
   }
 
   object Design {
