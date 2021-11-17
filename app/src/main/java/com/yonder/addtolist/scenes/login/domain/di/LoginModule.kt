@@ -10,6 +10,8 @@ import com.yonder.addtolist.core.mapper.Mapper
 import com.yonder.addtolist.core.network.LoginService
 import com.yonder.addtolist.core.network.responses.BaseResponse
 import com.yonder.addtolist.core.network.responses.UserResponse
+import com.yonder.addtolist.core.network.thread.CoroutineThread
+import com.yonder.addtolist.domain.usecase.GetCurrentUserUseCase
 import com.yonder.addtolist.scenes.login.domain.mapper.LoginMapper
 import com.yonder.addtolist.scenes.login.domain.model.UserUiModel
 import com.yonder.addtolist.scenes.login.domain.repository.LoginRepository
@@ -56,6 +58,13 @@ interface LoginModule {
     fun provideGoogleUserProvider(@ApplicationContext context: Context): UserProvider {
       return GoogleUserProvider(context)
     }
+
+    @[Provides]
+    fun provideGetWidgetUseCase(
+      repository: LoginRepository,
+      coroutineThread: CoroutineThread,
+      loginMapper: LoginMapper
+    ) = GetCurrentUserUseCase(coroutineThread, loginMapper, repository)
 
     @[Provides]
     fun provideGuestUserProvider(@ApplicationContext context: Context): UserProvider {

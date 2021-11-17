@@ -11,6 +11,7 @@ object Libs {
     const val material = "androidx.compose.material:material:" + Versions.compose
     const val activity = "androidx.activity:activity-compose:" + Versions.compose_activity
     const val animation = "androidx.compose.animation:animation:"+ Versions.compose
+    const val coil: String = "io.coil-kt:coil-compose:" + Versions.coil
   }
 
   object Gradle {

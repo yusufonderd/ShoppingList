@@ -10,4 +10,6 @@ import com.yonder.addtolist.core.network.responses.UserResponse
 
 interface LoginRepository {
   suspend fun login(params: UserRegisterRequest): BaseResponse<UserResponse>
+  suspend fun getCurrentUser(): BaseResponse<UserResponse>
+
 }

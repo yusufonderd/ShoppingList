@@ -34,5 +34,5 @@ object Versions {
   const val currency_edit_text = "0.0.9"
   const val compose: String = "1.0.5"
   const val compose_activity: String = "1.4.0"
-
+  const val coil = "1.4.0"
 }

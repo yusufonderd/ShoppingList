@@ -5,6 +5,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.yonder.addtolist.BuildConfig
 import com.yonder.addtolist.R
 import com.yonder.addtolist.common.ui.extensions.showToastMessage
 import com.yonder.addtolist.core.extensions.toReadableMessage
@@ -27,6 +28,7 @@ internal fun LoginFragment.handleSignInResult(completedTask: Task<GoogleSignInAc
 
 internal fun LoginFragment.startGoogleLogin() {
   val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+    .requestIdToken(BuildConfig.REQUEST_ID_TOKEN)
     .requestEmail()
     .build()
   val mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso);

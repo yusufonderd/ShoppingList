@@ -35,6 +35,8 @@ android {
     def database_name = properties.getProperty('addtolist_database_name')
 
     def params_user_id = properties.getProperty('params_provider_key')
+    def request_id_token = properties.getProperty('request_id_token')
+
     def params_fcm_token = properties.getProperty('params_fcm_token')
 
     release {
@@ -44,14 +46,15 @@ android {
       buildConfigField "String", "DATABASE_NAME", database_name
       buildConfigField "String", "PARAMS_FCM_TOKEN", params_fcm_token
       buildConfigField "String", "PARAMS_USER_ID", params_user_id
+      buildConfigField "String", "REQUEST_ID_TOKEN", request_id_token
     }
+
     debug {
       buildConfigField "String", "BASE_URL", base_url
       buildConfigField "String", "DATABASE_NAME", database_name
       buildConfigField "String", "PARAMS_FCM_TOKEN", params_fcm_token
       buildConfigField "String", "PARAMS_USER_ID", params_user_id
-
-
+      buildConfigField "String", "REQUEST_ID_TOKEN", request_id_token
     }
 
     release {
@@ -129,6 +132,7 @@ dependencies {
   implementation Libs.Compose.activity
   implementation Libs.Compose.animation
   implementation Libs.Compose.material
+  implementation Libs.Compose.coil
 
 
   implementation Libs.AndroidX.common
