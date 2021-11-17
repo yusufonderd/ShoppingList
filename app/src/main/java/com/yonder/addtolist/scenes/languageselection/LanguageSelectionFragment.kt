@@ -1,17 +1,27 @@
 package com.yonder.addtolist.scenes.languageselection
 
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Text
+import androidx.compose.material.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.unit.dp
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
-import com.yonder.addtolist.common.ui.base.BaseFragment
-import com.yonder.addtolist.common.ui.extensions.addVerticalDivider
-import com.yonder.addtolist.common.ui.extensions.setLinearLayoutManager
-import com.yonder.addtolist.common.ui.extensions.showSnackBar
-import com.yonder.addtolist.databinding.FragmentLanguageSelectionBinding
-import com.yonder.addtolist.scenes.languageselection.adapter.LanguageAdapter
-import com.yonder.addtolist.scenes.languageselection.data.model.LanguageUiModel
+import com.yonder.addtolist.common.ui.LoadingView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 /**
  * @author yusuf.onder
@@ -19,46 +29,52 @@ import kotlinx.coroutines.flow.collect
  */
 
 @AndroidEntryPoint
-class LanguageSelectionFragment : BaseFragment<FragmentLanguageSelectionBinding>() {
+class LanguageSelectionFragment : Fragment() {
 
   private val viewModel: LanguageSelectionViewModel by viewModels()
 
-  private val adapter: LanguageAdapter by lazy {
-    LanguageAdapter()
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View {
+    return ComposeView(requireContext()).apply {
+      setContent {
+        MainContent()
+      }
+    }
   }
 
-  override fun initBinding(inflater: LayoutInflater) =
-    FragmentLanguageSelectionBinding.inflate(inflater)
+  @Composable
+  fun MainContent() {
+    val languageUiState by viewModel.state.collectAsState()
+    when (languageUiState) {
+      is LanguageSelectionViewEvent.Load -> {
+        LazyColumn {
+          items((languageUiState as LanguageSelectionViewEvent.Load).languages) { language ->
+            TextButton(
+              onClick = {
 
-  override fun initObservers() {
-    lifecycleScope.launchWhenResumed {
-      viewModel.state.collect { viewEvent ->
-        when (viewEvent) {
-          is LanguageSelectionViewEvent.Load -> {
-            setLanguages(viewEvent.languages)
+              }
+            ) {
+              Text(text = language.name,
+                color = Color.DarkGray,
+                modifier = Modifier
+                  .fillMaxSize()
+                  .padding(bottom = 8.dp)
+                  .padding(horizontal = 8.dp)
+                  .align(Alignment.Bottom)
+              )
+            }
           }
-          else -> Unit
         }
       }
-    }
-  }
-
-  override fun initViews() {
-    initRecyclerView()
-  }
-
-  private fun setLanguages(languages: List<LanguageUiModel>) {
-    adapter.submitList(languages)
-  }
-
-  private fun initRecyclerView() = with(binding.rvLanguage) {
-    setLinearLayoutManager()
-    addVerticalDivider()
-    adapter = this@LanguageSelectionFragment.adapter.apply {
-      onClickLanguage = {
-       // TODO("Change app language")
+      else -> {
+        LoadingView()
       }
+
     }
+
   }
 
 }

@@ -128,5 +128,7 @@
   <string name="cd_close_premium_screen">Close premium screen</string>
   <string name="premium_brand_title">Addtolist Premium</string>
 
+  <string name="loading">Loading…</string>
+
 
 </resources>
