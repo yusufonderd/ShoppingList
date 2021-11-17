@@ -56,7 +56,7 @@ class LanguageSelectionFragment : BaseFragment<FragmentLanguageSelectionBinding>
     addVerticalDivider()
     adapter = this@LanguageSelectionFragment.adapter.apply {
       onClickLanguage = {
-        TODO("Change app language")
+       // TODO("Change app language")
       }
     }
   }
