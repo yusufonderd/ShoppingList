@@ -121,14 +121,10 @@
   <string name="search_item">Search item</string>
   <string name="empty_list">Shopping list is empty now</string>
 
-
   <!-- Premium -->
-
   <string name="cd_premium_image">Premium image</string>
   <string name="cd_close_premium_screen">Close premium screen</string>
   <string name="premium_brand_title">Addtolist Premium</string>
-
-  <string name="loading">Loading…</string>
 
 
 </resources>
