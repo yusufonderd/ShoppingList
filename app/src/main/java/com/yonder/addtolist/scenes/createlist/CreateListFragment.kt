@@ -79,7 +79,6 @@ class CreateListFragment : BaseFragment<FragmentCreateListBinding>() {
       val bottomSheet = PremiumBottomSheetFragment()
       activity?.supportFragmentManager?.let {
         bottomSheet.show(it, bottomSheet.tag)
-
       }
     })
   }

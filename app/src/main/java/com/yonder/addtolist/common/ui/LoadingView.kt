@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.yonder.addtolist.R
+import com.yonder.addtolist.theme.padding_8
 
 @Composable
 fun LoadingView(centerTextResId: Int = R.string.loading) {
@@ -28,7 +29,7 @@ fun LoadingView(centerTextResId: Int = R.string.loading) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
       CircularProgressIndicator(
         modifier = Modifier
-          .padding(8.dp)
+          .padding(padding_8)
       )
       Text(text = stringResource(id = centerTextResId))
     }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,7 +25,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
@@ -37,13 +37,15 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.yonder.addtolist.R
+import com.yonder.addtolist.theme.padding_16
+import com.yonder.addtolist.theme.padding_8
 
 /**
  * @author yusuf.onder
  * Created on 11.11.2021
  */
 
-data class PremiumFeature(var titleResId: Int)
+data class PremiumFeature(@StringRes var titleResId: Int)
 
 class PremiumBottomSheetFragment : BottomSheetDialogFragment() {
 
@@ -94,7 +96,7 @@ class PremiumBottomSheetFragment : BottomSheetDialogFragment() {
 
           FloatingActionButton(
             modifier = Modifier
-              .padding(8.dp)
+              .padding(padding_8)
               .align(Alignment.TopEnd),
             onClick = {
               dismiss()
@@ -113,7 +115,7 @@ class PremiumBottomSheetFragment : BottomSheetDialogFragment() {
             fontWeight = FontWeight.Bold,
             text = getString(R.string.premium_brand_title),
             modifier = Modifier
-              .padding(16.dp)
+              .padding(padding_16)
               .align(Alignment.BottomStart)
           )
 
@@ -124,7 +126,7 @@ class PremiumBottomSheetFragment : BottomSheetDialogFragment() {
         Text(
           text = getString(R.string.be_premium_text),
           style = MaterialTheme.typography.body1,
-          modifier = Modifier.padding(8.dp)
+          modifier = Modifier.padding(padding_8)
         )
       }
 
@@ -134,7 +136,7 @@ class PremiumBottomSheetFragment : BottomSheetDialogFragment() {
           style = MaterialTheme.typography.body1,
           modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 16.dp, vertical = 8.dp),
+            .padding(horizontal = padding_16, vertical = padding_8),
           textAlign = TextAlign.Left
         )
       }
@@ -145,7 +147,7 @@ class PremiumBottomSheetFragment : BottomSheetDialogFragment() {
 
           }, modifier = Modifier
             .fillMaxSize()
-            .padding(8.dp)
+            .padding(padding_8)
         ) {
           Text(getString(R.string.upgrade))
         }
@@ -155,8 +157,8 @@ class PremiumBottomSheetFragment : BottomSheetDialogFragment() {
         TextButton(
           onClick = { }, modifier = Modifier
             .fillMaxSize()
-            .padding(bottom = 8.dp)
-            .padding(horizontal = 8.dp)
+            .padding(bottom = padding_8)
+            .padding(horizontal = padding_8)
         ) {
           Text(text = getString(R.string.restore_purchase))
         }

@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.yonder.addtolist.common.ui.LoadingView
+import com.yonder.addtolist.theme.padding_8
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -61,8 +62,8 @@ class LanguageSelectionFragment : Fragment() {
                 color = Color.DarkGray,
                 modifier = Modifier
                   .fillMaxSize()
-                  .padding(bottom = 8.dp)
-                  .padding(horizontal = 8.dp)
+                  .padding(bottom = padding_8)
+                  .padding(horizontal = padding_8)
                   .align(Alignment.Bottom)
               )
             }

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -25,11 +26,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.yonder.addtolist.R
+import com.yonder.addtolist.common.ui.LoadingView
+import com.yonder.addtolist.scenes.premium.PremiumBottomSheetFragment
+import com.yonder.addtolist.theme.padding_8
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -60,6 +63,12 @@ class SettingsFragment : Fragment() {
             TextButton(
               onClick = {
                 when (imageDetail.titleResId) {
+                  R.string.be_premium -> {
+                    val bottomSheet = PremiumBottomSheetFragment()
+                    activity?.supportFragmentManager?.let {
+                      bottomSheet.show(it, bottomSheet.tag)
+                    }
+                  }
                   R.string.account -> {
                     findNavController().navigate(SettingsFragmentDirections.actionSettingsToAccountDetail())
                   }
@@ -72,7 +81,7 @@ class SettingsFragment : Fragment() {
               Row(
                 modifier = Modifier
                   .fillMaxSize()
-                  .padding(8.dp),
+                  .padding(padding_8),
                 horizontalArrangement = Arrangement.Start,
                 verticalAlignment = Alignment.CenterVertically
               ) {
@@ -82,7 +91,7 @@ class SettingsFragment : Fragment() {
                     painter = painterResource(it),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
-                    modifier = Modifier.padding(end = 8.dp)
+                    modifier = Modifier.padding(end = padding_8)
                   )
                 }
 
@@ -90,7 +99,7 @@ class SettingsFragment : Fragment() {
                   Icon(
                     painter = painterResource(id = it),
                     contentDescription = null,
-                    modifier = Modifier.padding(8.dp)
+                    modifier = Modifier.padding(padding_8)
                   )
                 }
 
@@ -98,20 +107,31 @@ class SettingsFragment : Fragment() {
                   Text(
                     style = MaterialTheme.typography.body1,
                     text = getString(it),
-                    modifier = Modifier.padding(8.dp)
+                    modifier = Modifier.padding(padding_8)
                   )
                 }
 
                 Text(
                   text = getString(imageDetail.titleResId),
                   color = Color.DarkGray,
-                  style = MaterialTheme.typography.body1)
-              }
+                  style = MaterialTheme.typography.body1
+                )
 
+                imageDetail.rightTitleResId?.let {
+                  Spacer(Modifier.weight(1f))
+                  Text(
+                    text = getString(it),
+                    color = Color.LightGray
+                  )
+                }
+              }
             }
             Divider(color = Color.LightGray)
           }
         }
+      }
+      is SettingsUIState.Loading -> {
+        LoadingView()
       }
     }
   }

@@ -1,6 +1,8 @@
 package com.yonder.addtolist.data.local
 
 import android.content.SharedPreferences
+import com.yonder.addtolist.common.ProviderType
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -84,6 +86,22 @@ class UserPreferenceDataStoreImpl @Inject constructor(private val sharedPreferen
     return sharedPreferences.getString(KEY_APP_TOKEN, null)
   }
 
+  override fun getProviderType(): ProviderType {
+    val providerTypeValue = sharedPreferences.getString(
+      KEY_PROVIDER_TYPE,
+      ProviderType.UNKNOWN.value
+    )
+    return ProviderType.init(providerTypeValue)
+  }
+
+
+  override fun setProviderType(providerType: ProviderType) {
+    sharedPreferences.edit().apply {
+      putString(KEY_PROVIDER_TYPE, providerType.value)
+      apply()
+    }
+  }
+
   companion object {
     const val KEY_IS_FETCHED_CATEGORIES = "key_fetched_categories"
     const val KEY_APP_PREFERENCES = "app_preferences"
@@ -92,6 +110,7 @@ class UserPreferenceDataStoreImpl @Inject constructor(private val sharedPreferen
     const val KEY_LANGUAGE = "key_language"
     const val KEY_LOCALE = "key_locale"
     const val KEY_CURRENCY = "key_currency"
+    const val KEY_PROVIDER_TYPE = "key_provider_type"
 
   }
 }

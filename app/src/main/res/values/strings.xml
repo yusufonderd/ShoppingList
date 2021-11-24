@@ -18,13 +18,14 @@
   <!-- Content Descriptions -->
   <string name="cd_splash_image">Splash Image</string>
   <string name="cd_welcome_image">Welcome Image</string>
+  <string name="cd_info_image">Info Image</string>
+  <string name="cd_error_image">Error Image</string>
 
 
   <!-- Login Screen -->
   <string name="continue_with_google">Continue with Google</string>
   <string name="continue_with_facebook">Continue with Facebook</string>
   <string name="continue_as_guest">Continue as a Guest</string>
-
 
   <!-- Create List Fragment-->
   <string name="create_your_first_list">Create your first list</string>
@@ -127,8 +128,9 @@
   <string name="premium_brand_title">Addtolist Premium</string>
 
   <string name="cd_profile_image">Profile image</string>
-
-
-
+  <string name="create_account">Create account</string>
+  <string name="anonymous_user_encourage_text">Create Addtolist account to share your shopping lists with other users.</string>
+  <string name="continue_with_fb">Continue with Facebook</string>
+  <string name="try_again">Try again</string>
 
 </resources>

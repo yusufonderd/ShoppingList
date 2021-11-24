@@ -11,6 +11,7 @@ import com.yonder.addtolist.core.network.LoginService
 import com.yonder.addtolist.core.network.responses.BaseResponse
 import com.yonder.addtolist.core.network.responses.UserResponse
 import com.yonder.addtolist.core.network.thread.CoroutineThread
+import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.domain.usecase.GetCurrentUserUseCase
 import com.yonder.addtolist.scenes.login.domain.mapper.LoginMapper
 import com.yonder.addtolist.scenes.login.domain.model.UserUiModel
@@ -31,7 +32,6 @@ import retrofit2.Retrofit
 /**
  * Yusuf Onder on 09,May,2021
  */
-
 
 @[Module InstallIn(ViewModelComponent::class)]
 interface LoginModule {
@@ -63,8 +63,9 @@ interface LoginModule {
     fun provideGetWidgetUseCase(
       repository: LoginRepository,
       coroutineThread: CoroutineThread,
-      loginMapper: LoginMapper
-    ) = GetCurrentUserUseCase(coroutineThread, loginMapper, repository)
+      loginMapper: LoginMapper,
+      userPreferenceDataStore: UserPreferenceDataStore
+    ) = GetCurrentUserUseCase(coroutineThread, loginMapper, repository,userPreferenceDataStore)
 
     @[Provides]
     fun provideGuestUserProvider(@ApplicationContext context: Context): UserProvider {

@@ -9,6 +9,12 @@
   <color name="white">#FFFFFFFF</color>
   <color name="main_color">#933AE2</color>
   <color name="colorPrimary">#933AE2</color>
+  <color name="colorPrimary_alpha_10">#1A933AE2</color>
+
+  <color name="google">#DB4437</color>
+  <color name="facebook">#4267B2</color>
+
+
   <color name="colorAccent">#4CAF50</color>
 
   <color name="colorPrimaryDark">#7A1DCD</color>
@@ -20,6 +26,8 @@
   <color name="gray_50">#EDEDED</color>
   <color name="colorGreen">#44BD4A</color>
   <color name="colorGray">#686868</color>
+  <color name="colorGray_alpha_10">#1A686868</color>
+
   <color name="colorGrouped">#EAEAF1</color>
 
 

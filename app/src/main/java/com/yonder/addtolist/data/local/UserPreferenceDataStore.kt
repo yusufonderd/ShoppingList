@@ -1,5 +1,6 @@
 package com.yonder.addtolist.data.local
 
+import com.yonder.addtolist.common.ProviderType
 import java.util.*
 
 /**
@@ -16,6 +17,8 @@ interface UserPreferenceDataStore {
   fun setCurrency(currency: String)
   fun getUUID(): String?
   fun getToken(): String?
+  fun getProviderType(): ProviderType
+  fun setProviderType(providerType: ProviderType)
   fun saveUUID(uuid: String)
   fun saveToken(token: String?)
   fun isFetchedCategoriesAndProducts(): Boolean

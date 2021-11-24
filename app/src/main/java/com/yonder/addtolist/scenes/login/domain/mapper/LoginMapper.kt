@@ -1,5 +1,6 @@
 package com.yonder.addtolist.scenes.login.domain.mapper
 
+import com.yonder.addtolist.common.ProviderType
 import com.yonder.addtolist.core.mapper.Mapper
 import com.yonder.addtolist.core.network.responses.BaseResponse
 import com.yonder.addtolist.core.network.responses.UserResponse
@@ -24,7 +25,8 @@ class LoginMapper @Inject constructor() :
       isPremium = input.data?.premium != 1,
       email = input.data?.email.orEmpty(),
       fullName = provideFullName(input.data),
-      createdAt = input.data?.createdAt.orEmpty()
+      createdAt = input.data?.createdAt.orEmpty(),
+      providerType = ProviderType.init(input.data?.providerType ?: "guest")
     )
   }
 

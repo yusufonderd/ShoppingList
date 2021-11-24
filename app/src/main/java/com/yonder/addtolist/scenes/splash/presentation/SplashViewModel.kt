@@ -27,8 +27,7 @@ class SplashViewModel @Inject constructor(
     startSplashFlow()
   }
 
-  private fun getUuid() {
-    viewModelScope.launch {
+  private fun getUuid() { viewModelScope.launch {
       userInfoUseCase.getUuid().collect()
     }
   }
