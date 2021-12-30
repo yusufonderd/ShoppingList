@@ -1,6 +1,6 @@
 package com.yonder.addtolist.scenes.listdetail.domain
 
-import com.yonder.addtolist.core.network.responses.Result
+import com.yonder.core.network.RestResult
 import com.yonder.addtolist.core.network.thread.CoroutineThread
 import com.yonder.addtolist.local.entity.UserListProductEntity
 import com.yonder.addtolist.scenes.listdetail.domain.mapper.UserListProductMapper
@@ -20,7 +20,7 @@ interface AddProductUseCase {
     listUUID: String,
     productName: String,
     productCategoryImage: String
-  ): Flow<Result<UserListProductEntity>>
+  ): Flow<RestResult<UserListProductEntity>>
 }
 
 
@@ -34,7 +34,7 @@ class AddProductUseCaseImpl @Inject constructor(
     listUUID: String,
     productName: String,
     productCategoryImage: String
-  ): Flow<Result<UserListProductEntity>> {
+  ): Flow<RestResult<UserListProductEntity>> {
     val createUserListProductRequest =
       UserListProductMapper.mapProductEntitySummaryToRequest(
         listId,

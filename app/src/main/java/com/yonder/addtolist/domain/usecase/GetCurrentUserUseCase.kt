@@ -1,7 +1,7 @@
 package com.yonder.addtolist.domain.usecase
 
 import com.yonder.addtolist.core.base.InputLessUseCase
-import com.yonder.addtolist.core.network.responses.Result
+import com.yonder.core.network.RestResult
 import com.yonder.addtolist.core.network.thread.CoroutineThread
 import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.scenes.login.domain.mapper.LoginMapper
@@ -24,17 +24,17 @@ class GetCurrentUserUseCase @Inject constructor(
   private val loginMapper: LoginMapper,
   private val loginRepository: LoginRepository,
   private val userPreferenceDataStore: UserPreferenceDataStore
-) : InputLessUseCase<Result<UserUiModel>> {
+) : InputLessUseCase<RestResult<UserUiModel>> {
 
-  override suspend fun invoke(): Flow<Result<UserUiModel>> {
+  override suspend fun invoke(): Flow<RestResult<UserUiModel>> {
     return flow {
-      emit(Result.Loading)
+      emit(RestResult.Loading)
       val userUiModel = loginMapper.map(loginRepository.getCurrentUser())
       Timber.d("userUiModel => $userUiModel")
       userPreferenceDataStore.setProviderType(userUiModel.providerType)
-      emit(Result.Success(userUiModel))
+      emit(RestResult.Success(userUiModel))
     }.catch { error ->
-      emit(Result.Error(error))
+      emit(RestResult.Error(error))
     }.flowOn(dispatcher.io)
   }
 

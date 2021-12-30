@@ -1,6 +1,6 @@
 package com.yonder.addtolist.scenes.listdetail.domain.product
 
-import com.yonder.addtolist.core.network.responses.Result
+import com.yonder.core.network.RestResult
 import com.yonder.addtolist.core.network.thread.CoroutineThread
 import com.yonder.addtolist.local.entity.ProductEntity
 import com.yonder.addtolist.local.entity.UserListProductEntity
@@ -35,7 +35,7 @@ class ProductUseCaseImpl @Inject constructor(
   override fun updateProduct(
     listId: String,
     productEntity: UserListProductEntity
-  ): Flow<Result<UserListProductEntity>> {
+  ): Flow<RestResult<UserListProductEntity>> {
     return productRepository
       .updateProduct(listId, productEntity)
       .flowOn(dispatcher.io)

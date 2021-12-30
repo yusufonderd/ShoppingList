@@ -1,6 +1,6 @@
 package com.yonder.addtolist.scenes.home.domain.usecase
 
-import com.yonder.addtolist.core.mapper.ListMapperImpl
+import com.yonder.core.base.mapper.ListMapperImpl
 import com.yonder.addtolist.core.network.thread.CoroutineThread
 import com.yonder.addtolist.scenes.home.domain.mapper.UserListWithProductsMapper
 import com.yonder.addtolist.scenes.home.domain.model.UserListUiModel

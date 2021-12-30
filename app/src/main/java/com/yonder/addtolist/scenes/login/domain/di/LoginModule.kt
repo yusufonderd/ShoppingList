@@ -6,7 +6,7 @@ import com.yonder.addtolist.common.utils.auth.FacebookUserProvider
 import com.yonder.addtolist.common.utils.auth.GoogleUserProvider
 import com.yonder.addtolist.common.utils.auth.GuestUserProvider
 import com.yonder.addtolist.common.utils.auth.UserProvider
-import com.yonder.addtolist.core.mapper.Mapper
+import com.yonder.core.base.mapper.Mapper
 import com.yonder.addtolist.core.network.LoginService
 import com.yonder.addtolist.core.network.responses.BaseResponse
 import com.yonder.addtolist.core.network.responses.UserResponse

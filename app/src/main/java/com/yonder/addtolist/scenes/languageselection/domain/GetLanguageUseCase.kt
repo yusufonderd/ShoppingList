@@ -3,7 +3,7 @@ package com.yonder.addtolist.scenes.languageselection.domain
 import com.yonder.addtolist.common.utils.device.LanguageUtils
 import com.yonder.addtolist.core.data.State
 import com.yonder.addtolist.core.data.map
-import com.yonder.addtolist.core.mapper.ListMapperImpl
+import com.yonder.core.base.mapper.ListMapperImpl
 import com.yonder.addtolist.scenes.languageselection.data.mapper.LanguageResponseMapper
 import com.yonder.addtolist.scenes.languageselection.data.model.LanguageUiModel
 import com.yonder.addtolist.scenes.languageselection.data.repository.LanguageRepository

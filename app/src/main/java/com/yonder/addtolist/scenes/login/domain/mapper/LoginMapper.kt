@@ -1,7 +1,7 @@
 package com.yonder.addtolist.scenes.login.domain.mapper
 
 import com.yonder.addtolist.common.ProviderType
-import com.yonder.addtolist.core.mapper.Mapper
+import com.yonder.core.base.mapper.Mapper
 import com.yonder.addtolist.core.network.responses.BaseResponse
 import com.yonder.addtolist.core.network.responses.UserResponse
 import com.yonder.addtolist.scenes.login.domain.model.UserUiModel

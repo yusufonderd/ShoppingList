@@ -1,6 +1,6 @@
 package com.yonder.addtolist.scenes.home.data
 
-import com.yonder.addtolist.core.mapper.ListMapperImpl
+import com.yonder.core.base.mapper.ListMapperImpl
 import com.yonder.addtolist.core.network.request.CreateUserListRequest
 import com.yonder.addtolist.local.entity.UserListEntity
 import com.yonder.addtolist.local.entity.UserListWithProducts

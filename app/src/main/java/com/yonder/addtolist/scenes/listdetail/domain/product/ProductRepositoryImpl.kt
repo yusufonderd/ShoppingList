@@ -3,7 +3,7 @@ package com.yonder.addtolist.scenes.listdetail.domain.product
 import com.yonder.addtolist.core.extensions.orZero
 import com.yonder.addtolist.core.network.exceptions.ServerResultException
 import com.yonder.addtolist.core.network.request.CreateUserListProductRequest
-import com.yonder.addtolist.core.network.responses.Result
+import com.yonder.core.network.RestResult
 import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.local.entity.ProductEntity
 import com.yonder.addtolist.local.entity.UserListProductEntity
@@ -37,17 +37,17 @@ class ProductRepositoryImpl @Inject constructor(
   override fun updateProduct(
     listId: String,
     product: UserListProductEntity
-  ): Flow<Result<UserListProductEntity>> = flow {
-    emit(Result.Loading)
+  ): Flow<RestResult<UserListProductEntity>> = flow {
+    emit(RestResult.Loading)
     val request = UserListProductMapper.mapEntityToResponse(listId, product)
     val response = api.updateProduct(product.id, request)
     if (response.success == true) {
       categoryDataSource.update(product)
     }
-    emit(Result.Success<UserListProductEntity>(product))
+    emit(RestResult.Success<UserListProductEntity>(product))
   }.catch { e ->
     e.printStackTrace()
-    emit(Result.Error(e))
+    emit(RestResult.Error(e))
   }
 
   override suspend fun delete(product: UserListProductUiModel) {
@@ -62,8 +62,8 @@ class ProductRepositoryImpl @Inject constructor(
   override fun addProduct(
     listUUID: String,
     product: CreateUserListProductRequest
-  ): Flow<Result<UserListProductEntity>> = flow {
-    emit(Result.Loading)
+  ): Flow<RestResult<UserListProductEntity>> = flow {
+    emit(RestResult.Loading)
 
     val entity = UserListProductMapper.mapRequestToEntity(listUUID, product)
     val response = api.createProduct(product)
@@ -71,15 +71,15 @@ class ProductRepositoryImpl @Inject constructor(
     if (response.success == true && response.data != null) {
       entity.id = response.data.id.orZero()
     } else {
-      emit(Result.Error<UserListProductEntity>(ServerResultException()))
+      emit(RestResult.Error<UserListProductEntity>(ServerResultException()))
     }
     categoryDataSource.insert(entity)
-    emit(Result.Success<UserListProductEntity>(entity))
+    emit(RestResult.Success<UserListProductEntity>(entity))
   }.catch { e ->
     e.printStackTrace()
     categoryDataSource.insert(
       UserListProductMapper.mapRequestToEntity(listUUID, product)
     )
-    emit(Result.Error(e))
+    emit(RestResult.Error(e))
   }
 }

@@ -1,6 +1,6 @@
 package com.yonder.addtolist.scenes.home.domain.mapper
 
-import com.yonder.addtolist.core.mapper.Mapper
+import com.yonder.core.base.mapper.Mapper
 import com.yonder.addtolist.scenes.home.data.remote.response.UserListResponse
 import com.yonder.addtolist.scenes.home.domain.model.UserListDataModel
 import javax.inject.Inject

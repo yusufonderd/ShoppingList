@@ -3,7 +3,7 @@ package com.yonder.addtolist.scenes.listdetail.domain.mapper
 import com.yonder.addtolist.core.extensions.orZero
 import com.yonder.addtolist.core.extensions.toBoolean
 import com.yonder.addtolist.core.extensions.toInt
-import com.yonder.addtolist.core.mapper.Mapper
+import com.yonder.core.base.mapper.Mapper
 import com.yonder.addtolist.core.network.request.CreateUserListProductRequest
 import com.yonder.addtolist.core.network.request.UserListProductRequest
 import com.yonder.addtolist.local.entity.ProductEntitySummary

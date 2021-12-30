@@ -1,7 +1,7 @@
 package com.yonder.addtolist.scenes.languageselection.data.mapper
 
 import com.yonder.addtolist.core.extensions.orZero
-import com.yonder.addtolist.core.mapper.Mapper
+import com.yonder.core.base.mapper.Mapper
 import com.yonder.addtolist.scenes.languageselection.data.model.LanguageResponse
 import com.yonder.addtolist.scenes.languageselection.data.model.LanguageUiModel
 import javax.inject.Inject

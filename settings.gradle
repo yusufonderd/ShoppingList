@@ -2,3 +2,4 @@ include ':app'
 rootProject.name = "Addtolist"
 include ':ui-component'
 include ':local'
+include ':core'

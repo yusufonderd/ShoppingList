@@ -1,6 +1,6 @@
 package com.yonder.addtolist.scenes.listdetail.domain.category
 
-import com.yonder.addtolist.core.network.responses.Result
+import com.yonder.core.network.RestResult
 import com.yonder.addtolist.local.entity.CategoryWithProducts
 import kotlinx.coroutines.flow.Flow
 
@@ -9,5 +9,5 @@ import kotlinx.coroutines.flow.Flow
  * Created on 19.07.2021
  */
 interface CategoryListRepository {
-  fun fetchCategories(): Flow<Result<List<CategoryWithProducts>>>
+  fun fetchCategories(): Flow<RestResult<List<CategoryWithProducts>>>
 }

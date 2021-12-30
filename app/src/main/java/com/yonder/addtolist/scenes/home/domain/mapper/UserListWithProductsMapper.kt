@@ -2,8 +2,8 @@ package com.yonder.addtolist.scenes.home.domain.mapper
 
 import android.content.Context
 import com.yonder.addtolist.core.extensions.orZero
-import com.yonder.addtolist.core.mapper.ListMapperImpl
-import com.yonder.addtolist.core.mapper.Mapper
+import com.yonder.core.base.mapper.ListMapperImpl
+import com.yonder.core.base.mapper.Mapper
 import com.yonder.addtolist.local.entity.UserListWithProducts
 import com.yonder.addtolist.scenes.home.domain.model.UserListUiModel
 import com.yonder.addtolist.scenes.home.domain.wrapper.UncompletedItemsWrapper

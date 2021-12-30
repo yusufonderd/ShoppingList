@@ -97,6 +97,8 @@ dependencies {
 
   implementation Libs.DaggerHilt.daggerHilt
   implementation project(path: ':local')
+  implementation project(path: ':core')
+
   kapt Libs.DaggerHilt.daggerHiltCompiler
 
   implementation Libs.Design.material

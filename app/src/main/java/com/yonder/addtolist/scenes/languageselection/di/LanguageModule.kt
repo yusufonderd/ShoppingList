@@ -1,6 +1,6 @@
 package com.yonder.addtolist.scenes.languageselection.di
 
-import com.yonder.addtolist.core.mapper.Mapper
+import com.yonder.core.base.mapper.Mapper
 import com.yonder.addtolist.scenes.languageselection.data.mapper.LanguageResponseMapper
 import com.yonder.addtolist.scenes.languageselection.data.model.LanguageResponse
 import com.yonder.addtolist.scenes.languageselection.data.model.LanguageUiModel

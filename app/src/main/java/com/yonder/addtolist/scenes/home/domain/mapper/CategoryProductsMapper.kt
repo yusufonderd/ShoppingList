@@ -1,6 +1,6 @@
 package com.yonder.addtolist.scenes.home.domain.mapper
 
-import com.yonder.addtolist.core.mapper.Mapper
+import com.yonder.core.base.mapper.Mapper
 import com.yonder.addtolist.core.network.responses.BaseResponse
 import com.yonder.addtolist.core.extensions.orZero
 import com.yonder.addtolist.scenes.home.data.remote.response.CategoryProductResponse

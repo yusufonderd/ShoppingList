@@ -1,4 +1,4 @@
-package com.yonder.addtolist.core.mapper
+package com.yonder.core.base.mapper
 
 /**
  * Yusuf Onder on 09,May,2021

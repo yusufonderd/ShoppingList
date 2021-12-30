@@ -1,8 +1,8 @@
 package com.yonder.addtolist.scenes.listdetail.domain.category
 
-import com.yonder.addtolist.core.mapper.ListMapperImpl
+import com.yonder.core.base.mapper.ListMapperImpl
 import com.yonder.addtolist.core.network.exceptions.ServerResultException
-import com.yonder.addtolist.core.network.responses.Result
+import com.yonder.core.network.RestResult
 import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.local.entity.CategoryWithProducts
 import com.yonder.addtolist.scenes.listdetail.domain.mapper.CategoryEntityMapper
@@ -27,9 +27,9 @@ class CategoryListRepositoryImpl @Inject constructor(
   private val mapper: CategoryProductsMapper
 ) : CategoryListRepository {
 
-  override fun fetchCategories(): Flow<Result<List<CategoryWithProducts>>> = flow {
+  override fun fetchCategories(): Flow<RestResult<List<CategoryWithProducts>>> = flow {
     if (!userPreferenceDataStore.isFetchedCategoriesAndProducts()) {
-      emit(Result.Loading)
+      emit(RestResult.Loading)
       val result = apiService.getCategories(null)
       val entities: CategoryProductsUiModel = mapper.map(result)
       entities.list.forEach { category ->
@@ -49,10 +49,10 @@ class CategoryListRepositoryImpl @Inject constructor(
         userPreferenceDataStore.setFetchedCategoriesAndProducts()
       }
     }
-    emit(Result.Success(categoryDataSource.getCategories()))
+    emit(RestResult.Success(categoryDataSource.getCategories()))
   }.catch { e ->
     e.printStackTrace()
-    emit(Result.Error(ServerResultException()))
+    emit(RestResult.Error(ServerResultException()))
   }
 }
 

@@ -1,6 +1,6 @@
 package com.yonder.addtolist.scenes.productdetail.domain
 
-import com.yonder.addtolist.core.mapper.ListMapperImpl
+import com.yonder.core.base.mapper.ListMapperImpl
 import com.yonder.addtolist.core.network.thread.CoroutineThread
 import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.local.AppDatabase
