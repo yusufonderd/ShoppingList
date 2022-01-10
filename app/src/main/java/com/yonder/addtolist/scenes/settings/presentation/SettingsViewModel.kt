@@ -51,14 +51,15 @@ class SettingsViewModel @Inject constructor(
           titleResId = R.string.share_app,
           leftImageResId = R.drawable.ic_baseline_share_24
         ),
-        ImageDetail(
+        // Enable after first version
+        /*ImageDetail(
           titleResId = R.string.be_premium,
           leftTitleResId = R.string.premium_emo
         ),
         ImageDetail(
           titleResId = R.string.help_us_to_translate_app,
           leftTitleResId = R.string.world_emo
-        ),
+        ),*/
         ImageDetail(
           titleResId = R.string.instagram,
           leftPngResId = R.drawable.instagram_sketched

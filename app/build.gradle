@@ -136,6 +136,8 @@ dependencies {
   implementation Libs.Compose.material
   implementation Libs.Compose.coil
 
+  implementation Libs.GooglePlay.core
+  implementation Libs.GooglePlay.coreKtx
 
   implementation Libs.AndroidX.common
   implementation Libs.AndroidX.runtime

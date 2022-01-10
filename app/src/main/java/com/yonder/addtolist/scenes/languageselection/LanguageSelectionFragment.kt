@@ -20,7 +20,9 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.yonder.addtolist.common.ui.ErrorView
 import com.yonder.addtolist.common.ui.LoadingView
+import com.yonder.addtolist.scenes.accountdetail.AccountDetailViewState
 import com.yonder.addtolist.theme.padding_8
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,50 +34,55 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LanguageSelectionFragment : Fragment() {
 
-  private val viewModel: LanguageSelectionViewModel by viewModels()
+    private val viewModel: LanguageSelectionViewModel by viewModels()
 
-  override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View {
-    return ComposeView(requireContext()).apply {
-      setContent {
-        MainContent()
-      }
-    }
-  }
-
-  @Composable
-  fun MainContent() {
-    val languageUiState by viewModel.state.collectAsState()
-    when (languageUiState) {
-      is LanguageSelectionViewEvent.Load -> {
-        LazyColumn {
-          items((languageUiState as LanguageSelectionViewEvent.Load).languages) { language ->
-            TextButton(
-              onClick = {
-
-              }
-            ) {
-              Text(text = language.name,
-                color = Color.DarkGray,
-                modifier = Modifier
-                  .fillMaxSize()
-                  .padding(bottom = padding_8)
-                  .padding(horizontal = padding_8)
-                  .align(Alignment.Bottom)
-              )
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        return ComposeView(requireContext()).apply {
+            setContent {
+                MainContent()
             }
-          }
         }
-      }
-      else -> {
-        LoadingView()
-      }
-
     }
 
-  }
+    @Composable
+    fun MainContent() {
+        val languageUiState by viewModel.state.collectAsState()
+        when (languageUiState) {
+            is LanguageSelectionViewEvent.Load -> {
+                LazyColumn {
+                    items((languageUiState as LanguageSelectionViewEvent.Load).languages) { language ->
+                        TextButton(
+                            onClick = {
+
+                            }
+                        ) {
+                            Text(
+                                text = language.name,
+                                color = Color.DarkGray,
+                                modifier = Modifier
+                                  .fillMaxSize()
+                                  .padding(bottom = padding_8)
+                                  .padding(horizontal = padding_8)
+                                  .align(Alignment.Bottom)
+                            )
+                        }
+                    }
+                }
+            }
+            is LanguageSelectionViewEvent.Error -> {
+                ErrorView(centerText = (languageUiState as LanguageSelectionViewEvent.Error).message) {
+                }
+            }
+            else -> {
+                LoadingView()
+            }
+
+        }
+
+    }
 
 }
