@@ -6,7 +6,8 @@
   <string name="title_settings">Settings</string>
   <string name="title_account_detail">Account</string>
   <string name="title_language_selection">Select language</string>
-
+  <string name="title_about">About</string>
+  <string name="title_license">License</string>
   <string name="title_splash">Splash</string>
   <string name="title_login">Login</string>
   <string name="btn_login">Login</string>
@@ -20,7 +21,7 @@
   <string name="cd_welcome_image">Welcome Image</string>
   <string name="cd_info_image">Info Image</string>
   <string name="cd_error_image">Error Image</string>
-
+  <string name="cd_navigate_url">Navigate Url Image</string>
 
   <!-- Login Screen -->
   <string name="continue_with_google">Continue with Google</string>
@@ -132,5 +133,12 @@
   <string name="anonymous_user_encourage_text">Create Addtolist account to share your shopping lists with other users.</string>
   <string name="continue_with_fb">Continue with Facebook</string>
   <string name="try_again">Try again</string>
+
+  <string name="about_description">Addtolist is a shopping list application where you can simply create and share shopping lists. It allows you to simply add products to the shopping lists you create. You can add information such as quantity, note and unit to the products you add. You can mark the products you have purchased as received.</string>
+  <string name="privacy_policy">Privacy policy</string>
+  <string name="license">License</string>
+  <string name="version">Version</string>
+  <string name="license_1_title">Freepik</string>
+  <string name="license_1_description">Some of icons are made by [Freepik] from www.flaticon.com</string>
 
 </resources>

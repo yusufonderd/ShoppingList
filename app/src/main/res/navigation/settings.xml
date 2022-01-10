@@ -1,78 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/settings"
-  app:startDestination="@id/settingsScreen">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/settings"
+    app:startDestination="@id/settingsScreen">
 
 
-  <fragment
-    android:id="@+id/splashScreen"
-    android:name="com.yonder.addtolist.scenes.splash.presentation.SplashFragment"
-    android:label="@string/title_splash"
-    tools:layout="@layout/splash_fragment">
-    <action
-      android:id="@+id/action_splash_to_settings"
-      app:destination="@id/settingsScreen" />
-  </fragment>
+    <fragment
+        android:id="@+id/splashScreen"
+        android:name="com.yonder.addtolist.scenes.splash.presentation.SplashFragment"
+        android:label="@string/title_splash"
+        tools:layout="@layout/splash_fragment">
+        <action
+            android:id="@+id/action_splash_to_settings"
+            app:destination="@id/settingsScreen" />
+    </fragment>
 
 
-  <fragment
-    android:id="@+id/loginScreen"
-    android:name="com.yonder.addtolist.scenes.login.presentation.LoginFragment"
-    android:label="@string/title_login"
-    tools:layout="@layout/login_fragment">
-    <action
-      android:id="@+id/action_login_to_shopping_list_items"
-      app:destination="@id/shoppingListItemsScreen" />
-  </fragment>
+    <fragment
+        android:id="@+id/loginScreen"
+        android:name="com.yonder.addtolist.scenes.login.presentation.LoginFragment"
+        android:label="@string/title_login"
+        tools:layout="@layout/login_fragment">
+        <action
+            android:id="@+id/action_login_to_shopping_list_items"
+            app:destination="@id/shoppingListItemsScreen" />
+    </fragment>
 
 
-  <fragment
-    android:id="@+id/settingsScreen"
-    android:name="com.yonder.addtolist.scenes.settings.presentation.SettingsFragment"
-    android:label="@string/title_settings"
-    tools:layout="@layout/settings_fragment">
-    <action
-      android:id="@+id/action_settings_to_splash"
-      app:destination="@id/splashScreen" />
+    <fragment
+        android:id="@+id/settingsScreen"
+        android:name="com.yonder.addtolist.scenes.settings.presentation.SettingsFragment"
+        android:label="@string/title_settings"
+        tools:layout="@layout/settings_fragment">
+        <action
+            android:id="@+id/action_settings_to_splash"
+            app:destination="@id/splashScreen" />
 
-    <action
-      android:id="@+id/action_settings_to_account_detail"
-      app:destination="@id/accountDetailFragment" />
+        <action
+            android:id="@+id/action_settings_to_account_detail"
+            app:destination="@id/accountDetailFragment" />
 
-    <action
-      android:id="@+id/action_settings_to_language_selection"
-      app:destination="@id/languageSelectionFrafgment" />
+        <action
+            android:id="@+id/action_settings_to_language_selection"
+            app:destination="@id/languageSelectionFrafgment" />
 
-    <action
-      android:id="@+id/action_shopping_list_items_to_login"
-      app:destination="@id/loginScreen" />
+        <action
+            android:id="@+id/action_shopping_list_items_to_login"
+            app:destination="@id/loginScreen" />
 
+        <action
+            android:id="@+id/action_settings_to_about"
+            app:destination="@id/aboutFragment" />
 
+    </fragment>
 
-  </fragment>
+    <fragment
+        android:id="@+id/accountDetailFragment"
+        android:name="com.yonder.addtolist.scenes.accountdetail.AccountDetailFragment"
+        android:label="@string/title_account_detail"
+        tools:layout="@layout/fragment_account_detail">
 
-  <fragment
-    android:id="@+id/accountDetailFragment"
-    android:name="com.yonder.addtolist.scenes.accountdetail.AccountDetailFragment"
-    android:label="@string/title_account_detail"
-    tools:layout="@layout/fragment_account_detail">
+        <action
+            android:id="@+id/action_account_detail_to_login"
+            app:destination="@id/loginScreen" />
 
+    </fragment>
 
-    <action
-      android:id="@+id/action_account_detail_to_login"
-      app:destination="@id/loginScreen" />
+    <fragment
+        android:id="@+id/languageSelectionFrafgment"
+        android:name="com.yonder.addtolist.scenes.languageselection.LanguageSelectionFragment"
+        android:label="@string/title_language_selection"
+        tools:layout="@layout/fragment_language_selection" />
 
-  </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.yonder.addtolist.scenes.about.AboutFragment"
+        android:label="@string/title_about">
+        <action
+            android:id="@+id/action_settings_to_license"
+            app:destination="@id/licenseFragment" />
+    </fragment>
 
-  <fragment
-    android:id="@+id/languageSelectionFrafgment"
-    android:name="com.yonder.addtolist.scenes.languageselection.LanguageSelectionFragment"
-    android:label="@string/title_language_selection"
-    tools:layout="@layout/fragment_language_selection">
-
-
-  </fragment>
+    <fragment
+        android:id="@+id/licenseFragment"
+        android:name="com.yonder.addtolist.scenes.about.LicenseFragment"
+        android:label="@string/title_license" />
 
 </navigation>

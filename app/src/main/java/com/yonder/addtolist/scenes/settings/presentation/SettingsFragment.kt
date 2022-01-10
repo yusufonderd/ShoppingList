@@ -72,6 +72,9 @@ class SettingsFragment : Fragment() {
                   R.string.account -> {
                     findNavController().navigate(SettingsFragmentDirections.actionSettingsToAccountDetail())
                   }
+                  R.string.about -> {
+                    findNavController().navigate(SettingsFragmentDirections.actionSettingsToAbout())
+                  }
                   R.string.language -> {
                     findNavController().navigate(SettingsFragmentDirections.actionSettingsToLanguageSelection())
                   }
