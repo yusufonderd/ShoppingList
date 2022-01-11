@@ -1,90 +1,81 @@
 package com.yonder.addtolist.scenes.home.presentation
 
+import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.core.view.isVisible
+import android.view.View
+import android.view.ViewGroup
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.material.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ComposeView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.yonder.addtolist.R
-import com.yonder.addtolist.common.ui.base.BaseFragment
-import com.yonder.addtolist.common.ui.extensions.addVerticalDivider
-import com.yonder.addtolist.common.ui.extensions.removeAnimator
-import com.yonder.addtolist.common.ui.extensions.setLinearLayoutManager
-import com.yonder.addtolist.common.ui.extensions.setSafeOnClickListener
-import com.yonder.addtolist.databinding.FragmentHomeBinding
+import com.yonder.addtolist.common.ui.LoadingView
 import com.yonder.addtolist.scenes.home.domain.model.UserListUiModel
-import com.yonder.addtolist.scenes.home.presentation.adapter.UserListAdapter
+import com.yonder.addtolist.theme.padding_8
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding>() {
+class HomeFragment : Fragment() {
 
-  val viewModel: ShoppingListItemsViewModel by viewModels()
+    val viewModel: ShoppingListItemsViewModel by viewModels()
 
-  override fun initBinding(inflater: LayoutInflater) =
-    FragmentHomeBinding.inflate(inflater)
-
-  override fun onResume() {
-    super.onResume()
-    viewModel.getShoppingItems()
-  }
-
-  override fun initViews() {
-    binding.fabAdd.setSafeOnClickListener {
-      findNavController().navigate(R.id.action_shopping_list_to_create_list)
-    }
-    initRecyclerView()
-  }
-
-  private fun initRecyclerView() = with(binding.rvUserList) {
-    setLinearLayoutManager()
-    addVerticalDivider()
-    removeAnimator()
-  }
-
-  override fun initObservers() {
-    viewModel.state.observe(viewLifecycleOwner) { viewState ->
-      when (viewState) {
-        is ShoppingListItemsViewState.SetLayoutState -> {
-          binding.stateLayout.setState(viewState.layoutState)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        return ComposeView(requireContext()).apply {
+            setContent {
+                MainContent()
+            }
         }
-        is ShoppingListItemsViewState.CreateNewListContent -> {
-          showCreateListView()
+    }
+
+    @Composable
+    fun MainContent() {
+        val uiState by viewModel.uiState.collectAsState()
+        if (uiState.isLoading) {
+            LoadingView()
+        } else {
+            LazyColumn(modifier = Modifier.fillMaxHeight()) {
+                items(uiState.userLists, itemContent = { list ->
+                    TextButton(
+                        onClick = {
+                            navigateUserListDetail(list)
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(
+                            text = list.name,
+                            style = MaterialTheme.typography.h5,
+                            modifier = Modifier.padding(padding_8)
+                        )
+                    }
+                    Divider()
+                })
+            }
         }
-        is ShoppingListItemsViewState.Result -> {
-          onListLoaded(viewState.userLists)
-        }
-      }
     }
 
-  }
-
-  private fun showCreateListView() = with(binding) {
-    ytCreateList.isVisible = true
-    fabAdd.isVisible = false
-    ytCreateList.initView(R.string.create_your_first_list, R.string.create_list) {
-      findNavController().navigate(R.id.action_shopping_list_to_create_list)
+    private fun navigateUserListDetail(userList: UserListUiModel) {
+        findNavController().navigate(
+            HomeFragmentDirections.actionShoppingListToListDetail(
+                userList = userList,
+                title = userList.name
+            )
+        )
     }
-  }
-
-  private fun onListLoaded(userLists: List<UserListUiModel>) = with(binding) {
-    binding.fabAdd.isVisible = true
-    binding.ytCreateList.isVisible = false
-    rvUserList.adapter = UserListAdapter(::onClickUserList).apply {
-      submitList(userLists)
-    }
-  }
-
-  private fun onClickUserList(userList: UserListUiModel) {
-    navigateUserListDetail(userList)
-  }
-
-  private fun navigateUserListDetail(userList: UserListUiModel) {
-    findNavController().navigate(
-      HomeFragmentDirections.actionShoppingListToListDetail(
-        userList = userList,
-        title = userList.name
-      )
-    )
-  }
 
 }

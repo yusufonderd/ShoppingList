@@ -6,8 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.scenes.createlist.domain.CreateListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,9 +29,9 @@ class CreateListViewModel @Inject constructor(
     } else {
       _state.value = CreateListViewEvent.Loading
       viewModelScope.launch {
-        createListUseCase(listName, listColor).onEach {
+        createListUseCase(listName, listColor).collectLatest {
           _state.value = CreateListViewEvent.ListCreated
-        }.launchIn(viewModelScope)
+        }
       }
     }
   }
