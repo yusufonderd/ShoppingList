@@ -18,10 +18,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.colorResource
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.yonder.addtolist.R
 import com.yonder.addtolist.common.ui.LoadingView
+import com.yonder.addtolist.common.ui.NoListView
 import com.yonder.addtolist.scenes.home.domain.model.UserListUiModel
 import com.yonder.addtolist.theme.padding_8
 import dagger.hilt.android.AndroidEntryPoint
@@ -49,23 +52,35 @@ class HomeFragment : Fragment() {
         if (uiState.isLoading) {
             LoadingView()
         } else {
-            LazyColumn(modifier = Modifier.fillMaxHeight()) {
-                items(uiState.userLists, itemContent = { list ->
-                    TextButton(
-                        onClick = {
-                            navigateUserListDetail(list)
-                        },
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Text(
-                            text = list.name,
-                            style = MaterialTheme.typography.h5,
-                            modifier = Modifier.padding(padding_8)
-                        )
-                    }
-                    Divider()
+            if (uiState.shouldShowAddListView) {
+                NoListView(onClickCreateNewList = {
+                    findNavController().navigate(R.id.action_shopping_list_to_create_list)
                 })
+            } else {
+                LazyColumn(modifier = Modifier.fillMaxHeight()) {
+                    items(uiState.userLists, itemContent = { list ->
+                        ListRow(list = list)
+                        Divider()
+                    })
+                }
             }
+        }
+    }
+
+    @Composable
+    fun ListRow(list: UserListUiModel) {
+        TextButton(
+            onClick = {
+                navigateUserListDetail(list)
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(
+                text = list.name,
+                style = MaterialTheme.typography.h5,
+                modifier = Modifier.padding(padding_8),
+                color = colorResource(id = R.color.primaryTextColor)
+            )
         }
     }
 

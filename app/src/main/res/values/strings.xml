@@ -22,6 +22,7 @@
   <string name="cd_info_image">Info Image</string>
   <string name="cd_error_image">Error Image</string>
   <string name="cd_navigate_url">Navigate Url Image</string>
+  <string name="cd_create_new_list">Create new list</string>
 
   <!-- Login Screen -->
   <string name="continue_with_google">Continue with Google</string>

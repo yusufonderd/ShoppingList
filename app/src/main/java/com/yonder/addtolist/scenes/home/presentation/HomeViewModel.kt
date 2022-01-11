@@ -27,7 +27,9 @@ class ShoppingListItemsViewModel @Inject constructor(
     private fun getShoppingItems() {
         viewModelScope.launch {
             getUserListsUseCase().collect { userLists ->
-                _uiState.update { it.copy(userLists = userLists, isLoading = false) }
+                _uiState.update {
+                    it.copy(userLists = userLists, isLoading = false)
+                }
             }
         }
     }
@@ -35,6 +37,8 @@ class ShoppingListItemsViewModel @Inject constructor(
     data class UiState(
         val isLoading: Boolean,
         var userLists: List<UserListUiModel> = emptyList()
-    )
+    ) {
+        val shouldShowAddListView get() = userLists.isEmpty()
+    }
 
 }
