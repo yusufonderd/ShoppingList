@@ -30,8 +30,9 @@ class GetCurrentUserUseCase @Inject constructor(
     return flow {
       emit(RestResult.Loading)
       val userUiModel = loginMapper.map(loginRepository.getCurrentUser())
-      Timber.d("userUiModel => $userUiModel")
       userPreferenceDataStore.setProviderType(userUiModel.providerType)
+      userPreferenceDataStore.setProfileUrl(userUiModel.profileImage)
+      userPreferenceDataStore.setFullName(userUiModel.fullName)
       emit(RestResult.Success(userUiModel))
     }.catch { error ->
       emit(RestResult.Error(error))

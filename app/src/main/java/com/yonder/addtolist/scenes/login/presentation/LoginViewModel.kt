@@ -99,6 +99,9 @@ class LoginViewModel @Inject constructor(
     val token = userUiModel.token
     if (token != null) {
       userPreferenceDataStore.saveToken(token)
+      userPreferenceDataStore.setFullName(userUiModel.fullName)
+      userPreferenceDataStore.setProfileUrl(userUiModel.profileImage)
+      userPreferenceDataStore.setProviderType(userUiModel.providerType)
       _state.value = LoginViewState.NavigateLogin
     } else {
       _state.value = LoginViewState.Error(userUiModel.result.message)

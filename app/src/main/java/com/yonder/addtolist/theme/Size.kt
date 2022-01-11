@@ -8,6 +8,7 @@ import androidx.compose.ui.unit.dp
  */
 
 val profile_image_size = 128.dp
+val profile_image_size_small = 48.dp
 
 val default_page_padding = 16.dp
 

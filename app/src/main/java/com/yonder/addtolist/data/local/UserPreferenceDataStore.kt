@@ -9,18 +9,22 @@ import java.util.*
 
 @Suppress("TooManyFunctions")
 interface UserPreferenceDataStore {
-  fun getAppLanguageId(): Int
-  fun setAppLanguageId(languageId: Int)
-  fun getLocale(): Locale
-  fun setLocale(locale: Locale)
-  fun getCurrency(): String
-  fun setCurrency(currency: String)
-  fun getUUID(): String?
-  fun getToken(): String?
-  fun getProviderType(): ProviderType
-  fun setProviderType(providerType: ProviderType)
-  fun saveUUID(uuid: String)
-  fun saveToken(token: String?)
-  fun isFetchedCategoriesAndProducts(): Boolean
-  fun setFetchedCategoriesAndProducts()
+    fun getAppLanguageId(): Int
+    fun setAppLanguageId(languageId: Int)
+    fun getLocale(): Locale
+    fun setLocale(locale: Locale)
+    fun getCurrency(): String
+    fun setCurrency(currency: String)
+    fun getUUID(): String?
+    fun getToken(): String?
+    fun getFullName(): String?
+    fun getProfileUrl(): String?
+    fun getProviderType(): ProviderType
+    fun setProviderType(providerType: ProviderType)
+    fun setProfileUrl(url: String)
+    fun setFullName(name: String)
+    fun saveUUID(uuid: String)
+    fun saveToken(token: String?)
+    fun isFetchedCategoriesAndProducts(): Boolean
+    fun setFetchedCategoriesAndProducts()
 }
