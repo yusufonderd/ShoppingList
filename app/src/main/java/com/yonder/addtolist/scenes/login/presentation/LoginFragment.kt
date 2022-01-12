@@ -62,7 +62,7 @@ class LoginFragment : BaseFragment<LoginFragmentBinding>() {
   }
 
 
-  internal val startForGoogleSignInResult =
+  private val startForGoogleSignInResult =
     registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
       if (result.resultCode == Activity.RESULT_OK) {
         handleSignInResult(GoogleSignIn.getSignedInAccountFromIntent(result.data))
@@ -85,9 +85,10 @@ class LoginFragment : BaseFragment<LoginFragmentBinding>() {
 
   private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
     try {
-      completedTask.getResult(ApiException::class.java)?.let { account ->
+      val account = completedTask.getResult(ApiException::class.java)
+      if (account != null){
         viewModel.continueWithGoogle(account)
-      } ?: run {
+      }else{
         context?.showToastMessage(R.string.error_occurred)
       }
     } catch (e: ApiException) {

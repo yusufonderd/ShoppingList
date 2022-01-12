@@ -5,16 +5,14 @@ import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.core.data.SingleLiveEvent
 import com.yonder.addtolist.core.extensions.orZero
 import com.yonder.addtolist.domain.usecase.DeleteUserListProduct
-import com.yonder.addtolist.domain.usecase.GetCategories
-import com.yonder.addtolist.domain.usecase.GetUserListProduct
+import com.yonder.addtolist.domain.usecase.GetProductDetail
 import com.yonder.addtolist.domain.usecase.UpdateUserListProduct
 import com.yonder.addtolist.scenes.home.domain.model.CategoryUiModel
 import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
 import com.yonder.addtolist.scenes.productdetail.model.enums.ProductUnitType
-import com.yonder.addtolist.scenes.productdetail.utils.CategoryFinder
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,32 +23,27 @@ import javax.inject.Inject
 @Suppress("TooManyFunctions")
 @HiltViewModel
 class ProductDetailViewModel @Inject constructor(
-    private val getProductUseCase: GetUserListProduct,
+    private val getProductDetail: GetProductDetail,
     private val deleteProductUseCase: DeleteUserListProduct,
     private val updateProductUseCase: UpdateUserListProduct,
-    private val getCategoriesUseCase: GetCategories
 ) : ViewModel() {
 
     private val _event: SingleLiveEvent<ProductDetailViewEvent> =
         SingleLiveEvent()
     val event: SingleLiveEvent<ProductDetailViewEvent> get() = _event
 
-    fun fetchProductId(selectedProductId: Int?) {
-        if (selectedProductId != null) {
-            val flow1 = getCategoriesUseCase.invoke()
-            val flow2 = getProductUseCase.invoke(selectedProductId)
-            flow1.combine(flow2) { categories, product ->
-                if (product != null) {
-                    val categoryOfProduct = CategoryFinder(categories).find(product.categoryImage)
+    fun fetchProductId(selectedProductId: Int) {
+        viewModelScope.launch {
+            val params = getProductDetail.invoke(selectedProductId)
+            params
+                .mapNotNull { it }
+                .collectLatest { param ->
                     _event.value = ProductDetailViewEvent.Load(
-                        categories = categories,
-                        product = product,
-                        categoryOfProduct = categoryOfProduct
+                        categories = param.categories,
+                        product = param.product,
+                        categoryOfProduct = param.categoryOfProduct
                     )
-                } else {
-                    _event.value = ProductDetailViewEvent.ProductNotFound
                 }
-            }.launchIn(viewModelScope)
         }
     }
 

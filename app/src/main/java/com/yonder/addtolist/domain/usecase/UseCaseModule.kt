@@ -26,7 +26,7 @@ object UseCaseModule {
     }
 
     @[Provides]
-    fun DeleteUserListProduct(
+    fun provideDeleteUserListProduct(
         productRepository: ProductRepository
     ): DeleteUserListProduct {
         return DeleteUserListProduct(productRepository)
