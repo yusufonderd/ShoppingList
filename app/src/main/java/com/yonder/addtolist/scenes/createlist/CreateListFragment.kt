@@ -1,94 +1,146 @@
 package com.yonder.addtolist.scenes.createlist
 
+import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.core.text.trimmedLength
-import androidx.core.widget.addTextChangedListener
+import android.view.View
+import android.view.ViewGroup
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.unit.dp
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.yonder.addtolist.R
-import com.yonder.addtolist.common.ui.base.BaseFragment
-import com.yonder.addtolist.common.ui.extensions.cursorEnd
-import com.yonder.addtolist.common.ui.extensions.setSafeOnClickListener
 import com.yonder.addtolist.common.utils.decider.ColorDecider
-import com.yonder.addtolist.core.extensions.LENGTH_ZERO
-import com.yonder.addtolist.core.extensions.orZero
-import com.yonder.addtolist.databinding.FragmentCreateListBinding
-import com.yonder.addtolist.scenes.premium.PremiumBottomSheetFragment
-import com.yonder.statelayout.State
+import com.yonder.addtolist.theme.padding_16
+import com.yonder.addtolist.theme.padding_8
+import com.yonder.uicomponent.compose.ColorPicker
+import com.yonder.uicomponent.compose.HorizontalChipView
+import com.yonder.uicomponent.compose.LoadingView
+import com.yonder.uicomponent.compose.buttons.SubmitButton
+import com.yonder.uicomponent.constants.listColors
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@ExperimentalMaterialApi
+@ExperimentalFoundationApi
 @AndroidEntryPoint
-class CreateListFragment : BaseFragment<FragmentCreateListBinding>() {
+class CreateListFragment : Fragment() {
 
-  val viewModel: CreateListViewModel by viewModels()
+    val viewModel: CreateListViewModel by viewModels()
 
-  @Inject
-  lateinit var colorDecider: ColorDecider
+    @Inject
+    lateinit var colorDecider: ColorDecider
 
-  override fun initBinding(inflater: LayoutInflater) = FragmentCreateListBinding.inflate(inflater)
+    private val listNames get() = requireContext().resources.getStringArray(R.array.list_names)
 
-  private val listNames get() = requireContext().resources.getStringArray(R.array.list_names)
-
-  private val listColors get() = requireContext().resources.getIntArray(R.array.rainbow)
-
-
-  override fun initObservers() {
-    viewModel.event.observe(viewLifecycleOwner) { viewState ->
-      when (viewState) {
-        is CreateListViewEvent.ShowBlankListNameError -> {
-          showEmptyListError()
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        return ComposeView(requireContext()).apply {
+            setContent {
+                MainContent()
+            }
         }
-        is CreateListViewEvent.Loading -> {
-          binding.stateLayout.setState(State.LOADING)
+    }
+
+    @Composable
+    fun MainContent() {
+        val state by viewModel.uiState.collectAsState()
+        val textState = remember { mutableStateOf(TextFieldValue()) }
+        val selectedColorState: MutableState<Int> = remember { mutableStateOf(R.color.listColor1) }
+
+        if (state.isLoading) {
+            LoadingView()
+        } else {
+            Column {
+
+                TextField(
+                    value = textState.value,
+                    textStyle = MaterialTheme.typography.body1,
+                    isError = state.shouldShowBlankListNameError,
+                    onValueChange = { textState.value = it },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = padding_16)
+                        .padding(
+                            top = padding_16,
+                            bottom = padding_8
+                        ),
+                    placeholder = {
+                        Text(text = stringResource(id = R.string.list_name))
+                    }
+                )
+                if (state.shouldShowBlankListNameError) {
+                    Text(
+                        text = stringResource(id = R.string.list_name_should_not_be_empty),
+                        color = MaterialTheme.colors.error,
+                        style = MaterialTheme.typography.caption,
+                        modifier = Modifier.padding(start = padding_8)
+                    )
+                }
+
+                HorizontalChipView(
+                    listNames = listNames,
+                    modifier = Modifier.padding(horizontal = padding_8),
+                    onClickListItem = { listName ->
+                        textState.value = TextFieldValue(listName)
+                    }
+                )
+
+                ColorPickerBorderView(
+                    listColors = listColors,
+                    selectedColor = selectedColorState.value,
+                    onClickColor = {
+                        selectedColorState.value = it
+                    }
+                )
+
+                SubmitButton(textResId = R.string.create, onClick = {
+                    viewModel.createList(
+                        listName = textState.value.text,
+                        listColor = colorDecider.convertToHexString(selectedColorState.value)
+                    )
+                })
+
+            }
         }
-        is CreateListViewEvent.ListCreated -> {
-          closeFragment()
+    }
+
+    @Composable
+    fun ColorPickerBorderView(
+        listColors: List<Int>,
+        onClickColor: (Int) -> Unit,
+        selectedColor: Int? = null
+    ) {
+        Surface(
+            modifier = Modifier.padding(padding_8),
+            elevation = 8.dp,
+            shape = RoundedCornerShape(16.dp),
+            border = BorderStroke(
+                width = 1.dp,
+                color = colorResource(R.color.gray_100)
+            )
+        ) {
+            ColorPicker(
+                listColors = listColors,
+                modifier = Modifier.padding(padding_8),
+                onClickColor = onClickColor,
+                selectedColor = selectedColor
+            )
         }
-        else -> Unit
-      }
     }
-  }
-
-  private fun showEmptyListError() {
-    binding.textField.error = getString(R.string.list_name_should_not_be_empty)
-    binding.textField.isErrorEnabled = true
-  }
-
-  override fun initViews() {
-    initHorizontalPicker()
-    initCreateBtn()
-    initEditText()
-  }
-
-  private fun initCreateBtn() = with(binding) {
-    btnCreateList.setSafeOnClickListener {
-      val listName = tilName.text.toString()
-      viewModel.createList(
-        listName = listName,
-        listColor = colorDecider.convertToHexString(yoColorPicker.getSelectedColorResId())
-      )
-    }
-  }
-
-  private fun initHorizontalPicker() = with(binding) {
-    horizontalPicker.initView(listNames) { listName ->
-      tilName.setText(listName)
-      tilName.cursorEnd()
-    }
-    yoColorPicker.initView(listColors,onClickCreateOwnColor = {
-      val bottomSheet = PremiumBottomSheetFragment()
-      activity?.supportFragmentManager?.let {
-        bottomSheet.show(it, bottomSheet.tag)
-      }
-    })
-  }
-
-  private fun initEditText() = with(binding.tilName) {
-    addTextChangedListener { editable ->
-      if (editable?.trimmedLength().orZero() > LENGTH_ZERO) {
-        binding.textField.isErrorEnabled = false
-      }
-    }
-  }
 
 }
