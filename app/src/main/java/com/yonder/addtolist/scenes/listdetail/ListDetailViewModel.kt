@@ -3,14 +3,14 @@ package com.yonder.addtolist.scenes.listdetail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.core.extensions.EMPTY_STRING
+import com.yonder.addtolist.domain.usecase.DeleteUserListProduct
+import com.yonder.addtolist.domain.usecase.GetUserList
+import com.yonder.addtolist.domain.usecase.UpdateUserListProduct
 import com.yonder.addtolist.local.entity.CATEGORY_OTHER_IMAGE
 import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
 import com.yonder.addtolist.scenes.listdetail.domain.category.ProductQueryUseCase
 import com.yonder.addtolist.scenes.listdetail.domain.product.ProductUseCase
-import com.yonder.addtolist.scenes.home.domain.usecase.GetUserListUseCase
 import com.yonder.addtolist.scenes.listdetail.domain.AddProductUseCase
-import com.yonder.addtolist.scenes.productdetail.domain.DeleteProductUseCase
-import com.yonder.addtolist.scenes.productdetail.domain.UpdateProductUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,9 +34,9 @@ class ListDetailViewModel @Inject constructor(
   private val productQueryUseCase: ProductQueryUseCase,
   private val productUseCase: ProductUseCase,
   private val addProductUseCase: AddProductUseCase,
-  private val updateProductUseCase: UpdateProductUseCase,
-  private val deleteProductUseCase: DeleteProductUseCase,
-  private val getUserListUseCase: GetUserListUseCase
+  private val updateProductUseCase: UpdateUserListProduct,
+  private val deleteProductUseCase: DeleteUserListProduct,
+  private val getUserListUseCase: GetUserList
 ) : ViewModel() {
 
   private val _state: MutableStateFlow<ListDetailViewState> =
@@ -46,7 +46,7 @@ class ListDetailViewModel @Inject constructor(
 
 
   fun fetchProducts(listUUID: String, query: String = EMPTY_STRING) {
-    val flow1 = getUserListUseCase(listUUID)
+    val flow1 = getUserListUseCase.invoke(listUUID)
     val flow2 = if (query.trim().isEmpty()) {
       productQueryUseCase.fetchPopularProducts()
     } else {
@@ -115,7 +115,7 @@ class ListDetailViewModel @Inject constructor(
 
   fun deleteProduct(product: UserListProductUiModel) {
     viewModelScope.launch {
-      deleteProductUseCase(product)
+      deleteProductUseCase.invoke(product)
     }
   }
 }

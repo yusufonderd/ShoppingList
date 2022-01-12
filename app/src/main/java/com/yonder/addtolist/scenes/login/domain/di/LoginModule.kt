@@ -12,7 +12,7 @@ import com.yonder.addtolist.core.network.responses.BaseResponse
 import com.yonder.addtolist.core.network.responses.UserResponse
 import com.yonder.addtolist.core.network.thread.CoroutineThread
 import com.yonder.addtolist.data.local.UserPreferenceDataStore
-import com.yonder.addtolist.domain.usecase.GetCurrentUserUseCase
+import com.yonder.addtolist.domain.usecase.GetCurrentUser
 import com.yonder.addtolist.scenes.login.domain.mapper.LoginMapper
 import com.yonder.addtolist.scenes.login.domain.model.UserUiModel
 import com.yonder.addtolist.scenes.login.domain.repository.LoginRepository
@@ -65,7 +65,7 @@ interface LoginModule {
       coroutineThread: CoroutineThread,
       loginMapper: LoginMapper,
       userPreferenceDataStore: UserPreferenceDataStore
-    ) = GetCurrentUserUseCase(coroutineThread, loginMapper, repository,userPreferenceDataStore)
+    ) = GetCurrentUser(coroutineThread, loginMapper, repository,userPreferenceDataStore)
 
     @[Provides]
     fun provideGuestUserProvider(@ApplicationContext context: Context): UserProvider {

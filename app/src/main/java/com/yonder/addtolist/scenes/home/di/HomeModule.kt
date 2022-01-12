@@ -5,12 +5,7 @@ import com.yonder.addtolist.scenes.home.data.local.datasource.UserListDataSource
 import com.yonder.addtolist.scenes.home.data.local.datasource.UserListDataSourceImpl
 import com.yonder.addtolist.scenes.home.data.remote.ApiService
 import com.yonder.addtolist.scenes.home.domain.repository.UserListRepository
-import com.yonder.addtolist.scenes.home.domain.usecase.GetUserListProductUseCase
-import com.yonder.addtolist.scenes.home.domain.usecase.GetUserListProductUseCaseImpl
-import com.yonder.addtolist.scenes.home.domain.usecase.GetUserListUseCase
-import com.yonder.addtolist.scenes.home.domain.usecase.GetUserListUseCaseImpl
-import com.yonder.addtolist.scenes.home.domain.usecase.GetUserListsUseCase
-import com.yonder.addtolist.scenes.home.domain.usecase.GetUserListsUseCaseImpl
+
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -24,21 +19,11 @@ import retrofit2.Retrofit
 
 @[Module InstallIn(SingletonComponent::class)]
 interface HomeModule {
-
-  @get:[Binds]
-  val GetUserListsUseCaseImpl.getUserListsUseCase: GetUserListsUseCase
-
   @get:[Binds]
   val UserListDataSourceImpl.shoppingDataSource: UserListDataSource
 
   @get:[Binds]
   val UserListRepositoryImpl.userRepository: UserListRepository
-
-  @get:[Binds]
-  val GetUserListUseCaseImpl.getUserUserListUseCase: GetUserListUseCase
-
-  @get:[Binds]
-  val GetUserListProductUseCaseImpl.getUserListProductUseCase: GetUserListProductUseCase
 
   companion object {
 

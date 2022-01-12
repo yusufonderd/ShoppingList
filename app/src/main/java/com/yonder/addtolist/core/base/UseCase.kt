@@ -11,7 +11,11 @@ interface UseCase<in Input, out Output> {
   suspend operator fun invoke(input: Input): Flow<Output>
 }
 
-interface InputLessUseCase<out Output> {
+interface NoInputUseCase<out Output> {
   suspend operator fun invoke(): Flow<Output>
 }
 
+
+interface UseCaseNonFlow<in Input, out Output> {
+  suspend operator fun invoke(input: Input): Output
+}

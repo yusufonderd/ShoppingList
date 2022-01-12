@@ -1,6 +1,6 @@
 package com.yonder.addtolist.domain.usecase
 
-import com.yonder.addtolist.core.base.InputLessUseCase
+import com.yonder.addtolist.core.base.NoInputUseCase
 import com.yonder.core.network.RestResult
 import com.yonder.addtolist.core.network.thread.CoroutineThread
 import com.yonder.addtolist.data.local.UserPreferenceDataStore
@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -19,12 +18,12 @@ import javax.inject.Inject
  * Created on 17.11.2021
  */
 
-class GetCurrentUserUseCase @Inject constructor(
+class GetCurrentUser @Inject constructor(
   private val dispatcher: CoroutineThread,
   private val loginMapper: LoginMapper,
   private val loginRepository: LoginRepository,
   private val userPreferenceDataStore: UserPreferenceDataStore
-) : InputLessUseCase<RestResult<UserUiModel>> {
+) : NoInputUseCase<RestResult<UserUiModel>> {
 
   override suspend fun invoke(): Flow<RestResult<UserUiModel>> {
     return flow {

@@ -3,8 +3,7 @@ package com.yonder.addtolist.scenes.splash.presentation
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.yonder.addtolist.data.local.UserPreferenceDataStore
-import com.yonder.addtolist.domain.usecase.GetCurrentUserUseCase
+import com.yonder.addtolist.domain.usecase.GetCurrentUser
 import com.yonder.addtolist.scenes.splash.domain.CategoriesUseCase
 import com.yonder.addtolist.scenes.splash.domain.UserInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +18,7 @@ import javax.inject.Inject
 class SplashViewModel @Inject constructor(
   private val userInfoUseCase: UserInfoUseCase,
   private val categoryUseCase: CategoriesUseCase,
-  private val getCurrentUserUseCase: GetCurrentUserUseCase
+  private val getCurrentUser: GetCurrentUser
   ) : ViewModel() {
 
   private val _state: MutableStateFlow<SplashViewState> = MutableStateFlow(SplashViewState.Loading)
@@ -38,7 +37,7 @@ class SplashViewModel @Inject constructor(
   private fun checkIsLoggedIn(){
     viewModelScope.launch {
       userInfoUseCase.isLoggedIn().collect { isLoggedIn ->
-        getCurrentUserUseCase().collect { result ->
+        getCurrentUser().collect { result ->
           result.onSuccessOrError {
             _state.value = getNavigateDestination(isLoggedIn)
           }

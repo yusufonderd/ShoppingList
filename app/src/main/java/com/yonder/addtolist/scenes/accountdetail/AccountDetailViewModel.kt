@@ -2,7 +2,7 @@ package com.yonder.addtolist.scenes.accountdetail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.yonder.addtolist.domain.usecase.GetCurrentUserUseCase
+import com.yonder.addtolist.domain.usecase.GetCurrentUser
 import com.yonder.addtolist.scenes.login.domain.model.UserUiModel
 import com.yonder.addtolist.scenes.splash.domain.UserInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AccountDetailViewModel @Inject constructor(
   private val userInfoUseCase: UserInfoUseCase,
-  private val getCurrentUserUseCase: GetCurrentUserUseCase
+  private val getCurrentUser: GetCurrentUser
 ) : ViewModel() {
 
   private val _state: MutableStateFlow<AccountDetailViewState> =
@@ -33,7 +33,7 @@ class AccountDetailViewModel @Inject constructor(
 
   fun fetchCurrentUser() {
     viewModelScope.launch {
-      getCurrentUserUseCase.invoke().collect {
+      getCurrentUser.invoke().collect {
         it.onSuccess { user ->
           _state.value = AccountDetailViewState.AccountInfo(user)
         }.onLoading {

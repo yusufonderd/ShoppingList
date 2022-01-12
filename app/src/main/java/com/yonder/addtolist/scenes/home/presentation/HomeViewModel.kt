@@ -2,8 +2,8 @@ package com.yonder.addtolist.scenes.home.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.yonder.addtolist.domain.usecase.GetUserLists
 import com.yonder.addtolist.scenes.home.domain.model.UserListUiModel
-import com.yonder.addtolist.scenes.home.domain.usecase.GetUserListsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ShoppingListItemsViewModel @Inject constructor(
-    private val getUserListsUseCase: GetUserListsUseCase
+    private val getUserListsUseCase: GetUserLists
 ) : ViewModel() {
 
     init {
