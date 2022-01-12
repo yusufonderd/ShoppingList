@@ -4,7 +4,8 @@
 
   <color name="colorGray">#686868</color>
   <color name="primaryTextColor">#FF000000</color>
-
+  <color name="white">#FFFFFFFF</color>
+  <color name="colorPrimary">#933AE2</color>
   <array name="rainbow">
     <item>@color/listColor1</item>
     <item>@color/listColor2</item>

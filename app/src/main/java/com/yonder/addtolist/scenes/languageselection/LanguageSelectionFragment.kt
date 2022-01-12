@@ -17,13 +17,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.yonder.addtolist.common.ui.ErrorView
-import com.yonder.addtolist.common.ui.LoadingView
-import com.yonder.addtolist.scenes.accountdetail.AccountDetailViewState
 import com.yonder.addtolist.theme.padding_8
+import com.yonder.uicomponent.compose.ErrorView
+import com.yonder.uicomponent.compose.LoadingView
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -64,10 +62,10 @@ class LanguageSelectionFragment : Fragment() {
                                 text = language.name,
                                 color = Color.DarkGray,
                                 modifier = Modifier
-                                  .fillMaxSize()
-                                  .padding(bottom = padding_8)
-                                  .padding(horizontal = padding_8)
-                                  .align(Alignment.Bottom)
+                                    .fillMaxSize()
+                                    .padding(bottom = padding_8)
+                                    .padding(horizontal = padding_8)
+                                    .align(Alignment.Bottom)
                             )
                         }
                     }

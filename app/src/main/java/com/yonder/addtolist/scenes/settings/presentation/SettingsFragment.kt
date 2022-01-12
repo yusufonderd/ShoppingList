@@ -1,8 +1,5 @@
 package com.yonder.addtolist.scenes.settings.presentation
 
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,11 +10,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Divider
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -34,17 +27,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import coil.compose.rememberImagePainter
-import com.google.android.play.core.review.ReviewManagerFactory
 import com.yonder.addtolist.R
-import com.yonder.addtolist.common.ui.LoadingView
 import com.yonder.addtolist.core.extensions.navigateUrl
 import com.yonder.addtolist.core.extensions.reviewApp
-import com.yonder.addtolist.scenes.about.PRIVACY_POLICY_URL
 import com.yonder.addtolist.scenes.premium.PremiumBottomSheetFragment
-import com.yonder.addtolist.theme.*
+import com.yonder.addtolist.theme.padding_4
 import com.yonder.addtolist.theme.padding_8
+import com.yonder.addtolist.theme.profile_image_size_small
+import com.yonder.uicomponent.compose.LoadingView
 import dagger.hilt.android.AndroidEntryPoint
-import java.lang.Exception
 
 const val INSTAGRAM_URL = "https://www.instagram.com/addtolist.co/"
 const val TWITTER_URL = "https://twitter.com/addtolistapp"
@@ -67,7 +58,6 @@ class SettingsFragment : Fragment() {
     }
 
 
-
     @Composable
     fun MainContent() {
         val settingsUIState by viewModel.state.collectAsState()
@@ -86,7 +76,7 @@ class SettingsFragment : Fragment() {
                                         }
                                     }
                                     R.string.twitter -> {
-                                       activity?.navigateUrl(TWITTER_URL)
+                                        activity?.navigateUrl(TWITTER_URL)
                                     }
                                     R.string.instagram -> {
                                         activity?.navigateUrl(INSTAGRAM_URL)

@@ -3,6 +3,7 @@ package com.yonder.addtolist.scenes.productdetail.domain
 import com.yonder.addtolist.core.extensions.toInt
 import com.yonder.addtolist.local.AppDatabase
 import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
+import com.yonder.addtolist.scenes.listdetail.domain.product.ProductRepository
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -11,7 +12,10 @@ import javax.inject.Inject
  * Created on 28.08.2021
  */
 
-class UpdateProductUseCaseImpl @Inject constructor(private val appDatabase: AppDatabase) :
+class UpdateProductUseCaseImpl @Inject constructor(
+  private val appDatabase: AppDatabase,
+  private val productRepository : ProductRepository
+  ) :
   UpdateProductUseCase {
 
   override suspend operator fun invoke(
@@ -23,7 +27,6 @@ class UpdateProductUseCaseImpl @Inject constructor(private val appDatabase: AppD
       appDatabase
       .userListProductDao()
       .findByListUUID(listUUID = listUUID, productName = productName)
-    productEntity.let {
       productEntity.name = product.name
       productEntity.quantity = product.quantityValue
       productEntity.unit = product.unit
@@ -34,7 +37,7 @@ class UpdateProductUseCaseImpl @Inject constructor(private val appDatabase: AppD
       productEntity.done = product.isDone.toInt()
       productEntity.favorite = product.isFavorite.toInt()
       appDatabase.userListProductDao().update(productEntity)
-    }
+
   }
 
 }

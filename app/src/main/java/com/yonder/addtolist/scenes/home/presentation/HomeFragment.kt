@@ -23,10 +23,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.yonder.addtolist.R
-import com.yonder.addtolist.common.ui.LoadingView
-import com.yonder.addtolist.common.ui.NoListView
 import com.yonder.addtolist.scenes.home.domain.model.UserListUiModel
 import com.yonder.addtolist.theme.padding_8
+import com.yonder.uicomponent.compose.LoadingView
+import com.yonder.uicomponent.compose.NoListView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

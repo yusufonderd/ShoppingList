@@ -1,8 +1,8 @@
-package com.yonder.addtolist.common.ui
+package com.yonder.uicomponent.compose
 
 /**
  * @author yusuf.onder
- * Created on 17.11.2021
+ * Created on 12.01.2022
  */
 
 import androidx.compose.foundation.layout.Box
@@ -16,22 +16,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.yonder.addtolist.R
-import com.yonder.addtolist.theme.padding_8
+import com.yonder.uicomponent.R
 
 @Composable
 fun LoadingView(centerTextResId: Int = R.string.loading) {
-  Box(
-    modifier = Modifier
-      .fillMaxSize(),
-    contentAlignment = Alignment.Center
-  ) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-      CircularProgressIndicator(
+    Box(
         modifier = Modifier
-          .padding(padding_8)
-      )
-      Text(text = stringResource(id = centerTextResId))
+            .fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .padding(8.dp)
+            )
+            Text(text = stringResource(id = centerTextResId))
+        }
     }
-  }
 }

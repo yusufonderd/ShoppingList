@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <string name="loading">Loading…</string>
+  <string name="try_again">Try again</string>
+  <string name="cd_error_image">Error Image</string>
+  <string name="create_your_first_list">Create your first list</string>
+  <string name="create">Create</string>
+  <string name="cd_create_new_list">Create new list</string>
+
+</resources>

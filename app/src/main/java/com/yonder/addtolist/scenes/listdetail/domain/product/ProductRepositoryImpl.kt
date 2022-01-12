@@ -44,7 +44,7 @@ class ProductRepositoryImpl @Inject constructor(
     if (response.success == true) {
       categoryDataSource.update(product)
     }
-    emit(RestResult.Success<UserListProductEntity>(product))
+    emit(RestResult.Success(product))
   }.catch { e ->
     e.printStackTrace()
     emit(RestResult.Error(e))

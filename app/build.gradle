@@ -75,9 +75,18 @@ android {
   kotlinOptions {
     jvmTarget = '1.8'
   }
+
+  lintOptions {
+    checkReleaseBuilds false
+  }
+
+  hilt {
+    enableExperimentalClasspathAggregation = true
+  }
+
   composeOptions {
     kotlinCompilerExtensionVersion Versions.compose
-    kotlinCompilerVersion  Versions.jetbrains_kotlin
+    kotlinCompilerVersion  '1.5.21'
   }
 }
 
@@ -98,6 +107,7 @@ dependencies {
   implementation Libs.DaggerHilt.daggerHilt
   implementation project(path: ':local')
   implementation project(path: ':core')
+  implementation project(path: ':ui-component')
 
   kapt Libs.DaggerHilt.daggerHiltCompiler
 
@@ -142,7 +152,6 @@ dependencies {
   implementation Libs.AndroidX.common
   implementation Libs.AndroidX.runtime
 
-  implementation project(path: ':ui-component')
 
 
 }

@@ -11,13 +11,11 @@ buildscript {
   }
   dependencies {
     classpath Libs.Gradle.androidGradlePlugin
-    classpath Libs.Kotlin.gradlePlugin
     classpath Libs.DaggerHilt.daggerHiltGradlePlugin
     classpath Libs.GoogleServices.service_plugin
     classpath Libs.AndroidX.nav_args_plugin
     classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.18.0"
     classpath Libs.Kotlin.gradlePlugin
-      classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31'
   }
 }
 
@@ -35,7 +33,3 @@ allprojects {
 task clean(type: Delete) {
   delete rootProject.buildDir
 }
-/*
-plugins {
-  id("io.gitlab.arturbosch.detekt").version("1.18.0")
-}*/
