@@ -20,6 +20,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.yonder.addtolist.R
 import com.yonder.addtolist.common.utils.decider.ColorDecider
 import com.yonder.addtolist.theme.padding_16
@@ -59,14 +60,21 @@ class CreateListFragment : Fragment() {
     @Composable
     fun MainContent() {
         val state by viewModel.uiState.collectAsState()
+        val event by viewModel.effect.collectAsState(initial = CreateListViewModel.UiEvent.Initial)
+
         val textState = remember { mutableStateOf(TextFieldValue()) }
         val selectedColorState: MutableState<Int> = remember { mutableStateOf(R.color.listColor1) }
+
+        when(event){
+            is CreateListViewModel.UiEvent.ListCreated -> {
+                findNavController().popBackStack()
+            }
+        }
 
         if (state.isLoading) {
             LoadingView()
         } else {
             Column {
-
                 TextField(
                     value = textState.value,
                     textStyle = MaterialTheme.typography.body1,

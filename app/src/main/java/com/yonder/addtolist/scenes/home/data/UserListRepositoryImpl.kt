@@ -30,16 +30,15 @@ class UserListRepositoryImpl @Inject constructor(
 
   override fun createUserList(request: CreateUserListRequest): Flow<UserListEntity> = flow {
     val response = service.createUserList(request)
+    val userListId = response.data?.id
     val userListEntity = userListRequestToEntityMapper.map(request)
-    val userListResponse = response.data
-    if (response.success == true && userListResponse?.id != null) {
-      userListEntity.id = userListResponse.id
+    if (response.success == true && userListId != null) {
+      userListEntity.id = userListId
       userListEntity.sync = true
     }
     localDataSource.insert(userListEntity)
     emit(userListEntity)
   }.catch { exception ->
-    Timber.d("EEE => ${exception.localizedMessage}")
     exception.printStackTrace()
     val userListEntity = userListRequestToEntityMapper.map(request)
     localDataSource.insert(userListEntity)

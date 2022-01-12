@@ -44,6 +44,7 @@ class CreateListViewModel @Inject constructor(
     )
 
     sealed class UiEvent : Event {
+        object Initial : UiEvent()
         object ListCreated : UiEvent()
     }
 }
