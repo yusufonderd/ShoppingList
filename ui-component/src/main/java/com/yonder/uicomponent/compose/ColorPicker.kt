@@ -11,7 +11,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.yonder.uicomponent.R
 
@@ -50,31 +54,46 @@ fun CircleShape(
     onClickColor: (Int) -> Unit,
     isSelected: Boolean = false
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentSize(Alignment.Center)
-            .padding(4.dp)
-            .border(
-                border = BorderStroke(
-                    width = 1.dp,
-                    color = when {
-                        isSelected -> colorResource(R.color.gray_100)
-                        else -> Color.Transparent
-                    }
-                )
-            )
-    ) {
+
+
         Box(
             modifier = Modifier
-                .size(36.dp)
-                .clip(androidx.compose.foundation.shape.CircleShape)
-                .background(colorResource(id = color))
-                .clickable(
-                    onClick = {
-                        onClickColor.invoke(color)
-                    }
+                .fillMaxWidth()
+                .wrapContentSize(Alignment.Center)
+                .padding(4.dp)
+
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(36.dp)
+                    .clip(androidx.compose.foundation.shape.CircleShape)
+                    .background(colorResource(id = color))
+                    .clickable(
+                        onClick = {
+                            onClickColor.invoke(color)
+                        }
+                    )
+            )
+
+            if (isSelected){
+                Image(
+                    modifier = Modifier.align(Alignment.Center),
+                    painter = painterResource(id = R.drawable.ic_baseline_check_24),
+                    contentDescription = stringResource(id = R.string.cd_select_color),
+                    contentScale = ContentScale.Crop,
+                    colorFilter = ColorFilter.tint(colorResource(R.color.white))
                 )
-        )
-    }
+            }
+
+
+        }
+
+
+
+
+
+
+    /**/
+
+
 }

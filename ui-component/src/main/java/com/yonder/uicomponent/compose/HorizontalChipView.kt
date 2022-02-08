@@ -44,7 +44,7 @@ fun Row(
 ) {
     Surface(
         modifier = Modifier.padding(start = 8.dp, end = 8.dp),
-        elevation = 8.dp,
+        elevation = 0.dp,
         shape = RoundedCornerShape(16.dp),
         border = BorderStroke(
             width = 1.dp,

@@ -135,7 +135,7 @@ class CreateListFragment : Fragment() {
     ) {
         Surface(
             modifier = Modifier.padding(padding_8),
-            elevation = 8.dp,
+            elevation = 0.dp,
             shape = RoundedCornerShape(16.dp),
             border = BorderStroke(
                 width = 1.dp,
