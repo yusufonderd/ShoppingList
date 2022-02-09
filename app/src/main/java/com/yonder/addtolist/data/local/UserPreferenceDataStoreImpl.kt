@@ -59,10 +59,10 @@ class UserPreferenceDataStoreImpl @Inject constructor(private val sharedPreferen
 
     override fun getLocale(): Locale {
         val localeLanguage = sharedPreferences.getString(KEY_LOCALE, null)
-        return if (localeLanguage != null) {
-            Locale(localeLanguage)
-        } else {
+        return if (localeLanguage == null) {
             Locale.ENGLISH
+        } else {
+            Locale(localeLanguage)
         }
     }
 

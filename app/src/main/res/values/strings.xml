@@ -23,6 +23,7 @@
   <string name="cd_error_image">Error Image</string>
   <string name="cd_navigate_url">Navigate Url Image</string>
   <string name="cd_create_new_list">Create new list</string>
+  <string name="cd_edit_item">Edit item</string>
 
   <!-- Login Screen -->
   <string name="continue_with_google">Continue with Google</string>
@@ -144,6 +145,5 @@
 
   <string name="format_price">%.2f %2$s</string>
 
-  <string name="cd_edit_item">Edit item</string>
 
 </resources>

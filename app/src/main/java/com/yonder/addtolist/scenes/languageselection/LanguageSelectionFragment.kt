@@ -1,28 +1,28 @@
 package com.yonder.addtolist.scenes.languageselection
 
+import android.content.Context
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.yonder.addtolist.theme.padding_8
+import com.yonder.addtolist.data.local.UserPreferenceDataStore
+import com.yonder.addtolist.scenes.languageselection.row.LanguageRow
 import com.yonder.uicomponent.compose.ErrorView
 import com.yonder.uicomponent.compose.LoadingView
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
+import javax.inject.Inject
+
 
 /**
  * @author yusuf.onder
@@ -34,6 +34,8 @@ class LanguageSelectionFragment : Fragment() {
 
     private val viewModel: LanguageSelectionViewModel by viewModels()
 
+    @Inject
+    lateinit var userPreferenceDataStore: UserPreferenceDataStore
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -46,6 +48,12 @@ class LanguageSelectionFragment : Fragment() {
         }
     }
 
+    private fun setLocale(languageCode: String) {
+        userPreferenceDataStore.setLocale(Locale(languageCode))
+        activity?.recreate()
+    }
+
+
     @Composable
     fun MainContent() {
         val languageUiState by viewModel.state.collectAsState()
@@ -53,20 +61,8 @@ class LanguageSelectionFragment : Fragment() {
             is LanguageSelectionViewEvent.Load -> {
                 LazyColumn {
                     items((languageUiState as LanguageSelectionViewEvent.Load).languages) { language ->
-                        TextButton(
-                            onClick = {
-
-                            }
-                        ) {
-                            Text(
-                                text = language.name,
-                                color = Color.DarkGray,
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(bottom = padding_8)
-                                    .padding(horizontal = padding_8)
-                                    .align(Alignment.Bottom)
-                            )
+                        LanguageRow(language = language) {
+                            setLocale(languageCode = language.tag)
                         }
                     }
                 }
