@@ -142,4 +142,8 @@
   <string name="license_1_title">Freepik</string>
   <string name="license_1_description">Some of icons are made by [Freepik] from www.flaticon.com</string>
 
+  <string name="format_price">%.2f %2$s</string>
+
+  <string name="cd_edit_item">Edit item</string>
+
 </resources>

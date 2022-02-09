@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.yonder.addtolist.R
+import com.yonder.addtolist.domain.decider.CurrencyDecider
 import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
 import com.yonder.addtolist.scenes.listdetail.productlist.UserListProductOperationListener
 import com.yonder.uicomponent.base.BaseListAdapter
@@ -13,11 +14,12 @@ import com.yonder.uicomponent.base.BaseListAdapter
  * Created on 24.07.2021
  */
 
-class ListProductAdapter :
+class ListProductAdapter(private val  currencyDecider: CurrencyDecider) :
   BaseListAdapter<UserListProductUiModel>(
     itemsSame = { old, new -> old.id == new.id },
     contentsSame = { old, new -> old == new }
   ) {
+
 
   lateinit var userListProductOperationListener: UserListProductOperationListener
 
@@ -37,7 +39,8 @@ class ListProductAdapter :
         holder.bind(
           product = getItem(position),
           position = position,
-          productOperationListener = userListProductOperationListener
+          productOperationListener = userListProductOperationListener,
+          currencyDecider = currencyDecider
         )
       }
     }
