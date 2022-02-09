@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
@@ -22,6 +23,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.yonder.addtolist.R
+import com.yonder.addtolist.common.ui.extensions.showToastMessage
 import com.yonder.addtolist.common.utils.decider.ColorDecider
 import com.yonder.addtolist.theme.padding_16
 import com.yonder.addtolist.theme.padding_8
@@ -65,9 +67,12 @@ class CreateListFragment : Fragment() {
         val textState = remember { mutableStateOf(TextFieldValue()) }
         val selectedColorState: MutableState<Int> = remember { mutableStateOf(R.color.listColor1) }
 
-        when(event){
+        when (event) {
             is CreateListViewModel.UiEvent.ListCreated -> {
                 findNavController().popBackStack()
+            }
+            is CreateListViewModel.UiEvent.Error -> {
+                context?.showToastMessage((event as CreateListViewModel.UiEvent.Error).errorMessage)
             }
         }
 

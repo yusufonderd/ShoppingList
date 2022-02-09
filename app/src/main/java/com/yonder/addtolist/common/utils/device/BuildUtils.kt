@@ -1,4 +1,4 @@
-package com.yonder.addtolist.scenes.languageselection.domain
+package com.yonder.addtolist.common.utils.device
 
 /**
  * @author yusuf.onder

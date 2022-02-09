@@ -5,6 +5,8 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.LocaleList;
 
+import com.yonder.addtolist.common.utils.device.BuildUtils;
+
 import java.util.Locale;
 
 /**

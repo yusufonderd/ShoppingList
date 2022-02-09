@@ -1,13 +1,11 @@
 package com.yonder.addtolist.common.ui.extensions
 
 import android.content.Context
-import android.view.View
 import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
-import com.google.android.material.snackbar.Snackbar
 
 /**
  * @author yusuf.onder

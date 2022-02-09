@@ -1,5 +1,6 @@
 package com.yonder.addtolist.scenes.home.data
 
+import com.yonder.addtolist.core.network.exceptions.ServerResultException
 import com.yonder.core.base.mapper.ListMapperImpl
 import com.yonder.addtolist.core.network.request.CreateUserListRequest
 import com.yonder.addtolist.local.entity.UserListEntity
@@ -11,10 +12,10 @@ import com.yonder.addtolist.scenes.home.domain.mapper.UserListProductMapper
 import com.yonder.addtolist.scenes.home.domain.mapper.UserListRequestMapper
 import com.yonder.addtolist.scenes.home.domain.mapper.UserListResponseToEntityMapper
 import com.yonder.addtolist.scenes.home.domain.repository.UserListRepository
+import com.yonder.core.network.RestResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -28,21 +29,21 @@ class UserListRepositoryImpl @Inject constructor(
   private val responseToEntityMapper: UserListResponseToEntityMapper
 ) : UserListRepository {
 
-  override fun createUserList(request: CreateUserListRequest): Flow<UserListEntity> = flow {
+  override fun createUserList(request: CreateUserListRequest): Flow<RestResult<UserListEntity>> = flow {
     val response = service.createUserList(request)
     val userListId = response.data?.id
     val userListEntity = userListRequestToEntityMapper.map(request)
     if (response.success == true && userListId != null) {
       userListEntity.id = userListId
       userListEntity.sync = true
+      localDataSource.insert(userListEntity)
+      emit(RestResult.Success(userListEntity))
+    }else{
+      emit(RestResult.Error(ServerResultException()))
     }
-    localDataSource.insert(userListEntity)
-    emit(userListEntity)
   }.catch { exception ->
     exception.printStackTrace()
-    val userListEntity = userListRequestToEntityMapper.map(request)
-    localDataSource.insert(userListEntity)
-    emit(userListEntity)
+    emit(RestResult.Error(exception))
   }
 
   private suspend fun insertLists(list: List<UserListResponse>) {

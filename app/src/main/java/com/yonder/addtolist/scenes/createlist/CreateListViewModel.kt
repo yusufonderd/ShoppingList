@@ -1,6 +1,7 @@
 package com.yonder.addtolist.scenes.createlist
 
 import androidx.lifecycle.viewModelScope
+import com.yonder.addtolist.core.extensions.toReadableMessage
 import com.yonder.addtolist.domain.usecase.CreateList
 import com.yonder.core.base.BaseViewModel
 import com.yonder.core.base.Event
@@ -19,7 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CreateListViewModel @Inject constructor(
-    private val createListUseCase: CreateList
+    private val createList: CreateList
 ) : BaseViewModel<CreateListViewModel.UiEvent>() {
 
     private val _uiState = MutableStateFlow(UiState())
@@ -31,8 +32,12 @@ class CreateListViewModel @Inject constructor(
         } else {
             _uiState.update { it.copy(isLoading = true) }
             viewModelScope.launch {
-                createListUseCase(CreateList.Params(listName, listColor)).collectLatest {
-                    pushEvent(UiEvent.ListCreated)
+                createList(CreateList.Params(listName, listColor)).collectLatest { result ->
+                    result.onSuccess {
+                        pushEvent(UiEvent.ListCreated)
+                    }.onError { throwable ->
+                        pushEvent(UiEvent.Error(throwable.toReadableMessage()))
+                    }
                 }
             }
         }
@@ -40,11 +45,13 @@ class CreateListViewModel @Inject constructor(
 
     data class UiState(
         val isLoading: Boolean = false,
-        val shouldShowBlankListNameError: Boolean = false
+        val shouldShowBlankListNameError: Boolean = false,
+        val errorMessage: String = ""
     )
 
     sealed class UiEvent : Event {
         object Initial : UiEvent()
         object ListCreated : UiEvent()
+        data class Error(var errorMessage: String) : UiEvent()
     }
 }
