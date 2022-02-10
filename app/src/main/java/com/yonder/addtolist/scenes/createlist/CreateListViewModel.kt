@@ -42,6 +42,11 @@ class CreateListViewModel @Inject constructor(
             }
         }
     }
+    fun setBlankListState(text: String){
+        if (text.isNotBlank()) {
+            _uiState.update { it.copy(shouldShowBlankListNameError = false) }
+        }
+    }
 
     data class UiState(
         val isLoading: Boolean = false,

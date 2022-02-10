@@ -84,7 +84,10 @@ class CreateListFragment : Fragment() {
                     value = textState.value,
                     textStyle = MaterialTheme.typography.body1,
                     isError = state.shouldShowBlankListNameError,
-                    onValueChange = { textState.value = it },
+                    onValueChange = {
+                        textState.value = it
+                        viewModel.setBlankListState(it.text)
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = padding_16)
@@ -101,7 +104,7 @@ class CreateListFragment : Fragment() {
                         text = stringResource(id = R.string.list_name_should_not_be_empty),
                         color = MaterialTheme.colors.error,
                         style = MaterialTheme.typography.caption,
-                        modifier = Modifier.padding(start = padding_8)
+                        modifier = Modifier.padding(start = padding_16)
                     )
                 }
 
