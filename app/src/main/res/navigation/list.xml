@@ -7,7 +7,7 @@
 
   <fragment
     android:id="@+id/splashScreen"
-    android:name="com.yonder.addtolist.scenes.splash.presentation.SplashFragment"
+    android:name="com.yonder.addtolist.scenes.splash.SplashFragment"
     android:label="@string/title_splash"
     tools:layout="@layout/splash_fragment">
     <action
@@ -22,7 +22,7 @@
 
   <fragment
     android:id="@+id/loginScreen"
-    android:name="com.yonder.addtolist.scenes.login.presentation.LoginFragment"
+    android:name="com.yonder.addtolist.scenes.login.LoginFragment"
     android:label="@string/title_login"
     tools:layout="@layout/login_fragment">
     <action
@@ -32,7 +32,7 @@
 
   <fragment
     android:id="@+id/shoppingListItemsScreen"
-    android:name="com.yonder.addtolist.scenes.home.presentation.HomeFragment"
+    android:name="com.yonder.addtolist.scenes.home.HomeFragment"
     android:label="@string/title_shopping_lists"
     tools:layout="@layout/fragment_home">
 
@@ -78,7 +78,7 @@
 
     <argument
       android:name="userList"
-      app:argType="com.yonder.addtolist.scenes.home.domain.model.UserListUiModel"
+      app:argType="com.yonder.addtolist.domain.uimodel.UserListUiModel"
       app:nullable="false" />
 
     <argument
@@ -100,7 +100,7 @@
 
     <argument
       android:name="userListProduct"
-      app:argType="com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel"
+      app:argType="com.yonder.addtolist.domain.uimodel.UserListProductUiModel"
       app:nullable="false" />
 
     <argument

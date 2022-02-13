@@ -1,7 +1,7 @@
 package com.yonder.addtolist.common.utils.auth
 
 import android.content.Context
-import com.yonder.addtolist.common.ProviderType
+import com.yonder.addtolist.common.enums.ProviderType
 import com.yonder.addtolist.core.network.UserRegisterRequest
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.json.JSONObject

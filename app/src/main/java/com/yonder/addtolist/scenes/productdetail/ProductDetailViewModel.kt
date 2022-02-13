@@ -7,9 +7,9 @@ import com.yonder.addtolist.core.extensions.orZero
 import com.yonder.addtolist.domain.usecase.DeleteUserListProduct
 import com.yonder.addtolist.domain.usecase.GetProductDetail
 import com.yonder.addtolist.domain.usecase.UpdateUserListProduct
-import com.yonder.addtolist.scenes.home.domain.model.CategoryUiModel
-import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
-import com.yonder.addtolist.scenes.productdetail.model.enums.ProductUnitType
+import com.yonder.addtolist.domain.uimodel.CategoryUiModel
+import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
+import com.yonder.addtolist.common.enums.ProductUnitType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.mapNotNull

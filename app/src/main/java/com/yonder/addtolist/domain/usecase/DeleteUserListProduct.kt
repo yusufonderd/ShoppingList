@@ -1,7 +1,7 @@
 package com.yonder.addtolist.domain.usecase
 
-import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
-import com.yonder.addtolist.scenes.listdetail.domain.product.ProductRepository
+import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
+import com.yonder.addtolist.data.repository.ProductRepository
 import javax.inject.Inject
 
 /**

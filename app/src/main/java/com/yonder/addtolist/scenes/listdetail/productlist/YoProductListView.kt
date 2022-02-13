@@ -7,7 +7,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import com.yonder.addtolist.databinding.LayoutYoProductListBinding
 import com.yonder.addtolist.domain.decider.CurrencyDecider
-import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
+import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
 import com.yonder.addtolist.scenes.listdetail.productlist.adapter.ListProductAdapter
 import com.yonder.uicomponent.extensions.addVerticalDivider
 
@@ -44,9 +44,9 @@ class YoProductListView @JvmOverloads constructor(
   }
 
   fun bind(
-    products: List<UserListProductUiModel>,
-    listener: UserListProductOperationListener,
-    currencyDecider: CurrencyDecider
+      products: List<UserListProductUiModel>,
+      listener: UserListProductOperationListener,
+      currencyDecider: CurrencyDecider
   ) {
     this.listener = listener
     val sortedProducts = products.sortedBy { it.isDone }

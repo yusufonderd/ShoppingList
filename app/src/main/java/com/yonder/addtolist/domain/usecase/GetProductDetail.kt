@@ -1,9 +1,9 @@
 package com.yonder.addtolist.domain.usecase
 
 import com.yonder.addtolist.core.base.UseCase
-import com.yonder.addtolist.scenes.home.domain.model.CategoryUiModel
-import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
-import com.yonder.addtolist.scenes.productdetail.utils.CategoryFinder
+import com.yonder.addtolist.domain.uimodel.CategoryUiModel
+import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
+import com.yonder.addtolist.domain.decider.CategoryFinder
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine

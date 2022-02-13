@@ -1,8 +1,6 @@
 package com.yonder.addtolist.scenes.activity
 
 import android.content.Context
-import android.content.SharedPreferences
-import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -14,14 +12,10 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.yonder.addtolist.R
 import com.yonder.addtolist.common.ui.extensions.setupWithNavController
-import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.data.local.UserPreferenceDataStoreImpl
 import com.yonder.addtolist.databinding.ActivityMainBinding
-import com.yonder.addtolist.scenes.languageselection.domain.ContextWrapper
+import com.yonder.addtolist.common.utils.ContextWrapper
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.qualifiers.ApplicationContext
-import java.util.*
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

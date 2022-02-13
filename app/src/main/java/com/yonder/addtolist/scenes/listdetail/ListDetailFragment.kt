@@ -14,13 +14,12 @@ import com.yonder.addtolist.common.utils.keyboard.KeyboardVisibilityEvent
 import com.yonder.addtolist.common.utils.keyboard.hideKeyboardFor
 import com.yonder.addtolist.databinding.FragmentListDetailBinding
 import com.yonder.addtolist.domain.decider.CurrencyDecider
-import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
-import com.yonder.addtolist.scenes.listdetail.domain.model.ProductEntityUiModel
+import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
+import com.yonder.addtolist.domain.uimodel.ProductEntityUiModel
 import com.yonder.addtolist.scenes.listdetail.items.ItemOperationListener
 import com.yonder.addtolist.scenes.listdetail.productlist.UserListProductOperationListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import timber.log.Timber
 import javax.inject.Inject
 
 /**

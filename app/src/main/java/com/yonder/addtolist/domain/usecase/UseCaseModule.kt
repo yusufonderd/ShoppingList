@@ -2,9 +2,9 @@ package com.yonder.addtolist.domain.usecase
 
 import com.yonder.addtolist.core.network.thread.CoroutineThread
 import com.yonder.addtolist.local.AppDatabase
-import com.yonder.addtolist.scenes.home.data.remote.ApiService
-import com.yonder.addtolist.scenes.home.domain.repository.UserListRepository
-import com.yonder.addtolist.scenes.listdetail.domain.product.ProductRepository
+import com.yonder.addtolist.network.ApiService
+import com.yonder.addtolist.data.repository.UserListRepository
+import com.yonder.addtolist.data.repository.ProductRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

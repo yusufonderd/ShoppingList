@@ -1,7 +1,7 @@
 package com.yonder.addtolist.scenes.productdetail
 
-import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
-import com.yonder.addtolist.scenes.home.domain.model.CategoryUiModel
+import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
+import com.yonder.addtolist.domain.uimodel.CategoryUiModel
 
 /**
  * @author yusuf.onder
@@ -11,8 +11,8 @@ import com.yonder.addtolist.scenes.home.domain.model.CategoryUiModel
 sealed class ProductDetailViewEvent {
   object ProductNotFound : ProductDetailViewEvent()
   data class Load(
-    var categories: List<CategoryUiModel>,
-    var product: UserListProductUiModel,
-    var categoryOfProduct: CategoryUiModel?
+      var categories: List<CategoryUiModel>,
+      var product: UserListProductUiModel,
+      var categoryOfProduct: CategoryUiModel?
     ) : ProductDetailViewEvent()
 }

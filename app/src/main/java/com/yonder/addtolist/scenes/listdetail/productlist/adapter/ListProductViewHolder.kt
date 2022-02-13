@@ -7,10 +7,9 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.yonder.addtolist.R
 import com.yonder.addtolist.common.ui.extensions.setStrikeThrough
-import com.yonder.addtolist.common.utils.formatter.currency.CurrencyProvider
 import com.yonder.addtolist.databinding.ItemListProductBinding
 import com.yonder.addtolist.domain.decider.CurrencyDecider
-import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
+import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
 import com.yonder.addtolist.scenes.listdetail.productlist.UserListProductOperationListener
 
 /**

@@ -7,9 +7,9 @@ import com.yonder.addtolist.domain.usecase.DeleteUserListProduct
 import com.yonder.addtolist.domain.usecase.GetUserList
 import com.yonder.addtolist.domain.usecase.UpdateUserListProduct
 import com.yonder.addtolist.local.entity.CATEGORY_OTHER_IMAGE
-import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
+import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
 import com.yonder.addtolist.scenes.listdetail.domain.category.ProductQueryUseCase
-import com.yonder.addtolist.scenes.listdetail.domain.product.ProductUseCase
+import com.yonder.addtolist.domain.usecase.ProductUseCase
 import com.yonder.addtolist.scenes.listdetail.domain.AddProductUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -18,7 +18,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 /**

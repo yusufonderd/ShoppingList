@@ -3,7 +3,7 @@ package com.yonder.addtolist.common.utils.auth
 import android.content.Context
 import android.os.Build
 import com.yonder.addtolist.BuildConfig
-import com.yonder.addtolist.common.ProviderType
+import com.yonder.addtolist.common.enums.ProviderType
 import com.yonder.addtolist.common.utils.device.DeviceUtils
 import com.yonder.addtolist.core.network.UserRegisterRequest
 
@@ -17,14 +17,14 @@ abstract class UserProvider {
 
   @Suppress("LongParameterList")
   fun createUserRegisterRequest(
-    context: Context,
-    providerType: ProviderType,
-    firstName: String? = "",
-    lastName: String? = "",
-    email: String? = "",
-    photoUrl: String = "",
-    userId: String? = "",
-    deviceUUID: String = ""
+      context: Context,
+      providerType: ProviderType,
+      firstName: String? = "",
+      lastName: String? = "",
+      email: String? = "",
+      photoUrl: String = "",
+      userId: String? = "",
+      deviceUUID: String = ""
   ): UserRegisterRequest {
     val deviceModel = DeviceUtils.getModel()
     val appVersion: String = BuildConfig.VERSION_NAME

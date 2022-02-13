@@ -2,9 +2,9 @@ package com.yonder.addtolist.domain.usecase
 
 import com.yonder.addtolist.core.extensions.toInt
 import com.yonder.addtolist.local.AppDatabase
-import com.yonder.addtolist.scenes.home.data.remote.ApiService
-import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
-import com.yonder.addtolist.scenes.listdetail.domain.mapper.UserListProductMapper
+import com.yonder.addtolist.network.ApiService
+import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
+import com.yonder.addtolist.domain.uimodel.UserListProductMapper
 import javax.inject.Inject
 
 /**

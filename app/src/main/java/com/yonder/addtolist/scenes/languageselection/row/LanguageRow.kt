@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.yonder.addtolist.scenes.languageselection.data.model.LanguageUiModel
+import com.yonder.addtolist.domain.uimodel.LanguageUiModel
 import com.yonder.addtolist.theme.padding_8
 
 /**
@@ -16,7 +16,7 @@ import com.yonder.addtolist.theme.padding_8
  * Created on 9.02.2022
  */
 @Composable
-fun LanguageRow(language: LanguageUiModel,onClick: () -> Unit){
+fun LanguageRow(language: LanguageUiModel, onClick: () -> Unit){
     TextButton(
         onClick = onClick
     ) {

@@ -4,7 +4,7 @@ import com.yonder.addtolist.core.base.UseCase
 import com.yonder.addtolist.core.network.request.CreateUserListRequest
 import com.yonder.addtolist.core.network.thread.CoroutineThread
 import com.yonder.addtolist.local.entity.UserListEntity
-import com.yonder.addtolist.scenes.home.domain.repository.UserListRepository
+import com.yonder.addtolist.data.repository.UserListRepository
 import com.yonder.core.network.RestResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn

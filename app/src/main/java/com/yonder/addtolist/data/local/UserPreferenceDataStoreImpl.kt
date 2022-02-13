@@ -1,7 +1,7 @@
 package com.yonder.addtolist.data.local
 
 import android.content.SharedPreferences
-import com.yonder.addtolist.common.ProviderType
+import com.yonder.addtolist.common.enums.ProviderType
 import java.util.*
 import javax.inject.Inject
 

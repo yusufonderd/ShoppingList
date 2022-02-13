@@ -1,6 +1,6 @@
 package com.yonder.addtolist.scenes.languageselection
 
-import com.yonder.addtolist.scenes.languageselection.data.model.LanguageUiModel
+import com.yonder.addtolist.domain.uimodel.LanguageUiModel
 
 /**
  * @author yusuf.onder

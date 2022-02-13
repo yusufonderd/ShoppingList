@@ -2,9 +2,9 @@ package com.yonder.addtolist.domain.usecase
 
 import com.yonder.addtolist.core.base.NoInputUseCase
 import com.yonder.addtolist.core.network.thread.CoroutineThread
-import com.yonder.addtolist.scenes.home.domain.mapper.UserListWithProductsMapper
-import com.yonder.addtolist.scenes.home.domain.model.UserListUiModel
-import com.yonder.addtolist.scenes.home.domain.repository.UserListRepository
+import com.yonder.addtolist.domain.mapper.UserListWithProductsMapper
+import com.yonder.addtolist.domain.uimodel.UserListUiModel
+import com.yonder.addtolist.data.repository.UserListRepository
 import com.yonder.core.base.mapper.ListMapperImpl
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn

@@ -7,11 +7,11 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.yonder.addtolist.databinding.LayoutYoFilteredItemsBinding
-import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
-import com.yonder.addtolist.scenes.listdetail.domain.model.ProductEntityUiModel
+import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
+import com.yonder.addtolist.domain.uimodel.ProductEntityUiModel
 import com.yonder.addtolist.scenes.listdetail.items.adapter.ItemListAdapter
 import com.yonder.addtolist.scenes.listdetail.items.model.ItemUiModel
-import com.yonder.addtolist.scenes.listdetail.items.model.ItemUiModelMapper
+import com.yonder.addtolist.domain.mapper.ItemUiModelMapper
 
 /**
  * @author yusuf.onder
@@ -43,10 +43,10 @@ class YoItemsView @JvmOverloads constructor(
   }
 
   fun bind(
-    products: List<UserListProductUiModel>,
-    list: List<ProductEntityUiModel>,
-    query: String,
-    itemOperationListener: ItemOperationListener
+      products: List<UserListProductUiModel>,
+      list: List<ProductEntityUiModel>,
+      query: String,
+      itemOperationListener: ItemOperationListener
   ) {
 
     val itemsList = ItemUiModelMapper.mapToUiModel(

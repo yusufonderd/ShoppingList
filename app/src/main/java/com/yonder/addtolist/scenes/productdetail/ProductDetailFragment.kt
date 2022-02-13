@@ -15,9 +15,9 @@ import com.yonder.addtolist.common.ui.extensions.compatDrawable
 import com.yonder.addtolist.common.ui.extensions.setSafeOnClickListener
 import com.yonder.addtolist.common.utils.formatter.currency.CurrencyProvider
 import com.yonder.addtolist.databinding.FragmentProductDetailBinding
-import com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel
-import com.yonder.addtolist.scenes.home.domain.model.CategoryUiModel
-import com.yonder.addtolist.scenes.productdetail.model.enums.ProductUnitType
+import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
+import com.yonder.addtolist.domain.uimodel.CategoryUiModel
+import com.yonder.addtolist.common.enums.ProductUnitType
 import com.yonder.uicomponent.adapter.MaterialSpinnerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
