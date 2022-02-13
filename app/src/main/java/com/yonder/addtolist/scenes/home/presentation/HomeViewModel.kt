@@ -17,14 +17,10 @@ class ShoppingListItemsViewModel @Inject constructor(
     private val getUserListsUseCase: GetUserLists
 ) : ViewModel() {
 
-    init {
-        getShoppingItems()
-    }
-
     private val _uiState = MutableStateFlow(UiState(isLoading = true))
     val uiState: StateFlow<UiState> = _uiState
 
-    private fun getShoppingItems() {
+     fun getShoppingItems() {
         viewModelScope.launch {
             getUserListsUseCase().collect { userLists ->
                 _uiState.update {

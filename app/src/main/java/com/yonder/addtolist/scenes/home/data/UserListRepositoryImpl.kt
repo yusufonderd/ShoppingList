@@ -65,14 +65,15 @@ class UserListRepositoryImpl @Inject constructor(
 
   override fun getUserLists(): Flow<List<UserListWithProducts>> = flow {
     val localUserLists = localDataSource.getUserListWithProducts()
-    if (localUserLists.isEmpty()) {
+   val productCount =  localUserLists.flatMap { it.products }.size
+    //if (localUserLists.isEmpty()) {
       val response = service.getUserLists()
       val userListsResponse: List<UserListResponse> = response.data.orEmpty()
       if (response.success == true) {
         insertLists(userListsResponse)
         insertProducts(userListsResponse)
       }
-    }
+    //}
     emit(localDataSource.getUserListWithProducts())
   }.catch {
     emit(localDataSource.getUserListWithProducts())

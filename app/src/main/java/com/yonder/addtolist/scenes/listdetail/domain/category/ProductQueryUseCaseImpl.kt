@@ -5,6 +5,8 @@ import com.yonder.addtolist.core.network.thread.CoroutineThread
 import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.local.AppDatabase
 import com.yonder.addtolist.scenes.listdetail.domain.mapper.ProductEntitySummaryToUiModel
+import com.yonder.addtolist.scenes.listdetail.domain.model.ProductEntityUiModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
@@ -33,4 +35,9 @@ class ProductQueryUseCaseImpl @Inject constructor(
     emit(ListMapperImpl(mapper).map(popularProducts))
   }.flowOn(dispatcher.io)
 
+}
+
+interface ProductQueryUseCase {
+  fun fetchProductByQuery(query: String,limit : Int): Flow<List<ProductEntityUiModel>>
+  fun fetchPopularProducts(): Flow<List<ProductEntityUiModel>>
 }

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
@@ -31,9 +30,10 @@ import com.yonder.uicomponent.compose.ColorPicker
 import com.yonder.uicomponent.compose.HorizontalChipView
 import com.yonder.uicomponent.compose.LoadingView
 import com.yonder.uicomponent.compose.buttons.SubmitButton
-import com.yonder.uicomponent.constants.listColors
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
+
 
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
@@ -65,7 +65,7 @@ class CreateListFragment : Fragment() {
         val event by viewModel.effect.collectAsState(initial = CreateListViewModel.UiEvent.Initial)
 
         val textState = remember { mutableStateOf(TextFieldValue()) }
-        val selectedColorState: MutableState<Int> = remember { mutableStateOf(R.color.listColor1) }
+        val selectedColorIndex: MutableState<Int> = remember { mutableStateOf(0) }
 
         when (event) {
             is CreateListViewModel.UiEvent.ListCreated -> {
@@ -117,17 +117,17 @@ class CreateListFragment : Fragment() {
                 )
 
                 ColorPickerBorderView(
-                    listColors = listColors,
-                    selectedColor = selectedColorState.value,
-                    onClickColor = {
-                        selectedColorState.value = it
+                    listColors = ListProvider.listColors,
+                    selectedIndex = selectedColorIndex.value,
+                    onClickColorIndex = {
+                        selectedColorIndex.value = it
                     }
                 )
 
                 SubmitButton(textResId = R.string.create, onClick = {
                     viewModel.createList(
                         listName = textState.value.text,
-                        listColor = colorDecider.convertToHexString(selectedColorState.value)
+                        listColorName = ListProvider.listNames[selectedColorIndex.value]
                     )
                 })
 
@@ -138,8 +138,8 @@ class CreateListFragment : Fragment() {
     @Composable
     fun ColorPickerBorderView(
         listColors: List<Int>,
-        onClickColor: (Int) -> Unit,
-        selectedColor: Int? = null
+        onClickColorIndex: (Int) -> Unit,
+        selectedIndex: Int? = null
     ) {
         Surface(
             modifier = Modifier.padding(padding_8),
@@ -153,8 +153,8 @@ class CreateListFragment : Fragment() {
             ColorPicker(
                 listColors = listColors,
                 modifier = Modifier.padding(padding_8),
-                onClickColor = onClickColor,
-                selectedColor = selectedColor
+                onClickColor = onClickColorIndex,
+                selectedIndex = selectedIndex
             )
         }
     }

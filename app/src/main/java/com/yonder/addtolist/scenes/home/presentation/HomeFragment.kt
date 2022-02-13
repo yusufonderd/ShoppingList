@@ -41,6 +41,11 @@ class HomeFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+       viewModel.getShoppingItems()
+    }
+
     @Composable
     fun MainContent() {
         val uiState by viewModel.uiState.collectAsState()

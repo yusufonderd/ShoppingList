@@ -61,6 +61,7 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>(),
 
     override fun onStart() {
         super.onStart()
+        viewModel.listId = listId
         viewModel.fetchProducts(listUUID)
     }
 
@@ -133,7 +134,7 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>(),
     override fun edit(item: UserListProductUiModel) {
         findNavController().navigate(
             ListDetailFragmentDirections.actionShoppingListDetailToProductDetail(
-                item
+                userListProduct = item, listId = listId
             )
         )
     }

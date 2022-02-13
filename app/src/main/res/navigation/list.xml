@@ -65,8 +65,7 @@
   <fragment
     android:id="@+id/createListFragment"
     android:name="com.yonder.addtolist.scenes.createlist.CreateListFragment"
-    android:label="@string/create_list"
-    tools:layout="@layout/fragment_create_list">
+    android:label="@string/create_list">
 
   </fragment>
 
@@ -103,6 +102,10 @@
       android:name="userListProduct"
       app:argType="com.yonder.addtolist.scenes.home.domain.model.UserListProductUiModel"
       app:nullable="false" />
+
+    <argument
+        android:name="listId"
+        app:argType="integer" />
 
   </fragment>
 

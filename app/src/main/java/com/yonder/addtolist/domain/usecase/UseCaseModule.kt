@@ -2,6 +2,7 @@ package com.yonder.addtolist.domain.usecase
 
 import com.yonder.addtolist.core.network.thread.CoroutineThread
 import com.yonder.addtolist.local.AppDatabase
+import com.yonder.addtolist.scenes.home.data.remote.ApiService
 import com.yonder.addtolist.scenes.home.domain.repository.UserListRepository
 import com.yonder.addtolist.scenes.listdetail.domain.product.ProductRepository
 import dagger.Module
@@ -34,8 +35,9 @@ object UseCaseModule {
 
     @[Provides]
     fun provideUpdateUserListUseCase(
-        appDatabase: AppDatabase
+        appDatabase: AppDatabase,
+        api: ApiService
     ): UpdateUserListProduct {
-        return UpdateUserListProduct(appDatabase)
+        return UpdateUserListProduct(appDatabase, api)
     }
 }

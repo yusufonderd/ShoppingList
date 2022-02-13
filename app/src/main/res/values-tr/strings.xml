@@ -52,7 +52,7 @@
 
     <string name="very_close">Çok yakın</string>
     <string name="product_name">Öğe adı</string>
-    <string name="product_details">Öğe detayları</string>
+    <string name="product_details">Öğe detayı</string>
     <string name="product_quantity">Adet</string>
     <string name="product_note">Not</string>
     <string name="product_unit_price">Birim fiyatı</string>

@@ -28,13 +28,15 @@ class ProductDetailViewModel @Inject constructor(
     private val updateProductUseCase: UpdateUserListProduct,
 ) : ViewModel() {
 
+    var listId: Int = 0
+
     private val _event: SingleLiveEvent<ProductDetailViewEvent> =
         SingleLiveEvent()
     val event: SingleLiveEvent<ProductDetailViewEvent> get() = _event
 
-    fun fetchProductId(selectedProductId: Int) {
+    fun fetchProduct(productId: Int) {
         viewModelScope.launch {
-            val params = getProductDetail.invoke(selectedProductId)
+            val params = getProductDetail(productId)
             params
                 .mapNotNull { it }
                 .collectLatest { param ->
@@ -93,6 +95,7 @@ class ProductDetailViewModel @Inject constructor(
             updateProductUseCase.invoke(
                 productName = productName,
                 listUUID = product.listUUID,
+                listId = listId,
                 product = product
             )
         }

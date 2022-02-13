@@ -26,13 +26,13 @@ class CreateListViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(UiState())
     val uiState: StateFlow<UiState> = _uiState
 
-    fun createList(listName: String, listColor: String) {
+    fun createList(listName: String, listColorName: String) {
         if (listName.isBlank()) {
             _uiState.update { it.copy(shouldShowBlankListNameError = true) }
         } else {
             _uiState.update { it.copy(isLoading = true) }
             viewModelScope.launch {
-                createList(CreateList.Params(listName, listColor)).collectLatest { result ->
+                createList(CreateList.Params(listName, listColorName)).collectLatest { result ->
                     result.onSuccess {
                         pushEvent(UiEvent.ListCreated)
                     }.onError { throwable ->

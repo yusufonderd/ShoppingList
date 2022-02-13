@@ -20,7 +20,6 @@ import com.yonder.addtolist.scenes.home.domain.model.CategoryUiModel
 import com.yonder.addtolist.scenes.productdetail.model.enums.ProductUnitType
 import com.yonder.uicomponent.adapter.MaterialSpinnerAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 
 /**
  * @author yusuf.onder
@@ -39,6 +38,8 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
 
     private val product get() = args.userListProduct
 
+    private val listId get() = args.listId
+
     var adapterSpinner: MaterialSpinnerAdapter<String>? = null
 
     override fun initBinding(inflater: LayoutInflater) =
@@ -48,7 +49,8 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
         super.onViewCreated(view, savedInstanceState)
         val productId = product.id
         if (productId != null) {
-            viewModel.fetchProductId(productId)
+            viewModel.listId = listId
+            viewModel.fetchProduct(productId)
         } else {
             closeFragment()
         }
@@ -96,21 +98,21 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
         filters = arrayOf(InputFilter.LengthFilter(MAX_LINE_LENGTH_PRICE))
     }
 
-    private fun setProduct(product: UserListProductUiModel) {
-        if (binding.etProductName.text?.isBlank() == true) {
-            binding.etProductName.setText(product.name)
+    private fun setProduct(product: UserListProductUiModel) = with(binding) {
+        if (etProductName.text?.isBlank() == true) {
+            etProductName.setText(product.name)
         }
 
-        if (binding.etNote.text?.isBlank() == true) {
-            binding.etNote.setText(product.note)
+        if (etNote.text?.isBlank() == true) {
+            etNote.setText(product.note)
         }
 
-        if (binding.etPrice.text?.isBlank() == true) {
-            binding.etPrice.setText(product.price)
+        if (etPrice.text?.isBlank() == true) {
+            etPrice.setText(product.price)
         }
 
-        binding.etQuantity.setText(product.quantity)
-        setUnit(binding.toggleButton, product.unit)
+        etQuantity.setText(product.quantity)
+        setUnit(toggleButton, product.unit)
         setFavorite(product.isFavorite)
 
         // If user marked item as done
@@ -120,20 +122,20 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
         }
     }
 
-    private fun initTextChangedListeners() {
+    private fun initTextChangedListeners() = with(binding) {
 
-        binding.etNote.addTextChangedListener {
+        etNote.addTextChangedListener {
             viewModel.updateProductNote(product, note = it.toString())
         }
 
-        binding.etProductName.addTextChangedListener {
+        etProductName.addTextChangedListener {
             viewModel.updateProductName(product, name = it.toString())
         }
 
-        binding.etPrice.addTextChangedListener {
+        etPrice.addTextChangedListener {
             viewModel.updateProductPrice(
                 product = product,
-                price = binding.etPrice.getNumericValue()
+                price = etPrice.getNumericValue()
             )
         }
 
@@ -154,16 +156,16 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
 
         toggleButton.addOnButtonCheckedListener { _, checkedId, isChecked ->
             when (checkedId) {
-                binding.button1.id -> {
+                button1.id -> {
                     viewModel.updateUnit(product, unit = ProductUnitType.Piece)
                 }
-                binding.button2.id -> {
+                button2.id -> {
                     viewModel.updateUnit(product, unit = ProductUnitType.Package)
                 }
-                binding.button3.id -> {
+                button3.id -> {
                     viewModel.updateUnit(product, unit = ProductUnitType.Kg)
                 }
-                binding.button4.id -> {
+                button4.id -> {
                     viewModel.updateUnit(product, unit = ProductUnitType.Lt)
                 }
             }

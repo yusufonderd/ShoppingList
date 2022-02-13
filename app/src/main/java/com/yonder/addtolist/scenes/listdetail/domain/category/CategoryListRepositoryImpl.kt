@@ -56,6 +56,10 @@ class CategoryListRepositoryImpl @Inject constructor(
   }
 }
 
+interface CategoryListRepository {
+  fun fetchCategories(): Flow<RestResult<List<CategoryWithProducts>>>
+}
+
 
 
 

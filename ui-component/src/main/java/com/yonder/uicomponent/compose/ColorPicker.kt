@@ -30,18 +30,19 @@ fun ColorPicker(
     listColors: List<Int>,
     modifier: Modifier,
     onClickColor: (Int) -> Unit,
-    selectedColor: Int? = null,
+    selectedIndex: Int? = null,
     count: Int = 6
 ) {
     LazyVerticalGrid(
         cells = GridCells.Fixed(count),
         modifier = modifier
     ) {
-        items(listColors.size) { item ->
+        items(listColors.size) { itemIndex ->
             CircleShape(
-                color = listColors[item],
+                color = listColors[itemIndex],
                 onClickColor = onClickColor,
-                isSelected = selectedColor == listColors[item]
+                index = itemIndex,
+                isSelected = itemIndex == selectedIndex
             )
         }
     }
@@ -51,6 +52,7 @@ fun ColorPicker(
 @Composable
 fun CircleShape(
     @ColorRes color: Int,
+    index: Int,
     onClickColor: (Int) -> Unit,
     isSelected: Boolean = false
 ) {
@@ -70,7 +72,7 @@ fun CircleShape(
                     .background(colorResource(id = color))
                     .clickable(
                         onClick = {
-                            onClickColor.invoke(color)
+                            onClickColor.invoke(index)
                         }
                     )
             )

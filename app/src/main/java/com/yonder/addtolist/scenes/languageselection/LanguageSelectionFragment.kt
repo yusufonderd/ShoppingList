@@ -34,8 +34,7 @@ class LanguageSelectionFragment : Fragment() {
 
     private val viewModel: LanguageSelectionViewModel by viewModels()
 
-    @Inject
-    lateinit var userPreferenceDataStore: UserPreferenceDataStore
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,7 +48,7 @@ class LanguageSelectionFragment : Fragment() {
     }
 
     private fun setLocale(languageCode: String) {
-        userPreferenceDataStore.setLocale(Locale(languageCode))
+        viewModel.setLocale(languageCode)
         activity?.recreate()
     }
 
