@@ -31,8 +31,7 @@
     <fragment
         android:id="@+id/settingsScreen"
         android:name="com.yonder.addtolist.scenes.settings.SettingsFragment"
-        android:label="@string/title_settings"
-        tools:layout="@layout/settings_fragment">
+        android:label="@string/title_settings">
         <action
             android:id="@+id/action_settings_to_splash"
             app:destination="@id/splashScreen" />

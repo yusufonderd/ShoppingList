@@ -1,6 +1,7 @@
 package com.yonder.addtolist.scenes.createlist
 
-import com.yonder.uicomponent.R
+import com.yonder.addtolist.R
+
 
 /**
  * @author yusuf.onder

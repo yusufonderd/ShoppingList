@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.yonder.addtolist.R
+import com.yonder.addtolist.common.ui.base.BaseListAdapter
 import com.yonder.addtolist.domain.decider.CurrencyDecider
 import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
 import com.yonder.addtolist.scenes.listdetail.productlist.UserListProductOperationListener
-import com.yonder.uicomponent.base.BaseListAdapter
 
 /**
  * @author yusuf.onder

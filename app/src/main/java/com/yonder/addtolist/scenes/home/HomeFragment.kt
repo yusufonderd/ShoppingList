@@ -20,8 +20,8 @@ import com.yonder.addtolist.R
 import com.yonder.addtolist.domain.uimodel.UserListUiModel
 import com.yonder.addtolist.scenes.home.row.AddNewListRow
 import com.yonder.addtolist.scenes.home.row.ListRow
-import com.yonder.uicomponent.compose.LoadingView
-import com.yonder.uicomponent.compose.NoListView
+import com.yonder.addtolist.uicomponent.LoadingView
+import com.yonder.addtolist.uicomponent.NoListView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

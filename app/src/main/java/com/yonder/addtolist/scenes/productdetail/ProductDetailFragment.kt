@@ -18,7 +18,7 @@ import com.yonder.addtolist.databinding.FragmentProductDetailBinding
 import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
 import com.yonder.addtolist.domain.uimodel.CategoryUiModel
 import com.yonder.addtolist.common.enums.ProductUnitType
-import com.yonder.uicomponent.adapter.MaterialSpinnerAdapter
+import com.yonder.addtolist.uicomponent.MaterialSpinnerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 /**

@@ -29,9 +29,49 @@
   <color name="colorGray_alpha_10">#1A686868</color>
 
   <color name="colorGrouped">#EAEAF1</color>
-
-
   <color name="primaryTextColor">#FF000000</color>
+
+  <array name="rainbow">
+    <item>@color/listColor1</item>
+    <item>@color/listColor2</item>
+    <item>@color/listColor3</item>
+    <item>@color/listColor4</item>
+    <item>@color/listColor5</item>
+    <item>@color/listColor6</item>
+    <item>@color/premiumColor1</item>
+    <item>@color/premiumColor2</item>
+    <item>@color/premiumColor3</item>
+    <item>@color/premiumColor4</item>
+    <item>@color/premiumColor5</item>
+    <item>@color/premiumColor6</item>
+    <item>@color/premiumColor7</item>
+    <item>@color/premiumColor8</item>
+    <item>@color/premiumColor9</item>
+    <item>@color/premiumColor10</item>
+    <item>@color/premiumColor11</item>
+    <item>@color/premiumColor12</item>
+  </array>
+
+  <color name="listColor1">#58BB05</color>
+  <color name="listColor2">#FF8F03</color>
+  <color name="listColor3">#01A7FF</color>
+  <color name="listColor4">#E91E63</color>
+  <color name="listColor5">#933AE2</color>
+  <color name="listColor6">#F44336</color>
+
+  <color name="premiumColor1">#5856D6</color>
+  <color name="premiumColor2">#AF52DE</color>
+  <color name="premiumColor3">#FFCC00</color>
+  <color name="premiumColor4">#2EB187</color>
+  <color name="premiumColor5">#C7A846</color>
+  <color name="premiumColor6">#C7A846</color>
+  <color name="premiumColor7">#FF7E79</color>
+  <color name="premiumColor8">#73A079</color>
+  <color name="premiumColor9">#005493</color>
+  <color name="premiumColor10">#AA5042</color>
+  <color name="premiumColor11">#B484A1</color>
+  <color name="premiumColor12">#368B5B</color>
+
 
 
 </resources>

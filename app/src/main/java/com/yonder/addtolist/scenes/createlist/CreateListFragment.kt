@@ -26,10 +26,10 @@ import com.yonder.addtolist.common.ui.extensions.showToastMessage
 import com.yonder.addtolist.common.utils.decider.ColorDecider
 import com.yonder.addtolist.theme.padding_16
 import com.yonder.addtolist.theme.padding_8
-import com.yonder.uicomponent.compose.ColorPicker
-import com.yonder.uicomponent.compose.HorizontalChipView
-import com.yonder.uicomponent.compose.LoadingView
-import com.yonder.uicomponent.compose.buttons.SubmitButton
+import com.yonder.addtolist.uicomponent.ColorPicker
+import com.yonder.addtolist.uicomponent.HorizontalChipView
+import com.yonder.addtolist.uicomponent.LoadingView
+import com.yonder.addtolist.uicomponent.SubmitButton
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

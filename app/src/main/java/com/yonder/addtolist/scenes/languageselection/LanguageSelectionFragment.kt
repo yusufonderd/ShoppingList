@@ -1,8 +1,5 @@
 package com.yonder.addtolist.scenes.languageselection
 
-import android.content.Context
-import android.content.res.Configuration
-import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,13 +12,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.scenes.languageselection.row.LanguageRow
-import com.yonder.uicomponent.compose.ErrorView
-import com.yonder.uicomponent.compose.LoadingView
+import com.yonder.addtolist.uicomponent.ErrorView
+import com.yonder.addtolist.uicomponent.LoadingView
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
-import javax.inject.Inject
 
 
 /**

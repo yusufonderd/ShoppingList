@@ -36,7 +36,7 @@ import com.yonder.addtolist.scenes.settings.presentation.SettingsViewModel
 import com.yonder.addtolist.theme.padding_4
 import com.yonder.addtolist.theme.padding_8
 import com.yonder.addtolist.theme.profile_image_size_small
-import com.yonder.uicomponent.compose.LoadingView
+import com.yonder.addtolist.uicomponent.LoadingView
 import dagger.hilt.android.AndroidEntryPoint
 
 const val INSTAGRAM_URL = "https://www.instagram.com/addtolist.co/"

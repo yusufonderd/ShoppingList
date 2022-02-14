@@ -9,7 +9,6 @@ import com.yonder.addtolist.core.network.request.UserListProductRequest
 import com.yonder.addtolist.local.entity.ProductEntitySummary
 import com.yonder.addtolist.local.entity.UserListProductEntity
 import com.yonder.addtolist.data.remote.response.UserListProductResponse
-import com.yonder.uicomponent.base.model.UserListProductSummaryUiModel
 
 /**
  * @author yusuf.onder
@@ -17,7 +16,7 @@ import com.yonder.uicomponent.base.model.UserListProductSummaryUiModel
  */
 
 
-class UserListProductSummaryToUiModelMapper: Mapper<ProductEntitySummary,UserListProductSummaryUiModel>{
+class UserListProductSummaryToUiModelMapper: Mapper<ProductEntitySummary, UserListProductSummaryUiModel>{
   override fun map(input: ProductEntitySummary): UserListProductSummaryUiModel {
     return UserListProductSummaryUiModel(name = input.name,categoryImage = input.categoryImage.orEmpty())
   }

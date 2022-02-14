@@ -107,7 +107,6 @@ dependencies {
   implementation Libs.DaggerHilt.daggerHilt
   implementation project(path: ':local')
   implementation project(path: ':core')
-  implementation project(path: ':ui-component')
 
   kapt Libs.DaggerHilt.daggerHiltCompiler
 

@@ -7,7 +7,7 @@
   android:layout_height="match_parent"
   tools:context=".scenes.home.HomeFragment">
 
-  <com.yonder.uicomponent.basic.YoTitleButtonView
+  <com.yonder.addtolist.uicomponent.YoTitleButtonView
     android:id="@+id/ytCreateList"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"

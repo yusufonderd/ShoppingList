@@ -20,8 +20,8 @@ import androidx.navigation.fragment.findNavController
 import com.yonder.addtolist.R
 import com.yonder.addtolist.domain.uimodel.UserUiModel
 import com.yonder.addtolist.theme.default_page_padding
-import com.yonder.uicomponent.compose.ErrorView
-import com.yonder.uicomponent.compose.LoadingView
+import com.yonder.addtolist.uicomponent.ErrorView
+import com.yonder.addtolist.uicomponent.LoadingView
 import dagger.hilt.android.AndroidEntryPoint
 
 /**

@@ -9,7 +9,7 @@ import com.yonder.addtolist.databinding.LayoutYoProductListBinding
 import com.yonder.addtolist.domain.decider.CurrencyDecider
 import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
 import com.yonder.addtolist.scenes.listdetail.productlist.adapter.ListProductAdapter
-import com.yonder.uicomponent.extensions.addVerticalDivider
+import com.yonder.addtolist.uicomponent.addVerticalDivider
 
 /**
  * @author yusuf.onder

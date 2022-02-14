@@ -132,6 +132,7 @@
     <string name="anonymous_user_encourage_text">Create Addtolist account to share your shopping lists with other users.</string>
     <string name="continue_with_fb">Facebook ile devam et</string>
     <string name="try_again">Try again</string>
+    <string name="loading">Yükleniyor</string>
 
     <string name="about_description">Addtolist is a shopping list application where you can simply create and share shopping lists. It allows you to simply add products to the shopping lists you create. You can add information such as quantity, note and unit to the products you add. You can mark the products you have purchased as received.</string>
     <string name="privacy_policy">Gizlilik politikası</string>
