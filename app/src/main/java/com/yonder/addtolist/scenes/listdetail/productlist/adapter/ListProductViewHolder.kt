@@ -75,7 +75,7 @@ class ListProductViewHolder(
         }
 
     private fun bindNote(note: String?) = with(binding.tvNote) {
-        isGone = note.isNullOrEmpty()
+        isGone = note.isNullOrBlank()
         text = note
     }
 

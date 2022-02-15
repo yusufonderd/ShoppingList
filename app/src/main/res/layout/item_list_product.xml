@@ -64,10 +64,12 @@
             <TextView
                 android:id="@+id/titleTextView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:gravity="center"
                 android:textAppearance="?textAppearanceBody1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/tvNote"
                 tools:text="@tools:sample/lorem" />
 
             <TextView
@@ -100,6 +102,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="end"
+                app:layout_constraintTop_toBottomOf="@+id/tvQuantity"
                 android:maxLines="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@color/colorPrimary"
