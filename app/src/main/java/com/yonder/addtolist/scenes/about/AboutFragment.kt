@@ -16,6 +16,7 @@ import com.yonder.addtolist.theme.padding_8
 import dagger.hilt.android.AndroidEntryPoint
 import android.content.Intent
 import android.net.Uri
+import androidx.compose.ui.res.colorResource
 import androidx.navigation.fragment.findNavController
 
 
@@ -50,7 +51,8 @@ class AboutFragment : Fragment() {
         ) {
             Text(
                 text = getString(R.string.about_description),
-                style = MaterialTheme.typography.body1
+                style = MaterialTheme.typography.body1,
+                color= colorResource(id = R.color.primaryTextColor)
             )
             Divider()
 
@@ -62,11 +64,13 @@ class AboutFragment : Fragment() {
             ) {
                 Text(
                     text = getString(R.string.version),
-                    style = MaterialTheme.typography.body1
+                    style = MaterialTheme.typography.body1,
+                    color= colorResource(id = R.color.primaryTextColor)
                 )
                 Text(
                     text = BuildConfig.VERSION_NAME,
-                    style = MaterialTheme.typography.body1
+                    style = MaterialTheme.typography.body1,
+                    color= colorResource(id = R.color.primaryTextColor)
                 )
             }
 
@@ -83,7 +87,10 @@ class AboutFragment : Fragment() {
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(text = getString(R.string.privacy_policy))
+                Text(
+                    text = getString(R.string.privacy_policy),
+                    color = colorResource(id = R.color.purple_500)
+                )
             }
 
             Divider()
@@ -95,7 +102,9 @@ class AboutFragment : Fragment() {
                 modifier = Modifier
                     .fillMaxWidth()
             ) {
-                Text(text = getString(R.string.license))
+                Text(text = getString(R.string.license),
+                    color = colorResource(id = R.color.purple_500)
+                )
             }
 
             Divider()

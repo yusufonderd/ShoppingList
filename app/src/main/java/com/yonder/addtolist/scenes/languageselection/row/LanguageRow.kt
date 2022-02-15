@@ -8,6 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import com.yonder.addtolist.R
 import com.yonder.addtolist.domain.uimodel.LanguageUiModel
 import com.yonder.addtolist.theme.padding_8
 
@@ -22,7 +24,7 @@ fun LanguageRow(language: LanguageUiModel, onClick: () -> Unit){
     ) {
         Text(
             text = language.name,
-            color = Color.DarkGray,
+            color = colorResource(id = R.color.primaryTextColor),
             modifier = Modifier
                 .fillMaxSize()
                 .padding(bottom = padding_8)

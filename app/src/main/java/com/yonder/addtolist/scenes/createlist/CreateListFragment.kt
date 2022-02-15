@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -13,6 +14,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
@@ -32,7 +34,6 @@ import com.yonder.addtolist.uicomponent.LoadingView
 import com.yonder.addtolist.uicomponent.SubmitButton
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-
 
 
 @ExperimentalMaterialApi
@@ -79,7 +80,12 @@ class CreateListFragment : Fragment() {
         if (state.isLoading) {
             LoadingView()
         } else {
-            Column {
+            Column(
+                Modifier
+                    .background(
+                        colorResource(id = R.color.gray_50)
+                    )
+            ) {
                 TextField(
                     value = textState.value,
                     textStyle = MaterialTheme.typography.body1,
@@ -96,7 +102,10 @@ class CreateListFragment : Fragment() {
                             bottom = padding_8
                         ),
                     placeholder = {
-                        Text(text = stringResource(id = R.string.list_name))
+                        Text(
+                            text = stringResource(id = R.string.list_name),
+                            color = colorResource(id = R.color.primaryTextColor)
+                        )
                     }
                 )
                 if (state.shouldShowBlankListNameError) {
@@ -130,7 +139,6 @@ class CreateListFragment : Fragment() {
                         listColorName = ListProvider.listNames[selectedColorIndex.value]
                     )
                 })
-
             }
         }
     }
@@ -152,7 +160,10 @@ class CreateListFragment : Fragment() {
         ) {
             ColorPicker(
                 listColors = listColors,
-                modifier = Modifier.padding(padding_8),
+                modifier = Modifier.background(
+                    color = colorResource(id = R.color.white),
+                    shape = RectangleShape
+                ).padding(padding_8),
                 onClickColor = onClickColorIndex,
                 selectedIndex = selectedIndex
             )

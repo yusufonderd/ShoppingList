@@ -20,6 +20,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -123,6 +124,7 @@ class SettingsFragment : Fragment() {
                                     Icon(
                                         painter = painterResource(id = it),
                                         contentDescription = null,
+                                        tint = colorResource(id = R.color.purple_500),
                                         modifier = Modifier.padding(padding_8)
                                     )
                                 }
@@ -131,13 +133,14 @@ class SettingsFragment : Fragment() {
                                     Text(
                                         style = MaterialTheme.typography.body1,
                                         text = getString(it),
-                                        modifier = Modifier.padding(padding_8)
+                                        modifier = Modifier.padding(padding_8),
+                                        color = colorResource(id = R.color.primaryTextColor)
                                     )
                                 }
 
                                 Text(
                                     text = getString(imageDetail.titleResId),
-                                    color = Color.DarkGray,
+                                    color = colorResource(id = R.color.primaryTextColor),
                                     style = MaterialTheme.typography.body1
                                 )
 

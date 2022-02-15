@@ -1,6 +1,5 @@
 package com.yonder.addtolist.scenes.accountdetail
 
-import android.content.DialogInterface
 import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
@@ -49,7 +48,7 @@ fun AccountDetailText(text: String) {
   Text(
     text = text,
     style = MaterialTheme.typography.body1,
-    color = Color.DarkGray,
+    color = colorResource(id = R.color.primaryTextColor),
     modifier = Modifier
       .fillMaxSize()
       .padding(padding_8),
@@ -88,7 +87,7 @@ fun AnonymousUserHeader() {
       Text(
         text = stringResource(id = R.string.anonymous_user_encourage_text),
         textAlign = TextAlign.Center,
-        color = Color.DarkGray
+        color = colorResource(id = R.color.primaryTextColor),
       )
     }
   }
