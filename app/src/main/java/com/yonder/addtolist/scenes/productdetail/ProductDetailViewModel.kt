@@ -3,7 +3,6 @@ package com.yonder.addtolist.scenes.productdetail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.core.data.SingleLiveEvent
-import com.yonder.addtolist.core.extensions.orZero
 import com.yonder.addtolist.domain.usecase.DeleteUserListProduct
 import com.yonder.addtolist.domain.usecase.GetProductDetail
 import com.yonder.addtolist.domain.usecase.UpdateUserListProduct
@@ -82,14 +81,6 @@ class ProductDetailViewModel @Inject constructor(
         }
     }
 
-    fun updateProductName(product: UserListProductUiModel, name: String) {
-        val currentProductName = product.name
-        if (currentProductName != name) {
-            product.name = name
-            update(product = product, productName = currentProductName)
-        }
-    }
-
     private fun update(product: UserListProductUiModel, productName: String = product.name) {
         viewModelScope.launch {
             updateProductUseCase.invoke(
@@ -101,35 +92,16 @@ class ProductDetailViewModel @Inject constructor(
         }
     }
 
-    fun updateProductPrice(product: UserListProductUiModel, price: Double?) {
-        if (product.priceValue != price) {
-            product.priceValue = price.orZero()
-            update(product)
-        }
-    }
-
-    fun updateProductNote(product: UserListProductUiModel, note: String?) {
-        if (product.note != note) {
-            product.note = note.orEmpty()
-            update(product)
-        }
-    }
-
-    fun updateCategory(product: UserListProductUiModel, categoryPosition: Int) {
-        val selectedCategories = getCategories()?.getOrNull(categoryPosition)
-        if (selectedCategories != null && selectedCategories.image != product.categoryImage) {
-            product.categoryImage = selectedCategories.image
-            product.categoryName = selectedCategories.name
-            update(product)
-        }
-    }
-
     private fun getCategories(): List<CategoryUiModel>? {
         val viewState = event.value
         if (viewState is ProductDetailViewEvent.Load) {
             return viewState.categories
         }
         return null
+    }
+
+    fun getCategoryBy(categoryName: String): CategoryUiModel? {
+        return getCategories()?.find { categoryName == it.formattedName }
     }
 
 }

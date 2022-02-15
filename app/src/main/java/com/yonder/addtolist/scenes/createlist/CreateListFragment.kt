@@ -14,6 +14,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.colorResource
@@ -100,7 +101,8 @@ class CreateListFragment : Fragment() {
                         .padding(
                             top = padding_16,
                             bottom = padding_8
-                        ),
+                        ).background(color = colorResource(id = R.color.white))
+                    ,
                     placeholder = {
                         Text(
                             text = stringResource(id = R.string.list_name),
@@ -160,10 +162,12 @@ class CreateListFragment : Fragment() {
         ) {
             ColorPicker(
                 listColors = listColors,
-                modifier = Modifier.background(
-                    color = colorResource(id = R.color.white),
-                    shape = RectangleShape
-                ).padding(padding_8),
+                modifier = Modifier
+                    .background(
+                        color = colorResource(id = R.color.white),
+                        shape = RectangleShape
+                    )
+                    .padding(padding_8),
                 onClickColor = onClickColorIndex,
                 selectedIndex = selectedIndex
             )

@@ -1,7 +1,11 @@
 package com.yonder.addtolist.scenes.activity
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
+import com.yonder.addtolist.domain.usecase.UpdateUserListProduct
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -10,4 +14,39 @@ import javax.inject.Inject
  */
 
 @HiltViewModel
-class MainViewModel @Inject constructor() : ViewModel()
+class MainViewModel @Inject constructor(
+    private val updateProductUseCase: UpdateUserListProduct
+) : ViewModel(){
+
+    fun updateProduct(
+        product: UserListProductUiModel,
+        listId: Int,
+        name: String,
+        categoryImage: String,
+        categoryName: String,
+        price: Double,
+        note: String,
+
+    ) {
+        val updatedProduct = product.copy(
+            name = name,
+            priceValue = price,
+            categoryImage = categoryImage,
+            categoryName = categoryName,
+            note = note
+        )
+        if (updatedProduct != product) {
+             viewModelScope.launch {
+                 updateProductUseCase.invoke(
+                     productName = product.name,
+                     listUUID = product.listUUID,
+                     listId = listId,
+                     product = updatedProduct
+                 )
+             }
+        }
+    }
+
+
+
+}

@@ -1,6 +1,7 @@
 package com.yonder.addtolist.scenes.listdetail
 
 import android.view.LayoutInflater
+import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
@@ -108,7 +109,16 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>(),
             val query = editable.toString()
             viewModel.fetchProducts(listUUID, query)
         }
+
+        setOnEditorActionListener { textView, actionId, keyEvent ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                addProduct(productName = textView.text.toString())
+                true;
+            }
+            false;
+        }
     }
+
 
     override fun decreaseQuantity(item: UserListProductUiModel) {
         viewModel.decreaseQuantity(item)
