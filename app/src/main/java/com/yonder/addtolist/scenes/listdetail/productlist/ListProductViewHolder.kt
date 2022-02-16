@@ -1,4 +1,4 @@
-package com.yonder.addtolist.scenes.listdetail.productlist.adapter
+package com.yonder.addtolist.scenes.listdetail.productlist
 
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -10,7 +10,6 @@ import com.yonder.addtolist.common.ui.extensions.setStrikeThrough
 import com.yonder.addtolist.databinding.ItemListProductBinding
 import com.yonder.addtolist.domain.decider.CurrencyDecider
 import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
-import com.yonder.addtolist.scenes.listdetail.productlist.UserListProductOperationListener
 
 /**
  * @author yusuf.onder
@@ -25,7 +24,7 @@ class ListProductViewHolder(
     fun bind(
         product: UserListProductUiModel,
         position: Int,
-        productOperationListener: UserListProductOperationListener,
+        productCallbacks: ListProductCallbacks,
         currencyDecider: CurrencyDecider
     ) = with(binding) {
         val isDone = product.isDone
@@ -38,10 +37,10 @@ class ListProductViewHolder(
         )
         bindQuantity(quantity = product.quantity)
         bindCategory(categoryImage = product.categoryUnicode, isDone = isDone)
-        bindEditBtn(product = product, productOperationListener = productOperationListener)
+        bindEditBtn(product = product, productCallbacks = productCallbacks)
         bindFavorite(isFavorite = isFavorite)
         itemView.setOnClickListener {
-            productOperationListener.toggleDone(product, position)
+            productCallbacks.toggleDone(product, position)
         }
     }
 
@@ -65,11 +64,11 @@ class ListProductViewHolder(
 
     private fun bindEditBtn(
         product: UserListProductUiModel,
-        productOperationListener: UserListProductOperationListener
+        productCallbacks: ListProductCallbacks
     ) =
         with(binding.imgBtnEdit) {
             setOnClickListener {
-                productOperationListener.edit(product)
+                productCallbacks.edit(product)
             }
             isGone = product.isDone
         }

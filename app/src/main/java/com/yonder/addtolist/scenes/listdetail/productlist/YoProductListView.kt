@@ -8,7 +8,6 @@ import androidx.core.view.isVisible
 import com.yonder.addtolist.databinding.LayoutYoProductListBinding
 import com.yonder.addtolist.domain.decider.CurrencyDecider
 import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
-import com.yonder.addtolist.scenes.listdetail.productlist.adapter.ListProductAdapter
 import com.yonder.addtolist.uicomponent.addVerticalDivider
 
 /**
@@ -17,62 +16,64 @@ import com.yonder.addtolist.uicomponent.addVerticalDivider
  */
 
 class YoProductListView @JvmOverloads constructor(
-  context: Context,
-  attrs: AttributeSet? = null,
-  defStyleAttr: Int = 0
-) : ConstraintLayout(context, attrs, defStyleAttr), UserListProductOperationListener {
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : ConstraintLayout(context, attrs, defStyleAttr), ListProductCallbacks {
 
-  private val binding: LayoutYoProductListBinding by lazy {
-    LayoutYoProductListBinding.inflate(LayoutInflater.from(context), this, true)
-  }
-
-  private var adapter: ListProductAdapter? = null
-  private var lastModifiedIndex: Int? = null
-  private lateinit var listener: UserListProductOperationListener
-
-  init {
-    initRecyclerView()
-  }
-
-  fun setVisible(isVisible: Boolean) {
-    this.isVisible = isVisible
-  }
-
-
-  private fun initRecyclerView() {
-    binding.rvProducts.addVerticalDivider()
-  }
-
-  fun bind(
-      products: List<UserListProductUiModel>,
-      listener: UserListProductOperationListener,
-      currencyDecider: CurrencyDecider
-  ) {
-    this.listener = listener
-    val sortedProducts = products.sortedBy { it.isDone }
-    if (adapter == null) {
-      binding.rvProducts.adapter = ListProductAdapter(currencyDecider).apply {
-        submitList(sortedProducts)
-        userListProductOperationListener = this@YoProductListView
-      }.also { adapter = it }
-    } else {
-      adapter?.apply {
-        submitList(sortedProducts)
-        lastModifiedIndex?.let {
-          notifyItemChanged(it)
-        }
-      }
+    private val binding: LayoutYoProductListBinding by lazy {
+        LayoutYoProductListBinding.inflate(LayoutInflater.from(context), this, true)
     }
-  }
 
-  override fun edit(item: UserListProductUiModel) {
-    listener.edit(item)
-  }
+    private var adapter: ListProductAdapter? = null
+    private var lastModifiedIndex: Int? = null
+    private lateinit var listener: ListProductCallbacks
 
-  override fun toggleDone(item: UserListProductUiModel, productPosition: Int) {
-    lastModifiedIndex = productPosition
-    listener.toggleDone(item, productPosition)
-  }
+    init {
+        initRecyclerView()
+    }
+
+    fun setVisible(isVisible: Boolean) {
+        this.isVisible = isVisible
+    }
+
+
+    private fun initRecyclerView() {
+        binding.rvProducts.addVerticalDivider()
+    }
+
+    fun bind(
+        products: List<UserListProductUiModel>,
+        listener: ListProductCallbacks,
+        currencyDecider: CurrencyDecider
+    ) {
+        this.listener = listener
+        val sortedProducts = products.sortedBy { it.isDone }
+        if (adapter == null) {
+            binding.rvProducts.adapter = ListProductAdapter(
+                currencyDecider = currencyDecider,
+                listProductCallbacks = this@YoProductListView
+            ).apply {
+                submitList(sortedProducts)
+            }.also { adapter = it }
+        } else {
+            adapter?.apply {
+                submitList(sortedProducts)
+                lastModifiedIndex?.let {
+                    notifyItemChanged(it)
+                }
+            }
+        }
+    }
+
+    override fun edit(item: UserListProductUiModel) {
+        listener.edit(item)
+    }
+
+    override fun toggleDone(item: UserListProductUiModel, productPosition: Int) {
+        lastModifiedIndex = productPosition
+        listener.toggleDone(item, productPosition)
+    }
 
 }
 

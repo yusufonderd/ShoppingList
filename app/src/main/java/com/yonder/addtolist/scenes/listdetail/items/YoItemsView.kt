@@ -9,7 +9,6 @@ import androidx.core.view.isVisible
 import com.yonder.addtolist.databinding.LayoutYoFilteredItemsBinding
 import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
 import com.yonder.addtolist.domain.uimodel.ProductEntityUiModel
-import com.yonder.addtolist.scenes.listdetail.items.adapter.ItemListAdapter
 import com.yonder.addtolist.scenes.listdetail.items.model.ItemUiModel
 import com.yonder.addtolist.domain.mapper.ItemUiModelMapper
 
@@ -43,10 +42,10 @@ class YoItemsView @JvmOverloads constructor(
   }
 
   fun bind(
-      products: List<UserListProductUiModel>,
-      list: List<ProductEntityUiModel>,
-      query: String,
-      itemOperationListener: ItemOperationListener
+    products: List<UserListProductUiModel>,
+    list: List<ProductEntityUiModel>,
+    query: String,
+    itemCallbacks: ItemCallbacks
   ) {
 
     val itemsList = ItemUiModelMapper.mapToUiModel(
@@ -62,7 +61,7 @@ class YoItemsView @JvmOverloads constructor(
       val entity = products.find { it.name == query }
       val queryItemModel = ItemUiModel(query, entity)
       binding.yoProductQueryItem.bind(
-        listener = itemOperationListener,
+        listener = itemCallbacks,
         query = query,
         value = queryItemModel,
         boldEnabled = false
@@ -70,17 +69,17 @@ class YoItemsView @JvmOverloads constructor(
     }
 
     binding.tvHeader.isGone = isVisibleQuery
-    setAdapter(itemsList, query, itemOperationListener)
+    setAdapter(itemsList, query, itemCallbacks)
   }
 
   private fun setAdapter(
     itemsList: List<ItemUiModel>,
     query: String,
-    itemOperationListener: ItemOperationListener
+    itemCallbacks: ItemCallbacks
   ) {
     if (adapter == null) {
-      adapter = ItemListAdapter().apply {
-        this.itemOperationListener = itemOperationListener
+      adapter = ItemListAdapter(itemCallbacks = itemCallbacks).apply {
+        this.itemCallbacks = itemCallbacks
         this.query = query
         submitList(itemsList)
       }

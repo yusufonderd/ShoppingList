@@ -1,9 +1,8 @@
-package com.yonder.addtolist.scenes.listdetail.items.adapter
+package com.yonder.addtolist.scenes.listdetail.items
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.yonder.addtolist.databinding.ItemProductBinding
-import com.yonder.addtolist.scenes.listdetail.items.ItemOperationListener
 import com.yonder.addtolist.scenes.listdetail.items.model.ItemUiModel
 
 /**
@@ -13,7 +12,7 @@ import com.yonder.addtolist.scenes.listdetail.items.model.ItemUiModel
 
 class ItemListViewHolder(
   view: View,
-  private val listener: ItemOperationListener
+  private val listener: ItemCallbacks
 ) : RecyclerView.ViewHolder(view) {
   private val binding = ItemProductBinding.bind(view)
 

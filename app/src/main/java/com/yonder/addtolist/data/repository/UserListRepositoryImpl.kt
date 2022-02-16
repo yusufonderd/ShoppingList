@@ -21,6 +21,11 @@ import javax.inject.Inject
  * Yusuf Onder on 12,May,2021
  */
 
+interface UserListRepository {
+  fun getUserLists(): Flow<List<UserListWithProducts>>
+  fun createUserList(request: CreateUserListRequest): Flow<RestResult<UserListEntity>>
+}
+
 class UserListRepositoryImpl @Inject constructor(
   private val service: ApiService,
   private val localDataSource: UserListDataSource,

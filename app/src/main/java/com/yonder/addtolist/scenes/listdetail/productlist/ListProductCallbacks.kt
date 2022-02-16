@@ -6,7 +6,7 @@ import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
  * @author yusuf.onder
  * Created on 24.07.2021
  */
-interface UserListProductOperationListener {
+interface ListProductCallbacks {
   fun edit(item: UserListProductUiModel)
   fun toggleDone(item: UserListProductUiModel, productPosition : Int)
 }

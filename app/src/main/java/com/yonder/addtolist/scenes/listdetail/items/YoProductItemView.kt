@@ -30,10 +30,10 @@ class YoProductItemView @JvmOverloads constructor(
   }
 
   fun bind(
-    value: ItemUiModel,
-    listener: ItemOperationListener,
-    query: String,
-    boldEnabled: Boolean = true
+      value: ItemUiModel,
+      listener: ItemCallbacks,
+      query: String,
+      boldEnabled: Boolean = true
   ) {
     val product = value.product
 

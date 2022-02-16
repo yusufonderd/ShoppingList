@@ -214,22 +214,6 @@
 
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnDone"
-            style="@style/Widget.App.Button.OutlinedButton.IconOnly"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_8"
-            android:text="@string/check_done"
-            android:textColor="@color/colorBlue"
-            app:backgroundTint="@color/white"
-            app:icon="@drawable/ic_baseline_check_24"
-            app:iconTint="@color/colorBlue"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtFieldNote" />
-
-
-        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAddFavorite"
             style="@style/Widget.App.Button.OutlinedButton.IconOnly"
             android:layout_width="0dp"
@@ -238,7 +222,7 @@
             app:backgroundTint="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnDone" />
+            app:layout_constraintTop_toBottomOf="@+id/txtFieldNote" />
 
 
         <com.google.android.material.button.MaterialButton

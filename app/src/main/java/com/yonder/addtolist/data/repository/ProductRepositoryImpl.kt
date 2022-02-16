@@ -21,6 +21,23 @@ import javax.inject.Inject
  * @author yusuf.onder
  * Created on 22.07.2021
  */
+
+interface ProductRepository {
+  fun addProduct(
+    listUUID: String,
+    product: CreateUserListProductRequest
+  ): Flow<RestResult<UserListProductEntity>>
+
+  suspend fun delete(product: UserListProductUiModel)
+  fun updateProduct(
+    listId: String,
+    product: UserListProductEntity
+  ): Flow<RestResult<UserListProductEntity>>
+
+  fun getProductEntityByName(productName: String): Flow<ProductEntity?>
+}
+
+
 class ProductRepositoryImpl @Inject constructor(
   private val api: ApiService,
   private val userPreferenceDataStore: UserPreferenceDataStore,

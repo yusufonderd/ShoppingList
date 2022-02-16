@@ -120,14 +120,7 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
         setUnit(toggleButton, product.unit)
         setFavorite(product.isFavorite)
 
-        // If user marked item as done
-        // Product detail page closing automatically
-        if (product.isDone) {
-            closeFragment()
-        }
     }
-
-
 
 
     private fun setClickListeners() = with(binding) {
@@ -150,10 +143,6 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
 
         btnAddFavorite.setSafeOnClickListener {
             viewModel.toggleFavorite(product)
-        }
-
-        btnDone.setSafeOnClickListener {
-            viewModel.toggleDone(product)
         }
 
     }

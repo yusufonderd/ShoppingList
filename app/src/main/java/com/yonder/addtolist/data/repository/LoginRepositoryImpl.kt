@@ -10,6 +10,12 @@ import javax.inject.Inject
  * Yusuf Onder on 12,May,2021
  */
 
+interface LoginRepository {
+  suspend fun login(params: UserRegisterRequest): BaseResponse<UserResponse>
+  suspend fun getCurrentUser(): BaseResponse<UserResponse>
+}
+
+
 class LoginRepositoryImpl @Inject constructor(
   private val loginService: LoginService
 ) : LoginRepository {
@@ -19,3 +25,5 @@ class LoginRepositoryImpl @Inject constructor(
   override suspend fun getCurrentUser(): BaseResponse<UserResponse> = loginService.getCurrentUser()
 
 }
+
+

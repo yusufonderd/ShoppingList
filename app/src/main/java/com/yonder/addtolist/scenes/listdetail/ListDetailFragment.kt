@@ -17,8 +17,8 @@ import com.yonder.addtolist.databinding.FragmentListDetailBinding
 import com.yonder.addtolist.domain.decider.CurrencyDecider
 import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
 import com.yonder.addtolist.domain.uimodel.ProductEntityUiModel
-import com.yonder.addtolist.scenes.listdetail.items.ItemOperationListener
-import com.yonder.addtolist.scenes.listdetail.productlist.UserListProductOperationListener
+import com.yonder.addtolist.scenes.listdetail.items.ItemCallbacks
+import com.yonder.addtolist.scenes.listdetail.productlist.ListProductCallbacks
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
@@ -30,8 +30,8 @@ import javax.inject.Inject
 @Suppress("TooManyFunctions")
 @AndroidEntryPoint
 class ListDetailFragment : BaseFragment<FragmentListDetailBinding>(),
-    UserListProductOperationListener,
-    ItemOperationListener {
+    ListProductCallbacks,
+    ItemCallbacks {
 
     private val args: ListDetailFragmentArgs by navArgs()
 
@@ -173,7 +173,7 @@ class ListDetailFragment : BaseFragment<FragmentListDetailBinding>(),
             products = products,
             list = filteredProducts,
             query = query.trimStart(),
-            itemOperationListener = this@ListDetailFragment
+            itemCallbacks = this@ListDetailFragment
         )
 
     }

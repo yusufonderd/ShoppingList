@@ -1,8 +1,5 @@
 package com.yonder.addtolist.di
 
-import com.yonder.addtolist.data.datasource.RemoteSettingsDataSource
-import com.yonder.addtolist.data.datasource.RemoteSettingsDataSourceImpl
-import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
@@ -14,6 +11,4 @@ import dagger.hilt.android.components.ViewModelComponent
 @[Module InstallIn(ViewModelComponent::class)]
 interface SettingsModule {
 
-  @get:[Binds]
-  val RemoteSettingsDataSourceImpl.remoteSettingsDataSource: RemoteSettingsDataSource
 }

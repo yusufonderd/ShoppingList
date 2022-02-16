@@ -53,11 +53,6 @@ class ProductDetailViewModel @Inject constructor(
         update(product)
     }
 
-    fun toggleDone(product: UserListProductUiModel) {
-        product.isDone = !product.isDone
-        update(product)
-    }
-
     fun delete(product: UserListProductUiModel) {
         viewModelScope.launch {
             deleteProductUseCase.invoke(product)
