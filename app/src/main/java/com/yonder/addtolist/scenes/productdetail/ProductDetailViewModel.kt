@@ -23,7 +23,6 @@ import javax.inject.Inject
 @HiltViewModel
 class ProductDetailViewModel @Inject constructor(
     private val getProductDetail: GetProductDetail,
-    private val deleteProductUseCase: DeleteUserListProduct,
     private val updateProductUseCase: UpdateUserListProduct,
 ) : ViewModel() {
 
@@ -51,12 +50,6 @@ class ProductDetailViewModel @Inject constructor(
     fun toggleFavorite(product: UserListProductUiModel) {
         product.isFavorite = !product.isFavorite
         update(product)
-    }
-
-    fun delete(product: UserListProductUiModel) {
-        viewModelScope.launch {
-            deleteProductUseCase.invoke(product)
-        }
     }
 
     fun increaseQuantity(product: UserListProductUiModel) {

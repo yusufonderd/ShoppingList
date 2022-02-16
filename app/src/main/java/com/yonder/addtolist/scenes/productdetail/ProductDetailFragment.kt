@@ -126,7 +126,8 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
     private fun setClickListeners() = with(binding) {
 
         btnDeleteItem.setSafeOnClickListener {
-            viewModel.delete(product)
+            mainViewModel.delete(product)
+            closeFragment()
         }
 
         toggleButton.addOnButtonCheckedListener { _, checkedId, _ ->
