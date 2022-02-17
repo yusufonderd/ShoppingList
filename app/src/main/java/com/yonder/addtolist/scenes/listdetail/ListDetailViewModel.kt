@@ -1,22 +1,28 @@
 package com.yonder.addtolist.scenes.listdetail
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.core.extensions.EMPTY_STRING
+import com.yonder.addtolist.domain.mapper.ItemUiModelMapper
+import com.yonder.addtolist.domain.uimodel.ProductEntityUiModel
 import com.yonder.addtolist.domain.usecase.DeleteProductOfUserList
 import com.yonder.addtolist.domain.usecase.GetUserList
 import com.yonder.addtolist.domain.usecase.UpdateProductOfUserList
 import com.yonder.addtolist.local.entity.CATEGORY_OTHER_IMAGE
 import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
+import com.yonder.addtolist.domain.uimodel.UserListUiModel
 import com.yonder.addtolist.scenes.listdetail.domain.category.ProductQueryUseCase
 import com.yonder.addtolist.domain.usecase.ProductUseCase
 import com.yonder.addtolist.scenes.listdetail.domain.AddProductUseCase
+import com.yonder.addtolist.scenes.listdetail.items.model.ItemUiModel
+import com.yonder.core.base.BaseViewModel
+import com.yonder.core.base.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -35,11 +41,11 @@ class ListDetailViewModel @Inject constructor(
     private val updateProductUseCase: UpdateProductOfUserList,
     private val deleteProductOfUserListUseCase: DeleteProductOfUserList,
     private val getUserListUseCase: GetUserList
-) : ViewModel() {
+) : BaseViewModel<ListDetailViewModel.UiEvent>() {
 
-    private val _state: MutableStateFlow<ListDetailViewState> =
-        MutableStateFlow(ListDetailViewState.Initial)
-    val state: StateFlow<ListDetailViewState> get() = _state
+    private val _uiState = MutableStateFlow(UiState())
+    val uiState: StateFlow<UiState> = _uiState
+
     var job: Job? = null
 
     var listId: Int = 0
@@ -57,14 +63,19 @@ class ListDetailViewModel @Inject constructor(
         job?.cancel()
         job = viewModelScope.launch {
             flow1.combine(flow2) { userList, listingProducts ->
-                if (userList.products.isEmpty()) {
-                    _state.value = ListDetailViewState.OpenKeyboard
-                }
-                _state.value = ListDetailViewState.UserListContent(
-                    userList,
-                    listingProducts,
-                    query
+                val items = ItemUiModelMapper.mapToUiModel(
+                    addedProducts = userList.products,
+                    filteredProducts = listingProducts
                 )
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        userList = userList,
+                        products = listingProducts,
+                        items = items
+                    )
+                }
+                pushEvent(UiEvent.ShowKeyboard)
             }.collect()
         }
 
@@ -93,6 +104,10 @@ class ListDetailViewModel @Inject constructor(
     }
 
     fun decreaseQuantity(product: UserListProductUiModel) {
+        if (product.quantityValue <= 1.0){
+            deleteProduct(product = product)
+            return
+        }
         product.quantityValue = product.quantityValue.minus(1.0)
         update(product)
     }
@@ -118,5 +133,20 @@ class ListDetailViewModel @Inject constructor(
             deleteProductOfUserListUseCase.invoke(product)
         }
     }
+
+
+
+    data class UiState(
+        val isLoading: Boolean = false,
+        val userList: UserListUiModel? = null,
+        val products: List<ProductEntityUiModel> = emptyList(),
+        val items: List<ItemUiModel> = emptyList()
+    )
+
+    sealed class UiEvent : Event {
+        object Initial : UiEvent()
+        object ShowKeyboard : UiEvent()
+    }
+
 }
 

@@ -10,6 +10,7 @@ import com.yonder.addtolist.domain.uimodel.UserListUiModel
 import com.yonder.addtolist.domain.decider.UncompletedItemsWrapper
 import com.yonder.addtolist.common.enums.AppColor
 import com.yonder.addtolist.core.extensions.EMPTY_STRING
+import com.yonder.addtolist.core.extensions.orFalse
 import com.yonder.addtolist.domain.decider.CompletedItemsWrapper
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -25,7 +26,7 @@ class UserListWithProductsMapper @Inject constructor(@ApplicationContext private
 
     val mapper = UserListProductEntityToUiModel(context)
     override fun map(input: UserListWithProducts): UserListUiModel {
-        val productsList = ListMapperImpl(mapper).map(input.products)
+        val productsList = ListMapperImpl(mapper).map(input.products).sortedBy { it?.isDone.orFalse() }
         val safeProductList = productsList.filterNotNull()
         val productListSize = safeProductList.size
         val uncompletedItems = UncompletedItemsWrapper.wrap(safeProductList)
