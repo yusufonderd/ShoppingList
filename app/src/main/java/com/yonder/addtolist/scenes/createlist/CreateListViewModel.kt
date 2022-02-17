@@ -36,6 +36,7 @@ class CreateListViewModel @Inject constructor(
                     result.onSuccess {
                         pushEvent(UiEvent.ListCreated)
                     }.onError { throwable ->
+                        _uiState.update { it.copy(isLoading = false) }
                         pushEvent(UiEvent.Error(throwable.toReadableMessage()))
                     }
                 }

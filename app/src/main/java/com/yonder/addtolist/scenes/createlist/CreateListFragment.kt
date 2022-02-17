@@ -25,6 +25,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.yonder.addtolist.R
+import com.yonder.addtolist.common.enums.AppColor
 import com.yonder.addtolist.common.ui.extensions.showToastMessage
 import com.yonder.addtolist.common.utils.decider.ColorDecider
 import com.yonder.addtolist.theme.padding_16
@@ -74,7 +75,7 @@ class CreateListFragment : Fragment() {
                 findNavController().popBackStack()
             }
             is CreateListViewModel.UiEvent.Error -> {
-                context?.showToastMessage((event as CreateListViewModel.UiEvent.Error).errorMessage)
+                context?.showToastMessage(stringResource(id = R.string.error_occurred))
             }
         }
 
@@ -101,8 +102,8 @@ class CreateListFragment : Fragment() {
                         .padding(
                             top = padding_16,
                             bottom = padding_8
-                        ).background(color = colorResource(id = R.color.white))
-                    ,
+                        )
+                        .background(color = colorResource(id = R.color.white)),
                     placeholder = {
                         Text(
                             text = stringResource(id = R.string.list_name),
@@ -128,7 +129,7 @@ class CreateListFragment : Fragment() {
                 )
 
                 ColorPickerBorderView(
-                    listColors = ListProvider.listColors,
+                    listColors = AppColor.values().map { it.colorResId },
                     selectedIndex = selectedColorIndex.value,
                     onClickColorIndex = {
                         selectedColorIndex.value = it
@@ -138,7 +139,8 @@ class CreateListFragment : Fragment() {
                 SubmitButton(textResId = R.string.create, onClick = {
                     viewModel.createList(
                         listName = textState.value.text,
-                        listColorName = ListProvider.listNames[selectedColorIndex.value]
+                        listColorName = AppColor.values()
+                            .map { it.colorName }[selectedColorIndex.value]
                     )
                 })
             }
