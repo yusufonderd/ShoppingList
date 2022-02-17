@@ -18,5 +18,6 @@ data class UserListUiModel(
     val uncompletedItems: String,
     val shouldShowUncompletedItems: Boolean,
     val products: List<UserListProductUiModel>,
-    val appColor: AppColor
+    val appColor: AppColor,
+    val description: String
 ) : Parcelable

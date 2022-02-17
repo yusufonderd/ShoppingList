@@ -10,14 +10,13 @@ private const val PRODUCTS_SHOWCASE_COUNT = 5
 
 object UncompletedItemsWrapper {
 
-  fun wrap(products: List<UserListProductUiModel>?): String {
-    return products
-      .orEmpty()
-      .filter { !it.isDone }
-      .asSequence()
-      .take(PRODUCTS_SHOWCASE_COUNT)
-      .joinToString(",")
-      { it.name }
-  }
+    fun wrap(products: List<UserListProductUiModel>?): String {
+        return products
+            .orEmpty()
+            .filter { !it.isDone }
+            .asSequence()
+            .take(PRODUCTS_SHOWCASE_COUNT)
+            .joinToString(", ") { it.name }
+    }
 
 }
