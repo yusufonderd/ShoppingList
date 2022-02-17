@@ -4,22 +4,33 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Divider
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.yonder.addtolist.R
 import com.yonder.addtolist.domain.uimodel.UserListUiModel
-import com.yonder.addtolist.scenes.home.row.AddNewListRow
 import com.yonder.addtolist.scenes.home.row.ListRow
+import com.yonder.addtolist.theme.padding_16
 import com.yonder.addtolist.uicomponent.LoadingView
 import com.yonder.addtolist.uicomponent.NoListView
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,7 +54,7 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-       viewModel.getShoppingItems()
+        viewModel.getShoppingItems()
     }
 
     @Composable
@@ -57,19 +68,29 @@ class HomeFragment : Fragment() {
                     navigateToCreateListScreen()
                 })
             } else {
-                LazyColumn(modifier = Modifier.fillMaxHeight()) {
-                    item {
-                        AddNewListRow(onClick = {
-                            navigateToCreateListScreen()
+                Box(contentAlignment = Alignment.BottomEnd) {
+
+
+                    LazyColumn(modifier = Modifier.fillMaxHeight()) {
+                        items(uiState.userLists, itemContent = { list ->
+                            ListRow(list = list) {
+                                navigateUserListDetail(list)
+                            }
+                            Divider(modifier = Modifier.background(colorResource(id = R.color.white)))
                         })
-                        Divider()
                     }
-                    items(uiState.userLists, itemContent = { list ->
-                        ListRow(list = list){
-                            navigateUserListDetail(list)
-                        }
-                        Divider()
-                    })
+                    FloatingActionButton(modifier = Modifier.padding(padding_16), onClick = {
+                        navigateToCreateListScreen()
+                    }, backgroundColor = colorResource(id = R.color.colorPrimary)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.Add,
+                            stringResource(
+                                id = R.string.create_new_list
+                            ),
+                            tint = colorResource(id = R.color.white)
+                        )
+                    }
                 }
             }
         }

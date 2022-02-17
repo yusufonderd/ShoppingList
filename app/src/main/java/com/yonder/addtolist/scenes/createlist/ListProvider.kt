@@ -1,5 +1,6 @@
 package com.yonder.addtolist.scenes.createlist
 
+import androidx.annotation.ColorRes
 import com.yonder.addtolist.R
 
 
@@ -7,6 +8,8 @@ import com.yonder.addtolist.R
  * @author yusuf.onder
  * Created on 13.02.2022
  */
+
+
 object ListProvider {
     val listNames: List<String>
         get() = listOf(

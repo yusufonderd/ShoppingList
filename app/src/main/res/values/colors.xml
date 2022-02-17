@@ -30,6 +30,7 @@
 
   <color name="colorGrouped">#EAEAF1</color>
   <color name="primaryTextColor">#FF000000</color>
+  <color name="secondaryTextColor">#1C1C1C</color>
 
   <array name="rainbow">
     <item>@color/listColor1</item>

@@ -2,6 +2,8 @@
 <resources>
 
   <color name="primaryTextColor">#FFFAFA</color>
+  <color name="secondaryTextColor">#D5D2D2</color>
+
   <color name="gray_100">#494949</color>
   <color name="colorGrouped">#070707</color>
   <color name="purple_500">#9D5DF8</color>
