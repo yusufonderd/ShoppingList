@@ -1,4 +1,4 @@
-package com.yonder.addtolist.scenes.createlist
+package com.yonder.addtolist.common.enums
 
 import androidx.annotation.ColorRes
 import com.yonder.addtolist.R

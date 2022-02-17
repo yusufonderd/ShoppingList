@@ -1,8 +1,7 @@
 package com.yonder.addtolist.domain.uimodel
 
 import android.os.Parcelable
-import androidx.annotation.ColorRes
-import com.yonder.addtolist.scenes.createlist.AppColor
+import com.yonder.addtolist.common.enums.AppColor
 import kotlinx.parcelize.Parcelize
 
 /**

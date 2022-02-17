@@ -7,7 +7,7 @@ import com.yonder.addtolist.domain.uimodel.LanguageUiModel
  * Created on 4.09.2021
  */
 sealed class LanguageSelectionViewEvent {
-    object Initial : LanguageSelectionViewEvent()
+    object Loading : LanguageSelectionViewEvent()
+    object Error : LanguageSelectionViewEvent()
     data class Load(val languages: List<LanguageUiModel>) : LanguageSelectionViewEvent()
-    data class Error(val message: String) : LanguageSelectionViewEvent()
 }

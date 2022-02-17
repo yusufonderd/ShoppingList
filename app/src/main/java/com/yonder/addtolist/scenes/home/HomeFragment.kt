@@ -29,6 +29,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.yonder.addtolist.R
 import com.yonder.addtolist.domain.uimodel.UserListUiModel
+import com.yonder.addtolist.scenes.home.row.CreateListFab
 import com.yonder.addtolist.scenes.home.row.ListRow
 import com.yonder.addtolist.theme.padding_16
 import com.yonder.addtolist.uicomponent.LoadingView
@@ -69,8 +70,6 @@ class HomeFragment : Fragment() {
                 })
             } else {
                 Box(contentAlignment = Alignment.BottomEnd) {
-
-
                     LazyColumn(modifier = Modifier.fillMaxHeight()) {
                         items(uiState.userLists, itemContent = { list ->
                             ListRow(list = list) {
@@ -79,17 +78,8 @@ class HomeFragment : Fragment() {
                             Divider(modifier = Modifier.background(colorResource(id = R.color.white)))
                         })
                     }
-                    FloatingActionButton(modifier = Modifier.padding(padding_16), onClick = {
+                    CreateListFab {
                         navigateToCreateListScreen()
-                    }, backgroundColor = colorResource(id = R.color.colorPrimary)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Filled.Add,
-                            stringResource(
-                                id = R.string.create_new_list
-                            ),
-                            tint = colorResource(id = R.color.white)
-                        )
                     }
                 }
             }

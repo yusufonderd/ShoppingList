@@ -7,7 +7,7 @@ import com.yonder.core.base.mapper.Mapper
 import com.yonder.addtolist.local.entity.UserListWithProducts
 import com.yonder.addtolist.domain.uimodel.UserListUiModel
 import com.yonder.addtolist.domain.decider.UncompletedItemsWrapper
-import com.yonder.addtolist.scenes.createlist.AppColor
+import com.yonder.addtolist.common.enums.AppColor
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 

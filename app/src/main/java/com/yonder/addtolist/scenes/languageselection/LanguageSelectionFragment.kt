@@ -10,8 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.stringResource
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.yonder.addtolist.R
 import com.yonder.addtolist.scenes.languageselection.row.LanguageRow
 import com.yonder.addtolist.uicomponent.ErrorView
 import com.yonder.addtolist.uicomponent.LoadingView
@@ -27,7 +29,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class LanguageSelectionFragment : Fragment() {
 
     private val viewModel: LanguageSelectionViewModel by viewModels()
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,29 +47,29 @@ class LanguageSelectionFragment : Fragment() {
         activity?.recreate()
     }
 
-
     @Composable
     fun MainContent() {
-        val languageUiState by viewModel.state.collectAsState()
-        when (languageUiState) {
-            is LanguageSelectionViewEvent.Load -> {
+        val languageUiState by viewModel.uiState.collectAsState()
+        when {
+            languageUiState.shouldShowError -> {
+                ErrorView(centerText = stringResource(id = R.string.error_occurred)) {
+                    viewModel.getLanguages()
+                }
+            }
+            languageUiState.shouldShowLoading -> {
+                LoadingView()
+            }
+            else -> {
                 LazyColumn {
-                    items((languageUiState as LanguageSelectionViewEvent.Load).languages) { language ->
+                    items(languageUiState.languages) { language ->
                         LanguageRow(language = language) {
                             setLocale(languageCode = language.tag)
                         }
                     }
                 }
             }
-            is LanguageSelectionViewEvent.Error -> {
-                ErrorView(centerText = (languageUiState as LanguageSelectionViewEvent.Error).message) {
-                }
-            }
-            else -> {
-                LoadingView()
-            }
-
         }
+
 
     }
 
