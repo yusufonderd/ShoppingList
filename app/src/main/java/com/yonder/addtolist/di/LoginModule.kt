@@ -17,10 +17,6 @@ import com.yonder.addtolist.domain.mapper.LoginMapper
 import com.yonder.addtolist.domain.uimodel.UserUiModel
 import com.yonder.addtolist.data.repository.LoginRepository
 import com.yonder.addtolist.data.repository.LoginRepositoryImpl
-import com.yonder.addtolist.domain.usecase.FacebookGraphUseCase
-import com.yonder.addtolist.domain.usecase.FacebookGraphUseCaseImpl
-import com.yonder.addtolist.domain.usecase.LoginUseCase
-import com.yonder.addtolist.domain.usecase.LoginUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -38,12 +34,6 @@ interface LoginModule {
 
   @get:[Binds]
   val LoginMapper.loginMapper: Mapper<BaseResponse<UserResponse>, UserUiModel>
-
-  @get:[Binds]
-  val LoginUseCaseImpl.loginUseCase: LoginUseCase
-
-  @get:[Binds]
-  val FacebookGraphUseCaseImpl.facebookUseCase: FacebookGraphUseCase
 
   @get:[Binds]
   val LoginRepositoryImpl.loginRepository: LoginRepository

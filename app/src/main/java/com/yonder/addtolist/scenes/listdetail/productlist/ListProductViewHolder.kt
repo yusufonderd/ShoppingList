@@ -70,7 +70,6 @@ class ListProductViewHolder(
             setOnClickListener {
                 productCallbacks.edit(product)
             }
-            isGone = product.isDone
         }
 
     private fun bindNote(note: String?) = with(binding.tvNote) {

@@ -12,7 +12,7 @@ import javax.inject.Inject
  * Created on 12.01.2022
  */
 
-class UpdateUserListProduct @Inject constructor(
+class UpdateProductOfUserList @Inject constructor(
     private val appDatabase: AppDatabase,
     private val api: ApiService
 ) {
@@ -41,12 +41,16 @@ class UpdateUserListProduct @Inject constructor(
         appDatabase.userListProductDao().update(productEntity)
         val request =
             UserListProductMapper.mapEntityToResponse(listId = "$listId", input = productEntity)
-        val response = api.updateProduct(product.id, request)
-
-        if (response.success == true) {
-            productEntity.sync = true
-            appDatabase.userListProductDao().update(productEntity)
+        try {
+            val response = api.updateProduct(product.id, request)
+            if (response.success == true) {
+                productEntity.sync = true
+                appDatabase.userListProductDao().update(productEntity)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
+
 
     }
 

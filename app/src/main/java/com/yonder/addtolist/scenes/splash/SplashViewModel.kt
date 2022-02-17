@@ -4,7 +4,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.domain.usecase.GetCurrentUser
-import com.yonder.addtolist.domain.usecase.CategoriesUseCase
+import com.yonder.addtolist.domain.usecase.GetProductsWithCategory
 import com.yonder.addtolist.domain.usecase.UserInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,9 +16,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    private val userInfoUseCase: UserInfoUseCase,
-    private val categoryUseCase: CategoriesUseCase,
-    private val getCurrentUser: GetCurrentUser
+  private val userInfoUseCase: UserInfoUseCase,
+  private val categoryUseCase: GetProductsWithCategory,
+  private val getCurrentUser: GetCurrentUser
   ) : ViewModel() {
 
   private val _state: MutableStateFlow<SplashViewState> = MutableStateFlow(SplashViewState.Loading)

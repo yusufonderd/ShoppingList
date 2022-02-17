@@ -3,9 +3,9 @@ package com.yonder.addtolist.scenes.listdetail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.core.extensions.EMPTY_STRING
-import com.yonder.addtolist.domain.usecase.DeleteUserListProduct
+import com.yonder.addtolist.domain.usecase.DeleteProductOfUserList
 import com.yonder.addtolist.domain.usecase.GetUserList
-import com.yonder.addtolist.domain.usecase.UpdateUserListProduct
+import com.yonder.addtolist.domain.usecase.UpdateProductOfUserList
 import com.yonder.addtolist.local.entity.CATEGORY_OTHER_IMAGE
 import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
 import com.yonder.addtolist.scenes.listdetail.domain.category.ProductQueryUseCase
@@ -32,8 +32,8 @@ class ListDetailViewModel @Inject constructor(
     private val productQueryUseCase: ProductQueryUseCase,
     private val productUseCase: ProductUseCase,
     private val addProductUseCase: AddProductUseCase,
-    private val updateProductUseCase: UpdateUserListProduct,
-    private val deleteProductUseCase: DeleteUserListProduct,
+    private val updateProductUseCase: UpdateProductOfUserList,
+    private val deleteProductOfUserListUseCase: DeleteProductOfUserList,
     private val getUserListUseCase: GetUserList
 ) : ViewModel() {
 
@@ -115,7 +115,7 @@ class ListDetailViewModel @Inject constructor(
 
     fun deleteProduct(product: UserListProductUiModel) {
         viewModelScope.launch {
-            deleteProductUseCase.invoke(product)
+            deleteProductOfUserListUseCase.invoke(product)
         }
     }
 }

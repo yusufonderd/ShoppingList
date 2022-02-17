@@ -3,8 +3,8 @@ package com.yonder.addtolist.scenes.activity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
-import com.yonder.addtolist.domain.usecase.DeleteUserListProduct
-import com.yonder.addtolist.domain.usecase.UpdateUserListProduct
+import com.yonder.addtolist.domain.usecase.DeleteProductOfUserList
+import com.yonder.addtolist.domain.usecase.UpdateProductOfUserList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,8 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val updateProductUseCase: UpdateUserListProduct,
-    private val deleteProductUseCase: DeleteUserListProduct
+    private val updateProductUseCase: UpdateProductOfUserList,
+    private val deleteProductOfUserListUseCase: DeleteProductOfUserList
     ) : ViewModel(){
 
     fun updateProduct(
@@ -51,7 +51,7 @@ class MainViewModel @Inject constructor(
 
     fun delete(product: UserListProductUiModel) {
         viewModelScope.launch {
-            deleteProductUseCase.invoke(product)
+            deleteProductOfUserListUseCase.invoke(product)
         }
     }
 

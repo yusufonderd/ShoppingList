@@ -13,17 +13,15 @@ import javax.inject.Inject
  * Created on 25.07.2021
  */
 
-interface CategoriesUseCase {
-  fun getCategories(): Flow<RestResult<List<CategoryWithProducts>>>
+
+class GetProductsWithCategory @Inject constructor(
+    private val categoryListRepository: CategoryListRepository,
+    private val dispatcher: CoroutineThread
+) {
+    fun getCategories(): Flow<RestResult<List<CategoryWithProducts>>> {
+        return categoryListRepository
+            .fetchCategories()
+            .flowOn(dispatcher.io)
+    }
 }
 
-class CategoriesUseCaseImpl @Inject constructor(
-  private val categoryListRepository: CategoryListRepository,
-  private val dispatcher: CoroutineThread
-) : CategoriesUseCase {
-  override fun getCategories(): Flow<RestResult<List<CategoryWithProducts>>> {
-    return categoryListRepository
-      .fetchCategories()
-      .flowOn(dispatcher.io)
-  }
-}

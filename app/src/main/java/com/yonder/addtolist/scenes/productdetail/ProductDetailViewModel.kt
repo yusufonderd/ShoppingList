@@ -3,9 +3,8 @@ package com.yonder.addtolist.scenes.productdetail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.core.data.SingleLiveEvent
-import com.yonder.addtolist.domain.usecase.DeleteUserListProduct
 import com.yonder.addtolist.domain.usecase.GetProductDetail
-import com.yonder.addtolist.domain.usecase.UpdateUserListProduct
+import com.yonder.addtolist.domain.usecase.UpdateProductOfUserList
 import com.yonder.addtolist.domain.uimodel.CategoryUiModel
 import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
 import com.yonder.addtolist.common.enums.ProductUnitType
@@ -23,7 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ProductDetailViewModel @Inject constructor(
     private val getProductDetail: GetProductDetail,
-    private val updateProductUseCase: UpdateUserListProduct,
+    private val updateProductUseCase: UpdateProductOfUserList,
 ) : ViewModel() {
 
     var listId: Int = 0

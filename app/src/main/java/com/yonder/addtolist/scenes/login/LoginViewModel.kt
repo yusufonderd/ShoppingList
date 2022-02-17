@@ -55,7 +55,7 @@ class LoginViewModel @Inject constructor(
   }
 
   fun continueWithFacebook(loginResult: LoginResult) {
-    facebookGraphExecute.getUserInfo(loginResult) { userInfoObject ->
+    facebookGraphExecute.invoke(loginResult) { userInfoObject ->
       createNewUser(facebookUserProvider.create(userInfoObject))
     }
   }

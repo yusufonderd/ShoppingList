@@ -9,7 +9,7 @@ import javax.inject.Inject
  * Created on 12.01.2022
  */
 
-class DeleteUserListProduct @Inject constructor(
+class DeleteProductOfUserList @Inject constructor(
     private val productRepository: ProductRepository
 ) {
      suspend fun invoke(product: UserListProductUiModel){
