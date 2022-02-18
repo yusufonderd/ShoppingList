@@ -2,12 +2,14 @@ package com.yonder.addtolist.scenes.listdetail.row
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -26,9 +28,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
 import com.yonder.addtolist.R
 import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
+import com.yonder.addtolist.theme.padding_4
 import com.yonder.addtolist.theme.padding_8
 import timber.log.Timber
 
@@ -47,10 +51,13 @@ fun UserListProductRow(
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .padding(horizontal = padding_8)
             .clickable {
                 onDoneClicked.invoke()
             },
         verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+
 
         ) {
 
@@ -65,15 +72,14 @@ fun UserListProductRow(
             )
         }
 
-        Column() {
-            Row() {
-
+        Column {
+            Row {
                 if (product.isDone) {
                     Text(
                         text = product.name,
                         modifier = Modifier.padding(end = padding_8),
-                        textAlign = TextAlign.Center,
-                        color = colorResource(id = R.color.gray_100),
+                        textAlign = TextAlign.Start,
+                        color = colorResource(id = R.color.gray_200),
                         style = TextStyle(
                             textDecoration = TextDecoration.LineThrough,
                             fontWeight = FontWeight.Normal,
@@ -91,33 +97,63 @@ fun UserListProductRow(
 
                     Text(
                         text = product.name,
-                        modifier = Modifier.padding(end = padding_8),
+                        modifier = Modifier
+                            .padding(end = padding_8),
                         style = MaterialTheme.typography.body1,
                         textAlign = TextAlign.Center,
-                        color = colorResource(id = R.color.primaryTextColor)
+                        color = colorResource(id = R.color.primaryTextColor),
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis
                     )
                 }
 
-
-                Text(
-                    text = product.quantity,
-                    style = MaterialTheme.typography.body1,
-                    textAlign = TextAlign.Center,
-                    color = colorResource(id = R.color.gray_100)
-                )
             }
+            Row() {
+                if (product.shouldShowQuantityField){
+                    if (product.isDone) {
+                        Text(
+                            text = product.quantity,
+                            style = TextStyle(
+                                textDecoration = TextDecoration.LineThrough,
+                                fontWeight = FontWeight.Normal,
+                                fontSize = 16.sp,
+                                letterSpacing = 0.5.sp
+                            ),
+                            textAlign = TextAlign.Center,
+                            color = colorResource(id = R.color.gray_100)
+                        )
+                    } else {
+                        Text(
+                            text = product.quantity,
+                            style = MaterialTheme.typography.body1,
+                            textAlign = TextAlign.Center,
+                            color = colorResource(id = R.color.gray_100)
+                        )
+                    }
+                }
 
-            if (product.note.isNotBlank()) {
+                if (product.shouldShowPriceField){
+                    Text(
+                        text = product.totalPrice,
+                        modifier = Modifier.padding(start = padding_8),
+                        style = MaterialTheme.typography.body1,
+                        textAlign = TextAlign.Center,
+                        color = colorResource(id = R.color.colorPrimary)
+                    )
+                }
+
+            }
+            if (product.shouldShowNoteField) {
                 Text(
                     text = product.note,
-                    style = MaterialTheme.typography.body2,
+                    style = MaterialTheme.typography.body1,
                     textAlign = TextAlign.Center,
-                    color = colorResource(id = R.color.primaryTextColor)
+                    color = colorResource(id = R.color.gray_200)
                 )
             }
         }
 
-
+        Spacer(modifier = Modifier.weight(1.0f))
 
         if (product.isFavorite) {
             Image(
@@ -126,9 +162,6 @@ fun UserListProductRow(
                 colorFilter = ColorFilter.tint(colorResource(R.color.colorOrange))
             )
         }
-
-        Spacer(modifier = Modifier.weight(1.0f))
-
 
         if (product.isDone) {
             Image(

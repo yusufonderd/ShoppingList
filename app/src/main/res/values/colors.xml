@@ -19,6 +19,8 @@
 
   <color name="colorPrimaryDark">#7A1DCD</color>
   <color name="gray_100">#C8C8C8</color>
+  <color name="gray_200">#A7A5A5</color>
+
   <color name="colorRed">#F44336</color>
 
   <color name="colorOrange">#FFA500</color>

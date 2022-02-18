@@ -8,3 +8,5 @@ package com.yonder.addtolist.core.extensions
 const val ZERO: Double = 0.0
 
 fun Double?.orZero() = this ?: ZERO
+
+fun Double.format(digits: Int) = "%.${digits}f".format(this)

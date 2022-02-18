@@ -23,5 +23,9 @@ data class UserListProductUiModel(
   var priceValue: Double,
   var unit: String,
   var isFavorite: Boolean,
-  var isDone: Boolean
+  var isDone: Boolean,
+  var totalPrice : String,
+  var shouldShowNoteField: Boolean,
+  var shouldShowQuantityField : Boolean,
+  var shouldShowPriceField : Boolean
 ) : Parcelable

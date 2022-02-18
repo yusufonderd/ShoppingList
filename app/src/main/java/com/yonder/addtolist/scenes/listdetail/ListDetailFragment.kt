@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
@@ -41,8 +42,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.yonder.addtolist.R
+import com.yonder.addtolist.core.extensions.EMPTY_STRING
 import com.yonder.addtolist.domain.decider.CurrencyDecider
 import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
+import com.yonder.addtolist.scenes.listdetail.row.ATLDivider
 import com.yonder.addtolist.scenes.listdetail.row.ProductRow
 import com.yonder.addtolist.scenes.listdetail.row.UserListProductRow
 import com.yonder.addtolist.theme.padding_16
@@ -112,6 +115,7 @@ class ListDetailFragment : Fragment() {
         } else if (state.userList != null) {
 
             Column {
+
                 Row(
                     modifier = Modifier
                         .fillMaxWidth(),
@@ -127,6 +131,13 @@ class ListDetailFragment : Fragment() {
                             viewModel.fetchProducts(listUUID, it.text)
                         },
                         modifier = Modifier
+                            .then(
+                                if (showPrediction.value) {
+                                    Modifier.wrapContentWidth()
+                                } else {
+                                    Modifier.fillMaxWidth()
+                                }
+                            )
                             .padding(horizontal = padding_16)
                             .padding(
                                 top = padding_16,
@@ -146,8 +157,10 @@ class ListDetailFragment : Fragment() {
                             )
                         }
                     )
+                    if (showPrediction.value) {
                         Button(onClick = {
-                            textState.value = TextFieldValue("")
+                            textState.value = TextFieldValue(EMPTY_STRING)
+                            showPrediction.value = false
                             keyboardController?.hide()
                         }
                         ) {
@@ -155,29 +168,24 @@ class ListDetailFragment : Fragment() {
                                 text = stringResource(id = R.string.cancel)
                             )
                         }
-
-
+                    }
                 }
 
                 if (showPrediction.value) {
-                    LazyColumn(
-                        modifier = Modifier
-                            .fillMaxHeight()
-                            .padding(padding_8)
-                    ) {
+                    LazyColumn(modifier = Modifier.fillMaxHeight()) {
                         items(state.items, itemContent = { item ->
-                            ProductRow(item = item, onIncreaseQuantityClicked = {
-                                viewModel.increaseQuantity(it)
-                            }, onAddProductClicked = {
+                            ProductRow(item = item, onIncreaseQuantityClicked = { product ->
+                                viewModel.increaseQuantity(product)
+                            }, onAddProductClicked = { productName ->
                                 viewModel.addProduct(
                                     listId = listId,
                                     userListUUID = listUUID,
-                                    productName = it
+                                    productName = productName
                                 )
-                            }, onDecreaseProductClicked = {
-                                viewModel.decreaseQuantity(it)
+                            }, onDecreaseProductClicked = { product ->
+                                viewModel.decreaseQuantity(product)
                             })
-                            Divider(modifier = Modifier.background(colorResource(id = R.color.gray_50)))
+                            ATLDivider()
                         })
                     }
                 } else {
@@ -188,14 +196,13 @@ class ListDetailFragment : Fragment() {
                             }, onDoneClicked = {
                                 viewModel.toggleDone(product = product)
                             })
-                            Divider(modifier = Modifier.background(colorResource(id = R.color.gray_50)))
+                            ATLDivider()
                         })
                     }
                 }
             }
         }
     }
-
 
     private fun navigateProductDetail(userListProduct: UserListProductUiModel) {
         findNavController().navigate(
@@ -204,6 +211,5 @@ class ListDetailFragment : Fragment() {
             )
         )
     }
-
 
 }
