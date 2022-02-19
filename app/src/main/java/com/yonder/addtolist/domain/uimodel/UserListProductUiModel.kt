@@ -27,5 +27,6 @@ data class UserListProductUiModel(
   var totalPrice : String,
   var shouldShowNoteField: Boolean,
   var shouldShowQuantityField : Boolean,
-  var shouldShowPriceField : Boolean
+  var shouldShowPriceField : Boolean,
+  var formattedName: String
 ) : Parcelable

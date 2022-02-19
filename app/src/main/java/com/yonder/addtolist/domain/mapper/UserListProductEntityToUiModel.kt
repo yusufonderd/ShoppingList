@@ -25,6 +25,9 @@ class UserListProductEntityToUiModel @Inject constructor(@ApplicationContext pri
         if (input == null) {
             return null
         }
+        val categoryUnicode = CategoryImageWrapper.invoke(
+            image = input.categoryImage.orEmpty()
+        )
         val isDone =  input.done == DoneType.Done.value
         return UserListProductUiModel(
             id = input.id,
@@ -54,7 +57,8 @@ class UserListProductEntityToUiModel @Inject constructor(@ApplicationContext pri
             }",
             shouldShowNoteField = input.note.orEmpty().isNotBlank() && isDone.not(),
             shouldShowQuantityField = input.quantity.orZero() > 1.0,
-            shouldShowPriceField = input.price.orZero() != 0.0
+            shouldShowPriceField = input.price.orZero() != 0.0,
+            formattedName = "$categoryUnicode ${input.name}"
         )
     }
 }
