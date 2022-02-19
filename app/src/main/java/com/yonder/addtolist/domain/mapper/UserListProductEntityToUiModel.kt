@@ -29,11 +29,12 @@ class UserListProductEntityToUiModel @Inject constructor(@ApplicationContext pri
             image = input.categoryImage.orEmpty()
         )
         val isDone =  input.done == DoneType.Done.value
+        val isFavorite = input.favorite == FavoriteType.Favorite.value
         return UserListProductUiModel(
             id = input.id,
             listUUID = input.listUUID,
             name = input.name.orEmpty(),
-            isFavorite = input.favorite == FavoriteType.Favorite.value,
+            isFavorite = isFavorite,
             isDone = isDone,
             note = input.note.orEmpty(),
             unit = input.unit.orEmpty(),

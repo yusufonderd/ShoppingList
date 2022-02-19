@@ -117,6 +117,11 @@ class ListDetailViewModel @Inject constructor(
         update(product)
     }
 
+    fun removeFromFavorites(product: UserListProductUiModel) {
+        product.isFavorite = false
+        update(product)
+    }
+
     private fun update(product: UserListProductUiModel, productName: String = product.name) {
         viewModelScope.launch {
             updateProductUseCase(

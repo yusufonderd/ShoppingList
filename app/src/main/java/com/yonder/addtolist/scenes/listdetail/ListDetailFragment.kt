@@ -195,6 +195,8 @@ class ListDetailFragment : Fragment() {
                                 navigateProductDetail(userListProduct = product)
                             }, onDoneClicked = {
                                 viewModel.toggleDone(product = product)
+                            }, onRemoveFavoriteClicked = {
+                                viewModel.removeFromFavorites(product = product)
                             })
                             ATLDivider()
                         })

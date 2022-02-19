@@ -12,6 +12,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -77,12 +78,18 @@ fun NoteField(note: String) {
 }
 
 @Composable
-fun FavoriteImageView() {
-    Image(
-        painter = painterResource(R.drawable.ic_baseline_star_24),
-        contentDescription = "Star",
-        colorFilter = ColorFilter.tint(colorResource(R.color.colorOrange))
-    )
+fun FavoriteImageView(onRemoveFavoriteClicked: () -> Unit) {
+    IconButton(
+        modifier = Modifier.padding(padding_8),
+        onClick = onRemoveFavoriteClicked
+    ) {
+        Icon(
+            Icons.Filled.Star,
+            "Favorite button",
+            tint = colorResource(id = R.color.colorOrange)
+        )
+    }
+
 }
 
 @Composable
@@ -152,7 +159,8 @@ fun ProductNameField(isDone: Boolean, name: String, formattedName: String, modif
 fun UserListProductRow(
     product: UserListProductUiModel,
     onEditClicked: () -> Unit,
-    onDoneClicked: () -> Unit
+    onDoneClicked: () -> Unit,
+    onRemoveFavoriteClicked: () -> Unit
 ) {
 
     Row(
@@ -198,7 +206,7 @@ fun UserListProductRow(
         }
 
         if (product.isFavorite) {
-            FavoriteImageView()
+            FavoriteImageView(onRemoveFavoriteClicked = onRemoveFavoriteClicked)
         }
 
         DoneImageView(isDone = product.isDone)
