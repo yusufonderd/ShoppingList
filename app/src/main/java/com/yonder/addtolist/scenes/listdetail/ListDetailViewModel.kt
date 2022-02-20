@@ -72,6 +72,7 @@ class ListDetailViewModel @Inject constructor(
                         isLoading = false,
                         userList = userList,
                         products = listingProducts,
+                        userListProducts = userList.products,
                         items = items
                     )
                 }
@@ -144,6 +145,7 @@ class ListDetailViewModel @Inject constructor(
     data class UiState(
         val isLoading: Boolean = false,
         val userList: UserListUiModel? = null,
+        val userListProducts: List<UserListProductUiModel> = emptyList(),
         val products: List<ProductEntityUiModel> = emptyList(),
         val items: List<ItemUiModel> = emptyList()
     )

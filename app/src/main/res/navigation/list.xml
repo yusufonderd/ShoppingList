@@ -73,8 +73,7 @@
   <fragment
     android:id="@+id/listDetailFragment"
     android:name="com.yonder.addtolist.scenes.listdetail.ListDetailFragment"
-    android:label="{title}"
-    tools:layout="@layout/fragment_list_detail">
+    android:label="{title}">
 
     <argument
       android:name="userList"

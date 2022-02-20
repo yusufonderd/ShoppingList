@@ -26,7 +26,9 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
 import com.yonder.addtolist.R
+import com.yonder.addtolist.common.enums.AppColor
 import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
+import com.yonder.addtolist.domain.uimodel.UserListUiModel
 import com.yonder.addtolist.theme.padding_8
 
 /**
@@ -49,7 +51,7 @@ fun EditButton(onEditClicked: () -> Unit) {
 }
 
 @Composable
-fun DoneImageView(isDone: Boolean) {
+fun DoneImageView(isDone: Boolean,appColor: AppColor) {
     if (isDone) {
         Image(
             modifier = Modifier.padding(padding_8),
@@ -62,7 +64,7 @@ fun DoneImageView(isDone: Boolean) {
             modifier = Modifier.padding(padding_8),
             painter = painterResource(R.drawable.ic_baseline_radio_button_unchecked_24),
             contentDescription = "Mark item done",
-            colorFilter = ColorFilter.tint(colorResource(R.color.colorPrimary))
+            colorFilter = ColorFilter.tint(colorResource(appColor.colorResId))
         )
     }
 }
@@ -96,7 +98,6 @@ fun FavoriteImageView(onRemoveFavoriteClicked: () -> Unit) {
 fun TotalPriceField(price: String) {
     Text(
         text = price,
-        modifier = Modifier.padding(start = padding_8),
         style = MaterialTheme.typography.body1,
         textAlign = TextAlign.Center,
         color = colorResource(id = R.color.colorPrimary)
@@ -158,6 +159,7 @@ fun ProductNameField(isDone: Boolean, name: String, formattedName: String, modif
 @Composable
 fun UserListProductRow(
     product: UserListProductUiModel,
+    userList: UserListUiModel?,
     onEditClicked: () -> Unit,
     onDoneClicked: () -> Unit,
     onRemoveFavoriteClicked: () -> Unit
@@ -209,7 +211,7 @@ fun UserListProductRow(
             FavoriteImageView(onRemoveFavoriteClicked = onRemoveFavoriteClicked)
         }
 
-        DoneImageView(isDone = product.isDone)
+        DoneImageView(isDone = product.isDone, appColor = userList?.appColor ?: AppColor.Blue)
 
     }
 }

@@ -1,5 +1,6 @@
 package com.yonder.addtolist.scenes.listdetail
 
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -37,14 +38,17 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.yonder.addtolist.R
+import com.yonder.addtolist.common.enums.AppColor
 import com.yonder.addtolist.core.extensions.EMPTY_STRING
 import com.yonder.addtolist.domain.decider.CurrencyDecider
 import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
+import com.yonder.addtolist.scenes.activity.MainActivity
 import com.yonder.addtolist.scenes.listdetail.row.ATLDivider
 import com.yonder.addtolist.scenes.listdetail.row.ProductRow
 import com.yonder.addtolist.scenes.listdetail.row.UserListProductRow
@@ -71,6 +75,8 @@ class ListDetailFragment : Fragment() {
 
     private val listUUID get() = args.userList.uuid
 
+    private val appColor get() = args.userList.appColor
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -81,6 +87,20 @@ class ListDetailFragment : Fragment() {
                 MainContent()
             }
         }
+    }
+
+    override fun onDestroyView() {
+        changeToolbarColor(AppColor.Default)
+        super.onDestroyView()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        changeToolbarColor(appColor)
+    }
+
+    private fun changeToolbarColor(appColor: AppColor){
+        (activity as MainActivity).changeToolbarColor(appColor)
     }
 
     override fun onStart() {
@@ -190,14 +210,19 @@ class ListDetailFragment : Fragment() {
                     }
                 } else {
                     LazyColumn(modifier = Modifier.fillMaxHeight()) {
-                        items(state.userList?.products.orEmpty(), itemContent = { product ->
-                            UserListProductRow(product = product, onEditClicked = {
-                                navigateProductDetail(userListProduct = product)
-                            }, onDoneClicked = {
-                                viewModel.toggleDone(product = product)
-                            }, onRemoveFavoriteClicked = {
-                                viewModel.removeFromFavorites(product = product)
-                            })
+                        items(state.userListProducts, itemContent = { product ->
+                            UserListProductRow(
+                                product = product,
+                                userList = state.userList,
+                                onEditClicked = {
+                                    navigateProductDetail(userListProduct = product)
+                                },
+                                onDoneClicked = {
+                                    viewModel.toggleDone(product = product)
+                                },
+                                onRemoveFavoriteClicked = {
+                                    viewModel.removeFromFavorites(product = product)
+                                })
                             ATLDivider()
                         })
                     }

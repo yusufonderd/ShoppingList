@@ -1,9 +1,11 @@
 package com.yonder.addtolist.scenes.activity
 
 import android.content.Context
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
@@ -11,6 +13,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.yonder.addtolist.R
+import com.yonder.addtolist.common.enums.AppColor
 import com.yonder.addtolist.common.ui.extensions.setupWithNavController
 import com.yonder.addtolist.data.local.UserPreferenceDataStoreImpl
 import com.yonder.addtolist.databinding.ActivityMainBinding
@@ -20,29 +23,29 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-  private var currentNavController: LiveData<NavController>? = null
-  private val navGraphIds = listOf(R.navigation.list, R.navigation.settings)
+    private var currentNavController: LiveData<NavController>? = null
+    private val navGraphIds = listOf(R.navigation.list, R.navigation.settings)
 
-  private lateinit var binding: ActivityMainBinding
-  private lateinit var appBarConfiguration: AppBarConfiguration
+    lateinit var binding: ActivityMainBinding
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
-  val viewModel: MainViewModel by viewModels()
+    val viewModel: MainViewModel by viewModels()
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    binding = ActivityMainBinding.inflate(layoutInflater)
-    setContentView(binding.root)
-    if (savedInstanceState == null) {
-      setupToolbar()
-      setupBottomNavigationBar()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        if (savedInstanceState == null) {
+            setupToolbar()
+            setupBottomNavigationBar()
+        }
     }
-  }
 
-  override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-    super.onRestoreInstanceState(savedInstanceState)
-    setupToolbar()
-    setupBottomNavigationBar()
-  }
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        setupToolbar()
+        setupBottomNavigationBar()
+    }
 
     private fun setupBottomNavigationBar() {
         val controller = binding.bottomNav.setupWithNavController(
@@ -100,4 +103,13 @@ class MainActivity : AppCompatActivity() {
         super.attachBaseContext(context)
     }
 
+    internal fun changeToolbarColor(appColor: AppColor) {
+        binding.toolbar.background =
+            ColorDrawable(
+                ContextCompat.getColor(
+                    this,
+                    appColor.colorResId
+                )
+            )
+    }
 }
