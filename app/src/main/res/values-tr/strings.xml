@@ -71,7 +71,7 @@
     <string name="check_done">Satın alındı olarak işaretle</string>
     <string name="add_favorites">Favorilere ekle</string>
     <string name="delete_item">Öğeyi sil</string>
-    <string name="remove_favorites">Favorilerden çıkart</string>
+    <string name="remove_favorites">Favorilerden kaldır</string>
     <string name="account">Hesap</string>
     <string name="about">Hakkında</string>
     <string name="language">Dil</string>
@@ -142,6 +142,7 @@
     <string name="license_1_description">Some of icons are made by [Freepik] from www.flaticon.com</string>
 
     <string name="format_price">%.2f %2$s</string>
+    <string name="product_deleted">Ürün silindi</string>
 
 
 </resources>

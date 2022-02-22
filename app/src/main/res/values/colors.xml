@@ -24,6 +24,7 @@
   <color name="colorRed">#F44336</color>
 
   <color name="colorOrange">#FFA500</color>
+  <color name="colorOrangeDark">#B34C2D</color>
   <color name="colorBlue">#2581EA</color>
   <color name="gray_50">#EDEDED</color>
   <color name="colorGreen">#44BD4A</color>

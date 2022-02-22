@@ -1,38 +1,57 @@
 package com.yonder.addtolist.scenes.productdetail
 
 import android.os.Bundle
-import android.text.InputFilter
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.button.MaterialButtonToggleGroup
 import com.yonder.addtolist.R
 import com.yonder.addtolist.common.enums.ProductUnitType
-import com.yonder.addtolist.common.ui.base.BaseFragment
-import com.yonder.addtolist.common.ui.extensions.compatColor
-import com.yonder.addtolist.common.ui.extensions.compatDrawable
-import com.yonder.addtolist.common.ui.extensions.setSafeOnClickListener
-import com.yonder.addtolist.common.utils.formatter.currency.CurrencyProvider
-import com.yonder.addtolist.databinding.FragmentProductDetailBinding
-import com.yonder.addtolist.domain.uimodel.CategoryUiModel
-import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
+import com.yonder.addtolist.common.ui.extensions.showToastMessage
+import com.yonder.addtolist.core.extensions.orFalse
+import com.yonder.addtolist.core.extensions.orZero
 import com.yonder.addtolist.scenes.activity.MainViewModel
-import com.yonder.addtolist.uicomponent.MaterialSpinnerAdapter
+import com.yonder.addtolist.theme.padding_16
+import com.yonder.addtolist.theme.padding_8
 import dagger.hilt.android.AndroidEntryPoint
-
 
 /**
  * @author yusuf.onder
  * Created on 24.07.2021
  */
 
-private const val MAX_LINE_LENGTH_PRICE = 8
-
 @Suppress("TooManyFunctions")
 @AndroidEntryPoint
-class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
+class ProductDetailFragment : Fragment() {
 
     private val args: ProductDetailFragmentArgs by navArgs()
 
@@ -44,176 +63,182 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
 
     private val listId get() = args.listId
 
-    var adapterSpinner: MaterialSpinnerAdapter<String>? = null
-
-    override fun initBinding(inflater: LayoutInflater) =
-        FragmentProductDetailBinding.inflate(inflater)
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val productId = product.id
-        if (productId != null) {
-            viewModel.listId = listId
-            viewModel.fetchProduct(productId)
-        } else {
-            closeFragment()
-        }
-    }
-
-    override fun initObservers() {
-        viewModel.event.observe(viewLifecycleOwner) { viewState ->
-            when (viewState) {
-                is ProductDetailViewEvent.Load -> {
-                    setProduct(viewState.product)
-                    initSpinner(
-                        categories = viewState.categories.map { it.formattedName },
-                        categoryOfProduct = viewState.categoryOfProduct
-                    )
-                }
-                is ProductDetailViewEvent.ProductNotFound -> {
-                    closeFragment()
-                }
-                else -> Unit
-            }
-        }
-
-    }
-
-    private fun initSpinner(
-        categories: List<String>,
-        categoryOfProduct: CategoryUiModel?
-    ) {
-        with(binding.etAutoComplete) {
-            if (adapterSpinner == null) {
-                adapterSpinner =
-                    MaterialSpinnerAdapter(context, R.layout.item_material_spinner, categories)
-                setText(categoryOfProduct?.formattedName)
-                setAdapter(adapterSpinner)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        return ComposeView(requireContext()).apply {
+            setContent {
+                MainContent()
             }
         }
     }
 
-    override fun initViews() {
-        initPriceEditText()
-        setClickListeners()
-    }
 
-    private fun initPriceEditText() = with(binding.etPrice) {
-        setCurrencySymbol(CurrencyProvider.DEFAULT_CURRENCY_SIGN)
-        filters = arrayOf(InputFilter.LengthFilter(MAX_LINE_LENGTH_PRICE))
-    }
-
-    private fun setProduct(product: UserListProductUiModel) = with(binding) {
-        if (etProductName.text?.isBlank() == true) {
-            etProductName.setText(product.name)
-        }
-
-        if (etNote.text?.isBlank() == true) {
-            etNote.setText(product.note)
-        }
-
-        if (etPrice.text?.isBlank() == true) {
-            etPrice.setText(product.price)
-        }
-
-        etQuantity.setText(product.quantity)
-        setUnit(toggleButton, product.unit)
-        setFavorite(product.isFavorite)
-
-    }
-
-
-    private fun setClickListeners() = with(binding) {
-
-        btnDeleteItem.setSafeOnClickListener {
-            mainViewModel.delete(product)
-            closeFragment()
-        }
-
-        toggleButton.addOnButtonCheckedListener { _, checkedId, _ ->
-            viewModel.updateUnit(product, unit = getUnit(checkedId = checkedId))
-        }
-
-        btnDecrease.setOnClickListener {
-            viewModel.decreaseQuantity(product)
-        }
-
-        btnIncrease.setOnClickListener {
-            viewModel.increaseQuantity(product)
-        }
-
-        btnAddFavorite.setSafeOnClickListener {
-            viewModel.toggleFavorite(product)
-        }
-
+    override fun onStart() {
+        super.onStart()
+        viewModel.fetchProduct(listId = listId, productId = product.id.orZero())
     }
 
     override fun onPause() {
         super.onPause()
-        val note = binding.etNote.text.toString()
-        val name = binding.etProductName.text.toString()
-        val category = binding.etAutoComplete.text.toString()
-        val categoryUiModel = viewModel.getCategoryBy(category) ?: return
+        val note = viewModel.note
+        val name = viewModel.name
+        val price = viewModel.price
+        val categoryUiModel = viewModel.selectedCategory ?: return
         mainViewModel.updateProduct(
             product = product,
             listId = listId,
             name = name,
             categoryImage = categoryUiModel.image,
-            categoryName =  categoryUiModel.name,
-            price = binding.etPrice.getNumericValue(),
+            categoryName = categoryUiModel.name,
+            price = price,
             note = note,
         )
     }
 
 
-    private fun setFavorite(isFavorite: Boolean) = with(binding.btnAddFavorite) {
-        val context = context ?: return@with
-        if (isFavorite) {
-            text = getString(R.string.remove_favorites)
-            icon = context.compatDrawable(R.drawable.ic_baseline_favorite_24)
-            setTextColor(context.compatColor(R.color.colorGray))
-            setIconTintResource(R.color.colorGray)
-        } else {
-            text = getString(R.string.add_favorites)
-            icon = context.compatDrawable(R.drawable.ic_baseline_favorite_border_24)
-            setTextColor(context.compatColor(R.color.colorOrange))
-            setIconTintResource(R.color.colorOrange)
-        }
-    }
+    @OptIn(ExperimentalMaterialApi::class)
+    @Composable
+    fun MainContent() {
 
-    private fun setUnit(group: MaterialButtonToggleGroup, unit: String?) {
-        when (unit) {
-            ProductUnitType.Piece.value -> {
-                group.check(R.id.button1)
-            }
-            ProductUnitType.Package.value -> {
-                group.check(R.id.button2)
-            }
-            ProductUnitType.Kg.value -> {
-                group.check(R.id.button3)
-            }
-            ProductUnitType.Lt.value -> {
-                group.check(R.id.button4)
-            }
-        }
-    }
+        val modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = padding_16)
+            .padding(
+                top = padding_16,
+                bottom = padding_8
+            )
 
-    private fun getUnit(checkedId: Int): ProductUnitType {
-        return when (checkedId) {
-            binding.button1.id -> {
-                ProductUnitType.Piece
-            }
-            binding.button2.id -> {
-                ProductUnitType.Package
-            }
-            binding.button3.id -> {
-                ProductUnitType.Kg
-            }
-            binding.button4.id -> {
-                ProductUnitType.Lt
-            }
-            else -> ProductUnitType.NoChoice
-        }
-    }
+        val options = arrayListOf(
+            stringResource(id = R.string.unit_piece),
+            stringResource(id = R.string.unit_package),
+            stringResource(id = R.string.unit_kg),
+            stringResource(id = R.string.unit_lt)
+        )
 
+        val state by viewModel.uiState.collectAsState()
+
+        Column {
+
+            OutlinedTextField(
+                value = viewModel.name,
+                textStyle = MaterialTheme.typography.body1,
+                onValueChange = viewModel::onChangeName,
+                label = { Text(stringResource(id = R.string.product_name)) },
+                modifier = modifier
+                    .background(color = colorResource(id = R.color.white)),
+                placeholder = {
+                    Text(
+                        text = stringResource(id = R.string.product_name),
+                        color = colorResource(id = R.color.primaryTextColor)
+                    )
+                }
+            )
+
+            DropDownTextField(
+                value = viewModel.categoryName,
+                categories = state.categories,
+                modifier = modifier.background(color = colorResource(id = R.color.white)),
+                onItemClick = viewModel::onChangeCategory
+            )
+
+            Row(
+                modifier = modifier,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                OutlinedTextField(
+                    value = state.product?.quantity.orEmpty(),
+                    textStyle = MaterialTheme.typography.body1,
+                    enabled = false,
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        disabledLabelColor = colorResource(id = R.color.secondaryTextColor),
+                        disabledTextColor = colorResource(id = R.color.primaryTextColor)
+                    ),
+                    onValueChange = {
+
+                    },
+                    label = { Text(stringResource(id = R.string.product_quantity)) },
+                    placeholder = {
+                        Text(
+                            text = stringResource(id = R.string.product_quantity),
+                            color = colorResource(id = R.color.primaryTextColor)
+                        )
+                    }
+                )
+
+                IconButton(onClick = {
+                    viewModel.increaseQuantity(product)
+                }) {
+                    Image(
+                        painter = painterResource(R.drawable.ic_baseline_add_circle_outline_32),
+                        contentDescription = "Increase quantity",
+                        colorFilter = ColorFilter.tint(colorResource(R.color.colorGreen))
+                    )
+                }
+
+                IconButton(onClick = {
+                    viewModel.decreaseQuantity(product)
+                }) {
+                    Image(
+                        painter = painterResource(R.drawable.ic_baseline_remove_circle_32),
+                        contentDescription = "Decrease quantity",
+                        colorFilter = ColorFilter.tint(colorResource(R.color.colorRed))
+                    )
+                }
+            }
+
+            UnitSegmentedControlView(
+                options = options,
+                unitType = state.product?.unitType ?: ProductUnitType.NoChoice,
+                onClickUnit = {
+                    viewModel.updateUnit(product, it)
+                })
+
+            OutlinedTextField(
+                value = viewModel.price,
+                textStyle = MaterialTheme.typography.body1,
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done,keyboardType = KeyboardType.Number),
+                onValueChange = viewModel::onChangePrice,
+                label = { Text(stringResource(id = R.string.product_unit_price)) },
+                modifier = modifier
+                    .background(color = colorResource(id = R.color.white)),
+                placeholder = {
+                    Text(
+                        text = stringResource(id = R.string.product_unit_price),
+                        color = colorResource(id = R.color.secondaryTextColor)
+                    )
+                }
+            )
+
+            OutlinedTextField(
+                value = viewModel.note,
+                textStyle = MaterialTheme.typography.body1,
+                onValueChange = viewModel::onChangeNote,
+                label = { Text(stringResource(id = R.string.product_note)) },
+                modifier = modifier
+                    .background(color = colorResource(id = R.color.white)),
+                placeholder = {
+                    Text(
+                        text = stringResource(id = R.string.product_note),
+                        color = colorResource(id = R.color.secondaryTextColor)
+                    )
+                }
+            )
+
+            AddToFavoriteButton(isFavorite = state.product?.isFavorite.orFalse(), onClick = {
+                viewModel.toggleFavorite(product)
+            })
+
+            DeleteProductButton(onClick = {
+                mainViewModel.delete(product)
+                findNavController().popBackStack()
+                context?.showToastMessage(R.string.product_deleted)
+            })
+
+        }
+
+    }
 }

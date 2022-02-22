@@ -8,6 +8,7 @@ import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
 import com.yonder.addtolist.domain.decider.ProductQuantityWrapper
 import com.yonder.addtolist.common.enums.DoneType
 import com.yonder.addtolist.common.enums.FavoriteType
+import com.yonder.addtolist.common.enums.ProductUnitType
 import com.yonder.addtolist.common.utils.formatter.currency.CurrencyProvider
 import com.yonder.addtolist.core.extensions.format
 import com.yonder.addtolist.domain.decider.CategoryImageWrapper
@@ -28,7 +29,7 @@ class UserListProductEntityToUiModel @Inject constructor(@ApplicationContext pri
         val categoryUnicode = CategoryImageWrapper.invoke(
             image = input.categoryImage.orEmpty()
         )
-        val isDone =  input.done == DoneType.Done.value
+        val isDone = input.done == DoneType.Done.value
         val isFavorite = input.favorite == FavoriteType.Favorite.value
         return UserListProductUiModel(
             id = input.id,
@@ -59,7 +60,8 @@ class UserListProductEntityToUiModel @Inject constructor(@ApplicationContext pri
             shouldShowNoteField = input.note.orEmpty().isNotBlank() && isDone.not(),
             shouldShowQuantityField = input.quantity.orZero() > 1.0,
             shouldShowPriceField = input.price.orZero() != 0.0,
-            formattedName = "$categoryUnicode ${input.name}"
+            formattedName = "$categoryUnicode ${input.name}",
+            unitType = ProductUnitType.find(input.unit.orEmpty())
         )
     }
 }

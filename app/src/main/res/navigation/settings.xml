@@ -57,8 +57,7 @@
     <fragment
         android:id="@+id/accountDetailFragment"
         android:name="com.yonder.addtolist.scenes.accountdetail.AccountDetailFragment"
-        android:label="@string/title_account_detail"
-        tools:layout="@layout/fragment_account_detail">
+        android:label="@string/title_account_detail">
 
         <action
             android:id="@+id/action_account_detail_to_login"
@@ -69,8 +68,7 @@
     <fragment
         android:id="@+id/languageSelectionFrafgment"
         android:name="com.yonder.addtolist.scenes.languageselection.LanguageSelectionFragment"
-        android:label="@string/title_language_selection"
-        tools:layout="@layout/fragment_language_selection" />
+        android:label="@string/title_language_selection"/>
 
     <fragment
         android:id="@+id/aboutFragment"

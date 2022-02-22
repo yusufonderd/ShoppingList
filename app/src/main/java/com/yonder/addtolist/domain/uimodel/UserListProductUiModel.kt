@@ -1,6 +1,7 @@
 package com.yonder.addtolist.domain.uimodel
 
 import android.os.Parcelable
+import com.yonder.addtolist.common.enums.ProductUnitType
 import kotlinx.parcelize.Parcelize
 
 /**
@@ -28,5 +29,6 @@ data class UserListProductUiModel(
   var shouldShowNoteField: Boolean,
   var shouldShowQuantityField : Boolean,
   var shouldShowPriceField : Boolean,
-  var formattedName: String
+  var formattedName: String,
+  var unitType: ProductUnitType
 ) : Parcelable

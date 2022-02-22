@@ -37,7 +37,7 @@ import com.yonder.addtolist.theme.padding_8
  */
 
 @Composable
-fun EditButton(onEditClicked: () -> Unit) {
+fun EditButton(isDone: Boolean, appColor: AppColor, onEditClicked: () -> Unit) {
     IconButton(
         modifier = Modifier.padding(padding_8),
         onClick = onEditClicked
@@ -45,13 +45,17 @@ fun EditButton(onEditClicked: () -> Unit) {
         Icon(
             Icons.Filled.Edit,
             "Edit Product",
-            tint = colorResource(id = R.color.gray_100)
+            tint = if (isDone) {
+                colorResource(id = R.color.gray_100)
+            } else {
+                colorResource(appColor.colorResId)
+            }
         )
     }
 }
 
 @Composable
-fun DoneImageView(isDone: Boolean,appColor: AppColor) {
+fun DoneImageView(isDone: Boolean, appColor: AppColor) {
     if (isDone) {
         Image(
             modifier = Modifier.padding(padding_8),
@@ -98,6 +102,7 @@ fun FavoriteImageView(onRemoveFavoriteClicked: () -> Unit) {
 fun TotalPriceField(price: String) {
     Text(
         text = price,
+        modifier = Modifier.padding(start = padding_8),
         style = MaterialTheme.typography.body1,
         textAlign = TextAlign.Center,
         color = colorResource(id = R.color.colorPrimary)
@@ -116,14 +121,14 @@ fun QuantityField(isDone: Boolean, quantity: String) {
                 letterSpacing = 0.5.sp
             ),
             textAlign = TextAlign.Center,
-            color = colorResource(id = R.color.gray_100)
+            color = colorResource(id = R.color.gray_200)
         )
     } else {
         Text(
             text = quantity,
             style = MaterialTheme.typography.body1,
             textAlign = TextAlign.Center,
-            color = colorResource(id = R.color.gray_100)
+            color = colorResource(id = R.color.gray_200)
         )
     }
 }
@@ -176,7 +181,11 @@ fun UserListProductRow(
 
     ) {
 
-        EditButton(onEditClicked = onEditClicked)
+        EditButton(
+            isDone = product.isDone,
+            appColor = userList?.appColor ?: AppColor.Blue,
+            onEditClicked = onEditClicked
+        )
 
         Column(
             modifier = Modifier

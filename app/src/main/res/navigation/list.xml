@@ -33,8 +33,7 @@
   <fragment
     android:id="@+id/shoppingListItemsScreen"
     android:name="com.yonder.addtolist.scenes.home.HomeFragment"
-    android:label="@string/title_shopping_lists"
-    tools:layout="@layout/fragment_home">
+    android:label="@string/title_shopping_lists">
 
     <action
       android:id="@+id/action_shopping_list_items_to_splash"
@@ -94,8 +93,7 @@
   <fragment
     android:id="@+id/productDetailFragment"
     android:name="com.yonder.addtolist.scenes.productdetail.ProductDetailFragment"
-    android:label="@string/product_details"
-    tools:layout="@layout/fragment_product_detail">
+    android:label="@string/product_details">
 
     <argument
       android:name="userListProduct"

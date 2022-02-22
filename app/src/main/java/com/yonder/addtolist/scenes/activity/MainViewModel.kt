@@ -2,6 +2,7 @@ package com.yonder.addtolist.scenes.activity
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.yonder.addtolist.core.extensions.orZero
 import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
 import com.yonder.addtolist.domain.usecase.DeleteProductOfUserList
 import com.yonder.addtolist.domain.usecase.UpdateProductOfUserList
@@ -26,13 +27,17 @@ class MainViewModel @Inject constructor(
         name: String,
         categoryImage: String,
         categoryName: String,
-        price: Double,
+        price: String,
         note: String,
 
     ) {
+
+        val priceDouble = price
+            .replace(",",".")
+            .toDoubleOrNull().orZero()
         val updatedProduct = product.copy(
             name = name,
-            priceValue = price,
+            priceValue = priceDouble,
             categoryImage = categoryImage,
             categoryName = categoryName,
             note = note
