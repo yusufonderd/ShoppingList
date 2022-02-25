@@ -14,7 +14,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.colorResource
@@ -27,7 +26,6 @@ import androidx.navigation.fragment.findNavController
 import com.yonder.addtolist.R
 import com.yonder.addtolist.common.enums.AppColor
 import com.yonder.addtolist.common.ui.extensions.showToastMessage
-import com.yonder.addtolist.common.utils.decider.ColorDecider
 import com.yonder.addtolist.theme.padding_16
 import com.yonder.addtolist.theme.padding_8
 import com.yonder.addtolist.uicomponent.ColorPicker
@@ -35,7 +33,6 @@ import com.yonder.addtolist.uicomponent.HorizontalChipView
 import com.yonder.addtolist.uicomponent.LoadingView
 import com.yonder.addtolist.uicomponent.SubmitButton
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 
 @ExperimentalMaterialApi
@@ -44,9 +41,6 @@ import javax.inject.Inject
 class CreateListFragment : Fragment() {
 
     val viewModel: CreateListViewModel by viewModels()
-
-    @Inject
-    lateinit var colorDecider: ColorDecider
 
     private val listNames get() = requireContext().resources.getStringArray(R.array.list_names)
 

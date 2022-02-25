@@ -13,6 +13,8 @@
   <string name="btn_login">Login</string>
   <string name="title_shopping_lists">My Lists</string>
 
+  <string name="facebook_app_id" translatable="false">FBID</string>
+
   <!-- Message -->
   <string name="error_occurred">An error occurred</string>
 

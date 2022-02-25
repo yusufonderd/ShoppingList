@@ -13,7 +13,7 @@ import com.yonder.addtolist.domain.usecase.DeleteProductOfUserList
 import com.yonder.addtolist.domain.usecase.FacebookGraphUseCase
 import com.yonder.addtolist.domain.usecase.LoginUseCase
 import com.yonder.addtolist.domain.usecase.UpdateProductOfUserList
-import com.yonder.addtolist.scenes.listdetail.domain.category.CategoryListRepository
+import com.yonder.addtolist.data.repository.CategoryListRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

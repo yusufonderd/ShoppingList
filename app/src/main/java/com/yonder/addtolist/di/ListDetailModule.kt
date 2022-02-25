@@ -1,7 +1,7 @@
 package com.yonder.addtolist.di
 
-import com.yonder.addtolist.scenes.listdetail.domain.category.CategoryListRepository
-import com.yonder.addtolist.scenes.listdetail.domain.category.CategoryListRepositoryImpl
+import com.yonder.addtolist.data.repository.CategoryListRepository
+import com.yonder.addtolist.data.repository.CategoryListRepositoryImpl
 import com.yonder.addtolist.scenes.listdetail.domain.category.ProductQueryUseCase
 import com.yonder.addtolist.scenes.listdetail.domain.category.ProductQueryUseCaseImpl
 import com.yonder.addtolist.domain.usecase.ProductUseCase

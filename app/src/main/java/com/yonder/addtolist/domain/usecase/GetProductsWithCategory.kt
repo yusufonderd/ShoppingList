@@ -3,7 +3,7 @@ package com.yonder.addtolist.domain.usecase
 import com.yonder.core.network.RestResult
 import com.yonder.addtolist.core.network.thread.CoroutineThread
 import com.yonder.addtolist.local.entity.CategoryWithProducts
-import com.yonder.addtolist.scenes.listdetail.domain.category.CategoryListRepository
+import com.yonder.addtolist.data.repository.CategoryListRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject

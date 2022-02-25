@@ -29,7 +29,7 @@ object Versions {
   const val facebook_sdk = "[5,6)"
   const val timber = "4.7.1"
   const val firebase_bom = "26.0.0"
-  const val room = "2.3.0"
+  const val room = "2.4.0-alpha03"
   const val state_layout = "0.1.1"
   const val currency_edit_text = "0.0.9"
   const val compose: String = "1.1.0-beta04"

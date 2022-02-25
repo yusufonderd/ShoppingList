@@ -1,4 +1,4 @@
-package com.yonder.addtolist.scenes.listdetail.domain.category
+package com.yonder.addtolist.data.repository
 
 import com.yonder.core.base.mapper.ListMapperImpl
 import com.yonder.addtolist.core.network.exceptions.ServerResultException

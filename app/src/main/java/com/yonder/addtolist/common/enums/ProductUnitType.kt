@@ -6,10 +6,10 @@ package com.yonder.addtolist.common.enums
  */
 
 enum class ProductUnitType(val value: String, val index: Int) {
+    Piece("piece", 0),
+    Package("package", 1),
     Kg("kg", 2),
     Lt("lt", 3),
-    Package("package", 1),
-    Piece("piece", 0),
     NoChoice("", -1);
 
     companion object {
