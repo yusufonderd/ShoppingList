@@ -1,14 +1,13 @@
 package com.yonder.addtolist.scenes.splash
 
 import androidx.annotation.VisibleForTesting
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.domain.usecase.GetCurrentUser
 import com.yonder.addtolist.domain.usecase.GetProductsWithCategory
 import com.yonder.addtolist.domain.usecase.UserInfoUseCase
+import com.yonder.core.base.BaseViewModel
+import com.yonder.core.base.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -19,10 +18,7 @@ class SplashViewModel @Inject constructor(
   private val userInfoUseCase: UserInfoUseCase,
   private val categoryUseCase: GetProductsWithCategory,
   private val getCurrentUser: GetCurrentUser
-  ) : ViewModel() {
-
-  private val _state: MutableStateFlow<SplashViewState> = MutableStateFlow(SplashViewState.Loading)
-  val state: StateFlow<SplashViewState> get() = _state
+  ) : BaseViewModel<SplashViewModel.UiEvent>() {
 
   init {
     getUuid()
@@ -39,7 +35,7 @@ class SplashViewModel @Inject constructor(
       userInfoUseCase.isLoggedIn().collect { isLoggedIn ->
         getCurrentUser().collect { result ->
           result.onSuccessOrError {
-            _state.value = getNavigateDestination(isLoggedIn)
+            pushEvent(getNavigateDestination(isLoggedIn))
           }
         }
       }
@@ -59,19 +55,18 @@ class SplashViewModel @Inject constructor(
   }
 
   @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-  fun getNavigateDestination(isLoggedIn: Boolean): SplashViewState {
+  fun getNavigateDestination(isLoggedIn: Boolean): UiEvent {
     return if (isLoggedIn) {
-      SplashViewState.GoShoppingListItems
+      UiEvent.ShoppingListItems
     } else {
-      SplashViewState.GoLogin
+      UiEvent.Login
     }
   }
 
-}
+  sealed class UiEvent : Event {
+    object Loading : UiEvent()
+    object Login : UiEvent()
+    object ShoppingListItems : UiEvent()
+  }
 
-sealed class SplashViewState {
-  object Loading : SplashViewState()
-  object GoLogin : SplashViewState()
-  object GoShoppingListItems : SplashViewState()
 }
-
