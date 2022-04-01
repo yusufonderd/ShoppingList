@@ -10,11 +10,9 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
+
 import com.yonder.addtolist.R
 import com.yonder.addtolist.common.enums.AppColor
-import com.yonder.addtolist.common.ui.extensions.setupWithNavController
 import com.yonder.addtolist.data.local.UserPreferenceDataStoreImpl
 import com.yonder.addtolist.databinding.ActivityMainBinding
 import com.yonder.addtolist.common.utils.ContextWrapper
@@ -24,10 +22,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private var currentNavController: LiveData<NavController>? = null
-    private val navGraphIds = listOf(R.navigation.list, R.navigation.settings)
+    private val navGraphIds = listOf(R.navigation.list)
 
     lateinit var binding: ActivityMainBinding
-    private lateinit var appBarConfiguration: AppBarConfiguration
 
     val viewModel: MainViewModel by viewModels()
 
@@ -48,7 +45,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupBottomNavigationBar() {
-        val controller = binding.bottomNav.setupWithNavController(
+     /*   val controller = binding.bottomNav.setupWithNavController(
             navGraphIds = navGraphIds,
             fragmentManager = supportFragmentManager,
             containerId = R.id.nav_host_container,
@@ -62,12 +59,12 @@ class MainActivity : AppCompatActivity() {
                 handleNavDestination(destination)
             }
         }
-        currentNavController = controller
+        currentNavController = controller*/
     }
 
     private fun handleNavDestination(destination: NavDestination) {
         when (destination.id) {
-            R.id.shoppingListItemsScreen, R.id.settingsScreen -> {
+            R.id.shoppingListItemsScreen-> {
                 binding.toolbar.isVisible = true
                 binding.bottomNav.isVisible = true
                 setUpButtonVisibility(false)

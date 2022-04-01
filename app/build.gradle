@@ -95,8 +95,8 @@ dependencies {
   implementation Libs.AndroidX.core_ktx
   implementation Libs.AndroidX.androidx_appcompat
   implementation Libs.AndroidX.constraint_layout
-  implementation Libs.AndroidX.navigation_fragment
-  implementation Libs.AndroidX.navigation_ui_ktx
+   implementation Libs.AndroidX.navigation_fragment
+ // implementation Libs.AndroidX.navigation_ui_ktx
   implementation Libs.AndroidX.legacy_support
   implementation Libs.AndroidX.live_data_vm
   implementation Libs.AndroidX.live_data_ktx
@@ -107,6 +107,7 @@ dependencies {
   implementation Libs.DaggerHilt.daggerHilt
   implementation project(path: ':local')
   implementation project(path: ':core')
+  implementation 'com.google.firebase:firebase-auth-common:9.8.0'
 
   kapt Libs.DaggerHilt.daggerHiltCompiler
 
@@ -151,6 +152,8 @@ dependencies {
   implementation Libs.AndroidX.common
   implementation Libs.AndroidX.runtime
 
+  implementation "androidx.navigation:navigation-compose:2.4.1"
+  implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
 
 
 }

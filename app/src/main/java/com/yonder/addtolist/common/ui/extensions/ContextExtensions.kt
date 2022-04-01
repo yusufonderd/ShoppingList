@@ -1,8 +1,10 @@
 package com.yonder.addtolist.common.ui.extensions
 
 import android.content.Context
+import android.content.ContextWrapper
 import android.widget.Toast
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
 
 /**
  * @author yusuf.onder
@@ -17,4 +19,10 @@ fun Context.showToastMessage(message: String) {
   Toast.makeText(this, message, Toast.LENGTH_LONG).show()
 }
 
+
+fun Context.getActivity(): AppCompatActivity? = when (this) {
+  is AppCompatActivity -> this
+  is ContextWrapper -> baseContext.getActivity()
+  else -> null
+}
 

@@ -7,31 +7,22 @@ import android.view.ViewGroup
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Divider
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.stringResource
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.yonder.addtolist.R
 import com.yonder.addtolist.domain.uimodel.UserListUiModel
 import com.yonder.addtolist.scenes.home.row.CreateListFab
 import com.yonder.addtolist.scenes.home.row.ListRow
-import com.yonder.addtolist.theme.padding_16
 import com.yonder.addtolist.uicomponent.LoadingView
 import com.yonder.addtolist.uicomponent.NoListView
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,7 +30,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    val viewModel: ShoppingListItemsViewModel by viewModels()
+    val viewModel: ListViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -87,16 +78,16 @@ class HomeFragment : Fragment() {
     }
 
     private fun navigateUserListDetail(userList: UserListUiModel) {
-        findNavController().navigate(
+      /*  findNavController().navigate(
             HomeFragmentDirections.actionShoppingListToListDetail(
                 userList = userList,
                 title = userList.name
             )
-        )
+        )*/
     }
 
     private fun navigateToCreateListScreen() {
-        findNavController().navigate(R.id.action_shopping_list_to_create_list)
+     //   findNavController().navigate(R.id.action_shopping_list_to_create_list)
     }
 
 }

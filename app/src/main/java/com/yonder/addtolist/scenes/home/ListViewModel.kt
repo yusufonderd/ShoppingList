@@ -13,14 +13,18 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ShoppingListItemsViewModel @Inject constructor(
+class ListViewModel @Inject constructor(
     private val getUserListsUseCase: GetUserLists
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState(isLoading = true))
     val uiState: StateFlow<UiState> = _uiState
 
-     fun getShoppingItems() {
+    init {
+        getShoppingItems()
+    }
+
+    fun getShoppingItems() {
         viewModelScope.launch {
             getUserListsUseCase().collect { userLists ->
                 _uiState.update {

@@ -1,6 +1,5 @@
 package com.yonder.addtolist.scenes.listdetail
 
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,25 +7,14 @@ import android.view.ViewGroup
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
-import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -38,15 +26,12 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.yonder.addtolist.R
 import com.yonder.addtolist.common.enums.AppColor
 import com.yonder.addtolist.core.extensions.EMPTY_STRING
-import com.yonder.addtolist.domain.decider.CurrencyDecider
 import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
 import com.yonder.addtolist.scenes.activity.MainActivity
 import com.yonder.addtolist.scenes.listdetail.row.ATLDivider
@@ -56,7 +41,6 @@ import com.yonder.addtolist.theme.padding_16
 import com.yonder.addtolist.theme.padding_8
 import com.yonder.addtolist.uicomponent.LoadingView
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 /**
  * @author yusuf.onder
@@ -232,11 +216,11 @@ class ListDetailFragment : Fragment() {
     }
 
     private fun navigateProductDetail(userListProduct: UserListProductUiModel) {
-        findNavController().navigate(
+        /*findNavController().navigate(
             ListDetailFragmentDirections.actionShoppingListDetailToProductDetail(
                 userListProduct = userListProduct, listId = listId
             )
-        )
+        )*/
     }
 
 }

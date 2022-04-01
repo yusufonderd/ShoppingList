@@ -17,7 +17,7 @@ class FacebookGraphUseCase @Inject constructor()  {
     invoker: (userInfoObject: JSONObject) -> Unit
   ) {
     val request = GraphRequest.newMeRequest(loginResult.accessToken) { userInfoObject, _ ->
-      invoker.invoke(userInfoObject)
+    //  invoker.invoke(userInfoObject)
     }
     val parameters = Bundle()
     parameters.putString(FIELDS_KEY, FIELDS_VALUES)

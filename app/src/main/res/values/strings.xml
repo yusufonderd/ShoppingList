@@ -151,5 +151,8 @@
 
   <string name="product_deleted">Item deleted</string>
 
+  <string name="characters">Characters</string>
+  <string name="quotes">Quotes</string>
+
 
 </resources>

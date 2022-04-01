@@ -49,23 +49,11 @@
       app:popUpToInclusive="true" />
 
     <action
-      android:id="@+id/action_shopping_list_to_create_list"
-      app:destination="@id/createListFragment" />
-
-    <action
       android:id="@+id/action_shopping_list_to_list_detail"
       app:destination="@id/listDetailFragment" />
 
-
   </fragment>
 
-
-  <fragment
-    android:id="@+id/createListFragment"
-    android:name="com.yonder.addtolist.scenes.createlist.CreateListFragment"
-    android:label="@string/create_list">
-
-  </fragment>
 
 
   <fragment
