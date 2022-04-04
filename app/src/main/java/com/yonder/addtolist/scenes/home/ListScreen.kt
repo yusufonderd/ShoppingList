@@ -18,6 +18,7 @@ import com.yonder.addtolist.R
 import com.yonder.addtolist.scenes.activity.Screen
 import com.yonder.addtolist.scenes.home.row.CreateListFab
 import com.yonder.addtolist.scenes.home.row.ListRow
+import com.yonder.addtolist.scenes.listdetail.ListDetail
 import com.yonder.addtolist.uicomponent.LoadingView
 import com.yonder.addtolist.uicomponent.NoListView
 
@@ -37,7 +38,11 @@ fun ListScreen(navController: NavController) {
                 LazyColumn(modifier = Modifier.fillMaxHeight()) {
                     items(uiState.userLists, itemContent = { list ->
                         ListRow(list = list) {
-                            //  navigateUserListDetail(list)
+                            navController.currentBackStackEntry?.arguments?.putParcelable(
+                                ListDetail.LIST_UI_MODEL,
+                                list
+                            )
+                            navController.navigate(Screen.ListDetail.route)
                         }
                         Divider(modifier = Modifier.background(colorResource(id = R.color.white)))
                     })

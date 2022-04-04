@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.StringRes
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -13,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
@@ -26,6 +29,7 @@ import com.yonder.addtolist.scenes.accountdetail.AccountScreen
 import com.yonder.addtolist.scenes.createlist.CreateNewList
 import com.yonder.addtolist.scenes.home.ListScreen
 import com.yonder.addtolist.scenes.languageselection.LanguageScreen
+import com.yonder.addtolist.scenes.listdetail.ListDetailScreen
 import com.yonder.addtolist.scenes.login.LoginScreen
 import com.yonder.addtolist.scenes.settings.Settings
 import com.yonder.addtolist.scenes.splash.SplashScreen
@@ -61,7 +65,6 @@ class HomeActivity : ComponentActivity() {
                             topBarState.value = true
                             bottomBarState.value = true
                             backArrowState.value = true
-
                         }
                     }
 
@@ -111,16 +114,19 @@ class HomeActivity : ComponentActivity() {
                                 }
                             }
                         }
-                    ) {
-                        NavHost(navController, startDestination = Screen.Splash.route) {
-                            composable(Screen.Login.route) { LoginScreen(navController) }
-                            composable(Screen.Splash.route) { SplashScreen(navController) }
-                            composable(Screen.List.route) { ListScreen(navController) }
-                            composable(Screen.Settings.route) { Settings(navController) }
-                            composable(Screen.CreateNewList.route) { CreateNewList(navController) }
-                            composable(Screen.Language.route) { LanguageScreen(navController) }
-                            composable(Screen.About.route) { AboutScreen() }
-                            composable(Screen.Account.route) { AccountScreen() }
+                    ) { innerPadding ->
+                        Box(modifier = Modifier.padding(innerPadding)) {
+                            NavHost(navController, startDestination = Screen.Splash.route) {
+                                composable(Screen.Login.route) { LoginScreen(navController) }
+                                composable(Screen.Splash.route) { SplashScreen(navController) }
+                                composable(Screen.List.route) { ListScreen(navController) }
+                                composable(Screen.Settings.route) { Settings(navController) }
+                                composable(Screen.CreateNewList.route) { CreateNewList(navController) }
+                                composable(Screen.Language.route) { LanguageScreen(navController) }
+                                composable(Screen.About.route) { AboutScreen() }
+                                composable(Screen.Account.route) { AccountScreen() }
+                                composable(Screen.ListDetail.route) { ListDetailScreen(navController) }
+                            }
                         }
                     }
                 }
@@ -150,6 +156,7 @@ sealed class Screen(
     object Account : Screen(Route.ACCOUNT, R.string.title_account_detail, Icons.Filled.Settings)
     object Language :
         Screen(Route.LANGUAGE, R.string.title_language_selection, Icons.Filled.Settings)
+    object ListDetail : Screen(Route.LIST_DETAIL, R.string.title_list_detail, Icons.Filled.Settings)
 
 }
 
@@ -158,6 +165,7 @@ object Route {
     const val CREATE_NEW_LIST = "createNewList"
     const val SETTINGS = "settings"
     const val LIST = "list"
+    const val LIST_DETAIL = "list_detail"
     const val ABOUT = "about"
     const val ACCOUNT = "account"
     const val LANGUAGE = "language"
