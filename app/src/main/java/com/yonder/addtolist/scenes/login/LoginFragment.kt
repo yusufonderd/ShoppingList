@@ -132,7 +132,7 @@ class LoginFragment : Fragment() {
 
         when (event) {
             LoginViewState.NavigateToShoppingItems -> {
-                findNavController().navigate(R.id.action_login_to_shopping_list_items)
+               // findNavController().navigate(R.id.action_login_to_shopping_list_items)
             }
         }
 

@@ -53,16 +53,16 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ProductDetailFragment : Fragment() {
 
-    private val args: ProductDetailFragmentArgs by navArgs()
+  //  private val args: ProductDetailFragmentArgs by navArgs()
 
     private val viewModel: ProductDetailViewModel by viewModels()
 
     private val mainViewModel: MainViewModel by activityViewModels()
-
+/*
     private val product get() = args.userListProduct
 
     private val listId get() = args.listId
-
+*/
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -78,7 +78,7 @@ class ProductDetailFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        viewModel.fetchProduct(listId = listId, productId = product.id.orZero())
+        // viewModel.fetchProduct(listId = listId, productId = product.id.orZero())
     }
 
     override fun onPause() {
@@ -87,7 +87,7 @@ class ProductDetailFragment : Fragment() {
         val name = viewModel.name
         val price = viewModel.price
         val categoryUiModel = viewModel.selectedCategory ?: return
-        mainViewModel.updateProduct(
+       /* mainViewModel.updateProduct(
             product = product,
             listId = listId,
             name = name,
@@ -95,7 +95,7 @@ class ProductDetailFragment : Fragment() {
             categoryName = categoryUiModel.name,
             price = price,
             note = note,
-        )
+        )*/
     }
 
 
@@ -169,7 +169,7 @@ class ProductDetailFragment : Fragment() {
                 )
 
                 IconButton(onClick = {
-                    viewModel.increaseQuantity(product)
+                 //   viewModel.increaseQuantity(product)
                 }) {
                     Image(
                         painter = painterResource(R.drawable.ic_baseline_add_circle_outline_32),
@@ -179,7 +179,7 @@ class ProductDetailFragment : Fragment() {
                 }
 
                 IconButton(onClick = {
-                    viewModel.decreaseQuantity(product)
+                  //  viewModel.decreaseQuantity(product)
                 }) {
                     Image(
                         painter = painterResource(R.drawable.ic_baseline_remove_circle_32),
@@ -193,7 +193,7 @@ class ProductDetailFragment : Fragment() {
                 options = options,
                 unitType = state.product?.unitType ?: ProductUnitType.NoChoice,
                 onClickUnit = {
-                    viewModel.updateUnit(product, it)
+              //      viewModel.updateUnit(product, it)
                 })
 
             OutlinedTextField(
@@ -229,11 +229,11 @@ class ProductDetailFragment : Fragment() {
             )
 
             AddToFavoriteButton(isFavorite = state.product?.isFavorite.orFalse(), onClick = {
-                viewModel.toggleFavorite(product)
+               // viewModel.toggleFavorite(product)
             })
 
             DeleteProductButton(onClick = {
-                mainViewModel.delete(product)
+              //  mainViewModel.delete(product)
                 findNavController().popBackStack()
                 context?.showToastMessage(R.string.product_deleted)
             })

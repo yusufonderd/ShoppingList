@@ -17,12 +17,11 @@ import com.yonder.addtolist.data.local.UserPreferenceDataStoreImpl
 import com.yonder.addtolist.databinding.ActivityMainBinding
 import com.yonder.addtolist.common.utils.ContextWrapper
 import dagger.hilt.android.AndroidEntryPoint
-
+/*
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private var currentNavController: LiveData<NavController>? = null
-    private val navGraphIds = listOf(R.navigation.list)
 
     lateinit var binding: ActivityMainBinding
 
@@ -110,3 +109,4 @@ class MainActivity : AppCompatActivity() {
             )
     }
 }
+*/

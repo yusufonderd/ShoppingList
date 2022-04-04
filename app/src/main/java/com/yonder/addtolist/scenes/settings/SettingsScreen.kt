@@ -25,7 +25,7 @@ import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.yonder.addtolist.R
 import com.yonder.addtolist.common.ui.extensions.getActivity
-import com.yonder.addtolist.core.extensions.navigateUrl
+import com.yonder.addtolist.common.ui.extensions.navigate
 import com.yonder.addtolist.core.extensions.reviewApp
 import com.yonder.addtolist.scenes.accountdetail.ProfileImageView
 import com.yonder.addtolist.scenes.activity.Screen
@@ -43,6 +43,7 @@ fun Settings(navController: NavController) {
     val context = LocalContext.current
     val settingsUIState by viewModel.state.collectAsState()
 
+
     when (settingsUIState) {
         is SettingsUIState.Initial -> {
             LazyColumn {
@@ -57,10 +58,10 @@ fun Settings(navController: NavController) {
                                     }*/
                                 }
                                 R.string.twitter -> {
-                                    context.getActivity()?.navigateUrl("https://twitter.com/addtolistapp")
+                                    context.navigate("https://twitter.com/addtolistapp")
                                 }
                                 R.string.instagram -> {
-                                    context.getActivity()?.navigateUrl("https://www.instagram.com/addtolist.co/")
+                                    context.navigate("https://www.instagram.com/addtolist.co/")
                                 }
                                 R.string.rate_us -> {
                                     context.getActivity()?.reviewApp()

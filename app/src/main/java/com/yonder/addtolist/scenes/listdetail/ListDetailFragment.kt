@@ -33,7 +33,6 @@ import com.yonder.addtolist.R
 import com.yonder.addtolist.common.enums.AppColor
 import com.yonder.addtolist.core.extensions.EMPTY_STRING
 import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
-import com.yonder.addtolist.scenes.activity.MainActivity
 import com.yonder.addtolist.scenes.listdetail.row.ATLDivider
 import com.yonder.addtolist.scenes.listdetail.row.ProductRow
 import com.yonder.addtolist.scenes.listdetail.row.UserListProductRow
@@ -51,16 +50,16 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ListDetailFragment : Fragment() {
 
-    private val args: ListDetailFragmentArgs by navArgs()
+    //private val args: ListDetailFragmentArgs by navArgs()
 
     private val viewModel: ListDetailViewModel by viewModels()
 
-    private val listId get() = args.userList.id
+  /*  private val listId get() = args.userList.id
 
     private val listUUID get() = args.userList.uuid
 
     private val appColor get() = args.userList.appColor
-
+*/
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -80,17 +79,17 @@ class ListDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        changeToolbarColor(appColor)
+       // changeToolbarColor(appColor)
     }
 
     private fun changeToolbarColor(appColor: AppColor){
-        (activity as MainActivity).changeToolbarColor(appColor)
+       // (activity as MainActivity).changeToolbarColor(appColor)
     }
 
     override fun onStart() {
         super.onStart()
-        viewModel.listId = listId
-        viewModel.fetchProducts(listUUID)
+      //  viewModel.listId = listId
+       // viewModel.fetchProducts(listUUID)
     }
 
     @Composable
@@ -132,7 +131,7 @@ class ListDetailFragment : Fragment() {
                         onValueChange = {
                             textState.value = it
                             showPrediction.value = it.text.isNotBlank()
-                            viewModel.fetchProducts(listUUID, it.text)
+                            //viewModel.fetchProducts(listUUID, it.text)
                         },
                         modifier = Modifier
                             .then(
@@ -181,11 +180,11 @@ class ListDetailFragment : Fragment() {
                             ProductRow(item = item, onIncreaseQuantityClicked = { product ->
                                 viewModel.increaseQuantity(product)
                             }, onAddProductClicked = { productName ->
-                                viewModel.addProduct(
+                               /* viewModel.addProduct(
                                     listId = listId,
                                     userListUUID = listUUID,
                                     productName = productName
-                                )
+                                )*/
                             }, onDecreaseProductClicked = { product ->
                                 viewModel.decreaseQuantity(product)
                             })
