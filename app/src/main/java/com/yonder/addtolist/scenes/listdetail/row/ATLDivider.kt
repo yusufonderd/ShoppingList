@@ -13,6 +13,6 @@ import com.yonder.addtolist.R
  */
 
 @Composable
-fun ATLDivider() {
+fun ThinDivider() {
     Divider(modifier = Modifier.background(colorResource(id = R.color.gray_50)))
 }

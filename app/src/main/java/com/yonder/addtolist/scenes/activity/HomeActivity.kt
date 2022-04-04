@@ -31,6 +31,7 @@ import com.yonder.addtolist.scenes.home.ListScreen
 import com.yonder.addtolist.scenes.languageselection.LanguageScreen
 import com.yonder.addtolist.scenes.listdetail.ListDetailScreen
 import com.yonder.addtolist.scenes.login.LoginScreen
+import com.yonder.addtolist.scenes.productdetail.ProductDetailScreen
 import com.yonder.addtolist.scenes.settings.Settings
 import com.yonder.addtolist.scenes.splash.SplashScreen
 import com.yonder.addtolist.theme.BreakingBadTheme
@@ -115,18 +116,21 @@ class HomeActivity : ComponentActivity() {
                             }
                         }
                     ) { innerPadding ->
-                        Box(modifier = Modifier.padding(innerPadding)) {
-                            NavHost(navController, startDestination = Screen.Splash.route) {
-                                composable(Screen.Login.route) { LoginScreen(navController) }
-                                composable(Screen.Splash.route) { SplashScreen(navController) }
-                                composable(Screen.List.route) { ListScreen(navController) }
-                                composable(Screen.Settings.route) { Settings(navController) }
-                                composable(Screen.CreateNewList.route) { CreateNewList(navController) }
-                                composable(Screen.Language.route) { LanguageScreen(navController) }
-                                composable(Screen.About.route) { AboutScreen() }
-                                composable(Screen.Account.route) { AccountScreen() }
-                                composable(Screen.ListDetail.route) { ListDetailScreen(navController) }
-                            }
+                        NavHost(
+                            navController = navController,
+                            startDestination = Screen.Splash.route,
+                            modifier = Modifier.padding(innerPadding)
+                        ) {
+                            composable(Screen.Login.route) { LoginScreen(navController) }
+                            composable(Screen.Splash.route) { SplashScreen(navController) }
+                            composable(Screen.List.route) { ListScreen(navController) }
+                            composable(Screen.Settings.route) { Settings(navController) }
+                            composable(Screen.CreateNewList.route) { CreateNewList(navController) }
+                            composable(Screen.Language.route) { LanguageScreen(navController) }
+                            composable(Screen.About.route) { AboutScreen() }
+                            composable(Screen.Account.route) { AccountScreen() }
+                            composable(Screen.ListDetail.route) { ListDetailScreen(navController) }
+                            composable(Screen.ProductDetail.route) { ProductDetailScreen(navController) }
                         }
                     }
                 }
@@ -156,8 +160,9 @@ sealed class Screen(
     object Account : Screen(Route.ACCOUNT, R.string.title_account_detail, Icons.Filled.Settings)
     object Language :
         Screen(Route.LANGUAGE, R.string.title_language_selection, Icons.Filled.Settings)
-    object ListDetail : Screen(Route.LIST_DETAIL, R.string.title_list_detail, Icons.Filled.Settings)
 
+    object ListDetail : Screen(Route.LIST_DETAIL, R.string.title_list_detail, Icons.Filled.Settings)
+    object ProductDetail : Screen(Route.PRODUCT_DETAIL, R.string.product_details, Icons.Filled.List)
 }
 
 
@@ -171,6 +176,8 @@ object Route {
     const val LANGUAGE = "language"
     const val SPLASH = "splash"
     const val LOGIN = "login"
+    const val PRODUCT_DETAIL = "product_detail"
+
 }
 
 

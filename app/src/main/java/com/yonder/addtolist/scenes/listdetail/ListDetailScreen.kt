@@ -21,16 +21,22 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.fragment.app.activityViewModels
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
 import com.yonder.addtolist.R
 import com.yonder.addtolist.common.utils.OnLifecycleEvent
 import com.yonder.addtolist.core.extensions.EMPTY_STRING
+import com.yonder.addtolist.core.extensions.orZero
 import com.yonder.addtolist.domain.uimodel.UserListUiModel
-import com.yonder.addtolist.scenes.listdetail.row.ATLDivider
+import com.yonder.addtolist.scenes.activity.MainViewModel
+import com.yonder.addtolist.scenes.activity.Route
+import com.yonder.addtolist.scenes.activity.Screen
+import com.yonder.addtolist.scenes.listdetail.row.ThinDivider
 import com.yonder.addtolist.scenes.listdetail.row.ProductRow
 import com.yonder.addtolist.scenes.listdetail.row.UserListProductRow
+import com.yonder.addtolist.scenes.productdetail.ProductDetail
 import com.yonder.addtolist.theme.padding_16
 import com.yonder.addtolist.theme.padding_8
 import com.yonder.addtolist.uicomponent.LoadingView
@@ -39,6 +45,7 @@ import com.yonder.addtolist.uicomponent.LoadingView
 @Composable
 fun ListDetailScreen(navController: NavController) {
     val viewModel = hiltViewModel<ListDetailViewModel>()
+
 
     val listUIModel = navController
         .previousBackStackEntry
@@ -64,8 +71,8 @@ fun ListDetailScreen(navController: NavController) {
         }
     }
 
-    OnLifecycleEvent { owner, event ->
-        when (event) {
+    OnLifecycleEvent { _, _event ->
+        when (_event) {
             Lifecycle.Event.ON_CREATE -> {
                 val list = listUIModel ?: return@OnLifecycleEvent
                 viewModel.listId = list.id
@@ -151,7 +158,7 @@ fun ListDetailScreen(navController: NavController) {
                             }, onDecreaseProductClicked = { product ->
                                 viewModel.decreaseQuantity(product)
                             })
-                            ATLDivider()
+                            ThinDivider()
                         })
                     }
                 } else {
@@ -161,7 +168,15 @@ fun ListDetailScreen(navController: NavController) {
                                 product = product,
                                 userList = state.userList,
                                 onEditClicked = {
-                                    // navigateProductDetail(userListProduct = product)
+                                    navController.currentBackStackEntry?.arguments?.putParcelable(
+                                        ProductDetail.PRODUCT_UI_MODEL,
+                                        product
+                                    )
+                                    navController.currentBackStackEntry?.arguments?.putInt(
+                                        ProductDetail.LIST_ID,
+                                        listUIModel?.id.orZero()
+                                    )
+                                    navController.navigate(Screen.ProductDetail.route)
                                 },
                                 onDoneClicked = {
                                     viewModel.toggleDone(product = product)
@@ -169,14 +184,14 @@ fun ListDetailScreen(navController: NavController) {
                                 onRemoveFavoriteClicked = {
                                     viewModel.removeFromFavorites(product = product)
                                 })
-                            ATLDivider()
+                            ThinDivider()
                         })
                     }
                 }
             }
         }
         else -> {
-            Text("hello")
+            Text("")
         }
     }
 }

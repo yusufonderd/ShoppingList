@@ -48,7 +48,7 @@ fun ListScreen(navController: NavController) {
                     })
                 }
                 CreateListFab {
-                    //   navigateToCreateListScreen()
+                    navController.navigate(Screen.CreateNewList.route)
                 }
             }
         }
