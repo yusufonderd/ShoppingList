@@ -4,21 +4,18 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.StringRes
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -55,16 +52,16 @@ class HomeActivity : ComponentActivity() {
                     val navBackStackEntry by navController.currentBackStackEntryAsState()
 
                     when (navBackStackEntry?.destination?.route) {
-                        Route.SPLASH, Route.LOGIN-> {
+                        Route.SPLASH.key, Route.LOGIN.key -> {
                             topBarState.value = false
                             bottomBarState.value = false
                         }
-                        Route.LIST, Route.SETTINGS -> {
+                        Route.LIST.key, Route.SETTINGS.key-> {
                             backArrowState.value = false
                             topBarState.value = true
                             bottomBarState.value = true
                         }
-                        Route.PREMIUM -> {
+                        Route.PREMIUM.key -> {
                             bottomBarState.value = false
                             topBarState.value = true
                             backArrowState.value = true
@@ -80,7 +77,12 @@ class HomeActivity : ComponentActivity() {
                         topBar = {
                             if (topBarState.value) {
                                 TopAppBar(
-                                    title = { Text(text = getString(R.string.app_name)) },
+                                    title = {
+                                        Text(
+                                            text =
+                                            stringResource(id = Route.find(navController.currentDestination?.route.orEmpty()).value)
+                                        )
+                                    },
                                     navigationIcon = if (backArrowState.value) {
                                         {
                                             IconButton(onClick = { navController.navigateUp() }) {
@@ -139,7 +141,11 @@ class HomeActivity : ComponentActivity() {
                             composable(Screen.License.route) { LicenceScreen() }
                             composable(Screen.Premium.route) { PremiumScreen(navController) }
                             composable(Screen.ListDetail.route) { ListDetailScreen(navController) }
-                            composable(Screen.ProductDetail.route) { ProductDetailScreen(navController) }
+                            composable(Screen.ProductDetail.route) {
+                                ProductDetailScreen(
+                                    navController
+                                )
+                            }
                         }
                     }
                 }
@@ -159,39 +165,44 @@ sealed class Screen(
     val icon: ImageVector
 ) {
 
-    object Login : Screen(Route.LOGIN, R.string.title_login, Icons.Filled.List)
-    object Splash : Screen(Route.SPLASH, R.string.title_splash, Icons.Filled.List)
-    object List : Screen(Route.LIST, R.string.title_list, Icons.Filled.List)
-    object Settings : Screen(Route.SETTINGS, R.string.title_settings, Icons.Filled.Settings)
+    object Login : Screen(Route.LOGIN.key, R.string.title_login, Icons.Filled.List)
+    object Splash : Screen(Route.SPLASH.key, R.string.title_splash, Icons.Filled.List)
+    object List : Screen(Route.LIST.key, R.string.title_list, Icons.Filled.List)
+    object Settings : Screen(Route.SETTINGS.key, R.string.title_settings, Icons.Filled.Settings)
     object CreateNewList :
-        Screen(Route.CREATE_NEW_LIST, R.string.create_new_list, Icons.Filled.List)
+        Screen(Route.CREATE_NEW_LIST.key, R.string.create_new_list, Icons.Filled.List)
 
-    object About : Screen(Route.ABOUT, R.string.title_about, Icons.Filled.Settings)
-    object Account : Screen(Route.ACCOUNT, R.string.title_account_detail, Icons.Filled.Settings)
+    object About : Screen(Route.ABOUT.key, R.string.title_about, Icons.Filled.Settings)
+    object Account : Screen(Route.ACCOUNT.key, R.string.title_account_detail, Icons.Filled.Settings)
     object Language :
-        Screen(Route.LANGUAGE, R.string.title_language_selection, Icons.Filled.Settings)
+        Screen(Route.LANGUAGE.key, R.string.title_language_selection, Icons.Filled.Settings)
 
-    object ListDetail : Screen(Route.LIST_DETAIL, R.string.title_list_detail, Icons.Filled.Settings)
-    object ProductDetail : Screen(Route.PRODUCT_DETAIL, R.string.product_details, Icons.Filled.List)
-    object License : Screen(Route.LICENSE, R.string.title_license, Icons.Filled.Settings)
-    object Premium : Screen(Route.PREMIUM, R.string.title_premium, Icons.Filled.Settings)
+    object ListDetail : Screen(Route.LIST_DETAIL.key, R.string.title_list_detail, Icons.Filled.Settings)
+    object ProductDetail : Screen(Route.PRODUCT_DETAIL.key, R.string.product_details, Icons.Filled.List)
+    object License : Screen(Route.LICENSE.key, R.string.title_license, Icons.Filled.Settings)
+    object Premium : Screen(Route.PREMIUM.key, R.string.title_premium, Icons.Filled.Settings)
 
 }
 
 
-object Route {
-    const val CREATE_NEW_LIST = "createNewList"
-    const val SETTINGS = "settings"
-    const val LIST = "list"
-    const val LIST_DETAIL = "list_detail"
-    const val ABOUT = "about"
-    const val ACCOUNT = "account"
-    const val LANGUAGE = "language"
-    const val SPLASH = "splash"
-    const val LOGIN = "login"
-    const val PRODUCT_DETAIL = "product_detail"
-    const val LICENSE = "license"
-    const val PREMIUM = "premium"
+enum class Route(var key: String, @StringRes var value: Int) {
+    CREATE_NEW_LIST("createNewList", R.string.create_new_list),
+    SETTINGS("settings", R.string.title_settings),
+    LIST("list", R.string.title_shopping_lists),
+    LIST_DETAIL("list_detail", R.string.title_list_detail),
+    ABOUT("about", R.string.title_about),
+    ACCOUNT("account", R.string.title_account_detail),
+    LANGUAGE("language", R.string.title_language_selection),
+    SPLASH("splash", R.string.title_splash),
+    LOGIN("login", R.string.title_login),
+    PRODUCT_DETAIL("product_detail", R.string.product_details),
+    LICENSE("license", R.string.license),
+    PREMIUM("premium", R.string.title_premium);
+
+    companion object {
+        fun find(key: String) = values().find { it.key == key } ?: SPLASH
+    }
+
 }
 
 

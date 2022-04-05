@@ -16,7 +16,7 @@ import javax.inject.Inject
  */
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class HomeViewModel @Inject constructor(
     private val updateProductUseCase: UpdateProductOfUserList,
     private val deleteProductOfUserListUseCase: DeleteProductOfUserList
     ) : ViewModel(){

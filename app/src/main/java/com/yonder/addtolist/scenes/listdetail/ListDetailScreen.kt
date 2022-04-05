@@ -21,7 +21,6 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.fragment.app.activityViewModels
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
@@ -30,8 +29,6 @@ import com.yonder.addtolist.common.utils.OnLifecycleEvent
 import com.yonder.addtolist.core.extensions.EMPTY_STRING
 import com.yonder.addtolist.core.extensions.orZero
 import com.yonder.addtolist.domain.uimodel.UserListUiModel
-import com.yonder.addtolist.scenes.activity.MainViewModel
-import com.yonder.addtolist.scenes.activity.Route
 import com.yonder.addtolist.scenes.activity.Screen
 import com.yonder.addtolist.scenes.listdetail.row.ThinDivider
 import com.yonder.addtolist.scenes.listdetail.row.ProductRow

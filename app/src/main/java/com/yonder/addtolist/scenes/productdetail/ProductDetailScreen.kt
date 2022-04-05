@@ -28,7 +28,7 @@ import com.yonder.addtolist.common.utils.OnLifecycleEvent
 import com.yonder.addtolist.core.extensions.orFalse
 import com.yonder.addtolist.core.extensions.orZero
 import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
-import com.yonder.addtolist.scenes.activity.MainViewModel
+import com.yonder.addtolist.scenes.activity.HomeViewModel
 import com.yonder.addtolist.theme.padding_16
 import com.yonder.addtolist.theme.padding_8
 
@@ -37,7 +37,7 @@ fun ProductDetailScreen(navController: NavController) {
 
     val viewModel = hiltViewModel<ProductDetailViewModel>()
 
-    val mainViewModel = hiltViewModel<MainViewModel>()
+    val mainViewModel = hiltViewModel<HomeViewModel>()
 
     val arguments = navController
         .previousBackStackEntry
