@@ -25,6 +25,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.yonder.addtolist.R
 import com.yonder.addtolist.scenes.about.AboutScreen
+import com.yonder.addtolist.scenes.about.LicenceScreen
 import com.yonder.addtolist.scenes.accountdetail.AccountScreen
 import com.yonder.addtolist.scenes.createlist.CreateNewList
 import com.yonder.addtolist.scenes.home.ListScreen
@@ -127,8 +128,9 @@ class HomeActivity : ComponentActivity() {
                             composable(Screen.Settings.route) { Settings(navController) }
                             composable(Screen.CreateNewList.route) { CreateNewList(navController) }
                             composable(Screen.Language.route) { LanguageScreen(navController) }
-                            composable(Screen.About.route) { AboutScreen() }
+                            composable(Screen.About.route) { AboutScreen(navController) }
                             composable(Screen.Account.route) { AccountScreen() }
+                            composable(Screen.License.route) { LicenceScreen() }
                             composable(Screen.ListDetail.route) { ListDetailScreen(navController) }
                             composable(Screen.ProductDetail.route) { ProductDetailScreen(navController) }
                         }
@@ -149,6 +151,7 @@ sealed class Screen(
     @StringRes val resourceId: Int,
     val icon: ImageVector
 ) {
+
     object Login : Screen(Route.LOGIN, R.string.title_login, Icons.Filled.List)
     object Splash : Screen(Route.SPLASH, R.string.title_splash, Icons.Filled.List)
     object List : Screen(Route.LIST, R.string.title_list, Icons.Filled.List)
@@ -163,6 +166,8 @@ sealed class Screen(
 
     object ListDetail : Screen(Route.LIST_DETAIL, R.string.title_list_detail, Icons.Filled.Settings)
     object ProductDetail : Screen(Route.PRODUCT_DETAIL, R.string.product_details, Icons.Filled.List)
+    object License : Screen(Route.LICENSE, R.string.title_license, Icons.Filled.Settings)
+
 }
 
 
@@ -177,6 +182,7 @@ object Route {
     const val SPLASH = "splash"
     const val LOGIN = "login"
     const val PRODUCT_DETAIL = "product_detail"
+    const val LICENSE = "license"
 
 }
 

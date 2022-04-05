@@ -16,6 +16,7 @@ import androidx.navigation.NavController
 import com.yonder.addtolist.BuildConfig
 import com.yonder.addtolist.R
 import com.yonder.addtolist.common.ui.extensions.getActivity
+import com.yonder.addtolist.scenes.activity.Screen
 import com.yonder.addtolist.theme.padding_8
 
 const val PRIVACY_POLICY_URL =
@@ -23,7 +24,7 @@ const val PRIVACY_POLICY_URL =
 
 
 @Composable
-fun AboutScreen() {
+fun AboutScreen(navController: NavController) {
 
     val context = LocalContext.current
 
@@ -80,7 +81,7 @@ fun AboutScreen() {
 
         TextButton(
             onClick = {
-                //findNavController().navigate(AboutFragmentDirections.actionSettingsToLicense())
+                navController.navigate(Screen.License.route)
             },
             modifier = Modifier
                 .fillMaxWidth()
