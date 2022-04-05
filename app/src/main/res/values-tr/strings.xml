@@ -99,7 +99,7 @@
     <string name="premium_emo" translatable="false">⭐</string>
     <string name="be_premium">Addtolist\'i Destekle</string>
     <string name="be_premium_text">Addtolist uygulaması Yusuf Önder tarafından kedisi Memoli 🐈 yardımıyla geliştirilmiştir. Bir Addtolist destekçisi olarak, uygulamada tam zamanlı çalışmama yardımcı olabilir ve bazı faydalı özelliklerden faydalanabilirsiniz.</string>
-    <string name="upgrade">Yükselt</string>
+    <string name="_continue">Devam et</string>
     <string name="restore_purchase">Satın almaları geri yükle</string>
     <string name="unlimited_lists">✏️ Sınırsız sayıda liste oluştur</string>
     <string name="create_own_color">🥳 Kendi liste rengini oluştur</string>

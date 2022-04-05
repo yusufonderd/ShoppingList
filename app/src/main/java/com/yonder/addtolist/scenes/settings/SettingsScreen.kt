@@ -29,9 +29,6 @@ import com.yonder.addtolist.common.ui.extensions.navigate
 import com.yonder.addtolist.core.extensions.reviewApp
 import com.yonder.addtolist.scenes.accountdetail.ProfileImageView
 import com.yonder.addtolist.scenes.activity.Screen
-import com.yonder.addtolist.scenes.premium.PremiumBottomSheetFragment
-import com.yonder.addtolist.scenes.settings.presentation.SettingsUIState
-import com.yonder.addtolist.scenes.settings.presentation.SettingsViewModel
 import com.yonder.addtolist.theme.padding_4
 import com.yonder.addtolist.theme.padding_8
 import com.yonder.addtolist.theme.profile_image_size_small
@@ -52,10 +49,7 @@ fun Settings(navController: NavController) {
                         onClick = {
                             when (imageDetail.titleResId) {
                                 R.string.be_premium -> {
-                                    val bottomSheet = PremiumBottomSheetFragment()
-                                  /*  activity?.supportFragmentManager?.let {
-                                        bottomSheet.show(it, bottomSheet.tag)
-                                    }*/
+                                    navController.navigate(Screen.Premium.route)
                                 }
                                 R.string.twitter -> {
                                     context.navigate("https://twitter.com/addtolistapp")

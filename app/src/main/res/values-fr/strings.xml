@@ -102,7 +102,7 @@
     <string name="premium_emo" translatable="false">⭐</string>
     <string name="be_premium">Support Addtolist</string>
     <string name="be_premium_text">Addtolist application was developed by Yusuf Onder with the help of his cat Memoli 🐈. As an Addtolist supporter, you can help me work full time on the application, and benefit from some useful features.</string>
-    <string name="upgrade">Upgrade</string>
+    <string name="_continue">Upgrade</string>
     <string name="restore_purchase">Restore purchases</string>
     <string name="unlimited_lists">✏️ Create unlimited number of lists</string>
     <string name="create_own_color">🥳 Create your own color</string>

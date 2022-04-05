@@ -9,6 +9,8 @@
   <string name="title_language_selection">Select language</string>
   <string name="title_about">About</string>
   <string name="title_license">License</string>
+  <string name="title_premium">Premium</string>
+
   <string name="title_splash">Splash</string>
   <string name="title_login">Login</string>
   <string name="btn_login">Login</string>
@@ -105,7 +107,7 @@
   <string name="premium_emo" translatable="false">⭐</string>
   <string name="be_premium">Support Addtolist</string>
   <string name="be_premium_text">Addtolist application was developed by Yusuf Onder with the help of his cat Memoli 🐈. As an Addtolist supporter, you can help me work full time on the application, and benefit from some useful features.</string>
-  <string name="upgrade">Upgrade</string>
+  <string name="_continue">Continue</string>
   <string name="restore_purchase">Restore purchases</string>
   <string name="unlimited_lists">✏️ Create unlimited number of lists</string>
   <string name="create_own_color">🥳 Create your own color</string>

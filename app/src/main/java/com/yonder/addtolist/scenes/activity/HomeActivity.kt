@@ -32,6 +32,7 @@ import com.yonder.addtolist.scenes.home.ListScreen
 import com.yonder.addtolist.scenes.languageselection.LanguageScreen
 import com.yonder.addtolist.scenes.listdetail.ListDetailScreen
 import com.yonder.addtolist.scenes.login.LoginScreen
+import com.yonder.addtolist.scenes.premium.PremiumScreen
 import com.yonder.addtolist.scenes.productdetail.ProductDetailScreen
 import com.yonder.addtolist.scenes.settings.Settings
 import com.yonder.addtolist.scenes.splash.SplashScreen
@@ -54,7 +55,7 @@ class HomeActivity : ComponentActivity() {
                     val navBackStackEntry by navController.currentBackStackEntryAsState()
 
                     when (navBackStackEntry?.destination?.route) {
-                        Route.SPLASH, Route.LOGIN -> {
+                        Route.SPLASH, Route.LOGIN-> {
                             topBarState.value = false
                             bottomBarState.value = false
                         }
@@ -62,6 +63,11 @@ class HomeActivity : ComponentActivity() {
                             backArrowState.value = false
                             topBarState.value = true
                             bottomBarState.value = true
+                        }
+                        Route.PREMIUM -> {
+                            bottomBarState.value = false
+                            topBarState.value = true
+                            backArrowState.value = true
                         }
                         else -> {
                             topBarState.value = true
@@ -131,6 +137,7 @@ class HomeActivity : ComponentActivity() {
                             composable(Screen.About.route) { AboutScreen(navController) }
                             composable(Screen.Account.route) { AccountScreen() }
                             composable(Screen.License.route) { LicenceScreen() }
+                            composable(Screen.Premium.route) { PremiumScreen(navController) }
                             composable(Screen.ListDetail.route) { ListDetailScreen(navController) }
                             composable(Screen.ProductDetail.route) { ProductDetailScreen(navController) }
                         }
@@ -167,6 +174,7 @@ sealed class Screen(
     object ListDetail : Screen(Route.LIST_DETAIL, R.string.title_list_detail, Icons.Filled.Settings)
     object ProductDetail : Screen(Route.PRODUCT_DETAIL, R.string.product_details, Icons.Filled.List)
     object License : Screen(Route.LICENSE, R.string.title_license, Icons.Filled.Settings)
+    object Premium : Screen(Route.PREMIUM, R.string.title_premium, Icons.Filled.Settings)
 
 }
 
@@ -183,7 +191,7 @@ object Route {
     const val LOGIN = "login"
     const val PRODUCT_DETAIL = "product_detail"
     const val LICENSE = "license"
-
+    const val PREMIUM = "premium"
 }
 
 
