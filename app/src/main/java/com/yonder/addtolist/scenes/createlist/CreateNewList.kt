@@ -21,6 +21,7 @@ import androidx.navigation.NavController
 import com.yonder.addtolist.R
 import com.yonder.addtolist.common.enums.AppColor
 import com.yonder.addtolist.common.ui.extensions.showToastMessage
+import com.yonder.addtolist.scenes.activity.Route
 import com.yonder.addtolist.theme.padding_16
 import com.yonder.addtolist.theme.padding_8
 import com.yonder.addtolist.uicomponent.ColorPicker
@@ -45,7 +46,7 @@ fun CreateNewList(navController: NavController) {
 
     when (event) {
         is CreateListViewModel.UiEvent.ListCreated -> {
-            navController.popBackStack()
+            navController.popBackStack(route = Route.LIST.key, inclusive = false)
         }
         is CreateListViewModel.UiEvent.Error -> {
             context.showToastMessage(stringResource(id = R.string.error_occurred))
