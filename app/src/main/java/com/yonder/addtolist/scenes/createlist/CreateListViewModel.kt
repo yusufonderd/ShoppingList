@@ -27,7 +27,6 @@ class CreateListViewModel @Inject constructor(
     val uiState: StateFlow<UiState> = _uiState
 
     fun createList(listName: String, listColorName: String) {
-
         if (listName.isBlank()) {
             _uiState.update { it.copy(shouldShowBlankListNameError = true) }
         } else {
