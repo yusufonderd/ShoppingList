@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import com.yonder.addtolist.R
 import com.yonder.addtolist.common.enums.ProviderType
 import com.yonder.addtolist.data.local.UserPreferenceDataStore
+import com.yonder.addtolist.domain.usecase.UserInfoUseCase
+import com.yonder.addtolist.scenes.accountdetail.AccountDetailViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,6 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
+    private val userInfoUseCase: UserInfoUseCase,
     private val userPreferenceDataStore: UserPreferenceDataStore
 ) : ViewModel() {
 
@@ -25,7 +28,7 @@ class SettingsViewModel @Inject constructor(
     private fun provideList(providerType: ProviderType): List<ImageDetail> {
         Timber.d("provideList => $providerType")
         val arrayList: ArrayList<ImageDetail> = arrayListOf()
-        val imageDetail =
+       /* val imageDetail =
             if (providerType == ProviderType.UNKNOWN || providerType == ProviderType.GUEST) {
                 ImageDetail(
                     titleResId = R.string.account,
@@ -39,7 +42,7 @@ class SettingsViewModel @Inject constructor(
                     rightTitle = userPreferenceDataStore.getFullName()
                 )
             }
-        arrayList.add(imageDetail)
+        arrayList.add(imageDetail)*/
         arrayList.addAll(
             listOf(
                 ImageDetail(
@@ -58,10 +61,10 @@ class SettingsViewModel @Inject constructor(
                     titleResId = R.string.share_app,
                     leftImageResId = R.drawable.ic_baseline_share_24
                 ),
-                ImageDetail(
+              /*  ImageDetail(
                     titleResId = R.string.be_premium,
                     leftTitleResId = R.string.premium_emo
-                ),
+                ),*/
                 // Enable after first version
                 /*
                 ImageDetail(
@@ -75,11 +78,19 @@ class SettingsViewModel @Inject constructor(
                 ImageDetail(
                     titleResId = R.string.twitter,
                     leftPngResId = R.drawable.twitter
+                ),
+                ImageDetail(
+                    titleResId = R.string.logout_title,
+                    leftImageResId = R.drawable.ic_baseline_open_in_new_24
                 )
             )
         )
         return arrayList
 
+    }
+
+    fun logout() {
+        userInfoUseCase.removeToken()
     }
 }
 
@@ -95,6 +106,5 @@ data class ImageDetail(
 
 sealed class SettingsUIState {
     object Loading : SettingsUIState()
-
     data class Initial(val imageDetailList: List<ImageDetail>) : SettingsUIState()
 }

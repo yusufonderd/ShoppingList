@@ -1,5 +1,6 @@
 package com.yonder.addtolist.scenes.settings
 
+import android.content.DialogInterface
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -27,6 +28,7 @@ import com.yonder.addtolist.R
 import com.yonder.addtolist.common.ui.extensions.getActivity
 import com.yonder.addtolist.common.ui.extensions.navigate
 import com.yonder.addtolist.core.extensions.reviewApp
+import com.yonder.addtolist.scenes.accountdetail.AccountDetailViewState
 import com.yonder.addtolist.scenes.accountdetail.ProfileImageView
 import com.yonder.addtolist.scenes.activity.Screen
 import com.yonder.addtolist.theme.padding_4
@@ -68,6 +70,19 @@ fun Settings(navController: NavController) {
                                 }
                                 R.string.language -> {
                                     navController.navigate(Screen.Language.route)
+                                }
+                                R.string.logout_title ->{
+                                    val alertDialogBuilder = androidx.appcompat.app.AlertDialog.Builder(context).apply {
+                                        setTitle(R.string.logout_title)
+                                        setMessage(R.string.logout_message)
+                                        setPositiveButton(R.string.yes) { _: DialogInterface, _: Int ->
+                                            viewModel.logout()
+                                            navController.navigate(Screen.Login.route)
+
+                                        }
+                                        setNegativeButton(R.string.cancel, null)
+                                    }
+                                    alertDialogBuilder.create().show()
                                 }
                             }
                         }
