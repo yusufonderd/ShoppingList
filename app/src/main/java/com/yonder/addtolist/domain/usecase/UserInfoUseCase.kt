@@ -12,24 +12,17 @@ import javax.inject.Inject
  */
 class UserInfoUseCase @Inject constructor(private val userPreferenceDataStore: UserPreferenceDataStore) {
 
-  fun getUuid() = flow<Any> {
-    if (userPreferenceDataStore.getUUID() != null){
-      emit(userPreferenceDataStore.getUUID()!!)
-    }else{
-      val randomUuid = UUID.randomUUID().toString()
-      userPreferenceDataStore.saveUUID(randomUuid)
-      emit(randomUuid)
+    fun getUuid() {
+        val currentUUID = userPreferenceDataStore.getUUID()
+        if (currentUUID == null) {
+            val newUUID: String = UUID.randomUUID().toString()
+            userPreferenceDataStore.saveUUID(newUUID)
+        }
     }
-  }
 
-  fun isLoggedIn(): Flow<Boolean> {
-    return flow {
-      emit(userPreferenceDataStore.getToken() != null)
-    }
-  }
+    fun isLoggedIn(): Boolean = userPreferenceDataStore.getToken() != null
 
-  fun removeToken(){
-    userPreferenceDataStore.saveToken(null)
-  }
+    fun removeToken() = userPreferenceDataStore.saveToken(null)
+
 
 }

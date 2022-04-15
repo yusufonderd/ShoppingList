@@ -2,6 +2,7 @@ package com.yonder.addtolist.scenes.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.facebook.*
 import com.facebook.login.LoginResult
@@ -16,11 +17,11 @@ import com.yonder.addtolist.domain.uimodel.UserUiModel
 import com.yonder.addtolist.core.extensions.toReadableMessage
 import com.yonder.addtolist.domain.usecase.FacebookGraphUseCase
 import com.yonder.addtolist.domain.usecase.LoginUseCase
+import com.yonder.addtolist.scenes.splash.SplashViewModel
 import com.yonder.core.base.BaseViewModel
 import com.yonder.core.base.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @Suppress("LongParameterList")
@@ -33,10 +34,13 @@ class LoginViewModel @Inject constructor(
     private val userPreferenceDataStore: UserPreferenceDataStore,
     internal val callbackManager: CallbackManager,
     private val facebookGraphExecute: FacebookGraphUseCase
-) : BaseViewModel<LoginViewState>() {
+) :ViewModel(){
 
-    private val _state = MutableLiveData<LoginViewState>()
-    val state: LiveData<LoginViewState> = _state
+
+
+    private val _uiState = MutableStateFlow(UiState())
+    val uiState: StateFlow<UiState> = _uiState
+
 
     internal val facebookCallback = object : FacebookCallback<LoginResult> {
         /* override fun onSuccess(result: LoginResult?) {
@@ -102,7 +106,13 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun onLoginError(error: Throwable) {
-        pushEvent(LoginViewState.Error(error.toReadableMessage()))
+        _uiState.update {
+            it.copy(
+                shouldShowLoading = false,
+                shouldShowError = true,
+                shouldNavigateShoppingItems = false
+            )
+        }
     }
 
     private fun onLoginSuccess(userUiModel: UserUiModel) {
@@ -112,42 +122,36 @@ class LoginViewModel @Inject constructor(
             userPreferenceDataStore.setFullName(userUiModel.fullName)
             userPreferenceDataStore.setProfileUrl(userUiModel.profileImage)
             userPreferenceDataStore.setProviderType(userUiModel.providerType)
-            pushEvent(LoginViewState.NavigateToShoppingItems)
+            _uiState.update {
+                it.copy(
+                    shouldShowLoading = false,
+                    shouldShowError = false,
+                    shouldNavigateShoppingItems = true
+                )
+            }
+
         } else {
-            pushEvent(LoginViewState.Error(userUiModel.result.message))
-        }
-    }
-
-
-    private val profileTracker =
-        object : ProfileTracker() {
-            override fun onCurrentProfileChanged(oldProfile: Profile?, currentProfile: Profile?) {
-                if (currentProfile != null) {
-                    this@LoginViewModel.updateProfile(currentProfile)
-                } else {
-                    this@LoginViewModel.resetProfile()
-                }
+            _uiState.update {
+                it.copy(
+                    shouldShowLoading = false,
+                    shouldShowError = true,
+                    shouldNavigateShoppingItems = false
+                )
             }
         }
-
-    private val _profileViewState = MutableLiveData(ProfileViewState(Profile.getCurrentProfile()))
-    val profileViewState: LiveData<ProfileViewState> = _profileViewState
-
-    private fun updateProfile(profile: Profile) {
-        _profileViewState.value = _profileViewState.value?.copy(profile = profile)
     }
 
-    private fun resetProfile() {
-        _profileViewState.value = _profileViewState.value?.copy(profile = null)
-    }
+    data class UiState(
+        val shouldShowLoading: Boolean = false,
+        val shouldShowError: Boolean = false,
+        val shouldNavigateShoppingItems: Boolean = false,
+    )
+
+
 
 }
 
-sealed class LoginViewState : Event {
-    object Initial : LoginViewState()
-    object NavigateToShoppingItems : LoginViewState()
-    data class Error(val message: String) : LoginViewState()
-}
+
 
 data class ProfileViewState(
     val profile: Profile? = null

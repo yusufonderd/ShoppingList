@@ -18,7 +18,7 @@ class GetProductsWithCategory @Inject constructor(
     private val categoryListRepository: CategoryListRepository,
     private val dispatcher: CoroutineThread
 ) {
-    fun getCategories(): Flow<RestResult<List<CategoryWithProducts>>> {
+    fun getCategoriesWithProducts(): Flow<RestResult<List<CategoryWithProducts>>> {
         return categoryListRepository
             .fetchCategories()
             .flowOn(dispatcher.io)

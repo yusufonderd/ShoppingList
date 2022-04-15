@@ -137,7 +137,7 @@ class HomeActivity : ComponentActivity() {
                             composable(Screen.CreateNewList.route) { CreateNewList(navController) }
                             composable(Screen.Language.route) { LanguageScreen(navController) }
                             composable(Screen.About.route) { AboutScreen(navController) }
-                            composable(Screen.Account.route) { AccountScreen() }
+                            composable(Screen.Account.route) { AccountScreen(navController) }
                             composable(Screen.License.route) { LicenceScreen() }
                             composable(Screen.Premium.route) { PremiumScreen(navController) }
                             composable(Screen.ListDetail.route) { ListDetailScreen(navController) }

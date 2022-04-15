@@ -13,8 +13,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
 import com.yonder.addtolist.R
+import com.yonder.addtolist.common.utils.OnLifecycleEvent
 import com.yonder.addtolist.scenes.activity.Screen
 import com.yonder.addtolist.scenes.home.row.CreateListFab
 import com.yonder.addtolist.scenes.home.row.ListRow
@@ -26,6 +28,17 @@ import com.yonder.addtolist.uicomponent.NoListView
 fun ListScreen(navController: NavController) {
     val viewModel = hiltViewModel<ListViewModel>()
     val uiState by viewModel.uiState.collectAsState()
+
+    OnLifecycleEvent { _, _event ->
+        when (_event) {
+            Lifecycle.Event.ON_START -> {
+                viewModel.getShoppingItems()
+            }
+            else -> Unit
+        }
+    }
+
+
     if (uiState.isLoading) {
         LoadingView()
     } else {

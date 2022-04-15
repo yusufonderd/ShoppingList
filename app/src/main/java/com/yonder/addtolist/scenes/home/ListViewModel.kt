@@ -20,11 +20,8 @@ class ListViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(UiState(isLoading = true))
     val uiState: StateFlow<UiState> = _uiState
 
-    init {
-        getShoppingItems()
-    }
-
     fun getShoppingItems() {
+        _uiState.update { it.copy(isLoading = true) }
         viewModelScope.launch {
             getUserListsUseCase().collect { userLists ->
                 _uiState.update {

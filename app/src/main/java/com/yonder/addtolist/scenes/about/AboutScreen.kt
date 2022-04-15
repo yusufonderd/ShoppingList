@@ -3,11 +3,9 @@ package com.yonder.addtolist.scenes.about
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
@@ -33,11 +31,15 @@ fun AboutScreen(navController: NavController) {
             .fillMaxWidth()
             .padding(padding_8)
     ) {
-        Text(
-            text = stringResource(R.string.about_description),
-            style = MaterialTheme.typography.body1,
-            color = colorResource(id = R.color.primaryTextColor)
-        )
+
+        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+            Text(
+                text = stringResource(R.string.about_description),
+                style = MaterialTheme.typography.body1
+            )
+        }
+
+
         Divider()
 
         Row(

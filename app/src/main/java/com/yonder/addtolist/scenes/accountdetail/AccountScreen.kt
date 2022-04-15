@@ -11,14 +11,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.yonder.addtolist.R
 import com.yonder.addtolist.domain.uimodel.UserUiModel
+import com.yonder.addtolist.scenes.activity.Screen
 import com.yonder.addtolist.theme.default_page_padding
 import com.yonder.addtolist.uicomponent.ErrorView
 import com.yonder.addtolist.uicomponent.LoadingView
 
 @Composable
-fun AccountScreen() {
+fun AccountScreen(navController: NavController) {
 
     val viewModel = hiltViewModel<AccountDetailViewModel>()
 
@@ -39,7 +41,7 @@ fun AccountScreen() {
             ProfileView(user = (state as AccountDetailViewState.AccountInfo).userUIModel,viewModel = viewModel)
         }
         is AccountDetailViewState.Logout -> {
-            // findNavController().navigate(AccountDetailFragmentDirections.actionAccountDetailToLogin())
+            navController.navigate(Screen.Login.route)
         }
     }
 
@@ -70,7 +72,7 @@ fun ProfileView(user: UserUiModel,viewModel: AccountDetailViewModel) {
             item {
                 AnonymousUserHeader()
             }
-
+            /*
             item {
                 AuthButton(
                     textResId = R.string.continue_with_facebook,
@@ -88,6 +90,7 @@ fun ProfileView(user: UserUiModel,viewModel: AccountDetailViewModel) {
 
                 }
             }
+            */
         }
 
         if (user.isAnonymousUser().not()) {

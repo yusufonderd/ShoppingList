@@ -21,7 +21,7 @@ import javax.inject.Inject
  * Created on 19.07.2021
  */
 class CategoryListRepositoryImpl @Inject constructor(
-  private val apiService: ApiService,
+  private val api: ApiService,
   private val categoryDataSource: CategoryDataSource,
   private val userPreferenceDataStore: UserPreferenceDataStore,
   private val mapper: CategoryProductsMapper
@@ -30,9 +30,9 @@ class CategoryListRepositoryImpl @Inject constructor(
   override fun fetchCategories(): Flow<RestResult<List<CategoryWithProducts>>> = flow {
     if (!userPreferenceDataStore.isFetchedCategoriesAndProducts()) {
       emit(RestResult.Loading)
-      val result = apiService.getCategories(null)
-      val entities: CategoryProductsUiModel = mapper.map(result)
-      entities.list.forEach { category ->
+      val result = api.getCategories(null)
+      val uiModels: CategoryProductsUiModel = mapper.map(result)
+      uiModels.list.forEach { category ->
         val categories = ListMapperImpl(
           CategoryEntityMapper(categoryImage = category.image)
         ).map(category.translationResponses).distinctBy {
