@@ -38,6 +38,7 @@ class HomeViewModel @Inject constructor(
         val updatedProduct = product.copy(
             name = name,
             priceValue = priceDouble,
+            price = price,
             categoryImage = categoryImage,
             categoryName = categoryName,
             note = note

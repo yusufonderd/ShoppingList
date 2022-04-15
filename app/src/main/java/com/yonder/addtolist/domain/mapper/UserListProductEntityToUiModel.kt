@@ -39,7 +39,7 @@ class UserListProductEntityToUiModel @Inject constructor(@ApplicationContext pri
             isDone = isDone,
             note = input.note.orEmpty(),
             unit = input.unit.orEmpty(),
-            price = input.price.orZero().toString().substringBefore("."),
+            price = input.price.orZero().toString(),
             priceValue = input.price.orZero(),
             quantity = ProductQuantityWrapper.wrap(
                 context,
