@@ -11,7 +11,7 @@
     <string name="title_splash">Splash</string>
     <string name="title_login">Giriş</string>
     <string name="btn_login">Giriş yap</string>
-    <string name="title_shopping_lists">Listelerim</string>
+    <string name="title_shopping_lists">Listeler</string>
 
     <!-- Message -->
     <string name="error_occurred">Bir hata oluştu</string>
@@ -110,7 +110,6 @@
     <string name="yearly">Yıllık</string>
     <string name="lifetime">Ömür boyu</string>
 
-    <string name="my_lists">Listelerim </string>
     <string name="create_new_list">Yeni bir liste oluştur</string>
 
     <string name="join_shopping_list">Alışveriş listesine katıl</string>

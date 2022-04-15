@@ -1,6 +1,6 @@
 <resources>
   <string name="app_name">Addtolist</string>
-  <string name="app_description">Create a shopping lists</string>
+  <string name="app_description">Create shopping lists</string>
 
   <string name="title_list">List</string>
   <string name="title_list_detail">List Detail</string>
@@ -14,7 +14,7 @@
   <string name="title_splash">Splash</string>
   <string name="title_login">Login</string>
   <string name="btn_login">Login</string>
-  <string name="title_shopping_lists">My Lists</string>
+  <string name="title_shopping_lists">Lists</string>
 
   <string name="facebook_app_id" translatable="false">FBID</string>
 
@@ -36,7 +36,6 @@
   <string name="continue_as_guest">Continue as a Guest</string>
 
   <!-- Create List Fragment-->
-  <string name="create_your_first_list">Create your first list</string>
   <string name="create_list">Create list</string>
   <string name="list_name">List name</string>
   <string name="list_color">List color</string>
@@ -118,7 +117,6 @@
   <string name="yearly">Yearly</string>
   <string name="lifetime">Lifetime</string>
 
-  <string name="my_lists">My Lists</string>
   <string name="create_new_list">Create a new list</string>
 
   <string name="join_shopping_list">Join shopping list</string>

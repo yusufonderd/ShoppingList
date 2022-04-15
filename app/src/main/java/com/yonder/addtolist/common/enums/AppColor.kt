@@ -26,8 +26,7 @@ enum class AppColor(var colorName: String, @ColorRes var colorResId: Int) {
     Premium9("Premium9", R.color.premiumColor9),
     Premium10("Premium10", R.color.premiumColor10),
     Premium11("Premium11", R.color.premiumColor11),
-    Premium12("Premium12", R.color.premiumColor12),
-    Default("Default", R.color.colorPrimary);
+    Premium12("Premium12", R.color.premiumColor12);
 
     companion object {
         fun find(colorName: String): AppColor = values().find { it.colorName == colorName } ?: Blue

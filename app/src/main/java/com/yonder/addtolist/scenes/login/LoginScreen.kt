@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -33,7 +34,7 @@ fun LoginScreen(navController: NavController) {
 
     val context = LocalContext.current
 
-    when  {
+    when {
         uiState.shouldNavigateShoppingItems -> {
             LaunchedEffect(Unit) {
                 navController.navigate(Screen.List.route)
@@ -52,14 +53,17 @@ fun LoginScreen(navController: NavController) {
         Text(
             text = stringResource(id = R.string.app_name),
             color = colorResource(id = R.color.white),
-            style = MaterialTheme.typography.h4
+            style = MaterialTheme.typography.h4,
+            fontWeight = FontWeight.Bold
         )
 
         Text(
             text = stringResource(id = R.string.app_description),
             color = colorResource(id = R.color.white),
             style = MaterialTheme.typography.h6,
-            modifier = Modifier.padding(padding_8)
+            modifier = Modifier.padding(padding_8),
+            fontWeight = FontWeight.SemiBold
+
         )
         Image(
             rememberImagePainter(

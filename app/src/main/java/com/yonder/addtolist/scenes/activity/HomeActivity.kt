@@ -167,7 +167,7 @@ sealed class Screen(
 
     object Login : Screen(Route.LOGIN.key, R.string.title_login, Icons.Filled.List)
     object Splash : Screen(Route.SPLASH.key, R.string.title_splash, Icons.Filled.List)
-    object List : Screen(Route.LIST.key, R.string.title_list, Icons.Filled.List)
+    object List : Screen(Route.LIST.key, R.string.title_shopping_lists, Icons.Filled.List)
     object Settings : Screen(Route.SETTINGS.key, R.string.title_settings, Icons.Filled.Settings)
     object CreateNewList :
         Screen(Route.CREATE_NEW_LIST.key, R.string.create_new_list, Icons.Filled.List)
