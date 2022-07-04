@@ -22,7 +22,6 @@ import com.yonder.addtolist.scenes.createlist.CreateNewList
 import com.yonder.addtolist.scenes.home.ListScreen
 import com.yonder.addtolist.scenes.languageselection.LanguageScreen
 import com.yonder.addtolist.scenes.listdetail.ListDetailScreen
-import com.yonder.addtolist.scenes.login.LoginScreen
 import com.yonder.addtolist.scenes.premium.PremiumScreen
 import com.yonder.addtolist.scenes.productdetail.ProductDetailScreen
 import com.yonder.addtolist.scenes.settings.Settings
@@ -124,7 +123,6 @@ class HomeActivity : ComponentActivity() {
                             startDestination = Screen.Splash.route,
                             modifier = Modifier.padding(innerPadding)
                         ) {
-                            composable(Screen.Login.route) { LoginScreen(navController) }
                             composable(Screen.Splash.route) { SplashScreen(navController) }
                             composable(Screen.List.route) { ListScreen(navController) }
                             composable(Screen.Settings.route) { Settings(navController) }

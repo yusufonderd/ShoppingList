@@ -12,7 +12,6 @@ import javax.inject.Inject
 
 interface LoginRepository {
   suspend fun login(params: UserRegisterRequest): BaseResponse<UserResponse>
-  suspend fun getCurrentUser(): BaseResponse<UserResponse>
 }
 
 
@@ -21,8 +20,6 @@ class LoginRepositoryImpl @Inject constructor(
 ) : LoginRepository {
   override suspend fun login(params: UserRegisterRequest): BaseResponse<UserResponse> =
     loginService.registerGuestUser(params)
-
-  override suspend fun getCurrentUser(): BaseResponse<UserResponse> = loginService.getCurrentUser()
 
 }
 

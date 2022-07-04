@@ -12,7 +12,6 @@ import com.yonder.addtolist.core.network.responses.BaseResponse
 import com.yonder.addtolist.core.network.responses.UserResponse
 import com.yonder.addtolist.core.network.thread.CoroutineThread
 import com.yonder.addtolist.data.local.UserPreferenceDataStore
-import com.yonder.addtolist.domain.usecase.GetCurrentUser
 import com.yonder.addtolist.domain.mapper.LoginMapper
 import com.yonder.addtolist.domain.uimodel.UserUiModel
 import com.yonder.addtolist.data.repository.LoginRepository
@@ -49,13 +48,6 @@ interface LoginModule {
       return GoogleUserProvider(context)
     }
 
-    @[Provides]
-    fun provideGetWidgetUseCase(
-      repository: LoginRepository,
-      coroutineThread: CoroutineThread,
-      loginMapper: LoginMapper,
-      userPreferenceDataStore: UserPreferenceDataStore
-    ) = GetCurrentUser(coroutineThread, loginMapper, repository,userPreferenceDataStore)
 
     @[Provides]
     fun provideGuestUserProvider(@ApplicationContext context: Context): UserProvider {
