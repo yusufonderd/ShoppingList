@@ -18,7 +18,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.yonder.addtolist.scenes.about.AboutScreen
 import com.yonder.addtolist.scenes.about.LicenceScreen
-import com.yonder.addtolist.scenes.accountdetail.AccountScreen
 import com.yonder.addtolist.scenes.createlist.CreateNewList
 import com.yonder.addtolist.scenes.home.ListScreen
 import com.yonder.addtolist.scenes.languageselection.LanguageScreen
@@ -132,7 +131,6 @@ class HomeActivity : ComponentActivity() {
                             composable(Screen.CreateNewList.route) { CreateNewList(navController) }
                             composable(Screen.Language.route) { LanguageScreen(navController) }
                             composable(Screen.About.route) { AboutScreen(navController) }
-                            composable(Screen.Account.route) { AccountScreen(navController) }
                             composable(Screen.License.route) { LicenceScreen() }
                             composable(Screen.Premium.route) { PremiumScreen(navController) }
                             composable(Screen.ListDetail.route) { ListDetailScreen(navController) }

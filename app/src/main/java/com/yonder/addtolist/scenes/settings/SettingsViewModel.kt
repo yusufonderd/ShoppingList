@@ -7,7 +7,6 @@ import com.yonder.addtolist.R
 import com.yonder.addtolist.common.enums.ProviderType
 import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.domain.usecase.UserInfoUseCase
-import com.yonder.addtolist.scenes.accountdetail.AccountDetailViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -28,21 +27,7 @@ class SettingsViewModel @Inject constructor(
     private fun provideList(providerType: ProviderType): List<ImageDetail> {
         Timber.d("provideList => $providerType")
         val arrayList: ArrayList<ImageDetail> = arrayListOf()
-       /* val imageDetail =
-            if (providerType == ProviderType.UNKNOWN || providerType == ProviderType.GUEST) {
-                ImageDetail(
-                    titleResId = R.string.account,
-                    leftImageResId = R.drawable.ic_baseline_person_outline_24,
-                    rightTitleResId = R.string.create_account
-                )
-            } else {
-                ImageDetail(
-                    titleResId = R.string.account,
-                    leftImageUrl = userPreferenceDataStore.getProfileUrl(),
-                    rightTitle = userPreferenceDataStore.getFullName()
-                )
-            }
-        arrayList.add(imageDetail)*/
+
         arrayList.addAll(
             listOf(
                 ImageDetail(

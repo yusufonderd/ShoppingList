@@ -127,7 +127,6 @@ class ListDetailViewModel @Inject constructor(
         viewModelScope.launch {
             updateProductUseCase(
                 productName = productName,
-                listId = listId,
                 listUUID = product.listUUID,
                 product = product
             )

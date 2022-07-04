@@ -13,12 +13,10 @@ import javax.inject.Inject
  */
 
 class UpdateProductOfUserList @Inject constructor(
-    private val appDatabase: AppDatabase,
-    private val api: ApiService
+    private val appDatabase: AppDatabase
 ) {
     suspend operator fun invoke(
         productName: String,
-        listId: Int,
         listUUID: String,
         product: UserListProductUiModel
     ) {
@@ -39,19 +37,6 @@ class UpdateProductOfUserList @Inject constructor(
                     favorite = product.isFavorite.toInt()
                 }
         appDatabase.userListProductDao().update(productEntity)
-        val request =
-            UserListProductMapper.mapEntityToResponse(listId = "$listId", input = productEntity)
-        try {
-            val response = api.updateProduct(product.id, request)
-            if (response.success == true) {
-                productEntity.sync = true
-                appDatabase.userListProductDao().update(productEntity)
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
-
     }
 
 }

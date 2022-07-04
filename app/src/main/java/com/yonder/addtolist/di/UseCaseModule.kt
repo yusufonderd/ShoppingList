@@ -53,10 +53,9 @@ object UseCaseModule {
 
     @[Provides]
     fun provideUpdateUserListUseCase(
-        appDatabase: AppDatabase,
-        api: ApiService
+        appDatabase: AppDatabase
     ): UpdateProductOfUserList {
-        return UpdateProductOfUserList(appDatabase, api)
+        return UpdateProductOfUserList(appDatabase)
     }
 
     @[Provides]

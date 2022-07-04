@@ -118,7 +118,6 @@ class ProductDetailViewModel @Inject constructor(
             updateProductUseCase.invoke(
                 productName = productName,
                 listUUID = product.listUUID,
-                listId = listId,
                 product = product
             )
         }

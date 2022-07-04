@@ -11,6 +11,4 @@ import kotlinx.coroutines.flow.Flow
  */
 interface ProductUseCase {
   fun getProductEntityForName(name: String) : Flow<ProductEntity?>
-//  fun removeProduct(productEntity: UserListProductEntity): Flow<Result<UserListProductEntity>>
-  fun updateProduct(listId: String,productEntity: UserListProductEntity): Flow<RestResult<UserListProductEntity>>
 }

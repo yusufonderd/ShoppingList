@@ -29,10 +29,6 @@ interface ProductRepository {
   ): Flow<RestResult<UserListProductEntity>>
 
   suspend fun delete(product: UserListProductUiModel)
-  fun updateProduct(
-    listId: String,
-    product: UserListProductEntity
-  ): Flow<RestResult<UserListProductEntity>>
 
   fun getProductEntityByName(productName: String): Flow<ProductEntity?>
 }
@@ -51,28 +47,11 @@ class ProductRepositoryImpl @Inject constructor(
     emit(popularProducts)
   }
 
-  override fun updateProduct(
-    listId: String,
-    product: UserListProductEntity
-  ): Flow<RestResult<UserListProductEntity>> = flow {
-    emit(RestResult.Loading)
-    val request = UserListProductMapper.mapEntityToResponse(listId, product)
-    val response = api.updateProduct(product.id, request)
-    if (response.success == true) {
-      categoryDataSource.update(product)
-    }
-    emit(RestResult.Success(product))
-  }.catch { e ->
-    e.printStackTrace()
-    emit(RestResult.Error(e))
-  }
-
   override suspend fun delete(product: UserListProductUiModel) {
     val productEntity = userListDataSource.findProduct(
       listUUID = product.listUUID,
       productName = product.name
     )
-    api.removeProduct(product.id)
     categoryDataSource.delete(productEntity)
   }
 
@@ -83,15 +62,8 @@ class ProductRepositoryImpl @Inject constructor(
     emit(RestResult.Loading)
 
     val entity = UserListProductMapper.mapRequestToEntity(listUUID, product)
-    val response = api.createProduct(product)
-
-    if (response.success == true && response.data != null) {
-      entity.id = response.data.id.orZero()
-    } else {
-      emit(RestResult.Error<UserListProductEntity>(ServerResultException()))
-    }
     categoryDataSource.insert(entity)
-    emit(RestResult.Success<UserListProductEntity>(entity))
+    emit(RestResult.Success(entity))
   }.catch { e ->
     e.printStackTrace()
     categoryDataSource.insert(

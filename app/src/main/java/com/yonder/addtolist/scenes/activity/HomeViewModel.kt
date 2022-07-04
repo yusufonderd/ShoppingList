@@ -48,7 +48,6 @@ class HomeViewModel @Inject constructor(
                  updateProductUseCase.invoke(
                      productName = product.name,
                      listUUID = product.listUUID,
-                     listId = listId,
                      product = updatedProduct
                  )
              }

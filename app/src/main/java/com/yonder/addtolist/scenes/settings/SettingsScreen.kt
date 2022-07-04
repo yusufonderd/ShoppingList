@@ -28,8 +28,6 @@ import com.yonder.addtolist.R
 import com.yonder.addtolist.common.ui.extensions.getActivity
 import com.yonder.addtolist.common.ui.extensions.navigate
 import com.yonder.addtolist.core.extensions.reviewApp
-import com.yonder.addtolist.scenes.accountdetail.AccountDetailViewState
-import com.yonder.addtolist.scenes.accountdetail.ProfileImageView
 import com.yonder.addtolist.scenes.activity.Screen
 import com.yonder.addtolist.theme.padding_4
 import com.yonder.addtolist.theme.padding_8
@@ -94,10 +92,6 @@ fun Settings(navController: NavController) {
                             horizontalArrangement = Arrangement.Start,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-
-                            imageDetail.leftImageUrl?.let {
-                                ProfileImageView(imageUrl = it)
-                            }
 
                             imageDetail.leftPngResId?.let {
                                 Image(
