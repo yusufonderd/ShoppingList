@@ -7,8 +7,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.material3.*
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -29,6 +29,10 @@ import com.yonder.addtolist.core.extensions.orFalse
 import com.yonder.addtolist.core.extensions.orZero
 import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
 import com.yonder.addtolist.scenes.activity.HomeViewModel
+import com.yonder.addtolist.scenes.productdetail.row.AddToFavoriteButton
+import com.yonder.addtolist.scenes.productdetail.row.DeleteProductButton
+import com.yonder.addtolist.scenes.productdetail.row.DropDownTextField
+import com.yonder.addtolist.scenes.productdetail.row.UnitSegmentedControlView
 import com.yonder.addtolist.theme.padding_16
 import com.yonder.addtolist.theme.padding_8
 
@@ -95,7 +99,7 @@ fun ProductDetailScreen(navController: NavController) {
 
         OutlinedTextField(
             value = viewModel.name,
-            textStyle = MaterialTheme.typography.body1,
+            textStyle = MaterialTheme.typography.bodyLarge,
             onValueChange = viewModel::onChangeName,
             label = { Text(stringResource(id = R.string.product_name)) },
             modifier = modifier
@@ -121,7 +125,7 @@ fun ProductDetailScreen(navController: NavController) {
         ) {
             OutlinedTextField(
                 value = state.product?.quantity.orEmpty(),
-                textStyle = MaterialTheme.typography.body1,
+                textStyle = MaterialTheme.typography.bodyLarge,
                 enabled = false,
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     disabledLabelColor = colorResource(id = R.color.secondaryTextColor),
@@ -172,7 +176,7 @@ fun ProductDetailScreen(navController: NavController) {
 
         OutlinedTextField(
             value = viewModel.price,
-            textStyle = MaterialTheme.typography.body1,
+            textStyle = MaterialTheme.typography.bodyLarge,
             singleLine = true,
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Done,
@@ -192,7 +196,7 @@ fun ProductDetailScreen(navController: NavController) {
 
         OutlinedTextField(
             value = viewModel.note,
-            textStyle = MaterialTheme.typography.body1,
+            textStyle = MaterialTheme.typography.bodyLarge,
             onValueChange = viewModel::onChangeNote,
             label = { Text(stringResource(id = R.string.product_note)) },
             modifier = modifier

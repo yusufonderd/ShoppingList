@@ -29,10 +29,7 @@ object Libs {
     const val room_compiler = "androidx.room:room-compiler:" + Versions.room
   }
 
-  object Facebook{
-    const val sdk = "com.facebook.android:facebook-android-sdk:" + Versions.facebook_sdk
-    const val login = "com.facebook.android:facebook-login:" + Versions.facebook_login
-  }
+
 
   object GoogleServices {
     const val service_plugin = "com.google.gms:google-services:" + Versions.google_service_auth
@@ -45,19 +42,6 @@ object Libs {
     const val analytics = "com.google.firebase:firebase-analytics-ktx"
   }
 
-  object UnitTest {
-    const val junit_test: String = "androidx.test.ext:junit:" + Versions.junit_test
-    const val junit: String = "junit:junit:" + Versions.junit
-  }
-
-  object AndroidTest {
-    const val espresso_core: String = "androidx.test.espresso:espresso-core:" +
-        Versions.espresso_core
-  }
-
-  object StateLayout{
-    const val state_layout : String = "com.github.yusufonderd:StateLayout:" + Versions.state_layout
-  }
   object Log{
     const val timber = "com.jakewharton.timber:timber:" + Versions.timber
   }
@@ -98,10 +82,6 @@ object Libs {
     const val common = "androidx.lifecycle:lifecycle-common-java8:" + Versions.lifecycle
   }
 
-  object Design {
-    const val currencyEditText =  "com.cottacush:CurrencyEditText:"+Versions.currency_edit_text
-    const val material: String = "com.google.android.material:material:" + Versions.material
-  }
 
   object DaggerHilt {
     const val daggerHilt = "com.google.dagger:hilt-android:" + Versions.hilt_version

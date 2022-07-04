@@ -94,9 +94,7 @@ dependencies {
 
   implementation Libs.AndroidX.core_ktx
   implementation Libs.AndroidX.androidx_appcompat
-  implementation Libs.AndroidX.constraint_layout
    implementation Libs.AndroidX.navigation_fragment
- // implementation Libs.AndroidX.navigation_ui_ktx
   implementation Libs.AndroidX.legacy_support
   implementation Libs.AndroidX.live_data_vm
   implementation Libs.AndroidX.live_data_ktx
@@ -111,14 +109,6 @@ dependencies {
 
   kapt Libs.DaggerHilt.daggerHiltCompiler
 
-  implementation Libs.Design.material
-  implementation Libs.Design.currencyEditText
-
-  implementation Libs.GoogleServices.auth
-  implementation Libs.Facebook.login
-  implementation Libs.Facebook.sdk
-
-  implementation Libs.StateLayout.state_layout
 
   implementation platform(Libs.Firebase.bom)
   implementation Libs.Firebase.analytics
@@ -128,11 +118,6 @@ dependencies {
   kapt Libs.Room.room_compiler
 
   implementation Libs.Log.timber
-
-  testImplementation Libs.UnitTest.junit
-
-  androidTestImplementation Libs.UnitTest.junit_test
-  androidTestImplementation Libs.AndroidTest.espresso_core
 
   implementation Libs.Network.gson
   implementation Libs.Network.retrofit
@@ -155,6 +140,8 @@ dependencies {
   implementation "androidx.navigation:navigation-compose:2.4.1"
   implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
   implementation 'androidx.work:work-runtime-ktx:2.7.1'
+  implementation 'androidx.compose.material3:material3:1.0.0-alpha14'
+  implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
 
 
 

@@ -1,10 +1,11 @@
-package com.yonder.addtolist.scenes.productdetail
+package com.yonder.addtolist.scenes.productdetail.row
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
@@ -23,7 +24,7 @@ fun DeleteProductButton(onClick : ()-> Unit){
     TextButton(
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = colorResource(id = R.color.colorRed)
+            containerColor = colorResource(id = R.color.colorRed)
         ),
         modifier = Modifier
             .fillMaxWidth()

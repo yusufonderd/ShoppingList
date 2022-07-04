@@ -1,7 +1,6 @@
 package com.yonder.addtolist.di
 
 import android.content.Context
-import com.facebook.CallbackManager
 import com.yonder.addtolist.common.utils.auth.FacebookUserProvider
 import com.yonder.addtolist.common.utils.auth.GoogleUserProvider
 import com.yonder.addtolist.common.utils.auth.GuestUserProvider
@@ -54,10 +53,6 @@ interface LoginModule {
       return GuestUserProvider(context)
     }
 
-    @[Provides]
-    fun provideFacebookCallbackManager(): CallbackManager {
-      return CallbackManager.Factory.create()
-    }
 
     @[Provides]
     fun provideLoginService(retrofit: Retrofit): LoginService {

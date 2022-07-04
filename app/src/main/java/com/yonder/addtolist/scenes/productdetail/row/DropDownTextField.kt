@@ -1,12 +1,8 @@
-package com.yonder.addtolist.scenes.productdetail
+package com.yonder.addtolist.scenes.productdetail.row
 
 import androidx.compose.foundation.background
-import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ExposedDropdownMenuBox
-import androidx.compose.material.ExposedDropdownMenuDefaults
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -22,7 +18,7 @@ import com.yonder.addtolist.domain.uimodel.CategoryUiModel
  * @author yusuf.onder
  * Created on 20.02.2022
  */
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DropDownTextField(
     value: String,
@@ -50,7 +46,7 @@ fun DropDownTextField(
                     expanded = expanded
                 )
             },
-            colors = ExposedDropdownMenuDefaults.textFieldColors(backgroundColor = colorResource(id = R.color.white))
+            colors = ExposedDropdownMenuDefaults.textFieldColors(containerColor = colorResource(id = R.color.white))
         )
         ExposedDropdownMenu(
             expanded = expanded,
@@ -59,14 +55,13 @@ fun DropDownTextField(
             }
         ) {
             categories.forEach { categoryUiModel ->
-                DropdownMenuItem(
-                    onClick = {
-                        onItemClick.invoke(categoryUiModel)
-                        expanded = false
-                    }
-                ) {
+                DropdownMenuItem(text = {
                     Text(text = categoryUiModel.formattedName)
+                }, onClick = {
+                    onItemClick.invoke(categoryUiModel)
+                    expanded = false
                 }
+                )
             }
         }
     }

@@ -63,10 +63,6 @@ class SettingsViewModel @Inject constructor(
                 ImageDetail(
                     titleResId = R.string.twitter,
                     leftPngResId = R.drawable.twitter
-                ),
-                ImageDetail(
-                    titleResId = R.string.logout_title,
-                    leftImageResId = R.drawable.ic_baseline_open_in_new_24
                 )
             )
         )

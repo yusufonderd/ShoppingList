@@ -1,8 +1,6 @@
 package com.yonder.addtolist.domain.usecase
 
-import com.yonder.core.network.RestResult
 import com.yonder.addtolist.local.entity.ProductEntity
-import com.yonder.addtolist.local.entity.UserListProductEntity
 import kotlinx.coroutines.flow.Flow
 
 /**

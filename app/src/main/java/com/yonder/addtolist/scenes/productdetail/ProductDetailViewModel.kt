@@ -95,8 +95,10 @@ class ProductDetailViewModel @Inject constructor(
     }
 
     fun decreaseQuantity(product: UserListProductUiModel) {
-        product.quantityValue = product.quantityValue.minus(1.0)
-        update(product)
+        if (product.quantityValue > 1.0){
+            product.quantityValue = product.quantityValue.minus(1.0)
+            update(product)
+        }
     }
 
     fun updateUnit(product: UserListProductUiModel, unit: ProductUnitType) {

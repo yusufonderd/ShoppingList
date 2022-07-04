@@ -4,8 +4,8 @@ import android.annotation.SuppressLint
 import androidx.annotation.ColorRes
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,7 +33,7 @@ fun ColorPicker(
     count: Int = 6
 ) {
     LazyVerticalGrid(
-        cells = GridCells.Fixed(count),
+        columns = GridCells.Fixed(count),
         modifier = modifier
     ) {
         items(listColors.size) { itemIndex ->
