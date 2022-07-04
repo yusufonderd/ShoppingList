@@ -2,8 +2,8 @@ package com.yonder.addtolist.scenes.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.yonder.addtolist.domain.usecase.GetUserLists
 import com.yonder.addtolist.domain.uimodel.UserListUiModel
+import com.yonder.addtolist.domain.usecase.GetUserLists
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -42,6 +42,7 @@ fun AboutScreen(navController: NavController) {
 
         Divider()
 
+        /*
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
@@ -61,7 +62,7 @@ fun AboutScreen(navController: NavController) {
         }
 
         Divider()
-
+*/
         TextButton(
             onClick = {
                 val browserIntent =

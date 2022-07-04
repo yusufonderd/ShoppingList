@@ -34,8 +34,7 @@ class LoginViewModel @Inject constructor(
     private val userPreferenceDataStore: UserPreferenceDataStore,
     internal val callbackManager: CallbackManager,
     private val facebookGraphExecute: FacebookGraphUseCase
-) :ViewModel(){
-
+) : ViewModel() {
 
 
     private val _uiState = MutableStateFlow(UiState())
@@ -91,6 +90,7 @@ class LoginViewModel @Inject constructor(
 
     private fun createNewUser(createUserRegisterRequest: UserRegisterRequest) {
         getFirebaseToken { token: String? ->
+            showLoading()
             createUserRegisterRequest.fcmToken = token.orEmpty()
             createUserRegisterRequest.deviceUUID = userPreferenceDataStore.getUUID().orEmpty()
             loginUseCase(createUserRegisterRequest)
@@ -102,6 +102,16 @@ class LoginViewModel @Inject constructor(
                     }
                 }.launchIn(viewModelScope)
 
+        }
+    }
+
+    private fun showLoading() {
+        _uiState.update {
+            it.copy(
+                shouldShowLoading = true,
+                shouldShowError = false,
+                shouldNavigateShoppingItems = false
+            )
         }
     }
 
@@ -148,9 +158,7 @@ class LoginViewModel @Inject constructor(
     )
 
 
-
 }
-
 
 
 data class ProfileViewState(

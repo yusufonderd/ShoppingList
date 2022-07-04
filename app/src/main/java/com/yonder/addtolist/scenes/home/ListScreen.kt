@@ -38,7 +38,6 @@ fun ListScreen(navController: NavController) {
         }
     }
 
-
     if (uiState.isLoading) {
         LoadingView()
     } else {

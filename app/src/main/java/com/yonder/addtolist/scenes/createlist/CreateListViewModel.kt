@@ -1,15 +1,15 @@
 package com.yonder.addtolist.scenes.createlist
 
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.core.extensions.toReadableMessage
 import com.yonder.addtolist.domain.usecase.CreateList
+import com.yonder.addtolist.scenes.splash.SplashViewModel
 import com.yonder.core.base.BaseViewModel
 import com.yonder.core.base.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,10 +21,24 @@ import javax.inject.Inject
 @HiltViewModel
 class CreateListViewModel @Inject constructor(
     private val createList: CreateList
-) : BaseViewModel<CreateListViewModel.UiEvent>() {
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
     val uiState: StateFlow<UiState> = _uiState
+
+    private val eventChannel = Channel<Event>(Channel.BUFFERED)
+    val eventsFlow = eventChannel.receiveAsFlow()
+
+    sealed class Event {
+        object PopBackStack : Event()
+        data class Message(var message: String) : Event()
+    }
+
+    private fun sendEvent(event: Event){
+        viewModelScope.launch {
+            eventChannel.send(event)
+        }
+    }
 
     fun createList(listName: String, listColorName: String) {
         if (listName.isBlank()) {
@@ -34,10 +48,10 @@ class CreateListViewModel @Inject constructor(
             viewModelScope.launch {
                 createList(CreateList.Params(listName, listColorName)).collectLatest { result ->
                     result.onSuccess {
-                        pushEvent(UiEvent.ListCreated)
+                        sendEvent(Event.PopBackStack)
                     }.onError { throwable ->
                         _uiState.update { it.copy(isLoading = false) }
-                        pushEvent(UiEvent.Error(throwable.toReadableMessage()))
+                        sendEvent(Event.Message(throwable.toReadableMessage()))
                     }
                 }
             }
@@ -55,9 +69,4 @@ class CreateListViewModel @Inject constructor(
         val errorMessage: String = ""
     )
 
-    sealed class UiEvent : Event {
-        object Initial : UiEvent()
-        object ListCreated : UiEvent()
-        data class Error(var errorMessage: String) : UiEvent()
-    }
 }

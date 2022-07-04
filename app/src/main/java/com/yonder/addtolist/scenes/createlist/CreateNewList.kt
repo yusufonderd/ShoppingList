@@ -22,12 +22,15 @@ import com.yonder.addtolist.R
 import com.yonder.addtolist.common.enums.AppColor
 import com.yonder.addtolist.common.ui.extensions.showToastMessage
 import com.yonder.addtolist.scenes.activity.Route
+import com.yonder.addtolist.scenes.activity.Screen
+import com.yonder.addtolist.scenes.splash.SplashViewModel
 import com.yonder.addtolist.theme.padding_16
 import com.yonder.addtolist.theme.padding_8
 import com.yonder.addtolist.uicomponent.ColorPicker
 import com.yonder.addtolist.uicomponent.HorizontalChipView
 import com.yonder.addtolist.uicomponent.LoadingView
 import com.yonder.addtolist.uicomponent.SubmitButton
+import kotlinx.coroutines.flow.collectLatest
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -39,17 +42,20 @@ fun CreateNewList(navController: NavController) {
     val viewModel = hiltViewModel<CreateListViewModel>()
 
     val state by viewModel.uiState.collectAsState()
-    val event by viewModel.effect.collectAsState(initial = CreateListViewModel.UiEvent.Initial)
 
     val textState = remember { mutableStateOf(TextFieldValue()) }
     val selectedColorIndex: MutableState<Int> = remember { mutableStateOf(0) }
 
-    when (event) {
-        is CreateListViewModel.UiEvent.ListCreated -> {
-            navController.popBackStack(route = Route.LIST.key, inclusive = false)
-        }
-        is CreateListViewModel.UiEvent.Error -> {
-            context.showToastMessage(stringResource(id = R.string.error_occurred))
+    LaunchedEffect(key1 = Unit) {
+        viewModel.eventsFlow.collectLatest { event ->
+            when(event) {
+                CreateListViewModel.Event.PopBackStack -> {
+                    navController.popBackStack(route = Route.LIST.key, inclusive = false)
+                }
+                is CreateListViewModel.Event.Message -> {
+                    context.showToastMessage(event.message)
+                }
+            }
         }
     }
 

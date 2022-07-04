@@ -3,6 +3,7 @@ package com.yonder.addtolist.scenes.login
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -25,6 +26,7 @@ import com.yonder.addtolist.scenes.activity.Screen
 import com.yonder.addtolist.scenes.login.row.AuthButton
 import com.yonder.addtolist.theme.padding_16
 import com.yonder.addtolist.theme.padding_8
+import com.yonder.addtolist.uicomponent.ErrorView
 import timber.log.Timber
 
 @Composable
@@ -42,6 +44,7 @@ fun LoginScreen(navController: NavController) {
         }
     }
 
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -50,44 +53,43 @@ fun LoginScreen(navController: NavController) {
             .fillMaxSize()
 
     ) {
-        Text(
-            text = stringResource(id = R.string.app_name),
-            color = colorResource(id = R.color.white),
-            style = MaterialTheme.typography.h4,
-            fontWeight = FontWeight.Bold
-        )
 
-        Text(
-            text = stringResource(id = R.string.app_description),
-            color = colorResource(id = R.color.white),
-            style = MaterialTheme.typography.h6,
-            modifier = Modifier.padding(padding_8),
-            fontWeight = FontWeight.SemiBold
+        if (uiState.shouldShowLoading) {
+            CircularProgressIndicator()
+        } else {
+            Text(
+                text = stringResource(id = R.string.app_name),
+                color = colorResource(id = R.color.white),
+                style = MaterialTheme.typography.h4,
+                fontWeight = FontWeight.Bold
+            )
 
-        )
-        Image(
-            rememberImagePainter(
-                ContextCompat.getDrawable(
-                    context,
-                    R.drawable.ic_login_welcome
-                )
-            ),
-            contentDescription = stringResource(id = R.string.cd_welcome_image),
-            modifier = Modifier.padding(padding_16)
-        )
+            Text(
+                text = stringResource(id = R.string.app_description),
+                color = colorResource(id = R.color.white),
+                style = MaterialTheme.typography.h6,
+                modifier = Modifier.padding(padding_8),
+                fontWeight = FontWeight.SemiBold
 
-        /*AuthButton(textResId = R.string.continue_with_google) {
-           googleLogin(requireContext(),launcher)
+            )
+            Image(
+                rememberImagePainter(
+                    ContextCompat.getDrawable(
+                        context,
+                        R.drawable.ic_login_welcome
+                    )
+                ),
+                contentDescription = stringResource(id = R.string.cd_welcome_image),
+                modifier = Modifier.padding(padding_16)
+            )
+
+            AuthButton(textResId = R.string.continue_as_guest) {
+                viewModel.continueAsGuest()
+            }
         }
 
-        AuthButton(textResId = R.string.continue_with_facebook) {
-         // login.invoke()
-            facebookLogin(requireContext(),viewModel )
-        }*/
-
-        AuthButton(textResId = R.string.continue_as_guest) {
-            viewModel.continueAsGuest()
-        }
 
     }
+
+
 }
