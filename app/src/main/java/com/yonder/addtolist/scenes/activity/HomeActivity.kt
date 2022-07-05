@@ -44,7 +44,7 @@ class HomeActivity : ComponentActivity() {
                     val backArrowState = rememberSaveable { (mutableStateOf(false)) }
 
                     val navBackStackEntry by navController.currentBackStackEntryAsState()
-                    bottomBarState.value = false
+                  //  bottomBarState.value = false
                     when (navBackStackEntry?.destination?.route) {
                         Route.SPLASH.key, Route.LOGIN.key -> {
                             topBarState.value = false

@@ -1,5 +1,6 @@
 package com.yonder.addtolist.scenes.languageselection.row
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
@@ -11,6 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import com.yonder.addtolist.R
 import com.yonder.addtolist.domain.uimodel.LanguageUiModel
+import com.yonder.addtolist.scenes.listdetail.row.ThinDivider
 import com.yonder.addtolist.theme.padding_8
 
 /**
@@ -18,7 +20,7 @@ import com.yonder.addtolist.theme.padding_8
  * Created on 9.02.2022
  */
 @Composable
-fun LanguageRow(language: LanguageUiModel, onClick: () -> Unit){
+fun LanguageRow(language: LanguageUiModel, onClick: () -> Unit) {
     TextButton(
         onClick = onClick
     ) {
@@ -29,7 +31,6 @@ fun LanguageRow(language: LanguageUiModel, onClick: () -> Unit){
                 .fillMaxSize()
                 .padding(bottom = padding_8)
                 .padding(horizontal = padding_8)
-                .align(Alignment.Bottom)
         )
     }
 }

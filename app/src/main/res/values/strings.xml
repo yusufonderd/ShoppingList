@@ -30,11 +30,6 @@
   <string name="cd_create_new_list">Create new list</string>
   <string name="cd_edit_item">Edit item</string>
 
-  <!-- Login Screen -->
-  <string name="continue_with_google">Continue with Google</string>
-  <string name="continue_with_facebook">Continue with Facebook</string>
-  <string name="continue_as_guest">Continue as a Guest</string>
-
   <!-- Create List Fragment-->
   <string name="create_list">Create list</string>
   <string name="list_name">List name</string>
@@ -55,8 +50,6 @@
   <string name="list_detail">List detail</string>
   <string name="what_would_you_like_to_buy">What would you like to buy ?</string>
 
-
-  <string name="very_close">Very close</string>
   <string name="product_name">Item name</string>
   <string name="product_details">Item details</string>
   <string name="product_quantity">Quantity</string>
@@ -113,10 +106,6 @@
   <string name="remove_all_ads">🤖 Remove all ads</string>
   <string name="unlimited_access_to_all_features">🤩 Unlimited access to all Addtolist features</string>
 
-  <string name="monthly">Monthly</string>
-  <string name="yearly">Yearly</string>
-  <string name="lifetime">Lifetime</string>
-
   <string name="create_new_list">Create a new list</string>
 
   <string name="join_shopping_list">Join shopping list</string>
@@ -132,14 +121,8 @@
   <string name="cd_premium_image">Premium image</string>
   <string name="cd_close_premium_screen">Close premium screen</string>
   <string name="premium_brand_title">Addtolist Premium</string>
-
-  <string name="cd_profile_image">Profile image</string>
-  <string name="create_account">Create account</string>
-  <string name="anonymous_user_encourage_text">Create Addtolist account to share your shopping lists with other users.</string>
-  <string name="continue_with_fb">Continue with Facebook</string>
   <string name="try_again">Try again</string>
   <string name="loading">Loading</string>
-
 
   <string name="about_description">Addtolist is a shopping list application where you can simply create and share shopping lists. It allows you to simply add products to the shopping lists you create. You can add information such as quantity, note and unit to the products you add. You can mark the products you have purchased as received.</string>
   <string name="privacy_policy">Privacy policy</string>
@@ -147,13 +130,7 @@
   <string name="version">Version</string>
   <string name="license_1_title">Freepik</string>
   <string name="license_1_description">Some of icons are made by [Freepik] from www.flaticon.com</string>
-
   <string name="format_price">%.2f %2$s</string>
-
   <string name="product_deleted">Item deleted</string>
-
-  <string name="characters">Characters</string>
-  <string name="quotes">Quotes</string>
-
 
 </resources>

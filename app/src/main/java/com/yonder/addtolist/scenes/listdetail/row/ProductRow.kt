@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Badge
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
@@ -19,8 +18,8 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import com.yonder.addtolist.R
-import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
 import com.yonder.addtolist.domain.uimodel.ItemUiModel
+import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
 import com.yonder.addtolist.theme.padding_4
 import com.yonder.addtolist.theme.padding_8
 
@@ -29,7 +28,6 @@ import com.yonder.addtolist.theme.padding_8
  * Created on 17.02.2022
  */
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ProductRow(
     item: ItemUiModel,

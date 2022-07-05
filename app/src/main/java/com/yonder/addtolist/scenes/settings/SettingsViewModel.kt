@@ -42,10 +42,10 @@ class SettingsViewModel @Inject constructor(
                     titleResId = R.string.rate_us,
                     leftImageResId = R.drawable.ic_baseline_rate_review_24
                 ),
-                ImageDetail(
+               /* ImageDetail(
                     titleResId = R.string.share_app,
                     leftImageResId = R.drawable.ic_baseline_share_24
-                ),
+                ),*/
               /*  ImageDetail(
                     titleResId = R.string.be_premium,
                     leftTitleResId = R.string.premium_emo

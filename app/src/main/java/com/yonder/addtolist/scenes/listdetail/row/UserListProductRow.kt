@@ -45,11 +45,7 @@ fun EditButton(isDone: Boolean, appColor: AppColor, onEditClicked: () -> Unit) {
         Icon(
             Icons.Filled.Edit,
             "Edit Product",
-            tint = if (isDone) {
-                colorResource(id = R.color.gray_100)
-            } else {
-                colorResource(appColor.colorResId)
-            }
+            tint = colorResource(id = R.color.gray_100)
         )
     }
 }

@@ -1,4 +1,4 @@
-package com.yonder.addtolist.scenes.languageselection.domain
+package com.yonder.addtolist.domain.usecase
 
 import com.yonder.addtolist.common.utils.device.LanguageUtils
 import com.yonder.addtolist.core.data.State

@@ -30,18 +30,6 @@
     <item name="android:background">@drawable/bg_btn_login_options</item>
   </style>
 
-  <style name="BtnStyle_ContinueWithGoogle" parent="BtnStyle_BaseContinueOptions">
-    <item name="android:text">@string/continue_with_google</item>
-  </style>
-
-  <style name="BtnStyle_ContinueWithFacebook" parent="BtnStyle_BaseContinueOptions">
-    <item name="android:text">@string/continue_with_facebook</item>
-  </style>
-
-  <style name="BtnStyle_ContinueAsGuest" parent="@style/BtnStyle_BaseContinueOptions">
-    <item name="android:text">@string/continue_as_guest</item>
-  </style>
-
   <style name="TitleChipTextStyle">
     <item name="android:background">@drawable/bg_oval_chip</item>
     <item name="android:gravity">center</item>

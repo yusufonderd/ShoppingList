@@ -21,6 +21,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
@@ -72,7 +73,6 @@ fun ListDetailScreen(navController: NavController) {
         when (_event) {
             Lifecycle.Event.ON_CREATE -> {
                 val list = listUIModel ?: return@OnLifecycleEvent
-                viewModel.listId = list.id
                 viewModel.fetchProducts(list.uuid)
             }
             else -> Unit
@@ -132,7 +132,9 @@ fun ListDetailScreen(navController: NavController) {
                         }
                     )
                     if (showPrediction.value) {
-                        Button(onClick = {
+                        Button(
+                            modifier= Modifier.padding(end = 8.dp),
+                            onClick = {
                             textState.value = TextFieldValue(EMPTY_STRING)
                             showPrediction.value = false
                             keyboardController?.hide()
@@ -189,9 +191,7 @@ fun ListDetailScreen(navController: NavController) {
                             ThinDivider()
                         })
                     }
-
                 }
-
             }
         }
         else -> {

@@ -1,37 +1,34 @@
 package com.yonder.addtolist.scenes.settings
 
+import android.app.Activity
 import android.content.DialogInterface
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import coil.compose.rememberImagePainter
+import com.yonder.addtolist.BuildConfig
 import com.yonder.addtolist.R
 import com.yonder.addtolist.common.ui.extensions.getActivity
 import com.yonder.addtolist.common.ui.extensions.navigate
 import com.yonder.addtolist.core.extensions.reviewApp
 import com.yonder.addtolist.scenes.activity.Screen
-import com.yonder.addtolist.theme.padding_4
 import com.yonder.addtolist.theme.padding_8
-import com.yonder.addtolist.theme.profile_image_size_small
 import com.yonder.addtolist.uicomponent.LoadingView
 
 @Composable
@@ -58,7 +55,13 @@ fun Settings(navController: NavController) {
                                     context.navigate("https://www.instagram.com/addtolist.co/")
                                 }
                                 R.string.rate_us -> {
-                                    context.getActivity()?.reviewApp()
+                                    (context as Activity).startActivity(
+                                        Intent(
+                                            Intent.ACTION_VIEW,
+                                            Uri.parse("market://details?id=${BuildConfig.APPLICATION_ID}")
+                                        )
+                                    )
+                                   // context.getActivity()?.reviewApp()
                                 }
                                 R.string.account -> {
                                     navController.navigate(Screen.Account.route)
@@ -68,19 +71,6 @@ fun Settings(navController: NavController) {
                                 }
                                 R.string.language -> {
                                     navController.navigate(Screen.Language.route)
-                                }
-                                R.string.logout_title ->{
-                                    val alertDialogBuilder = androidx.appcompat.app.AlertDialog.Builder(context).apply {
-                                        setTitle(R.string.logout_title)
-                                        setMessage(R.string.logout_message)
-                                        setPositiveButton(R.string.yes) { _: DialogInterface, _: Int ->
-                                            viewModel.logout()
-                                            navController.navigate(Screen.Login.route)
-
-                                        }
-                                        setNegativeButton(R.string.cancel, null)
-                                    }
-                                    alertDialogBuilder.create().show()
                                 }
                             }
                         }
@@ -151,20 +141,5 @@ fun Settings(navController: NavController) {
         }
     }
 
-    @Composable
-    fun ProfileImageView(imageUrl: String) {
-        Box(modifier = Modifier.padding(end = padding_4)) {
-            Image(
-                painter = rememberImagePainter(imageUrl),
-                contentDescription = stringResource(R.string.cd_close_premium_screen),
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .size(profile_image_size_small)
-                    .clip(CircleShape)
-                    .border(1.dp, Color.LightGray, CircleShape)
-
-            )
-        }
-    }
 
 }

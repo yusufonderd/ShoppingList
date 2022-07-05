@@ -3,23 +3,18 @@ package com.yonder.addtolist.scenes.listdetail
 import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.core.extensions.EMPTY_STRING
 import com.yonder.addtolist.domain.mapper.ItemUiModelMapper
+import com.yonder.addtolist.domain.uimodel.ItemUiModel
 import com.yonder.addtolist.domain.uimodel.ProductEntityUiModel
-import com.yonder.addtolist.local.entity.CATEGORY_OTHER_IMAGE
 import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
 import com.yonder.addtolist.domain.uimodel.UserListUiModel
-import com.yonder.addtolist.scenes.listdetail.domain.category.ProductQueryUseCase
-import com.yonder.addtolist.scenes.listdetail.domain.AddProductUseCase
-import com.yonder.addtolist.domain.uimodel.ItemUiModel
 import com.yonder.addtolist.domain.usecase.*
+import com.yonder.addtolist.local.entity.CATEGORY_OTHER_IMAGE
+import com.yonder.addtolist.scenes.listdetail.domain.AddProductUseCase
 import com.yonder.core.base.BaseViewModel
 import com.yonder.core.base.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -45,8 +40,6 @@ class ListDetailViewModel @Inject constructor(
     val uiState: StateFlow<UiState> = _uiState
 
     var job: Job? = null
-
-    var listId: Int = 0
 
     fun fetchProducts(listUUID: String, query: String = EMPTY_STRING) {
         val flow1 = getUserListUseCase.invoke(listUUID)

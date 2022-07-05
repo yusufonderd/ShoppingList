@@ -25,11 +25,6 @@
     <string name="cd_create_new_list">Yeni liste oluştur</string>
     <string name="cd_edit_item">Öğeyi düzenle</string>
 
-    <!-- Login Screen -->
-    <string name="continue_with_google">Google ile devam et</string>
-    <string name="continue_with_facebook">Facebook ile devam et</string>
-    <string name="continue_as_guest">Misafir olarak devam et</string>
-
     <!-- Create List Fragment-->
     <string name="create_your_first_list">İlk listeni oluştur</string>
     <string name="create_list">Liste oluştur</string>
@@ -50,7 +45,6 @@
     <string name="list_detail">Liste Detayı</string>
     <string name="what_would_you_like_to_buy">Ne satın almak istersiniz?</string>
 
-    <string name="very_close">Çok yakın</string>
     <string name="product_name">Öğe adı</string>
     <string name="product_details">Öğe detayı</string>
     <string name="product_quantity">Adet</string>
@@ -106,10 +100,6 @@
     <string name="remove_all_ads">🤖 Tüm reklamları kaldır</string>
     <string name="unlimited_access_to_all_features">🤩 Unlimited access to all Addtolist features</string>
 
-    <string name="monthly">Aylık</string>
-    <string name="yearly">Yıllık</string>
-    <string name="lifetime">Ömür boyu</string>
-
     <string name="create_new_list">Yeni bir liste oluştur</string>
 
     <string name="join_shopping_list">Alışveriş listesine katıl</string>
@@ -126,10 +116,6 @@
     <string name="cd_close_premium_screen">Close premium screen</string>
     <string name="premium_brand_title">Addtolist Premium</string>
 
-    <string name="cd_profile_image">Profil fotoğrafı</string>
-    <string name="create_account">Hesap oluştur</string>
-    <string name="anonymous_user_encourage_text">Create Addtolist account to share your shopping lists with other users.</string>
-    <string name="continue_with_fb">Facebook ile devam et</string>
     <string name="try_again">Try again</string>
     <string name="loading">Yükleniyor</string>
 
