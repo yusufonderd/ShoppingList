@@ -105,7 +105,6 @@ dependencies {
   implementation Libs.DaggerHilt.daggerHilt
   implementation project(path: ':local')
   implementation project(path: ':core')
-  implementation 'com.google.firebase:firebase-auth-common:9.8.0'
 
   kapt Libs.DaggerHilt.daggerHiltCompiler
 

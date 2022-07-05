@@ -75,6 +75,7 @@ fun ProductRow(
             modifier = Modifier.padding(end = padding_8),
             style = MaterialTheme.typography.body1,
             textAlign = TextAlign.Center,
+            maxLines = 1,
             color = colorResource(id = R.color.primaryTextColor)
         )
 

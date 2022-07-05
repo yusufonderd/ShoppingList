@@ -3,6 +3,8 @@
     <string name="app_description">Alışveriş listesi oluştur</string>
 
     <string name="title_list">Liste</string>
+    <string name="title_list_detail">Liste Detayı</string>
+
     <string name="title_settings">Ayarlar</string>
     <string name="title_account_detail">Hesap</string>
     <string name="title_language_selection">Dil seç</string>
@@ -12,6 +14,7 @@
     <string name="title_login">Giriş</string>
     <string name="btn_login">Giriş yap</string>
     <string name="title_shopping_lists">Listeler</string>
+    <string name="title_premium">Premium</string>
 
     <!-- Message -->
     <string name="error_occurred">Bir hata oluştu</string>
@@ -115,6 +118,7 @@
     <string name="cd_premium_image">Premium image</string>
     <string name="cd_close_premium_screen">Close premium screen</string>
     <string name="premium_brand_title">Addtolist Premium</string>
+    <string name="cd_chevron_right">Sağ ok</string>
 
     <string name="try_again">Try again</string>
     <string name="loading">Yükleniyor</string>

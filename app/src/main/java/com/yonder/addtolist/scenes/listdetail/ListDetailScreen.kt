@@ -6,10 +6,7 @@ import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -92,8 +89,8 @@ fun ListDetailScreen(navController: NavController) {
                 ) {
                     TextField(
                         value = textState.value,
-                        textStyle = MaterialTheme.typography.bodyMedium,
                         interactionSource = interactionSource,
+                        maxLines = 1,
                         onValueChange = { textField ->
                             textState.value = textField
                             showPrediction.value = textField.text.isNotBlank()
@@ -132,7 +129,7 @@ fun ListDetailScreen(navController: NavController) {
                         }
                     )
                     if (showPrediction.value) {
-                        Button(
+                        TextButton(
                             modifier= Modifier.padding(end = 8.dp),
                             onClick = {
                             textState.value = TextFieldValue(EMPTY_STRING)
@@ -142,8 +139,7 @@ fun ListDetailScreen(navController: NavController) {
                         ) {
                             Text(
                                 text = stringResource(id = R.string.cancel),
-                                maxLines = 1,
-                                fontSize = 11.sp
+                                maxLines = 1
                             )
                         }
                     }

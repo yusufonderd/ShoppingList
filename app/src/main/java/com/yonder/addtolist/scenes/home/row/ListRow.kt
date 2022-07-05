@@ -42,6 +42,7 @@ fun ListRow(list: UserListUiModel, onClick: () -> Unit) {
             Column(
                 modifier = Modifier
                     .padding(padding_4)
+                    .weight(1.0f)
             ) {
                 Text(
                     text = list.name,
@@ -52,13 +53,12 @@ fun ListRow(list: UserListUiModel, onClick: () -> Unit) {
                 if (list.shouldShowUncompletedItems) {
                     Text(
                         text = list.uncompletedItems,
+                        maxLines = 1,
                         style = MaterialTheme.typography.body1,
                         color = colorResource(id = R.color.secondaryTextColor)
                     )
                 }
-
             }
-
 
             Row() {
                 Text(
@@ -73,10 +73,6 @@ fun ListRow(list: UserListUiModel, onClick: () -> Unit) {
                     colorFilter = ColorFilter.tint(colorResource(R.color.gray_100))
                 )
             }
-
-
         }
-
-
     }
 }

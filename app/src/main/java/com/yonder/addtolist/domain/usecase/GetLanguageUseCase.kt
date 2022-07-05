@@ -16,21 +16,22 @@ import javax.inject.Inject
  * Created on 4.09.2021
  */
 class GetLanguageUseCaseImpl @Inject constructor(
-  private val languageRepository: LanguageRepository,
-  private val mapper: LanguageResponseMapper
+    private val languageRepository: LanguageRepository,
+    private val mapper: LanguageResponseMapper
 ) : GetLanguageUseCase {
-  override suspend fun invoke(): Flow<State<List<LanguageUiModel>>> {
-    return languageRepository.fetchLanguages().map { state ->
-      state.map { response ->
-        ListMapperImpl(mapper).map(response
-          // Doesn't support arabic and indian language for now
-          .filterNot { it.tag == LanguageUtils.AR.first || it.tag == LanguageUtils.IN.first }
-        )
-      }
+    override suspend fun invoke(): Flow<State<List<LanguageUiModel>>> {
+        return languageRepository.fetchLanguages().map { state ->
+            state.map { response ->
+                ListMapperImpl(mapper).map(response
+                    // Doesn't support arabic and indian language for now
+                    .filter { it.tag == LanguageUtils.TR.first || it.tag == LanguageUtils.EN.first }
+                    //.filterNot { it.tag == LanguageUtils.AR.first || it.tag == LanguageUtils.IN.first }
+                )
+            }
+        }
     }
-  }
 }
 
 interface GetLanguageUseCase {
-  suspend operator fun invoke(): Flow<State<List<LanguageUiModel>>>
+    suspend operator fun invoke(): Flow<State<List<LanguageUiModel>>>
 }
