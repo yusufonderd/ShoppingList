@@ -7,7 +7,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
@@ -70,7 +71,7 @@ fun CreateNewList(navController: NavController) {
         ) {
             TextField(
                 value = textState.value,
-                textStyle = MaterialTheme.typography.body1,
+                textStyle = MaterialTheme.typography.bodyMedium,
                 isError = state.shouldShowBlankListNameError,
                 onValueChange = {
                     textState.value = it
@@ -94,8 +95,8 @@ fun CreateNewList(navController: NavController) {
             if (state.shouldShowBlankListNameError) {
                 Text(
                     text = stringResource(id = R.string.list_name_should_not_be_empty),
-                    color = MaterialTheme.colors.error,
-                    style = MaterialTheme.typography.caption,
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.padding(start = padding_16)
                 )
             }
@@ -137,7 +138,7 @@ fun ColorPickerBorderView(
 ) {
     Surface(
         modifier = Modifier.padding(padding_8),
-        elevation = 0.dp,
+        shadowElevation = 0.dp,
         shape = RoundedCornerShape(16.dp),
         border = BorderStroke(
             width = 1.dp,

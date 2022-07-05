@@ -20,7 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import com.yonder.addtolist.R
 import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
-import com.yonder.addtolist.scenes.listdetail.items.model.ItemUiModel
+import com.yonder.addtolist.domain.uimodel.ItemUiModel
 import com.yonder.addtolist.theme.padding_4
 import com.yonder.addtolist.theme.padding_8
 

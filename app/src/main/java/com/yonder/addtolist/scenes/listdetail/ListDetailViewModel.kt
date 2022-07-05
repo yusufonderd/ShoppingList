@@ -4,16 +4,13 @@ import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.core.extensions.EMPTY_STRING
 import com.yonder.addtolist.domain.mapper.ItemUiModelMapper
 import com.yonder.addtolist.domain.uimodel.ProductEntityUiModel
-import com.yonder.addtolist.domain.usecase.DeleteProductOfUserList
-import com.yonder.addtolist.domain.usecase.GetUserList
-import com.yonder.addtolist.domain.usecase.UpdateProductOfUserList
 import com.yonder.addtolist.local.entity.CATEGORY_OTHER_IMAGE
 import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
 import com.yonder.addtolist.domain.uimodel.UserListUiModel
 import com.yonder.addtolist.scenes.listdetail.domain.category.ProductQueryUseCase
-import com.yonder.addtolist.domain.usecase.ProductUseCase
 import com.yonder.addtolist.scenes.listdetail.domain.AddProductUseCase
-import com.yonder.addtolist.scenes.listdetail.items.model.ItemUiModel
+import com.yonder.addtolist.domain.uimodel.ItemUiModel
+import com.yonder.addtolist.domain.usecase.*
 import com.yonder.core.base.BaseViewModel
 import com.yonder.core.base.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -35,7 +32,8 @@ private const val QUERY_LIMIT = 10
 
 @HiltViewModel
 class ListDetailViewModel @Inject constructor(
-    private val productQueryUseCase: ProductQueryUseCase,
+    private val getPopularProducts: GetPopularProducts,
+    private val getProductByQuery: GetProductByQuery,
     private val productUseCase: ProductUseCase,
     private val addProductUseCase: AddProductUseCase,
     private val updateProductUseCase: UpdateProductOfUserList,
@@ -53,9 +51,9 @@ class ListDetailViewModel @Inject constructor(
     fun fetchProducts(listUUID: String, query: String = EMPTY_STRING) {
         val flow1 = getUserListUseCase.invoke(listUUID)
         val flow2 = if (query.trim().isEmpty()) {
-            productQueryUseCase.fetchPopularProducts()
+            getPopularProducts()
         } else {
-            productQueryUseCase.fetchProductByQuery(
+            getProductByQuery(
                 query = query,
                 limit = QUERY_LIMIT
             )
@@ -79,7 +77,6 @@ class ListDetailViewModel @Inject constructor(
                 pushEvent(UiEvent.ShowKeyboard)
             }.collect()
         }
-
     }
 
     fun addProduct(listId: Int?, userListUUID: String, productName: String) {

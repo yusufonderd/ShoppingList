@@ -2,7 +2,7 @@ package com.yonder.addtolist.domain.mapper
 
 import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
 import com.yonder.addtolist.domain.uimodel.ProductEntityUiModel
-import com.yonder.addtolist.scenes.listdetail.items.model.ItemUiModel
+import com.yonder.addtolist.domain.uimodel.ItemUiModel
 
 /**
  * @author yusuf.onder

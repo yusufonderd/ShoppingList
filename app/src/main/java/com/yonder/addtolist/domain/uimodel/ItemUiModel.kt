@@ -1,6 +1,4 @@
-package com.yonder.addtolist.scenes.listdetail.items.model
-
-import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
+package com.yonder.addtolist.domain.uimodel
 
 /**
  * @author yusuf.onder

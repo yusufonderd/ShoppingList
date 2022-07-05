@@ -6,10 +6,10 @@ import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -21,6 +21,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
@@ -30,8 +31,8 @@ import com.yonder.addtolist.core.extensions.EMPTY_STRING
 import com.yonder.addtolist.core.extensions.orZero
 import com.yonder.addtolist.domain.uimodel.UserListUiModel
 import com.yonder.addtolist.scenes.activity.Screen
-import com.yonder.addtolist.scenes.listdetail.row.ThinDivider
 import com.yonder.addtolist.scenes.listdetail.row.ProductRow
+import com.yonder.addtolist.scenes.listdetail.row.ThinDivider
 import com.yonder.addtolist.scenes.listdetail.row.UserListProductRow
 import com.yonder.addtolist.scenes.productdetail.ProductDetail
 import com.yonder.addtolist.theme.padding_16
@@ -42,7 +43,6 @@ import com.yonder.addtolist.uicomponent.LoadingView
 @Composable
 fun ListDetailScreen(navController: NavController) {
     val viewModel = hiltViewModel<ListDetailViewModel>()
-
 
     val listUIModel = navController
         .previousBackStackEntry
@@ -92,12 +92,17 @@ fun ListDetailScreen(navController: NavController) {
                 ) {
                     TextField(
                         value = textState.value,
-                        textStyle = MaterialTheme.typography.body1,
+                        textStyle = MaterialTheme.typography.bodyMedium,
                         interactionSource = interactionSource,
                         onValueChange = { textField ->
                             textState.value = textField
                             showPrediction.value = textField.text.isNotBlank()
-                            listUIModel?.uuid?.run { viewModel.fetchProducts(this, textField.text) }
+                            listUIModel?.uuid?.run {
+                                viewModel.fetchProducts(
+                                    listUUID = this,
+                                    query = textField.text
+                                )
+                            }
                         },
                         modifier = Modifier
                             .then(
@@ -134,32 +139,32 @@ fun ListDetailScreen(navController: NavController) {
                         }
                         ) {
                             Text(
-                                text = stringResource(id = R.string.cancel)
+                                text = stringResource(id = R.string.cancel),
+                                maxLines = 1,
+                                fontSize = 11.sp
                             )
                         }
                     }
                 }
-
-                if (showPrediction.value) {
-                    LazyColumn(modifier = Modifier.fillMaxHeight()) {
+                LazyColumn(modifier = Modifier.fillMaxHeight()) {
+                    if (showPrediction.value) {
                         items(state.items, itemContent = { item ->
-                            ProductRow(item = item, onIncreaseQuantityClicked = { product ->
-                                viewModel.increaseQuantity(product)
-                            }, onAddProductClicked = { productName ->
-                                val list = listUIModel ?: return@ProductRow
-                                viewModel.addProduct(
-                                    listId = list.id,
-                                    userListUUID = list.uuid,
-                                    productName = productName
-                                )
-                            }, onDecreaseProductClicked = { product ->
-                                viewModel.decreaseQuantity(product)
-                            })
+                            ProductRow(
+                                item = item,
+                                onIncreaseQuantityClicked = viewModel::increaseQuantity,
+                                onAddProductClicked = { productName ->
+                                    val list = listUIModel ?: return@ProductRow
+                                    viewModel.addProduct(
+                                        listId = list.id,
+                                        userListUUID = list.uuid,
+                                        productName = productName
+                                    )
+                                },
+                                onDecreaseProductClicked = viewModel::decreaseQuantity
+                            )
                             ThinDivider()
                         })
-                    }
-                } else {
-                    LazyColumn(modifier = Modifier.fillMaxHeight()) {
+                    } else {
                         items(state.userListProducts, itemContent = { product ->
                             UserListProductRow(
                                 product = product,
@@ -184,7 +189,9 @@ fun ListDetailScreen(navController: NavController) {
                             ThinDivider()
                         })
                     }
+
                 }
+
             }
         }
         else -> {
