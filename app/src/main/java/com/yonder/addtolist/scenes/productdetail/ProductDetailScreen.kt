@@ -2,10 +2,7 @@ package com.yonder.addtolist.scenes.productdetail
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
 import androidx.compose.material3.*
@@ -96,11 +93,11 @@ fun ProductDetailScreen(navController: NavController) {
     }
 
     Column(
-        modifier = Modifier.background(
+        modifier = Modifier.fillMaxSize().background(
             color = colorResource(
                 id =
                 state.userList?.appColor?.colorResId ?: R.color.white
-            ).copy(alpha = 0.075f)
+            ).copy(alpha = 0.1f)
         )
     ) {
 

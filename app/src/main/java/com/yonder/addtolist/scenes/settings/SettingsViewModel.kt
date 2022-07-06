@@ -4,28 +4,19 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import com.yonder.addtolist.R
-import com.yonder.addtolist.common.enums.ProviderType
-import com.yonder.addtolist.data.local.UserPreferenceDataStore
-import com.yonder.addtolist.domain.usecase.UserInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class SettingsViewModel @Inject constructor(
-    private val userInfoUseCase: UserInfoUseCase,
-    private val userPreferenceDataStore: UserPreferenceDataStore
-) : ViewModel() {
-
+class SettingsViewModel @Inject constructor() : ViewModel() {
 
     private val _state: MutableStateFlow<SettingsUIState> =
-        MutableStateFlow(SettingsUIState.Initial(provideList(userPreferenceDataStore.getProviderType())))
+        MutableStateFlow(SettingsUIState.Initial(provideList()))
     val state: StateFlow<SettingsUIState> get() = _state
 
-    private fun provideList(providerType: ProviderType): List<ImageDetail> {
-        Timber.d("provideList => $providerType")
+    private fun provideList(): List<ImageDetail> {
         val arrayList: ArrayList<ImageDetail> = arrayListOf()
 
         arrayList.addAll(
@@ -68,10 +59,6 @@ class SettingsViewModel @Inject constructor(
         )
         return arrayList
 
-    }
-
-    fun logout() {
-        userInfoUseCase.removeToken()
     }
 }
 

@@ -1,6 +1,7 @@
 package com.yonder.addtolist.scenes.languageselection
 
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -15,6 +16,7 @@ import com.yonder.addtolist.common.ui.extensions.getActivity
 import com.yonder.addtolist.scenes.languageselection.row.LanguageRow
 import com.yonder.addtolist.uicomponent.ErrorView
 import com.yonder.addtolist.uicomponent.LoadingView
+import com.yonder.addtolist.uicomponent.ThinDivider
 import java.util.*
 
 @Composable
@@ -34,17 +36,20 @@ fun LanguageScreen(navController: NavController){
         else -> {
             LazyColumn {
                 items(languageUiState.languages) { language ->
-                    LanguageRow(language = language) {
-                        val config: Configuration =
-                            context.resources.configuration
-                        config.locale = Locale(language.tag)
-                        context.resources.updateConfiguration(
-                            config,
-                            context.resources.displayMetrics
-                        )
-                        viewModel.setLocale(language.tag)
-                        navController.popBackStack()
-                        context.getActivity()?.recreate()
+                    Column {
+                        LanguageRow(language = language) {
+                            val config: Configuration =
+                                context.resources.configuration
+                            config.locale = Locale(language.tag)
+                            context.resources.updateConfiguration(
+                                config,
+                                context.resources.displayMetrics
+                            )
+                            viewModel.setLocale(language.tag)
+                            navController.popBackStack()
+                            context.getActivity()?.recreate()
+                        }
+                        ThinDivider()
                     }
                 }
             }

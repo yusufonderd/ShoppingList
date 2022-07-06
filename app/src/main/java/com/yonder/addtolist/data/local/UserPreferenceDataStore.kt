@@ -19,8 +19,6 @@ interface UserPreferenceDataStore {
     fun getToken(): String?
     fun getFullName(): String?
     fun getProfileUrl(): String?
-    fun getProviderType(): ProviderType
-    fun setProviderType(providerType: ProviderType)
     fun setProfileUrl(url: String)
     fun setFullName(name: String)
     fun saveUUID(uuid: String)

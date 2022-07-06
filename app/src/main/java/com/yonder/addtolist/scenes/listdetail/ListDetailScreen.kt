@@ -88,7 +88,7 @@ fun ListDetailScreen(navController: NavController) {
                         color =
                         colorResource(
                             id = state.userList?.appColor?.colorResId ?: AppColor.Blue.colorResId
-                        ).copy(alpha = 0.075f)
+                        ).copy(alpha = 0.1f)
                     )
             ) {
                 Row(
