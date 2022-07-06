@@ -19,18 +19,18 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
 import com.yonder.addtolist.R
+import com.yonder.addtolist.common.enums.AppColor
 import com.yonder.addtolist.common.utils.OnLifecycleEvent
 import com.yonder.addtolist.core.extensions.EMPTY_STRING
 import com.yonder.addtolist.core.extensions.orZero
 import com.yonder.addtolist.domain.uimodel.UserListUiModel
 import com.yonder.addtolist.scenes.activity.Screen
 import com.yonder.addtolist.scenes.listdetail.row.ProductRow
-import com.yonder.addtolist.scenes.listdetail.row.ThinDivider
+import com.yonder.addtolist.uicomponent.ThinDivider
 import com.yonder.addtolist.scenes.listdetail.row.UserListProductRow
 import com.yonder.addtolist.scenes.productdetail.ProductDetail
 import com.yonder.addtolist.theme.padding_16
@@ -81,7 +81,16 @@ fun ListDetailScreen(navController: NavController) {
             LoadingView()
         }
         state.userList != null -> {
-            Column {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(
+                        color =
+                        colorResource(
+                            id = state.userList?.appColor?.colorResId ?: AppColor.Blue.colorResId
+                        ).copy(alpha = 0.1f)
+                    )
+            ) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth(),
@@ -130,12 +139,12 @@ fun ListDetailScreen(navController: NavController) {
                     )
                     if (showPrediction.value) {
                         TextButton(
-                            modifier= Modifier.padding(end = 8.dp),
+                            modifier = Modifier.padding(end = 8.dp),
                             onClick = {
-                            textState.value = TextFieldValue(EMPTY_STRING)
-                            showPrediction.value = false
-                            keyboardController?.hide()
-                        }
+                                textState.value = TextFieldValue(EMPTY_STRING)
+                                showPrediction.value = false
+                                keyboardController?.hide()
+                            }
                         ) {
                             Text(
                                 text = stringResource(id = R.string.cancel),
@@ -172,9 +181,9 @@ fun ListDetailScreen(navController: NavController) {
                                         ProductDetail.PRODUCT_UI_MODEL,
                                         product
                                     )
-                                    navController.currentBackStackEntry?.arguments?.putInt(
-                                        ProductDetail.LIST_ID,
-                                        listUIModel?.id.orZero()
+                                    navController.currentBackStackEntry?.arguments?.putString(
+                                        ProductDetail.LIST_UUID,
+                                        listUIModel?.uuid.orEmpty()
                                     )
                                     navController.navigate(Screen.ProductDetail.route)
                                 },

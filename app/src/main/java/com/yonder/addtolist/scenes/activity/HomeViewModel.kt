@@ -23,7 +23,6 @@ class HomeViewModel @Inject constructor(
 
     fun updateProduct(
         product: UserListProductUiModel,
-        listId: Int,
         name: String,
         categoryImage: String,
         categoryName: String,

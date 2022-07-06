@@ -71,7 +71,7 @@ fun CreateNewList(navController: NavController) {
         ) {
             TextField(
                 value = textState.value,
-                textStyle = MaterialTheme.typography.bodyMedium,
+                textStyle = MaterialTheme.typography.bodyLarge,
                 isError = state.shouldShowBlankListNameError,
                 onValueChange = {
                     textState.value = it
@@ -87,8 +87,7 @@ fun CreateNewList(navController: NavController) {
                     .background(color = colorResource(id = R.color.white)),
                 placeholder = {
                     Text(
-                        text = stringResource(id = R.string.list_name),
-                        color = colorResource(id = R.color.primaryTextColor)
+                        text = stringResource(id = R.string.list_name)
                     )
                 }
             )

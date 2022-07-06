@@ -42,7 +42,7 @@ class ListDetailViewModel @Inject constructor(
     var job: Job? = null
 
     fun fetchProducts(listUUID: String, query: String = EMPTY_STRING) {
-        val flow1 = getUserListUseCase.invoke(listUUID)
+        val flow1 = getUserListUseCase(listUUID)
         val flow2 = if (query.trim().isEmpty()) {
             getPopularProducts()
         } else {

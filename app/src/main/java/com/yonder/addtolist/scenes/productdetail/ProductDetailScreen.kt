@@ -50,7 +50,7 @@ fun ProductDetailScreen(navController: NavController) {
     val productUIModel =
         arguments?.getParcelable<UserListProductUiModel>(ProductDetail.PRODUCT_UI_MODEL)
 
-    val listId = arguments?.getInt(ProductDetail.LIST_ID)
+    val listUUID = arguments?.getString(ProductDetail.LIST_UUID).orEmpty()
 
     val modifier = Modifier
         .fillMaxWidth()
@@ -73,7 +73,8 @@ fun ProductDetailScreen(navController: NavController) {
         when (_event) {
             Lifecycle.Event.ON_CREATE -> {
                 val product = productUIModel ?: return@OnLifecycleEvent
-                viewModel.fetchProduct(listId = listId.orZero(), productId = product.id.orZero())
+                viewModel.fetchProduct(productId = product.id.orZero())
+                viewModel.fetchList(listUUID)
             }
             Lifecycle.Event.ON_PAUSE -> {
                 val product = productUIModel ?: return@OnLifecycleEvent
@@ -83,7 +84,6 @@ fun ProductDetailScreen(navController: NavController) {
                 val categoryUiModel = viewModel.selectedCategory ?: return@OnLifecycleEvent
                 mainViewModel.updateProduct(
                     product = product,
-                    listId = listId.orZero(),
                     name = name,
                     categoryImage = categoryUiModel.image,
                     categoryName = categoryUiModel.name,
@@ -95,7 +95,14 @@ fun ProductDetailScreen(navController: NavController) {
         }
     }
 
-    Column {
+    Column(
+        modifier = Modifier.background(
+            color = colorResource(
+                id =
+                state.userList?.appColor?.colorResId ?: R.color.white
+            ).copy(alpha = 0.1f)
+        )
+    ) {
 
         OutlinedTextField(
             value = viewModel.name,
@@ -227,6 +234,6 @@ fun ProductDetailScreen(navController: NavController) {
 
 object ProductDetail {
     const val PRODUCT_UI_MODEL = "PRODUCT_UI_MODEL"
-    const val LIST_ID = "LIST_ID"
+    const val LIST_UUID = "LIST_UUID"
 
 }

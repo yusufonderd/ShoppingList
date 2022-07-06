@@ -9,7 +9,9 @@ import com.yonder.addtolist.common.enums.ProductUnitType
 import com.yonder.addtolist.core.extensions.EMPTY_STRING
 import com.yonder.addtolist.domain.uimodel.CategoryUiModel
 import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
+import com.yonder.addtolist.domain.uimodel.UserListUiModel
 import com.yonder.addtolist.domain.usecase.GetProductDetail
+import com.yonder.addtolist.domain.usecase.GetUserList
 import com.yonder.addtolist.domain.usecase.UpdateProductOfUserList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,9 +31,8 @@ import javax.inject.Inject
 class ProductDetailViewModel @Inject constructor(
     private val getProductDetail: GetProductDetail,
     private val updateProductUseCase: UpdateProductOfUserList,
+    private val getUserList: GetUserList
 ) : ViewModel() {
-
-    var listId: Int = 0
 
     var note by mutableStateOf(EMPTY_STRING)
     var name by mutableStateOf(EMPTY_STRING)
@@ -42,8 +43,17 @@ class ProductDetailViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(UiState())
     val uiState: StateFlow<UiState> = _uiState
 
-    fun fetchProduct(listId: Int, productId: Int) {
-        this.listId = listId
+    fun fetchList(uuid: String) {
+        viewModelScope.launch {
+            getUserList.invoke(uuid).collectLatest { userListUIModel ->
+                _uiState.update {
+                    it.copy(userList = userListUIModel)
+                }
+            }
+        }
+    }
+
+    fun fetchProduct(productId: Int) {
         viewModelScope.launch {
             val params = getProductDetail(productId)
             params
@@ -108,13 +118,6 @@ class ProductDetailViewModel @Inject constructor(
         }
     }
 
-    fun updateNote(product: UserListProductUiModel, note: String) {
-        if (product.note != note) {
-            product.note = note
-            update(product)
-        }
-    }
-
     private fun update(product: UserListProductUiModel, productName: String = product.name) {
         viewModelScope.launch {
             updateProductUseCase.invoke(
@@ -129,6 +132,7 @@ class ProductDetailViewModel @Inject constructor(
         val isLoading: Boolean = false,
         val categories: List<CategoryUiModel> = emptyList(),
         val product: UserListProductUiModel? = null,
+        var userList: UserListUiModel? = null,
         val categoryOfProduct: CategoryUiModel? = null
     )
 

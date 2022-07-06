@@ -1,4 +1,4 @@
-package com.yonder.addtolist.scenes.listdetail.row
+package com.yonder.addtolist.uicomponent
 
 import androidx.compose.foundation.background
 import androidx.compose.material.Divider

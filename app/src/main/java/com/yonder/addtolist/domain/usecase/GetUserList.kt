@@ -16,8 +16,8 @@ class GetUserList @Inject constructor(
     private val appDatabase: AppDatabase,
     private val mapper: UserListWithProductsMapper
 ) {
-    operator fun invoke(input: String): Flow<UserListUiModel> {
-        val userListWithProducts = appDatabase.userListProductDao().getUserListWithProductsBy(input)
+    operator fun invoke(uuid: String): Flow<UserListUiModel> {
+        val userListWithProducts = appDatabase.userListProductDao().getUserListWithProductsBy(uuid)
         return userListWithProducts.map {
             mapper.map(it)
         }
