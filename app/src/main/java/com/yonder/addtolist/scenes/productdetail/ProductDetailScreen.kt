@@ -100,7 +100,7 @@ fun ProductDetailScreen(navController: NavController) {
             color = colorResource(
                 id =
                 state.userList?.appColor?.colorResId ?: R.color.white
-            ).copy(alpha = 0.1f)
+            ).copy(alpha = 0.075f)
         )
     ) {
 
@@ -136,7 +136,8 @@ fun ProductDetailScreen(navController: NavController) {
                 enabled = false,
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     disabledLabelColor = colorResource(id = R.color.secondaryTextColor),
-                    disabledTextColor = colorResource(id = R.color.primaryTextColor)
+                    disabledTextColor = colorResource(id = R.color.primaryTextColor),
+                    containerColor = colorResource(id = R.color.white)
                 ),
                 onValueChange = {
 
