@@ -89,9 +89,12 @@ class ProductDetailViewModel @Inject constructor(
         this.name = name
     }
 
-    fun onChangeCategory(category: CategoryUiModel) {
+    fun onChangeCategory(product: UserListProductUiModel,category: CategoryUiModel) {
         this.categoryName = category.formattedName
         selectedCategory = category
+        product.categoryName = category.name
+        product.categoryImage = category.image
+        update(product)
     }
 
     fun toggleFavorite(product: UserListProductUiModel) {

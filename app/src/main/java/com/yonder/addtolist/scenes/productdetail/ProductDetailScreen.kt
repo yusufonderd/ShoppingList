@@ -120,7 +120,10 @@ fun ProductDetailScreen(navController: NavController) {
             value = viewModel.categoryName,
             categories = state.categories,
             modifier = modifier.background(color = colorResource(id = R.color.white)),
-            onItemClick = viewModel::onChangeCategory
+            onItemClick = { category ->
+                val product = productUIModel ?: return@DropDownTextField
+                viewModel.onChangeCategory(product,category)
+            }
         )
 
         Row(
