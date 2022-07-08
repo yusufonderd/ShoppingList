@@ -35,6 +35,7 @@ import com.yonder.addtolist.scenes.productdetail.ProductDetail
 import com.yonder.addtolist.theme.padding_16
 import com.yonder.addtolist.theme.padding_8
 import com.yonder.addtolist.uicomponent.LoadingView
+import timber.log.Timber
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -62,10 +63,10 @@ fun ListDetailScreen(homeViewModel: HomeViewModel,navController: NavController,l
 
     OnLifecycleEvent { _, _event ->
         when (_event) {
-            Lifecycle.Event.ON_CREATE -> {
+            Lifecycle.Event.ON_START -> {
                 viewModel.setSelectedList(listUUID)
                 viewModel.fetchProducts(listUUID)
-                homeViewModel.getSelectedList()
+                homeViewModel.getSelectedList(listUUID)
             }
             else -> Unit
         }

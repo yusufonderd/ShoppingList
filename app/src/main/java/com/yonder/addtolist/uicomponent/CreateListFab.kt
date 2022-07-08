@@ -1,16 +1,18 @@
-package com.yonder.addtolist.scenes.lists.row
+package com.yonder.addtolist.uicomponent
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.yonder.addtolist.R
-import com.yonder.addtolist.theme.padding_16
 
 /**
  * @author yusuf.onder
@@ -19,17 +21,28 @@ import com.yonder.addtolist.theme.padding_16
 @Composable
 
 fun CreateListFab(onClick: () -> Unit) {
-    FloatingActionButton(
-        modifier = Modifier.padding(padding_16),
+
+    ExtendedFloatingActionButton(
+        text = {
+            Text(
+                text = stringResource(
+                    id = R.string.create_new_list
+                )
+            )
+        },
         onClick = onClick,
-        backgroundColor = colorResource(id = R.color.colorPrimary)
-    ) {
-        Icon(
-            imageVector = Icons.Filled.Add,
-            stringResource(
-                id = R.string.create_new_list
-            ),
-            tint = colorResource(id = R.color.white)
-        )
-    }
+        icon = {
+            Icon(
+                Icons.Filled.Add,
+                stringResource(
+                    id = R.string.create_new_list
+                ),
+                tint = Color.White
+            )
+        },
+        containerColor = colorResource(id = R.color.teal_700),
+        contentColor = Color.White,
+        modifier = Modifier.padding(16.dp)
+    )
+
 }

@@ -11,7 +11,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
@@ -19,7 +18,7 @@ import androidx.navigation.NavController
 import com.yonder.addtolist.R
 import com.yonder.addtolist.common.utils.OnLifecycleEvent
 import com.yonder.addtolist.scenes.activity.Screen
-import com.yonder.addtolist.scenes.lists.row.CreateListFab
+import com.yonder.addtolist.uicomponent.CreateListFab
 import com.yonder.addtolist.scenes.lists.row.ListRow
 import com.yonder.addtolist.uicomponent.LoadingView
 import com.yonder.addtolist.uicomponent.NoListView

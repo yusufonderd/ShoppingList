@@ -8,11 +8,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
@@ -36,7 +33,6 @@ import com.yonder.addtolist.theme.BreakingBadTheme
 import dagger.hilt.android.AndroidEntryPoint
 import com.yonder.addtolist.R
 import com.yonder.addtolist.uicomponent.TextIcon
-import java.util.*
 
 
 @AndroidEntryPoint
@@ -107,7 +103,7 @@ class HomeActivity : ComponentActivity() {
                                             Route.LIST_DETAIL.key -> {
                                                 Text(
                                                     text =
-                                                    homeViewModel.uiState.value.listName.orEmpty()
+                                                    homeViewModel.selectedListName.collectAsState().value
                                                 )
                                             }
                                             else -> {
