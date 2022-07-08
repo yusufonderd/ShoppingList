@@ -38,7 +38,7 @@ fun ProductDetailScreen(navController: NavController) {
 
     val viewModel = hiltViewModel<ProductDetailViewModel>()
 
-    val mainViewModel = hiltViewModel<HomeViewModel>()
+    val homeViewModel = hiltViewModel<HomeViewModel>()
 
     val arguments = navController
         .previousBackStackEntry
@@ -79,7 +79,7 @@ fun ProductDetailScreen(navController: NavController) {
                 val name = viewModel.name
                 val price = viewModel.price
                 val categoryUiModel = viewModel.selectedCategory ?: return@OnLifecycleEvent
-                mainViewModel.updateProduct(
+                homeViewModel.updateProduct(
                     product = product,
                     name = name,
                     categoryImage = categoryUiModel.image,
@@ -224,7 +224,7 @@ fun ProductDetailScreen(navController: NavController) {
 
         DeleteProductButton(onClick = {
             val product = productUIModel ?: return@DeleteProductButton
-            mainViewModel.delete(product)
+            homeViewModel.delete(product)
             navController.popBackStack()
         })
 

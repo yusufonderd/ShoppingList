@@ -5,6 +5,7 @@ import com.yonder.addtolist.domain.mapper.UserListWithProductsMapper
 import com.yonder.addtolist.domain.uimodel.UserListUiModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
 import javax.inject.Inject
 
 /**
@@ -18,7 +19,7 @@ class GetUserList @Inject constructor(
 ) {
     operator fun invoke(uuid: String): Flow<UserListUiModel> {
         val userListWithProducts = appDatabase.userListProductDao().getUserListWithProductsBy(uuid)
-        return userListWithProducts.map {
+        return userListWithProducts.mapNotNull {
             mapper.map(it)
         }
     }

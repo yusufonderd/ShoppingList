@@ -30,7 +30,7 @@ fun HorizontalChipView(
 ) {
     LazyRow(modifier = modifier) {
         items(listNames) { listName ->
-            Row(
+            HorizontalChipRow(
                 listName = listName,
                 onClick = onClickListItem
             )
@@ -40,7 +40,7 @@ fun HorizontalChipView(
 
 @ExperimentalMaterialApi
 @Composable
-fun Row(
+fun HorizontalChipRow(
     listName: String,
     onClick: (String) -> Unit
 ) {

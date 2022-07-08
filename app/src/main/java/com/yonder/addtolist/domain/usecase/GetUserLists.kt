@@ -19,8 +19,8 @@ class GetUserLists @Inject constructor(
     private val repository: UserListRepository,
     private val dispatcher: CoroutineThread,
     private val mapper : UserListWithProductsMapper,
-) : NoInputUseCase<List<UserListUiModel>> {
-    override suspend fun invoke(): Flow<List<UserListUiModel>> {
+) : NoInputUseCase<List<UserListUiModel?>> {
+    override suspend fun invoke(): Flow<List<UserListUiModel?>> {
         return repository
             .getUserLists()
             .map { ListMapperImpl(mapper).map(it) }

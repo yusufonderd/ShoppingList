@@ -1,10 +1,8 @@
 package com.yonder.addtolist.local.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.yonder.addtolist.local.entity.UserListEntity
+import com.yonder.addtolist.local.entity.UserListProductEntity
 
 /**
  * @author: yusufonder
@@ -22,5 +20,11 @@ interface UserListEntityDao {
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   suspend fun insert(userList: List<UserListEntity>)
+
+  @Delete
+  suspend fun delete(list: UserListEntity)
+
+  @Query("SELECT * FROM userList WHERE  uuid = :listUUID LIMIT 1")
+  suspend fun findByListUUID(listUUID: String): List<UserListEntity>
 
 }

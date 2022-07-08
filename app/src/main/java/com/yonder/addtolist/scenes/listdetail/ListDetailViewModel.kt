@@ -2,6 +2,7 @@ package com.yonder.addtolist.scenes.listdetail
 
 import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.core.extensions.EMPTY_STRING
+import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.domain.mapper.ItemUiModelMapper
 import com.yonder.addtolist.domain.uimodel.ItemUiModel
 import com.yonder.addtolist.domain.uimodel.ProductEntityUiModel
@@ -33,7 +34,8 @@ class ListDetailViewModel @Inject constructor(
     private val addProductUseCase: AddProductUseCase,
     private val updateProductUseCase: UpdateProductOfUserList,
     private val deleteProductOfUserListUseCase: DeleteProductOfUserList,
-    private val getUserListUseCase: GetUserList
+    private val getUserListUseCase: GetUserList,
+    private val userPreferenceDataStore: UserPreferenceDataStore
 ) : BaseViewModel<ListDetailViewModel.UiEvent>() {
 
     private val _uiState = MutableStateFlow(UiState())
@@ -41,6 +43,9 @@ class ListDetailViewModel @Inject constructor(
 
     var job: Job? = null
 
+    fun setSelectedList(uuid: String){
+        userPreferenceDataStore.setSelectedListUUID(uuid)
+    }
     fun fetchProducts(listUUID: String, query: String = EMPTY_STRING) {
         val flow1 = getUserListUseCase(listUUID)
         val flow2 = if (query.trim().isEmpty()) {

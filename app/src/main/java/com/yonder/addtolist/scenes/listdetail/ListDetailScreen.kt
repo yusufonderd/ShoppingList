@@ -65,8 +65,8 @@ fun ListDetailScreen(navController: NavController,listUUID: String) {
     OnLifecycleEvent { _, _event ->
         when (_event) {
             Lifecycle.Event.ON_CREATE -> {
-                Timber.d("listUUID => $listUUID")
-                listUUID?.run(viewModel::fetchProducts)
+                viewModel.setSelectedList(listUUID)
+                viewModel.fetchProducts(listUUID)
             }
             else -> Unit
         }

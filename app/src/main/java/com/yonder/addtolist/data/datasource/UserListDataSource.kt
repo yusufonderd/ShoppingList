@@ -10,11 +10,13 @@ import kotlinx.coroutines.flow.Flow
  */
 
 interface UserListDataSource {
+  suspend fun delete(userList: UserListEntity)
   suspend fun insert(userList: UserListEntity)
   suspend fun insertAll(list: List<UserListEntity>)
   suspend fun getUserLists(): List<UserListEntity>
   suspend fun getUserListWithProducts(): List<UserListWithProducts>
   fun getUserListByUUID(listUUID: String): Flow<UserListWithProducts>
+  suspend fun getUserList(listUUID: String): UserListEntity?
   suspend fun insertProducts(products: List<UserListProductEntity>)
   suspend fun findProduct(listUUID: String, productName: String): UserListProductEntity
 }

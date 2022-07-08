@@ -66,6 +66,16 @@ class UserPreferenceDataStoreImpl @Inject constructor(private val sharedPreferen
         }
     }
 
+    override fun getSelectedListUUID(): String? {
+        return sharedPreferences.getString(KEY_SELECTED_LIST,null)
+    }
+
+    override fun setSelectedListUUID(uuid: String) {
+        sharedPreferences.edit().apply {
+            putString(KEY_SELECTED_LIST, uuid)
+            apply()
+        }
+    }
     override fun setCurrency(currency: String) {
         sharedPreferences.edit().apply {
             putString(KEY_CURRENCY, currency)
@@ -118,5 +128,7 @@ class UserPreferenceDataStoreImpl @Inject constructor(private val sharedPreferen
         const val KEY_CURRENCY = "key_currency"
         const val KEY_PROFILE_URL = "key_profile_url"
         const val KEY_FULL_NAME = "key_full_name"
+        const val KEY_SELECTED_LIST = "key_selected_list"
+
     }
 }

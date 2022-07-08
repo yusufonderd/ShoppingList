@@ -3,11 +3,16 @@ package com.yonder.addtolist.scenes.activity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.core.extensions.orZero
+import com.yonder.addtolist.data.datasource.UserListDataSource
+import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
 import com.yonder.addtolist.domain.usecase.DeleteProductOfUserList
 import com.yonder.addtolist.domain.usecase.UpdateProductOfUserList
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -18,8 +23,10 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val updateProductUseCase: UpdateProductOfUserList,
-    private val deleteProductOfUserListUseCase: DeleteProductOfUserList
-    ) : ViewModel(){
+    private val deleteProductOfUserListUseCase: DeleteProductOfUserList,
+    private val userPreferenceDataStore: UserPreferenceDataStore,
+    private val userListDataSource: UserListDataSource
+) : ViewModel() {
 
     fun updateProduct(
         product: UserListProductUiModel,
@@ -29,10 +36,10 @@ class HomeViewModel @Inject constructor(
         price: String,
         note: String,
 
-    ) {
+        ) {
 
         val priceDouble = price
-            .replace(",",".")
+            .replace(",", ".")
             .toDoubleOrNull().orZero()
         val updatedProduct = product.copy(
             name = name,
@@ -43,19 +50,29 @@ class HomeViewModel @Inject constructor(
             note = note
         )
         if (updatedProduct != product) {
-             viewModelScope.launch {
-                 updateProductUseCase.invoke(
-                     productName = product.name,
-                     listUUID = product.listUUID,
-                     product = updatedProduct
-                 )
-             }
+            viewModelScope.launch {
+                updateProductUseCase.invoke(
+                    productName = product.name,
+                    listUUID = product.listUUID,
+                    product = updatedProduct
+                )
+            }
         }
     }
 
     fun delete(product: UserListProductUiModel) {
         viewModelScope.launch {
             deleteProductOfUserListUseCase.invoke(product)
+        }
+    }
+
+    fun deleteSelectedList() {
+        val listUUID = userPreferenceDataStore.getSelectedListUUID()
+        viewModelScope.launch(Dispatchers.IO) {
+            val list = userListDataSource.getUserList(listUUID.orEmpty())
+            if (list != null) {
+                userListDataSource.delete(list)
+            }
         }
     }
 

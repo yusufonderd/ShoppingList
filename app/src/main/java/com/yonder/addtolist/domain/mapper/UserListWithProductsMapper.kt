@@ -22,10 +22,13 @@ import javax.inject.Inject
 
 
 class UserListWithProductsMapper @Inject constructor(@ApplicationContext private val context: Context) :
-    Mapper<UserListWithProducts, UserListUiModel> {
+    Mapper<UserListWithProducts?, UserListUiModel?> {
 
     val mapper = UserListProductEntityToUiModel(context)
-    override fun map(input: UserListWithProducts): UserListUiModel {
+    override fun map(input: UserListWithProducts?): UserListUiModel? {
+
+        if (input == null)
+            return null
         val productsList = ListMapperImpl(mapper).map(input.products).sortedBy { it?.isDone.orFalse() }
         val safeProductList = productsList.filterNotNull()
         val productListSize = safeProductList.size

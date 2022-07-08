@@ -6,12 +6,16 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -28,16 +32,23 @@ import com.yonder.addtolist.scenes.settings.Settings
 import com.yonder.addtolist.scenes.splash.SplashScreen
 import com.yonder.addtolist.theme.BreakingBadTheme
 import dagger.hilt.android.AndroidEntryPoint
+import com.yonder.addtolist.R
+import com.yonder.addtolist.uicomponent.TextIcon
 
 
 @AndroidEntryPoint
 class HomeActivity : ComponentActivity() {
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             BreakingBadTheme {
+                val homeViewModel = hiltViewModel<HomeViewModel>()
+
                 Surface(color = MaterialTheme.colors.background) {
+                    var showMenu by remember { mutableStateOf(false) }
+
                     val navController = rememberNavController()
                     val bottomBarState = rememberSaveable { (mutableStateOf(true)) }
                     val topBarState = rememberSaveable { (mutableStateOf(true)) }
@@ -80,6 +91,36 @@ class HomeActivity : ComponentActivity() {
                                             text =
                                             stringResource(id = Route.find(navController.currentDestination?.route.orEmpty()).value)
                                         )
+                                    },
+                                    actions =
+                                    {
+                                        when (navBackStackEntry?.destination?.route) {
+                                            Route.LIST_DETAIL.key -> {
+                                                IconButton(onClick = {
+                                                    showMenu = !showMenu
+                                                }) {
+                                                    Icon(
+                                                        Icons.Default.MoreVert,
+                                                        stringResource(id = R.string.more)
+                                                    )
+                                                }
+                                            }
+                                        }
+                                        DropdownMenu(
+                                            expanded = showMenu,
+                                            onDismissRequest = { showMenu = false }
+                                        ) {
+                                            DropdownMenuItem(onClick = {
+                                                showMenu = false
+                                                homeViewModel.deleteSelectedList()
+                                                navController.popBackStack()
+                                            }) {
+                                                TextIcon(Icons.Filled.Delete,
+                                                    stringResource(id = R.string.delete_list),
+                                                    colorResource(id = R.color.colorRed)
+                                                )
+                                            }
+                                        }
                                     },
                                     navigationIcon = if (backArrowState.value) {
                                         {

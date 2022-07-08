@@ -24,7 +24,7 @@ class ListsViewModel @Inject constructor(
         viewModelScope.launch {
             getUserListsUseCase().collect { userLists ->
                 _uiState.update {
-                    it.copy(userLists = userLists, isLoading = false)
+                    it.copy(userLists = userLists.filterNotNull(), isLoading = false)
                 }
             }
         }

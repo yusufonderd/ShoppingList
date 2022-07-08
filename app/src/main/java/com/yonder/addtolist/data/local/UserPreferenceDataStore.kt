@@ -1,6 +1,5 @@
 package com.yonder.addtolist.data.local
 
-import com.yonder.addtolist.common.enums.ProviderType
 import java.util.*
 
 /**
@@ -25,4 +24,6 @@ interface UserPreferenceDataStore {
     fun saveToken(token: String?)
     fun isFetchedCategoriesAndProducts(): Boolean
     fun setFetchedCategoriesAndProducts()
+    fun getSelectedListUUID(): String?
+    fun setSelectedListUUID(uuid: String)
 }
