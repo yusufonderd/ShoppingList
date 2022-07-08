@@ -13,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -26,6 +27,7 @@ class HomeViewModel @Inject constructor(
     private val deleteProductOfUserListUseCase: DeleteProductOfUserList,
     private val userPreferenceDataStore: UserPreferenceDataStore,
     private val userListDataSource: UserListDataSource
+
 ) : ViewModel() {
 
     fun updateProduct(
@@ -74,6 +76,10 @@ class HomeViewModel @Inject constructor(
                 userListDataSource.delete(list)
             }
         }
+    }
+
+    fun getLocale(): Locale {
+        return userPreferenceDataStore.getLocale()
     }
 
 }

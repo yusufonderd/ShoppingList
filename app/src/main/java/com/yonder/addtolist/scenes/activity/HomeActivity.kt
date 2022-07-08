@@ -1,5 +1,6 @@
 package com.yonder.addtolist.scenes.activity
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -34,6 +36,7 @@ import com.yonder.addtolist.theme.BreakingBadTheme
 import dagger.hilt.android.AndroidEntryPoint
 import com.yonder.addtolist.R
 import com.yonder.addtolist.uicomponent.TextIcon
+import java.util.*
 
 
 @AndroidEntryPoint
@@ -42,9 +45,22 @@ class HomeActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+
         setContent {
             BreakingBadTheme {
+                val context = LocalContext.current
+
                 val homeViewModel = hiltViewModel<HomeViewModel>()
+
+                val config: Configuration =
+                    context.resources.configuration
+                config.locale = homeViewModel.getLocale()
+                context.resources.updateConfiguration(
+                    config,
+                    context.resources.displayMetrics
+                )
 
                 Surface(color = MaterialTheme.colors.background) {
                     var showMenu by remember { mutableStateOf(false) }
