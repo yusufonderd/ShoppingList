@@ -8,7 +8,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material3.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
@@ -22,9 +25,8 @@ import androidx.navigation.NavController
 import com.yonder.addtolist.R
 import com.yonder.addtolist.common.enums.AppColor
 import com.yonder.addtolist.common.ui.extensions.showToastMessage
-import com.yonder.addtolist.scenes.activity.Route
 import com.yonder.addtolist.scenes.activity.Screen
-import com.yonder.addtolist.scenes.splash.SplashViewModel
+import com.yonder.addtolist.scenes.listdetail.ListDetail
 import com.yonder.addtolist.theme.padding_16
 import com.yonder.addtolist.theme.padding_8
 import com.yonder.addtolist.uicomponent.ColorPicker
@@ -49,9 +51,13 @@ fun CreateNewList(navController: NavController) {
 
     LaunchedEffect(key1 = Unit) {
         viewModel.eventsFlow.collectLatest { event ->
-            when(event) {
-                CreateListViewModel.Event.PopBackStack -> {
-                    navController.popBackStack(route = Route.LIST.key, inclusive = false)
+            when (event) {
+                is CreateListViewModel.Event.NavigateToCreatedList -> {
+                    navController.navigate(Screen.ListDetail.route.replace("{uuid}", event.uuid)) {
+                        popUpTo(Screen.CreateNewList.route) {
+                            inclusive = true
+                        }
+                    }
                 }
                 is CreateListViewModel.Event.Message -> {
                     context.showToastMessage(event.message)

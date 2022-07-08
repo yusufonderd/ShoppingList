@@ -22,7 +22,7 @@ fun SplashScreen(navController: NavController) {
         viewModel.eventsFlow.collectLatest { value ->
             when(value) {
                 SplashViewModel.Event.NavigateToList -> {
-                    navController.navigate(Screen.List.route){
+                    navController.navigate(Screen.Lists.route){
                         popUpTo(Screen.Splash.route){
                             inclusive = true
                         }

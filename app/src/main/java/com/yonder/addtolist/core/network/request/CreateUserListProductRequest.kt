@@ -10,7 +10,6 @@ import com.yonder.addtolist.local.entity.CATEGORY_OTHER_NAME
  */
 @Suppress("ConstructorParameterNaming")
 data class CreateUserListProductRequest(
-  @SerializedName("user_list_id") val userListId: String,
   @SerializedName("name") val name: String,
   @SerializedName("quantity") val quantity: Double = 1.0,
   @SerializedName("price") val price: Double = 0.0,

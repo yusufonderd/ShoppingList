@@ -72,20 +72,17 @@ class ListDetailViewModel @Inject constructor(
         }
     }
 
-    fun addProduct(listId: Int?, userListUUID: String, productName: String) {
-        listId?.let {
+    fun addProduct(userListUUID: String, productName: String) {
             viewModelScope.launch {
                 productUseCase.getProductEntityForName(productName).collect { productEntity ->
                     val categoryImage = productEntity?.categoryImage ?: CATEGORY_OTHER_IMAGE
                     addProductUseCase.invoke(
-                        listId = listId.toString(),
                         listUUID = userListUUID,
                         productName = productName,
                         productCategoryImage = categoryImage
                     ).collect()
                 }
             }
-        }
     }
 
 

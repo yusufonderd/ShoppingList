@@ -1,4 +1,4 @@
-package com.yonder.addtolist.scenes.home.row
+package com.yonder.addtolist.scenes.lists.row
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement

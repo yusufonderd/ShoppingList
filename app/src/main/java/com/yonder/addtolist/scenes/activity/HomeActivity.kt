@@ -19,7 +19,7 @@ import androidx.navigation.compose.rememberNavController
 import com.yonder.addtolist.scenes.about.AboutScreen
 import com.yonder.addtolist.scenes.about.LicenceScreen
 import com.yonder.addtolist.scenes.createlist.CreateNewList
-import com.yonder.addtolist.scenes.home.ListScreen
+import com.yonder.addtolist.scenes.lists.ListScreen
 import com.yonder.addtolist.scenes.languageselection.LanguageScreen
 import com.yonder.addtolist.scenes.listdetail.ListDetailScreen
 import com.yonder.addtolist.scenes.premium.PremiumScreen
@@ -49,7 +49,7 @@ class HomeActivity : ComponentActivity() {
                             topBarState.value = false
                             bottomBarState.value = false
                         }
-                        Route.LIST.key, Route.SETTINGS.key -> {
+                        Route.LISTS.key, Route.SETTINGS.key -> {
                             backArrowState.value = false
                             topBarState.value = true
                             bottomBarState.value = true
@@ -129,14 +129,20 @@ class HomeActivity : ComponentActivity() {
                             modifier = Modifier.padding(innerPadding)
                         ) {
                             composable(Screen.Splash.route) { SplashScreen(navController) }
-                            composable(Screen.List.route) { ListScreen(navController) }
+                            composable(Screen.Lists.route) { ListScreen(navController) }
+                            composable(Screen.ListDetail.route) { backStackEntry ->
+                                val listUUID = backStackEntry.arguments?.getString("uuid")
+                                ListDetailScreen(
+                                    navController = navController,
+                                    listUUID = listUUID.orEmpty()
+                                )
+                            }
                             composable(Screen.Settings.route) { Settings(navController) }
                             composable(Screen.CreateNewList.route) { CreateNewList(navController) }
                             composable(Screen.Language.route) { LanguageScreen(navController) }
                             composable(Screen.About.route) { AboutScreen(navController) }
                             composable(Screen.License.route) { LicenceScreen() }
                             composable(Screen.Premium.route) { PremiumScreen(navController) }
-                            composable(Screen.ListDetail.route) { ListDetailScreen(navController) }
                             composable(Screen.ProductDetail.route) {
                                 ProductDetailScreen(
                                     navController

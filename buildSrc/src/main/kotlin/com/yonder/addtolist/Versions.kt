@@ -25,8 +25,6 @@ object Versions {
   const val junit: String = "4.13.1"
   const val google_auth: String = "19.0.0"
   const val google_service_auth: String = "4.3.5"
-  const val facebook_login: String = "13.1.0"
-  const val facebook_sdk = "13.1.0"
   const val timber = "4.7.1"
   const val firebase_bom = "26.0.0"
   const val room = "2.4.0-alpha03"

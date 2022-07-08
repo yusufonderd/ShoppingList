@@ -1,4 +1,4 @@
-package com.yonder.addtolist.scenes.home
+package com.yonder.addtolist.scenes.lists
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,13 +7,12 @@ import com.yonder.addtolist.domain.usecase.GetUserLists
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ListViewModel @Inject constructor(
+class ListsViewModel @Inject constructor(
     private val getUserListsUseCase: GetUserLists
 ) : ViewModel() {
 

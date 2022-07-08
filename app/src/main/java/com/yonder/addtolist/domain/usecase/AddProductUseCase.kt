@@ -16,7 +16,6 @@ import javax.inject.Inject
 
 interface AddProductUseCase {
   suspend operator fun invoke(
-    listId: String?,
     listUUID: String,
     productName: String,
     productCategoryImage: String
@@ -30,14 +29,12 @@ class AddProductUseCaseImpl @Inject constructor(
 ):
   AddProductUseCase {
   override suspend fun invoke(
-    listId: String?,
     listUUID: String,
     productName: String,
     productCategoryImage: String
   ): Flow<RestResult<UserListProductEntity>> {
     val createUserListProductRequest =
       UserListProductMapper.mapProductEntitySummaryToRequest(
-        listId,
         productName,
         productCategoryImage
       )

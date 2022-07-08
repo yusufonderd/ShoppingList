@@ -26,8 +26,6 @@ import com.yonder.addtolist.R
 import com.yonder.addtolist.common.enums.AppColor
 import com.yonder.addtolist.common.utils.OnLifecycleEvent
 import com.yonder.addtolist.core.extensions.EMPTY_STRING
-import com.yonder.addtolist.core.extensions.orZero
-import com.yonder.addtolist.domain.uimodel.UserListUiModel
 import com.yonder.addtolist.scenes.activity.Screen
 import com.yonder.addtolist.scenes.listdetail.row.ProductRow
 import com.yonder.addtolist.uicomponent.ThinDivider
@@ -36,16 +34,14 @@ import com.yonder.addtolist.scenes.productdetail.ProductDetail
 import com.yonder.addtolist.theme.padding_16
 import com.yonder.addtolist.theme.padding_8
 import com.yonder.addtolist.uicomponent.LoadingView
+import timber.log.Timber
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun ListDetailScreen(navController: NavController) {
+fun ListDetailScreen(navController: NavController,listUUID: String) {
     val viewModel = hiltViewModel<ListDetailViewModel>()
 
-    val listUIModel = navController
-        .previousBackStackEntry
-        ?.arguments
-        ?.getParcelable<UserListUiModel>(ListDetail.LIST_UI_MODEL)
+
 
     val state by viewModel.uiState.collectAsState()
     val event by viewModel.effect.collectAsState(initial = ListDetailViewModel.UiEvent.Initial)
@@ -69,8 +65,8 @@ fun ListDetailScreen(navController: NavController) {
     OnLifecycleEvent { _, _event ->
         when (_event) {
             Lifecycle.Event.ON_CREATE -> {
-                val list = listUIModel ?: return@OnLifecycleEvent
-                viewModel.fetchProducts(list.uuid)
+                Timber.d("listUUID => $listUUID")
+                listUUID?.run(viewModel::fetchProducts)
             }
             else -> Unit
         }
@@ -103,7 +99,7 @@ fun ListDetailScreen(navController: NavController) {
                         onValueChange = { textField ->
                             textState.value = textField
                             showPrediction.value = textField.text.isNotBlank()
-                            listUIModel?.uuid?.run {
+                            listUUID?.run {
                                 viewModel.fetchProducts(
                                     listUUID = this,
                                     query = textField.text
@@ -160,10 +156,9 @@ fun ListDetailScreen(navController: NavController) {
                                 item = item,
                                 onIncreaseQuantityClicked = viewModel::increaseQuantity,
                                 onAddProductClicked = { productName ->
-                                    val list = listUIModel ?: return@ProductRow
+                                    val userListUUID = listUUID ?: return@ProductRow
                                     viewModel.addProduct(
-                                        listId = list.id,
-                                        userListUUID = list.uuid,
+                                        userListUUID = userListUUID,
                                         productName = productName
                                     )
                                 },
@@ -183,7 +178,7 @@ fun ListDetailScreen(navController: NavController) {
                                     )
                                     navController.currentBackStackEntry?.arguments?.putString(
                                         ProductDetail.LIST_UUID,
-                                        listUIModel?.uuid.orEmpty()
+                                        listUUID.orEmpty()
                                     )
                                     navController.navigate(Screen.ProductDetail.route)
                                 },
@@ -200,11 +195,11 @@ fun ListDetailScreen(navController: NavController) {
             }
         }
         else -> {
-            Text("")
+            Text("Error Occurred")
         }
     }
 }
 
 object ListDetail {
-    const val LIST_UI_MODEL = "LIST_UI_MODEL"
+    const val LIST_UUID = "LIST_UUID"
 }

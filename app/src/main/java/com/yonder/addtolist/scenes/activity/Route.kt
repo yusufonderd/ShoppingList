@@ -6,8 +6,8 @@ import com.yonder.addtolist.R
 enum class Route(var key: String, @StringRes var value: Int) {
     CREATE_NEW_LIST("createNewList", R.string.create_new_list),
     SETTINGS("settings", R.string.title_settings),
-    LIST("list", R.string.title_shopping_lists),
-    LIST_DETAIL("list_detail", R.string.title_list_detail),
+    LISTS("lists", R.string.title_shopping_lists),
+    LIST_DETAIL("list_detail/uuid={uuid}", R.string.title_list_detail),
     ABOUT("about", R.string.title_about),
     ACCOUNT("account", R.string.title_account_detail),
     LANGUAGE("language", R.string.title_language_selection),

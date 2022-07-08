@@ -4,9 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.core.extensions.toReadableMessage
 import com.yonder.addtolist.domain.usecase.CreateList
-import com.yonder.addtolist.scenes.splash.SplashViewModel
-import com.yonder.core.base.BaseViewModel
-import com.yonder.core.base.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
@@ -30,11 +27,11 @@ class CreateListViewModel @Inject constructor(
     val eventsFlow = eventChannel.receiveAsFlow()
 
     sealed class Event {
-        object PopBackStack : Event()
+        data class NavigateToCreatedList(var uuid: String) : Event()
         data class Message(var message: String) : Event()
     }
 
-    private fun sendEvent(event: Event){
+    private fun sendEvent(event: Event) {
         viewModelScope.launch {
             eventChannel.send(event)
         }
@@ -47,8 +44,8 @@ class CreateListViewModel @Inject constructor(
             _uiState.update { it.copy(isLoading = true) }
             viewModelScope.launch {
                 createList(CreateList.Params(listName, listColorName)).collectLatest { result ->
-                    result.onSuccess {
-                        sendEvent(Event.PopBackStack)
+                    result.onSuccess { list ->
+                        sendEvent(Event.NavigateToCreatedList(list.uuid))
                     }.onError { throwable ->
                         _uiState.update { it.copy(isLoading = false) }
                         sendEvent(Event.Message(throwable.toReadableMessage()))
@@ -57,7 +54,8 @@ class CreateListViewModel @Inject constructor(
             }
         }
     }
-    fun setBlankListState(text: String){
+
+    fun setBlankListState(text: String) {
         if (text.isNotBlank()) {
             _uiState.update { it.copy(shouldShowBlankListNameError = false) }
         }
