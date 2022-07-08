@@ -103,10 +103,24 @@ class HomeActivity : ComponentActivity() {
                             if (topBarState.value) {
                                 TopAppBar(
                                     title = {
-                                        Text(
-                                            text =
-                                            stringResource(id = Route.find(navController.currentDestination?.route.orEmpty()).value)
-                                        )
+                                        when (navBackStackEntry?.destination?.route) {
+                                            Route.LIST_DETAIL.key -> {
+                                                Text(
+                                                    text =
+                                                    homeViewModel.uiState.value.listName.orEmpty()
+                                                )
+                                            }
+                                            else -> {
+                                                Text(
+                                                    text =
+                                                    stringResource(id = Route.find(navController.currentDestination?.route.orEmpty()).value)
+                                                )
+                                            }
+
+
+                                        }
+
+
                                     },
                                     actions =
                                     {
@@ -190,6 +204,7 @@ class HomeActivity : ComponentActivity() {
                             composable(Screen.ListDetail.route) { backStackEntry ->
                                 val listUUID = backStackEntry.arguments?.getString("uuid")
                                 ListDetailScreen(
+                                    homeViewModel = homeViewModel,
                                     navController = navController,
                                     listUUID = listUUID.orEmpty()
                                 )

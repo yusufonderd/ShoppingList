@@ -8,9 +8,13 @@ import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
 import com.yonder.addtolist.domain.usecase.DeleteProductOfUserList
 import com.yonder.addtolist.domain.usecase.UpdateProductOfUserList
+import com.yonder.addtolist.scenes.listdetail.ListDetailViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.*
@@ -29,6 +33,10 @@ class HomeViewModel @Inject constructor(
     private val userListDataSource: UserListDataSource
 
 ) : ViewModel() {
+
+
+    private val _uiState = MutableStateFlow(UiState())
+    val uiState: StateFlow<UiState> = _uiState
 
     fun updateProduct(
         product: UserListProductUiModel,
@@ -78,8 +86,20 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun getSelectedList() {
+        val listUUID = userPreferenceDataStore.getSelectedListUUID()
+        viewModelScope.launch(Dispatchers.IO) {
+            val list = userListDataSource.getUserList(listUUID.orEmpty())
+            _uiState.update { it.copy(listName = list?.name) }
+        }
+    }
+
     fun getLocale(): Locale {
         return userPreferenceDataStore.getLocale()
     }
+
+    data class UiState(
+        val listName: String? = null,
+    )
 
 }

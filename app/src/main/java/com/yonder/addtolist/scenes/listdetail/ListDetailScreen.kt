@@ -26,6 +26,7 @@ import com.yonder.addtolist.R
 import com.yonder.addtolist.common.enums.AppColor
 import com.yonder.addtolist.common.utils.OnLifecycleEvent
 import com.yonder.addtolist.core.extensions.EMPTY_STRING
+import com.yonder.addtolist.scenes.activity.HomeViewModel
 import com.yonder.addtolist.scenes.activity.Screen
 import com.yonder.addtolist.scenes.listdetail.row.ProductRow
 import com.yonder.addtolist.uicomponent.ThinDivider
@@ -34,14 +35,11 @@ import com.yonder.addtolist.scenes.productdetail.ProductDetail
 import com.yonder.addtolist.theme.padding_16
 import com.yonder.addtolist.theme.padding_8
 import com.yonder.addtolist.uicomponent.LoadingView
-import timber.log.Timber
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun ListDetailScreen(navController: NavController,listUUID: String) {
+fun ListDetailScreen(homeViewModel: HomeViewModel,navController: NavController,listUUID: String) {
     val viewModel = hiltViewModel<ListDetailViewModel>()
-
-
 
     val state by viewModel.uiState.collectAsState()
     val event by viewModel.effect.collectAsState(initial = ListDetailViewModel.UiEvent.Initial)
@@ -67,6 +65,7 @@ fun ListDetailScreen(navController: NavController,listUUID: String) {
             Lifecycle.Event.ON_CREATE -> {
                 viewModel.setSelectedList(listUUID)
                 viewModel.fetchProducts(listUUID)
+                homeViewModel.getSelectedList()
             }
             else -> Unit
         }
@@ -99,12 +98,10 @@ fun ListDetailScreen(navController: NavController,listUUID: String) {
                         onValueChange = { textField ->
                             textState.value = textField
                             showPrediction.value = textField.text.isNotBlank()
-                            listUUID?.run {
                                 viewModel.fetchProducts(
-                                    listUUID = this,
+                                    listUUID = listUUID,
                                     query = textField.text
                                 )
-                            }
                         },
                         modifier = Modifier
                             .then(
@@ -198,8 +195,4 @@ fun ListDetailScreen(navController: NavController,listUUID: String) {
             Text("Error Occurred")
         }
     }
-}
-
-object ListDetail {
-    const val LIST_UUID = "LIST_UUID"
 }

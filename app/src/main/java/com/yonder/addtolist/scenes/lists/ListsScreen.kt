@@ -11,6 +11,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
@@ -45,7 +46,8 @@ fun ListScreen(navController: NavController) {
                 navController.navigate(Screen.CreateNewList.route)
             })
         } else {
-            Box(contentAlignment = Alignment.BottomEnd) {
+            Box(
+                contentAlignment = Alignment.BottomEnd) {
                 LazyColumn(modifier = Modifier.fillMaxHeight()) {
                     items(uiState.userLists, itemContent = { list ->
                         ListRow(list = list) {
@@ -56,7 +58,7 @@ fun ListScreen(navController: NavController) {
                                 )
                             )
                         }
-                        Divider(modifier = Modifier.background(colorResource(id = R.color.white)))
+                         Divider(modifier = Modifier.background(colorResource(id = R.color.white)))
                     })
                 }
                 CreateListFab {

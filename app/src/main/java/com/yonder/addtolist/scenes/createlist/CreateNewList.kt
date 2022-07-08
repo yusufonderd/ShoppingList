@@ -26,7 +26,6 @@ import com.yonder.addtolist.R
 import com.yonder.addtolist.common.enums.AppColor
 import com.yonder.addtolist.common.ui.extensions.showToastMessage
 import com.yonder.addtolist.scenes.activity.Screen
-import com.yonder.addtolist.scenes.listdetail.ListDetail
 import com.yonder.addtolist.theme.padding_16
 import com.yonder.addtolist.theme.padding_8
 import com.yonder.addtolist.uicomponent.ColorPicker
