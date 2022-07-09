@@ -22,6 +22,7 @@ import com.yonder.addtolist.uicomponent.CreateListFab
 import com.yonder.addtolist.scenes.lists.row.ListRow
 import com.yonder.addtolist.uicomponent.LoadingView
 import com.yonder.addtolist.uicomponent.NoListView
+import com.yonder.addtolist.uicomponent.ThinDivider
 
 @Composable
 fun ListScreen(navController: NavController) {
@@ -46,7 +47,13 @@ fun ListScreen(navController: NavController) {
             })
         } else {
             Box(
-                contentAlignment = Alignment.BottomEnd) {
+                contentAlignment = Alignment.BottomEnd,
+                modifier = Modifier.background(
+                    color = colorResource(
+                        id = R.color.white
+                    )
+                )
+            ) {
                 LazyColumn(modifier = Modifier.fillMaxHeight()) {
                     items(uiState.userLists, itemContent = { list ->
                         ListRow(list = list) {
@@ -57,7 +64,7 @@ fun ListScreen(navController: NavController) {
                                 )
                             )
                         }
-                         Divider(modifier = Modifier.background(colorResource(id = R.color.white)))
+                        ThinDivider()
                     })
                 }
                 CreateListFab {

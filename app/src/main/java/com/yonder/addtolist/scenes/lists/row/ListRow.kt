@@ -20,7 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import com.yonder.addtolist.R
 import com.yonder.addtolist.domain.uimodel.UserListUiModel
-import com.yonder.addtolist.theme.padding_4
+import com.yonder.addtolist.theme.padding_8
 
 /**
  * @author yusuf.onder
@@ -46,7 +46,7 @@ fun ListRow(list: UserListUiModel, onClick: () -> Unit) {
 
                 Column(
                     modifier = Modifier
-                        .padding(padding_4)
+                        .padding(padding_8)
                         .weight(1.0f)
                 ) {
                     Text(
@@ -88,7 +88,7 @@ fun ListRow(list: UserListUiModel, onClick: () -> Unit) {
                 color = colorResource(id = list.appColor.colorResId),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(padding_4)
+                    .padding(padding_8)
             )
 
         }

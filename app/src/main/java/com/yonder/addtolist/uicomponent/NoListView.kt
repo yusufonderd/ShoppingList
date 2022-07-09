@@ -1,5 +1,6 @@
 package com.yonder.addtolist.uicomponent
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -30,6 +31,12 @@ fun NoListView(onClickCreateNewList: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(
+                color =
+                colorResource(
+                    id = R.color.white
+                )
+            )
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -38,7 +45,9 @@ fun NoListView(onClickCreateNewList: () -> Unit) {
             textAlign = TextAlign.Center,
             text = stringResource(id = R.string.create_new_list),
             style = MaterialTheme.typography.h5,
-            color = Color.DarkGray
+            color = colorResource(
+                id = R.color.black
+            )
         )
 
         ExtendedFloatingActionButton(

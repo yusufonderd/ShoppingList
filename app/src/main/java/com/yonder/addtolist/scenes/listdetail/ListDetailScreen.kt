@@ -39,7 +39,7 @@ import timber.log.Timber
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun ListDetailScreen(homeViewModel: HomeViewModel,navController: NavController,listUUID: String) {
+fun ListDetailScreen(homeViewModel: HomeViewModel, navController: NavController, listUUID: String) {
     val viewModel = hiltViewModel<ListDetailViewModel>()
 
     val state by viewModel.uiState.collectAsState()
@@ -83,8 +83,8 @@ fun ListDetailScreen(homeViewModel: HomeViewModel,navController: NavController,l
                     .background(
                         color =
                         colorResource(
-                            id = state.userList?.appColor?.colorResId ?: AppColor.Blue.colorResId
-                        ).copy(alpha = 0.1f)
+                            id = R.color.white
+                        )
                     )
             ) {
                 Row(
@@ -99,10 +99,10 @@ fun ListDetailScreen(homeViewModel: HomeViewModel,navController: NavController,l
                         onValueChange = { textField ->
                             textState.value = textField
                             showPrediction.value = textField.text.isNotBlank()
-                                viewModel.fetchProducts(
-                                    listUUID = listUUID,
-                                    query = textField.text
-                                )
+                            viewModel.fetchProducts(
+                                listUUID = listUUID,
+                                query = textField.text
+                            )
                         },
                         modifier = Modifier
                             .then(

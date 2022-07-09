@@ -95,9 +95,8 @@ fun ProductDetailScreen(navController: NavController) {
     Column(
         modifier = Modifier.fillMaxSize().background(
             color = colorResource(
-                id =
-                state.userList?.appColor?.colorResId ?: R.color.white
-            ).copy(alpha = 0.1f)
+                id = R.color.white
+            )
         )
     ) {
 

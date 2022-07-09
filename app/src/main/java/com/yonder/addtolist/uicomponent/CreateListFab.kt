@@ -1,6 +1,7 @@
 package com.yonder.addtolist.uicomponent
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -30,6 +31,7 @@ fun CreateListFab(onClick: () -> Unit) {
                 )
             )
         },
+        shape = RoundedCornerShape(32.dp),
         onClick = onClick,
         icon = {
             Icon(
@@ -40,7 +42,7 @@ fun CreateListFab(onClick: () -> Unit) {
                 tint = Color.White
             )
         },
-        containerColor = colorResource(id = R.color.teal_700),
+        containerColor = colorResource(id = R.color.colorPrimary),
         contentColor = Color.White,
         modifier = Modifier.padding(16.dp)
     )

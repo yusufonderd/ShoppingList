@@ -2,6 +2,7 @@ package com.yonder.addtolist.scenes.about
 
 import android.content.Intent
 import android.net.Uri
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -16,6 +17,7 @@ import com.yonder.addtolist.R
 import com.yonder.addtolist.common.ui.extensions.getActivity
 import com.yonder.addtolist.scenes.activity.Screen
 import com.yonder.addtolist.theme.padding_8
+import com.yonder.addtolist.uicomponent.ThinDivider
 
 const val PRIVACY_POLICY_URL =
     "https://gist.github.com/yusufonderd/6214999f3540e0645c07730171dec16b"
@@ -28,21 +30,23 @@ fun AboutScreen(navController: NavController) {
 
     Column(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxSize()
+            .background(color = colorResource(id = R.color.white))
             .padding(padding_8)
     ) {
 
         CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
             Text(
                 text = stringResource(R.string.about_description),
-                style = MaterialTheme.typography.body1
+                style = MaterialTheme.typography.body1,
+                color = colorResource(id = R.color.black)
             )
         }
 
 
-        Divider()
+        ThinDivider()
 
-        /*
+
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
@@ -61,8 +65,7 @@ fun AboutScreen(navController: NavController) {
             )
         }
 
-        Divider()
-*/
+        ThinDivider()
         TextButton(
             onClick = {
                 val browserIntent =
@@ -80,7 +83,7 @@ fun AboutScreen(navController: NavController) {
             )
         }
 
-        Divider()
+        ThinDivider()
 
         TextButton(
             onClick = {
@@ -95,7 +98,7 @@ fun AboutScreen(navController: NavController) {
             )
         }
 
-        Divider()
+        ThinDivider()
 
     }
 }

@@ -31,6 +31,7 @@ import com.yonder.addtolist.core.extensions.reviewApp
 import com.yonder.addtolist.scenes.activity.Screen
 import com.yonder.addtolist.theme.padding_8
 import com.yonder.addtolist.uicomponent.LoadingView
+import com.yonder.addtolist.uicomponent.ThinDivider
 
 @Composable
 fun Settings(navController: NavController) {
@@ -41,7 +42,11 @@ fun Settings(navController: NavController) {
 
     when (settingsUIState) {
         is SettingsUIState.Initial -> {
-            LazyColumn {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(color = colorResource(id = R.color.white))
+            ) {
                 items((settingsUIState as SettingsUIState.Initial).imageDetailList) { imageDetail ->
                     TextButton(
                         onClick = {
@@ -62,7 +67,7 @@ fun Settings(navController: NavController) {
                                             Uri.parse("market://details?id=${BuildConfig.APPLICATION_ID}")
                                         )
                                     )
-                                   // context.getActivity()?.reviewApp()
+                                    // context.getActivity()?.reviewApp()
                                 }
                                 R.string.account -> {
                                     navController.navigate(Screen.Account.route)
@@ -133,7 +138,7 @@ fun Settings(navController: NavController) {
                             }
                         }
                     }
-                    Divider(color = Color.LightGray)
+                    ThinDivider()
                 }
             }
         }

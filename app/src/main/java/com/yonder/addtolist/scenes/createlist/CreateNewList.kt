@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -70,8 +71,9 @@ fun CreateNewList(navController: NavController) {
     } else {
         Column(
             Modifier
+                .fillMaxSize()
                 .background(
-                    colorResource(id = R.color.gray_50)
+                    colorResource(id = R.color.white)
                 )
         ) {
             TextField(

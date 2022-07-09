@@ -1,13 +1,17 @@
 package com.yonder.addtolist.scenes.languageselection
 
 import android.content.res.Configuration
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -20,7 +24,7 @@ import com.yonder.addtolist.uicomponent.ThinDivider
 import java.util.*
 
 @Composable
-fun LanguageScreen(navController: NavController){
+fun LanguageScreen(navController: NavController) {
     val viewModel = hiltViewModel<LanguageSelectionViewModel>()
     val context = LocalContext.current
     val languageUiState by viewModel.uiState.collectAsState()
@@ -34,7 +38,11 @@ fun LanguageScreen(navController: NavController){
             LoadingView()
         }
         else -> {
-            LazyColumn {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(color = colorResource(id = R.color.white))
+            ) {
                 items(languageUiState.languages) { language ->
                     Column {
                         LanguageRow(language = language) {

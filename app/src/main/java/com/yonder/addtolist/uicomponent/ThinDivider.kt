@@ -1,9 +1,7 @@
 package com.yonder.addtolist.uicomponent
 
-import androidx.compose.foundation.background
 import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import com.yonder.addtolist.R
 
@@ -14,5 +12,5 @@ import com.yonder.addtolist.R
 
 @Composable
 fun ThinDivider() {
-    Divider(modifier = Modifier.background(colorResource(id = R.color.gray_50)))
+    Divider(color = colorResource(id = R.color.gray_50))
 }
