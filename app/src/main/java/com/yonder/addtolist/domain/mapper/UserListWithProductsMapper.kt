@@ -39,11 +39,14 @@ class UserListWithProductsMapper @Inject constructor(@ApplicationContext private
         } else {
             "$completedItemsCount / $productListSize"
         }
+
+        val list = input.userList
         return UserListUiModel(
-            id = input.userList.id.orZero(),
-            uuid = input.userList.uuid,
-            name = input.userList.name,
-            color = input.userList.color,
+            id = list.id.orZero(),
+            uuid = list.uuid,
+            name = list.name,
+            color = list.color,
+            lineProgress = completedItemsCount.toFloat() / safeProductList.size.toFloat() ,
             uncompletedItems = uncompletedItems,
             shouldShowUncompletedItems = uncompletedItems.isNotBlank(),
             products = safeProductList,

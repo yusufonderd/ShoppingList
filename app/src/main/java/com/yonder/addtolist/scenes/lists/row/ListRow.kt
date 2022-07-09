@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,46 +34,64 @@ fun ListRow(list: UserListUiModel, onClick: () -> Unit) {
             .fillMaxWidth()
     ) {
 
-        Row(
+        Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+            verticalArrangement = Arrangement.Center
         ) {
-
-            Column(
-                modifier = Modifier
-                    .padding(padding_4)
-                    .weight(1.0f)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(
-                    text = list.name,
-                    style = MaterialTheme.typography.h6,
-                    textAlign = TextAlign.Center,
-                    color = colorResource(id = list.appColor.colorResId)
-                )
-                if (list.shouldShowUncompletedItems) {
+
+                Column(
+                    modifier = Modifier
+                        .padding(padding_4)
+                        .weight(1.0f)
+                ) {
                     Text(
-                        text = list.uncompletedItems,
-                        maxLines = 1,
+                        text = list.name,
+                        style = MaterialTheme.typography.h6,
+                        textAlign = TextAlign.Center,
+                        color = colorResource(id = R.color.black)
+                    )
+                    if (list.shouldShowUncompletedItems) {
+                        Text(
+                            text = list.uncompletedItems,
+                            maxLines = 1,
+                            style = MaterialTheme.typography.body1,
+                            color = colorResource(id = R.color.secondaryTextColor)
+                        )
+                    }
+
+
+                }
+
+                Row() {
+                    Text(
+                        text = list.description,
                         style = MaterialTheme.typography.body1,
-                        color = colorResource(id = R.color.secondaryTextColor)
+                        textAlign = TextAlign.Center,
+                        color = colorResource(id = list.appColor.colorResId)
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_baseline_chevron_right_24),
+                        contentDescription = stringResource(R.string.cd_premium_image),
+                        colorFilter = ColorFilter.tint(colorResource(R.color.gray_100))
                     )
                 }
             }
 
-            Row() {
-                Text(
-                    text = list.description,
-                    style = MaterialTheme.typography.body1,
-                    textAlign = TextAlign.Center,
-                    color = colorResource(id = R.color.colorGray)
-                )
-                Image(
-                    painter = painterResource(R.drawable.ic_baseline_chevron_right_24),
-                    contentDescription = stringResource(R.string.cd_premium_image),
-                    colorFilter = ColorFilter.tint(colorResource(R.color.gray_100))
-                )
-            }
+            LinearProgressIndicator(
+                progress = list.lineProgress,
+                trackColor = colorResource(id = list.appColor.colorResId).copy(alpha = 0.25f),
+                color = colorResource(id = list.appColor.colorResId),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(padding_4)
+            )
+
         }
+
     }
 }

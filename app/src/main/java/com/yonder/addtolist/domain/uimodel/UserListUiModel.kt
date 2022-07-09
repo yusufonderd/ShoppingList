@@ -16,6 +16,7 @@ data class UserListUiModel(
     val name: String,
     val color: String,
     val uncompletedItems: String,
+    val lineProgress: Float,
     val shouldShowUncompletedItems: Boolean,
     val products: List<UserListProductUiModel>,
     val appColor: AppColor,
