@@ -10,7 +10,7 @@ import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
 import com.yonder.addtolist.domain.uimodel.UserListUiModel
 import com.yonder.addtolist.domain.usecase.*
 import com.yonder.addtolist.local.entity.CATEGORY_OTHER_IMAGE
-import com.yonder.addtolist.scenes.listdetail.domain.AddProductUseCase
+import com.yonder.addtolist.domain.usecase.AddProductUseCase
 import com.yonder.core.base.BaseViewModel
 import com.yonder.core.base.Event
 import dagger.hilt.android.lifecycle.HiltViewModel

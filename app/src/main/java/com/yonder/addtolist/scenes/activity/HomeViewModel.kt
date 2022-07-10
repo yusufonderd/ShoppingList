@@ -37,13 +37,12 @@ class HomeViewModel @Inject constructor(
         categoryImage: String,
         categoryName: String,
         price: String,
-        note: String,
-
-        ) {
+        note: String) {
 
         val priceDouble = price
             .replace(",", ".")
-            .toDoubleOrNull().orZero()
+            .toDoubleOrNull()
+            .orZero()
         val updatedProduct = product.copy(
             name = name,
             priceValue = priceDouble,
@@ -89,7 +88,5 @@ class HomeViewModel @Inject constructor(
     fun getLocale(): Locale {
         return userPreferenceDataStore.getLocale()
     }
-
-
 
 }

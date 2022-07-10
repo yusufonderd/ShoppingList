@@ -1,4 +1,4 @@
-package com.yonder.addtolist.scenes.listdetail.domain
+package com.yonder.addtolist.domain.usecase
 
 import com.yonder.core.network.RestResult
 import com.yonder.addtolist.core.network.thread.CoroutineThread

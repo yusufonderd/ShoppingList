@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.common.enums.ProductUnitType
 import com.yonder.addtolist.core.extensions.EMPTY_STRING
+import com.yonder.addtolist.core.extensions.orZero
 import com.yonder.addtolist.domain.uimodel.CategoryUiModel
 import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
 import com.yonder.addtolist.domain.uimodel.UserListUiModel
@@ -99,7 +100,15 @@ class ProductDetailViewModel @Inject constructor(
 
     fun toggleFavorite(product: UserListProductUiModel) {
         product.isFavorite = !product.isFavorite
-        update(product)
+        val previousProductName = product.name
+        product.name = name
+        product.note = note
+        val priceDouble = price
+            .replace(",", ".")
+            .toDoubleOrNull()
+            .orZero()
+        product.priceValue = priceDouble
+        update(product,previousProductName)
     }
 
     fun increaseQuantity(product: UserListProductUiModel) {

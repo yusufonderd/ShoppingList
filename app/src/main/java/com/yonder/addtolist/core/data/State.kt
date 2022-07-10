@@ -45,12 +45,3 @@ fun <T> Flow<State<T>>.doOnError(action: suspend (Throwable) -> Unit): Flow<Stat
     }
     return@transform emit(value)
   }
-
-fun <T> Flow<State<T>>.doOnLoading(action: suspend () -> Unit): Flow<State<T>> =
-  transform { value ->
-    if (value is State.Loading) {
-      action()
-    }
-    return@transform emit(value)
-  }
-

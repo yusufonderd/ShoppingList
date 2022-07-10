@@ -12,8 +12,8 @@ import com.yonder.addtolist.data.datasource.CategoryDataSourceImpl
 import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.domain.uimodel.ProductEntitySummaryToUiModel
 import com.yonder.addtolist.local.AppDatabase
-import com.yonder.addtolist.scenes.listdetail.domain.AddProductUseCase
-import com.yonder.addtolist.scenes.listdetail.domain.AddProductUseCaseImpl
+import com.yonder.addtolist.domain.usecase.AddProductUseCase
+import com.yonder.addtolist.domain.usecase.AddProductUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

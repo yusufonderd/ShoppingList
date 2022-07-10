@@ -19,10 +19,5 @@ data class UserUiModel(
   val fullName: String,
   val createdAt : String,
   val providerType : ProviderType
-) : BaseUiModel(result){
-
-  fun isAnonymousUser(): Boolean{
-    return providerType == ProviderType.UNKNOWN || providerType == ProviderType.GUEST
-  }
-}
+) : BaseUiModel(result)
 
