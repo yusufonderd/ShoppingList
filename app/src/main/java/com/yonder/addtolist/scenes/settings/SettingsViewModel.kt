@@ -33,6 +33,10 @@ class SettingsViewModel @Inject constructor() : ViewModel() {
                     titleResId = R.string.rate_us,
                     leftImageResId = R.drawable.ic_baseline_rate_review_24
                 ),
+                ImageDetail(
+                    titleResId = R.string.share_with_friends,
+                    leftImageResId = R.drawable.ic_baseline_share_24
+                ),
                /* ImageDetail(
                     titleResId = R.string.share_app,
                     leftImageResId = R.drawable.ic_baseline_share_24

@@ -21,13 +21,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.core.app.ShareCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.yonder.addtolist.BuildConfig
 import com.yonder.addtolist.R
-import com.yonder.addtolist.common.ui.extensions.getActivity
 import com.yonder.addtolist.common.ui.extensions.navigate
-import com.yonder.addtolist.core.extensions.reviewApp
 import com.yonder.addtolist.scenes.activity.Screen
 import com.yonder.addtolist.theme.padding_8
 import com.yonder.addtolist.uicomponent.LoadingView
@@ -67,10 +66,17 @@ fun Settings(navController: NavController) {
                                             Uri.parse("market://details?id=${BuildConfig.APPLICATION_ID}")
                                         )
                                     )
-                                    // context.getActivity()?.reviewApp()
                                 }
                                 R.string.account -> {
                                     navController.navigate(Screen.Account.route)
+                                }
+                                R.string.share_with_friends -> {
+                                    val activity = context as Activity
+                                    ShareCompat.IntentBuilder.from(activity)
+                                        .setType("text/plain")
+                                        .setChooserTitle(context.getString(R.string.share_with_friends))
+                                        .setText("http://play.google.com/store/apps/details?id=" + activity.packageName)
+                                        .startChooser();
                                 }
                                 R.string.about -> {
                                     navController.navigate(Screen.About.route)

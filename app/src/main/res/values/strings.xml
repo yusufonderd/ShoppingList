@@ -133,5 +133,7 @@
 
   <string name="more">More</string>
   <string name="delete_list">Delete list</string>
+  <string name="share_with_friends">Share with friends</string>
+
 
 </resources>
