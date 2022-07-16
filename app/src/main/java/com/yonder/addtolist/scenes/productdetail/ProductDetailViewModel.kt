@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.common.enums.ProductUnitType
 import com.yonder.addtolist.core.extensions.EMPTY_STRING
 import com.yonder.addtolist.core.extensions.orZero
+import com.yonder.addtolist.core.extensions.toSafeDouble
 import com.yonder.addtolist.domain.uimodel.CategoryUiModel
 import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
 import com.yonder.addtolist.domain.uimodel.UserListUiModel
@@ -38,6 +39,7 @@ class ProductDetailViewModel @Inject constructor(
     var note by mutableStateOf(EMPTY_STRING)
     var name by mutableStateOf(EMPTY_STRING)
     var price by mutableStateOf(EMPTY_STRING)
+    var quantity by mutableStateOf(EMPTY_STRING)
     var categoryName by mutableStateOf(EMPTY_STRING)
     var selectedCategory: CategoryUiModel? = null
 
@@ -64,6 +66,7 @@ class ProductDetailViewModel @Inject constructor(
                     note = product.note
                     name = product.name
                     price = product.price
+                    quantity = product.quantityValue.toString()
                     categoryName = param.categoryOfProduct?.formattedName.orEmpty()
                     selectedCategory = param.categoryOfProduct
                     _uiState.update {
@@ -89,6 +92,9 @@ class ProductDetailViewModel @Inject constructor(
     fun onChangeName(name: String) {
         this.name = name
     }
+    fun onChangeQuantity(quantity: String) {
+        this.quantity = quantity
+    }
 
     fun onChangeCategory(product: UserListProductUiModel,category: CategoryUiModel) {
         this.categoryName = category.formattedName
@@ -112,13 +118,13 @@ class ProductDetailViewModel @Inject constructor(
     }
 
     fun increaseQuantity(product: UserListProductUiModel) {
-        product.quantityValue = product.quantityValue.plus(1.0)
+        product.quantityValue = quantity.toSafeDouble().plus(1.0)
         update(product)
     }
 
     fun decreaseQuantity(product: UserListProductUiModel) {
-        if (product.quantityValue > 1.0){
-            product.quantityValue = product.quantityValue.minus(1.0)
+        if (quantity.toSafeDouble() > 1.0){
+            product.quantityValue = quantity.toSafeDouble().minus(1.0)
             update(product)
         }
     }

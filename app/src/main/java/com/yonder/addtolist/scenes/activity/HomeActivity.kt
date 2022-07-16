@@ -68,7 +68,7 @@ class HomeActivity : ComponentActivity() {
 
                     val navBackStackEntry by navController.currentBackStackEntryAsState()
                     when (navBackStackEntry?.destination?.route) {
-                        Route.SPLASH.key, Route.LOGIN.key -> {
+                        Route.SPLASH.key-> {
                             topBarState.value = false
                             bottomBarState.value = false
                         }

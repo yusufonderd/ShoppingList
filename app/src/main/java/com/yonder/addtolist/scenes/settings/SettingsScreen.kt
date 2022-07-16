@@ -67,9 +67,7 @@ fun Settings(navController: NavController) {
                                         )
                                     )
                                 }
-                                R.string.account -> {
-                                    navController.navigate(Screen.Account.route)
-                                }
+
                                 R.string.share_with_friends -> {
                                     val activity = context as Activity
                                     ShareCompat.IntentBuilder.from(activity)

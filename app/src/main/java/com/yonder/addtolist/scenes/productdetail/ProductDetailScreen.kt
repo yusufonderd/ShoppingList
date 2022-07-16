@@ -130,17 +130,19 @@ fun ProductDetailScreen(navController: NavController) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             OutlinedTextField(
-                value = state.product?.quantity.orEmpty(),
+                value = viewModel.quantity,
                 textStyle = MaterialTheme.typography.bodyLarge,
-                enabled = false,
+                enabled = true,
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     disabledLabelColor = colorResource(id = R.color.secondaryTextColor),
                     disabledTextColor = colorResource(id = R.color.primaryTextColor),
                     containerColor = colorResource(id = R.color.white)
                 ),
-                onValueChange = {
-
-                },
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Done,
+                    keyboardType = KeyboardType.Number
+                ),
+                onValueChange = viewModel::onChangeQuantity,
                 label = { Text(stringResource(id = R.string.product_quantity)) },
                 placeholder = {
                     Text(
@@ -173,13 +175,15 @@ fun ProductDetailScreen(navController: NavController) {
             }
         }
 
-        UnitSegmentedControlView(
-            options = options,
-            unitType = state.product?.unitType ?: ProductUnitType.NoChoice,
-            onClickUnit = {
-                val product = productUIModel ?: return@UnitSegmentedControlView
-                viewModel.updateUnit(product, it)
-            })
+            UnitSegmentedControlView(
+                options = options,
+                unitType = state.product?.unitType ?: ProductUnitType.NoChoice,
+                onClickUnit = {
+                    val product = productUIModel ?: return@UnitSegmentedControlView
+                    viewModel.updateUnit(product, it)
+                })
+
+
 
         OutlinedTextField(
             value = viewModel.price,

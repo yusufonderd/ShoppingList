@@ -24,7 +24,6 @@ sealed class Screen(
     object CreateNewList :
         Screen(Route.CREATE_NEW_LIST.key, R.string.create_new_list, Icons.Filled.List)
     object About : Screen(Route.ABOUT.key, R.string.title_about, Icons.Filled.Settings)
-    object Account : Screen(Route.ACCOUNT.key, R.string.title_account_detail, Icons.Filled.Settings)
     object Language :
         Screen(Route.LANGUAGE.key, R.string.title_language_selection, Icons.Filled.Settings)
     object ListDetail : Screen(Route.LIST_DETAIL.key, R.string.title_list_detail, Icons.Filled.Settings)

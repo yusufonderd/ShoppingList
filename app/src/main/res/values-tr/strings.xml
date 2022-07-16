@@ -1,69 +1,50 @@
 <resources>
     <string name="app_name">Addtolist</string>
-    <string name="app_description">Alışveriş listesi oluştur</string>
-
     <string name="title_list">Liste</string>
     <string name="title_list_detail">Liste Detayı</string>
-
     <string name="title_settings">Ayarlar</string>
-    <string name="title_account_detail">Hesap</string>
     <string name="title_language_selection">Dil seç</string>
     <string name="title_about">Hakkında</string>
     <string name="title_license">Lisans</string>
     <string name="title_splash">Splash</string>
-    <string name="title_login">Giriş</string>
-    <string name="btn_login">Giriş yap</string>
     <string name="title_shopping_lists">Listeler</string>
     <string name="title_premium">Premium</string>
-
-    <!-- Message -->
     <string name="error_occurred">Bir hata oluştu</string>
-
-    <!-- Content Descriptions -->
     <string name="cd_splash_image">Karşılama Görseli</string>
     <string name="cd_welcome_image">Hoşgeldin</string>
-    <string name="cd_info_image">Bilgilendirme Görseli</string>
     <string name="cd_error_image">Hata görseli </string>
     <string name="cd_navigate_url">Link yönlendirme</string>
     <string name="cd_create_new_list">Yeni liste oluştur</string>
     <string name="cd_edit_item">Öğeyi düzenle</string>
-
-    <!-- Create List Fragment-->
+    <string name="cd_premium_image">Premium image</string>
+    <string name="cd_close_premium_screen">Close premium screen</string>
     <string name="create_your_first_list">İlk listeni oluştur</string>
     <string name="create_list">Liste oluştur</string>
     <string name="list_name">Liste adı</string>
     <string name="list_color">Liste rengi</string>
     <string name="create">Oluştur</string>
     <string name="list_name_should_not_be_empty">Liste adı boş geçilemez</string>
-
     <string-array name="list_names">
         <item>Alışveriş Listesi</item>
         <item>İhtiyaç listesi</item>
         <item>Aylık Alışveriş</item>
         <item>Günlük Alışveriş</item>
     </string-array>
-
-    <!-- List Detail Fragment-->
-
     <string name="list_detail">Liste Detayı</string>
     <string name="what_would_you_like_to_buy">Ne satın almak istersiniz?</string>
-
     <string name="product_name">Öğe adı</string>
     <string name="product_details">Öğe detayı</string>
     <string name="product_quantity">Adet</string>
     <string name="product_note">Not</string>
     <string name="product_unit_price">Birim fiyatı</string>
-
     <string name="product_category">Kategori</string>
     <string name="select_category">Kategori seç</string>
     <string name="unicode" translatable="false">\U+1F37F</string>
-
     <string name="unit_piece">piece</string>
     <string name="unit_package">package</string>
     <string name="unit_kg">kg</string>
     <string name="unit_lt">lt</string>
     <string name="unit_gr">gr</string>
-
     <string name="add_note">Not ekle</string>
     <string name="check_done">Satın alındı olarak işaretle</string>
     <string name="add_favorites">Favorilere ekle</string>
@@ -72,7 +53,6 @@
     <string name="account">Hesap</string>
     <string name="about">Hakkında</string>
     <string name="language">Dil</string>
-
     <string name="world_emo" translatable="false">🌎</string>
     <string name="rate_us">Uygulamayı puanla</string>
     <string name="share_app">Uygulamayı paylaş</string>
@@ -102,39 +82,26 @@
     <string name="create_own_color">🥳 Kendi liste rengini oluştur</string>
     <string name="remove_all_ads">🤖 Tüm reklamları kaldır</string>
     <string name="unlimited_access_to_all_features">🤩 Unlimited access to all Addtolist features</string>
-
     <string name="create_new_list">Yeni bir liste oluştur</string>
-
     <string name="join_shopping_list">Alışveriş listesine katıl</string>
     <string name="popular_items">Popüler ürünler </string>
-
     <string name="category">Kategori</string>
     <string name="items">Öğeler</string>
     <string name="recent">En son</string>
     <string name="search_item">Öğe ara</string>
     <string name="empty_list">Alışveriş listen boş</string>
-
-    <!-- Premium -->
-    <string name="cd_premium_image">Premium image</string>
-    <string name="cd_close_premium_screen">Close premium screen</string>
     <string name="premium_brand_title">Addtolist Premium</string>
     <string name="cd_chevron_right">Sağ ok</string>
-
-    <string name="try_again">Try again</string>
+    <string name="try_again">Tekrar deneyin..</string>
     <string name="loading">Yükleniyor</string>
-
     <string name="about_description">Addtolist is a shopping list application where you can simply create and share shopping lists. It allows you to simply add products to the shopping lists you create. You can add information such as quantity, note and unit to the products you add. You can mark the products you have purchased as received.</string>
     <string name="privacy_policy">Gizlilik politikası</string>
     <string name="license">Lisans</string>
     <string name="version">Versiyon</string>
     <string name="license_1_title">Freepik</string>
     <string name="license_1_description">Some of icons are made by [Freepik] from www.flaticon.com</string>
-
     <string name="format_price">%.2f %2$s</string>
-    <string name="product_deleted">Ürün silindi</string>
     <string name="more">Daha fazla</string>
     <string name="delete_list">Listeyi sil</string>
-    <string name="share_with_friends">Arkadaşarınla paylaş</string>
-
-
+    <string name="share_with_friends">Arkadaşlarınla paylaş</string>
 </resources>
