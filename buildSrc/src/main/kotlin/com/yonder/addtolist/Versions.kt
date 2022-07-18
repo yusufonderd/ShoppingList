@@ -31,6 +31,6 @@ object Versions {
   const val state_layout = "0.1.1"
   const val currency_edit_text = "0.0.9"
   const val compose: String = "1.1.0-beta04"
-  const val compose_activity: String = "1.4.0"
+  const val compose_activity: String = "1.6.0-alpha05"
   const val coil = "1.4.0"
 }

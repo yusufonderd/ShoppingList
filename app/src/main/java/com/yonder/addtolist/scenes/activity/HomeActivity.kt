@@ -1,8 +1,10 @@
 package com.yonder.addtolist.scenes.activity
 
+import android.app.Activity
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
@@ -33,6 +35,7 @@ import com.yonder.addtolist.theme.BreakingBadTheme
 import dagger.hilt.android.AndroidEntryPoint
 import com.yonder.addtolist.R
 import com.yonder.addtolist.uicomponent.TextIcon
+import timber.log.Timber
 
 
 @AndroidEntryPoint
@@ -59,6 +62,7 @@ class HomeActivity : ComponentActivity() {
                 )
 
                 Surface(color = MaterialTheme.colors.background) {
+
                     var showMenu by remember { mutableStateOf(false) }
 
                     val navController = rememberNavController()
@@ -68,7 +72,7 @@ class HomeActivity : ComponentActivity() {
 
                     val navBackStackEntry by navController.currentBackStackEntryAsState()
                     when (navBackStackEntry?.destination?.route) {
-                        Route.SPLASH.key-> {
+                        Route.SPLASH.key -> {
                             topBarState.value = false
                             bottomBarState.value = false
                         }
@@ -82,7 +86,7 @@ class HomeActivity : ComponentActivity() {
                             backArrowState.value = true
                             bottomBarState.value = false
                         }
-                        Route.PRODUCT_DETAIL.key -> {
+                        Route.PRODUCT_DETAIL.key, Route.CREATE_NEW_LIST.key -> {
                             topBarState.value = true
                             backArrowState.value = true
                             bottomBarState.value = false
@@ -93,6 +97,7 @@ class HomeActivity : ComponentActivity() {
                             bottomBarState.value = true
                         }
                     }
+                    val activity = (LocalContext.current as? Activity)
 
                     Scaffold(
                         topBar = {
@@ -112,11 +117,7 @@ class HomeActivity : ComponentActivity() {
                                                     stringResource(id = Route.find(navController.currentDestination?.route.orEmpty()).value)
                                                 )
                                             }
-
-
                                         }
-
-
                                     },
                                     actions =
                                     {
@@ -141,7 +142,8 @@ class HomeActivity : ComponentActivity() {
                                                 homeViewModel.deleteSelectedList()
                                                 navController.popBackStack()
                                             }) {
-                                                TextIcon(Icons.Filled.Delete,
+                                                TextIcon(
+                                                    Icons.Filled.Delete,
                                                     stringResource(id = R.string.delete_list),
                                                     colorResource(id = R.color.colorRed)
                                                 )
@@ -176,6 +178,7 @@ class HomeActivity : ComponentActivity() {
                                                     contentDescription = null,
                                                 )
                                             },
+                                            alwaysShowLabel = true,
                                             label = { Text(stringResource(screen.resourceId)) },
                                             selected = currentRoute == screen.route,
                                             onClick = {
@@ -190,11 +193,21 @@ class HomeActivity : ComponentActivity() {
                             }
                         }
                     ) { innerPadding ->
+                        BackHandler {
+                            val currentRoute =
+                                navController.currentBackStackEntry?.destination?.route
+                            if (currentRoute == Route.LISTS.key){
+                                activity?.finish()
+                            }else{
+                                navController.popBackStack()
+                            }
+                        }
                         NavHost(
                             navController = navController,
                             startDestination = Screen.Splash.route,
                             modifier = Modifier.padding(innerPadding)
                         ) {
+
                             composable(Screen.Splash.route) { SplashScreen(navController) }
                             composable(Screen.Lists.route) { ListScreen(navController) }
                             composable(Screen.ListDetail.route) { backStackEntry ->

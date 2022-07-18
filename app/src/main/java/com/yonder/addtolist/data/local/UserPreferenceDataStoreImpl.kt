@@ -1,7 +1,7 @@
 package com.yonder.addtolist.data.local
 
 import android.content.SharedPreferences
-import com.yonder.addtolist.common.enums.ProviderType
+import com.yonder.addtolist.common.utils.device.LanguageUtils
 import java.util.*
 import javax.inject.Inject
 
@@ -39,6 +39,7 @@ class UserPreferenceDataStoreImpl @Inject constructor(private val sharedPreferen
         return sharedPreferences.getString(KEY_FULL_NAME, null)
 
     }
+
     override fun setProfileUrl(url: String) {
         sharedPreferences.edit().apply {
             putString(KEY_PROFILE_URL, url)
@@ -60,14 +61,20 @@ class UserPreferenceDataStoreImpl @Inject constructor(private val sharedPreferen
     override fun getLocale(): Locale {
         val localeLanguage = sharedPreferences.getString(KEY_LOCALE, null)
         return if (localeLanguage == null) {
-            Locale.ENGLISH
+            val defaultLanguage = Locale.getDefault()
+            val currentLanguage = defaultLanguage.language
+            if (LanguageUtils.supportedLanguages.contains(currentLanguage)) {
+                return defaultLanguage
+            } else {
+                return Locale.ENGLISH
+            }
         } else {
             Locale(localeLanguage)
         }
     }
 
     override fun getSelectedListUUID(): String? {
-        return sharedPreferences.getString(KEY_SELECTED_LIST,null)
+        return sharedPreferences.getString(KEY_SELECTED_LIST, null)
     }
 
     override fun setSelectedListUUID(uuid: String) {
@@ -76,6 +83,7 @@ class UserPreferenceDataStoreImpl @Inject constructor(private val sharedPreferen
             apply()
         }
     }
+
     override fun setCurrency(currency: String) {
         sharedPreferences.edit().apply {
             putString(KEY_CURRENCY, currency)
@@ -129,6 +137,6 @@ class UserPreferenceDataStoreImpl @Inject constructor(private val sharedPreferen
         const val KEY_PROFILE_URL = "key_profile_url"
         const val KEY_FULL_NAME = "key_full_name"
         const val KEY_SELECTED_LIST = "key_selected_list"
-
     }
+
 }
