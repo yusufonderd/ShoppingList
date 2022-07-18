@@ -13,7 +13,7 @@
     <string name="title_list_detail">Listendetail</string>
     <string name="title_settings">Einstellungen</string>
     <string name="title_language_selection">Sprache auswählen</string>
-    <string name="title_about">Um</string>
+    <string name="title_about">Über die App</string>
     <string name="title_license">Lizenz</string>
     <string name="title_premium">Premium</string>
     <string name="title_splash">Splash</string>
@@ -49,7 +49,7 @@
     <string name="add_favorites">Füge Favoriten hinzu</string>
     <string name="delete_item">Item löschen</string>
     <string name="remove_favorites">Favoriten entfernen</string>
-    <string name="about">Um</string>
+    <string name="about">Über die App</string>
     <string name="language">Sprache</string>
     <string name="rate_us">Bewerte diese App</string>
     <string name="share_app">App teilen</string>

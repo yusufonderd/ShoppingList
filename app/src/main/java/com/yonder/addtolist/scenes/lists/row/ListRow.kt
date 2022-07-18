@@ -20,6 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import com.yonder.addtolist.R
 import com.yonder.addtolist.domain.uimodel.UserListUiModel
+import com.yonder.addtolist.theme.padding_4
 import com.yonder.addtolist.theme.padding_8
 
 /**
@@ -35,7 +36,7 @@ fun ListRow(list: UserListUiModel, onClick: () -> Unit) {
     ) {
 
         Column(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().padding(padding_4),
             verticalArrangement = Arrangement.Center
         ) {
             Row(
@@ -46,10 +47,11 @@ fun ListRow(list: UserListUiModel, onClick: () -> Unit) {
 
                 Column(
                     modifier = Modifier
-                        .padding(padding_8)
                         .weight(1.0f)
                 ) {
                     Text(
+                        modifier = Modifier
+                            .padding(padding_4),
                         text = list.name,
                         style = MaterialTheme.typography.h6,
                         textAlign = TextAlign.Center,
@@ -57,6 +59,8 @@ fun ListRow(list: UserListUiModel, onClick: () -> Unit) {
                     )
                     if (list.shouldShowUncompletedItems) {
                         Text(
+                            modifier = Modifier
+                                .padding(padding_4),
                             text = list.uncompletedItems,
                             maxLines = 1,
                             style = MaterialTheme.typography.body1,
@@ -84,11 +88,11 @@ fun ListRow(list: UserListUiModel, onClick: () -> Unit) {
 
             LinearProgressIndicator(
                 progress = list.lineProgress,
-                trackColor = colorResource(id = list.appColor.colorResId).copy(alpha = 0.25f),
+                trackColor = colorResource(id = list.appColor.colorResId).copy(alpha = 0.3f),
                 color = colorResource(id = list.appColor.colorResId),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(padding_8)
+                    .padding(padding_4)
             )
 
         }

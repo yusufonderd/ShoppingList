@@ -152,11 +152,11 @@ fun ListDetailScreen(homeViewModel: HomeViewModel, navController: NavController,
                         items(state.items, itemContent = { item ->
                             ProductRow(
                                 item = item,
+                                userList = state.userList,
                                 onIncreaseQuantityClicked = viewModel::increaseQuantity,
                                 onAddProductClicked = { productName ->
-                                    val userListUUID = listUUID ?: return@ProductRow
                                     viewModel.addProduct(
-                                        userListUUID = userListUUID,
+                                        userListUUID = listUUID,
                                         productName = productName
                                     )
                                 },
@@ -176,7 +176,7 @@ fun ListDetailScreen(homeViewModel: HomeViewModel, navController: NavController,
                                     )
                                     navController.currentBackStackEntry?.arguments?.putString(
                                         ProductDetail.LIST_UUID,
-                                        listUUID.orEmpty()
+                                        listUUID
                                     )
                                     navController.navigate(Screen.ProductDetail.route)
                                 },

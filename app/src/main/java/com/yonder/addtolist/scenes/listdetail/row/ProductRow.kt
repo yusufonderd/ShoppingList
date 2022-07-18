@@ -18,8 +18,10 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import com.yonder.addtolist.R
+import com.yonder.addtolist.common.enums.AppColor
 import com.yonder.addtolist.domain.uimodel.ItemUiModel
 import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
+import com.yonder.addtolist.domain.uimodel.UserListUiModel
 import com.yonder.addtolist.theme.padding_4
 import com.yonder.addtolist.theme.padding_8
 
@@ -31,6 +33,7 @@ import com.yonder.addtolist.theme.padding_8
 @Composable
 fun ProductRow(
     item: ItemUiModel,
+    userList: UserListUiModel?,
     onAddProductClicked: (String) -> Unit,
     onDecreaseProductClicked: (UserListProductUiModel) -> Unit,
     onIncreaseQuantityClicked: (UserListProductUiModel) -> Unit
@@ -60,7 +63,7 @@ fun ProductRow(
             Badge(
                 modifier = Modifier.padding(padding_8),
                 contentColor = colorResource(id = R.color.white),
-                backgroundColor = colorResource(id = R.color.colorPrimary)
+                backgroundColor = colorResource(id = userList?.appColor?.colorResId ?: AppColor.Blue.colorResId)
             ) {
                 Text(
                     text = "${item.product?.quantityValue}",
