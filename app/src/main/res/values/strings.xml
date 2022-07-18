@@ -1,5 +1,17 @@
 <resources>
   <string name="app_name">Addtolist</string>
+  <string name="cd_splash_image">Splash Image</string>
+  <string name="cd_welcome_image">Welcome Image</string>
+  <string name="cd_error_image">Error Image</string>
+  <string name="cd_navigate_url">Navigate Url Image</string>
+  <string name="cd_create_new_list">Create new list</string>
+  <string name="cd_edit_item">Edit item</string>
+  <string name="cd_premium_image">Premium image</string>
+  <string name="cd_close_premium_screen">Close premium screen</string>
+  <string name="cd_chevron_right">Right arrow</string>
+  <string name="license_1_title" translatable="false">Freepik</string>
+  <string name="license_1_description" translatable="false">Some of icons are made by [Freepik] from www.flaticon.com</string>
+
   <string name="title_list">List</string>
   <string name="title_list_detail">List Detail</string>
   <string name="title_settings">Settings</string>
@@ -10,14 +22,6 @@
   <string name="title_splash">Splash</string>
   <string name="title_shopping_lists">Lists</string>
   <string name="error_occurred">An error occurred</string>
-  <string name="cd_splash_image">Splash Image</string>
-  <string name="cd_welcome_image">Welcome Image</string>
-  <string name="cd_error_image">Error Image</string>
-  <string name="cd_navigate_url">Navigate Url Image</string>
-  <string name="cd_create_new_list">Create new list</string>
-  <string name="cd_edit_item">Edit item</string>
-  <string name="cd_premium_image">Premium image</string>
-  <string name="cd_close_premium_screen">Close premium screen</string>
   <string name="create_list">Create list</string>
   <string name="list_name">List name</string>
   <string name="list_color">List color</string>
@@ -49,7 +53,6 @@
   <string name="add_favorites">Add favorites</string>
   <string name="delete_item">Delete item</string>
   <string name="remove_favorites">Remove favorites</string>
-  <string name="account">Account</string>
   <string name="about">About</string>
   <string name="language">Language</string>
   <string name="world_emo" translatable="false">🌎</string>
@@ -63,12 +66,7 @@
   <string name="add_item">Add item</string>
   <string name="profile">Profile</string>
   <string name="translators">Translators</string>
-  <string name="account_created_at">Created at</string>
-  <string name="account_full_name">Full name</string>
-  <string name="account_email">E-mail</string>
-  <string name="account_logout">Logout</string>
-  <string name="logout_title">@string/account_logout</string>
-  <string name="logout_message">Are you sure want to logout ?</string>
+
   <string name="yes">Yes</string>
   <string name="no">No</string>
   <string name="cancel">Cancel</string>
@@ -76,30 +74,21 @@
   <string name="be_premium">Support Addtolist</string>
   <string name="be_premium_text">Addtolist application was developed by Yusuf Onder with the help of his cat Memoli 🐈. As an Addtolist supporter, you can help me work full time on the application, and benefit from some useful features.</string>
   <string name="_continue">Continue</string>
-  <string name="restore_purchase">Restore purchases</string>
   <string name="unlimited_lists">✏️ Create unlimited number of lists</string>
   <string name="create_own_color">🥳 Create your own color</string>
   <string name="remove_all_ads">🤖 Remove all ads</string>
   <string name="unlimited_access_to_all_features">🤩 Unlimited access to all Addtolist features</string>
-  <string name="create_your_first_list">Create your first list</string>
   <string name="create_new_list">Create a new list</string>
-  <string name="join_shopping_list">Join shopping list</string>
   <string name="popular_items">Popular items </string>
   <string name="category">Category</string>
-  <string name="items">Items</string>
-  <string name="recent">Recent</string>
-  <string name="search_item">Search item</string>
   <string name="empty_list">Shopping list is empty now</string>
   <string name="premium_brand_title">Addtolist Premium</string>
   <string name="try_again">Try again</string>
   <string name="loading">Loading</string>
-  <string name="cd_chevron_right">Right arrow</string>
   <string name="about_description">Addtolist is a shopping list application where you can simply create and share shopping lists. It allows you to simply add products to the shopping lists you create. You can add information such as quantity, note and unit to the products you add. You can mark the products you have purchased as received.</string>
   <string name="privacy_policy">Privacy policy</string>
   <string name="license">License</string>
   <string name="version">Version</string>
-  <string name="license_1_title">Freepik</string>
-  <string name="license_1_description">Some of icons are made by [Freepik] from www.flaticon.com</string>
   <string name="format_price">%.2f %2$s</string>
   <string name="more">More</string>
   <string name="delete_list">Delete list</string>

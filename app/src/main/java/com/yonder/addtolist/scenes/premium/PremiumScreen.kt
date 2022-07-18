@@ -102,25 +102,6 @@ fun PremiumScreen(navController: NavController) {
 
         }
 
-        item {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                TextButton(
-                    onClick = {
-                        viewModel.restorePurchase()
-                    }, modifier = Modifier
-                        .padding(bottom = padding_8)
-                        .padding(horizontal = padding_8)
-
-                ) {
-                    Text(
-                        text = stringResource(R.string.restore_purchase)
-                    )
-                }
-            }
-        }
     }
 }
 

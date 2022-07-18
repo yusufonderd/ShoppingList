@@ -23,9 +23,11 @@ class GetLanguageUseCaseImpl @Inject constructor(
         return languageRepository.fetchLanguages().map { state ->
             state.map { response ->
                 ListMapperImpl(mapper).map(response
-                    // Doesn't support arabic and indian language for now
-                    .filter { it.tag == LanguageUtils.TR.first || it.tag == LanguageUtils.EN.first }
-                    //.filterNot { it.tag == LanguageUtils.AR.first || it.tag == LanguageUtils.IN.first }
+                    .filter {
+                        it.tag == LanguageUtils.TR.first ||
+                                it.tag == LanguageUtils.EN.first ||
+                                it.tag == LanguageUtils.DE.first
+                    }
                 )
             }
         }
