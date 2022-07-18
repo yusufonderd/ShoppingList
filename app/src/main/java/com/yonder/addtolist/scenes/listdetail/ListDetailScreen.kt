@@ -93,6 +93,10 @@ fun ListDetailScreen(homeViewModel: HomeViewModel, navController: NavController,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     TextField(
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            focusedBorderColor = colorResource(id = state.userList?.appColor?.colorResId ?: AppColor.Blue.colorResId),
+                            containerColor = colorResource(id = state.userList?.appColor?.colorResId ?: AppColor.Blue.colorResId).copy(alpha = 0.2f),
+                        ),
                         value = textState.value,
                         interactionSource = interactionSource,
                         maxLines = 1,
@@ -142,7 +146,8 @@ fun ListDetailScreen(homeViewModel: HomeViewModel, navController: NavController,
                         ) {
                             Text(
                                 text = stringResource(id = R.string.cancel),
-                                maxLines = 1
+                                maxLines = 1,
+                                color = colorResource(id = R.color.colorGray)
                             )
                         }
                     }
