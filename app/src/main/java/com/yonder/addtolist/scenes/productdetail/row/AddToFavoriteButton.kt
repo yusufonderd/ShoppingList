@@ -38,7 +38,7 @@ fun AddToFavoriteButton(isFavorite: Boolean, onClick: () -> Unit) {
             } else {
                 stringResource(id = R.string.add_favorites)
             },
-            color = colorResource(id = R.color.white)
+            color = colorResource(id = R.color.always_white)
         )
     }
 }

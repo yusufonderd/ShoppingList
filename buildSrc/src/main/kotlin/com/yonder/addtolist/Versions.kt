@@ -19,7 +19,7 @@ object Versions {
   const val core_ktx = "1.3.2"
   const val material = "1.5.0-alpha02"
   const val constraint_layout = "2.0.4"
-  const val jetbrains_kotlin = "1.6.0"
+  const val jetbrains_kotlin = "1.6.10"
   const val espresso_core = "3.3.0"
   const val junit_test = "1.1.2"
   const val junit: String = "4.13.1"
@@ -30,7 +30,7 @@ object Versions {
   const val room = "2.4.0-alpha03"
   const val state_layout = "0.1.1"
   const val currency_edit_text = "0.0.9"
-  const val compose: String = "1.1.0-beta04"
-  const val compose_activity: String = "1.6.0-alpha05"
+  const val compose: String = "1.1.0"
+  const val compose_activity: String = "1.5.0"
   const val coil = "1.4.0"
 }

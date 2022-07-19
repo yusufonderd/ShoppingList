@@ -33,7 +33,7 @@ fun DeleteProductButton(onClick : ()-> Unit){
     ) {
         Text(
             text = stringResource(id = R.string.delete_item),
-            color = colorResource(id = R.color.white)
+            color = colorResource(id = R.color.always_white)
         )
     }
 }

@@ -13,6 +13,7 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
@@ -103,16 +104,19 @@ class HomeActivity : ComponentActivity() {
                         topBar = {
                             if (topBarState.value) {
                                 TopAppBar(
+                                    backgroundColor = colorResource(id = R.color.white),
                                     title = {
                                         when (navBackStackEntry?.destination?.route) {
                                             Route.LIST_DETAIL.key -> {
                                                 Text(
+                                                    color = colorResource(id = R.color.black),
                                                     text =
                                                     homeViewModel.selectedListName.collectAsState().value
                                                 )
                                             }
                                             else -> {
                                                 Text(
+                                                    color = colorResource(id = R.color.black),
                                                     text =
                                                     stringResource(id = Route.find(navController.currentDestination?.route.orEmpty()).value)
                                                 )
@@ -155,7 +159,8 @@ class HomeActivity : ComponentActivity() {
                                             IconButton(onClick = { navController.navigateUp() }) {
                                                 Icon(
                                                     imageVector = Icons.Filled.ArrowBack,
-                                                    contentDescription = "Back"
+                                                    contentDescription = "Back",
+                                                    tint = colorResource(id = R.color.black)
                                                 )
                                             }
                                         }

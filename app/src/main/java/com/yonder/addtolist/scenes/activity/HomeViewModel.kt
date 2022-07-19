@@ -3,6 +3,7 @@ package com.yonder.addtolist.scenes.activity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yonder.addtolist.core.extensions.orZero
+import com.yonder.addtolist.core.extensions.toSafeDouble
 import com.yonder.addtolist.data.datasource.UserListDataSource
 import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
@@ -37,18 +38,18 @@ class HomeViewModel @Inject constructor(
         categoryImage: String,
         categoryName: String,
         price: String,
-        note: String) {
+        quantity: String,
+        note: String
+    ) {
 
-        val priceDouble = price
-            .replace(",", ".")
-            .toDoubleOrNull()
-            .orZero()
+
         val updatedProduct = product.copy(
             name = name,
-            priceValue = priceDouble,
+            priceValue = price.toSafeDouble(),
             price = price,
             categoryImage = categoryImage,
             categoryName = categoryName,
+            quantityValue = quantity.toSafeDouble(),
             note = note
         )
         if (updatedProduct != product) {

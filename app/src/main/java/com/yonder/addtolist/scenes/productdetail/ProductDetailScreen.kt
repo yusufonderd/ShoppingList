@@ -78,6 +78,7 @@ fun ProductDetailScreen(navController: NavController) {
                 val note = viewModel.note
                 val name = viewModel.name
                 val price = viewModel.price
+                val quantity = viewModel.quantity
                 val categoryUiModel = viewModel.selectedCategory ?: return@OnLifecycleEvent
                 homeViewModel.updateProduct(
                     product = product,
@@ -85,6 +86,7 @@ fun ProductDetailScreen(navController: NavController) {
                     categoryImage = categoryUiModel.image,
                     categoryName = categoryUiModel.name,
                     price = price,
+                    quantity = quantity,
                     note = note,
                 )
             }
@@ -93,11 +95,13 @@ fun ProductDetailScreen(navController: NavController) {
     }
 
     Column(
-        modifier = Modifier.fillMaxSize().background(
-            color = colorResource(
-                id = R.color.white
+        modifier = Modifier
+            .fillMaxSize()
+            .background(
+                color = colorResource(
+                    id = R.color.white
+                )
             )
-        )
     ) {
 
         OutlinedTextField(
@@ -121,7 +125,7 @@ fun ProductDetailScreen(navController: NavController) {
             modifier = modifier.background(color = colorResource(id = R.color.white)),
             onItemClick = { category ->
                 val product = productUIModel ?: return@DropDownTextField
-                viewModel.onChangeCategory(product,category)
+                viewModel.onChangeCategory(product, category)
             }
         )
 
@@ -175,15 +179,13 @@ fun ProductDetailScreen(navController: NavController) {
             }
         }
 
-            UnitSegmentedControlView(
-                options = options,
-                unitType = state.product?.unitType ?: ProductUnitType.NoChoice,
-                onClickUnit = {
-                    val product = productUIModel ?: return@UnitSegmentedControlView
-                    viewModel.updateUnit(product, it)
-                })
-
-
+        UnitSegmentedControlView(
+            options = options,
+            unitType = state.product?.unitType ?: ProductUnitType.NoChoice,
+            onClickUnit = {
+                val product = productUIModel ?: return@UnitSegmentedControlView
+                viewModel.updateUnit(product, it)
+            })
 
         OutlinedTextField(
             value = viewModel.price,
