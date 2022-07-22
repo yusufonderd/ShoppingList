@@ -60,7 +60,6 @@ class LanguageSelectionViewModel @Inject constructor(
 
     fun setLocale(languageCode: String) {
         userPreferenceDataStore.setLocale(Locale(languageCode))
-        userPreferenceDataStore.setAppLanguageId(AppLanguage.find(languageTag = languageCode).languageId)
     }
 
 

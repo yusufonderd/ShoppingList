@@ -24,7 +24,7 @@ interface UserListEntityDao {
   @Delete
   suspend fun delete(list: UserListEntity)
 
-  @Query("SELECT * FROM userList WHERE  uuid = :listUUID LIMIT 1")
+  @Query("SELECT * FROM userList WHERE  uuid = :listUUID ")
   suspend fun findByListUUID(listUUID: String): List<UserListEntity>
 
 }

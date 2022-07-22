@@ -40,7 +40,7 @@ android {
     def params_fcm_token = properties.getProperty('params_fcm_token')
 
     release {
-      minifyEnabled false
+      minifyEnabled true
       proguardFiles getDefaultProguardFile(Config.proguard_txt), Config.proguard_rules
       buildConfigField "String", "BASE_URL", base_url
       buildConfigField "String", "DATABASE_NAME", database_name
@@ -50,6 +50,7 @@ android {
     }
 
     debug {
+      minifyEnabled true
       buildConfigField "String", "BASE_URL", base_url
       buildConfigField "String", "DATABASE_NAME", database_name
       buildConfigField "String", "PARAMS_FCM_TOKEN", params_fcm_token
@@ -57,10 +58,7 @@ android {
       buildConfigField "String", "REQUEST_ID_TOKEN", request_id_token
     }
 
-    release {
-      minifyEnabled true
-      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-    }
+
   }
   
   buildFeatures {

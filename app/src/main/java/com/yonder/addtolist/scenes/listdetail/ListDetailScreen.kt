@@ -160,6 +160,8 @@ fun ListDetailScreen(homeViewModel: HomeViewModel, navController: NavController,
                                 userList = state.userList,
                                 onIncreaseQuantityClicked = viewModel::increaseQuantity,
                                 onAddProductClicked = { productName ->
+                                    textState.value = TextFieldValue(EMPTY_STRING)
+                                    showPrediction.value = false
                                     viewModel.addProduct(
                                         userListUUID = listUUID,
                                         productName = productName

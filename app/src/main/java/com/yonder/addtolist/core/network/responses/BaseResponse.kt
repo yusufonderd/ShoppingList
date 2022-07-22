@@ -1,5 +1,6 @@
 package com.yonder.addtolist.core.network.responses
 
+import com.google.gson.annotations.SerializedName
 import com.yonder.addtolist.core.extensions.orFalse
 
 /**
@@ -7,12 +8,15 @@ import com.yonder.addtolist.core.extensions.orFalse
  */
 
 class BaseResponse<T> {
-  val success: Boolean? = null
-  val message: String? = null
-  val data: T? = null
-  fun toBaseUiResult(): BaseUiResult {
-    return BaseUiResult(success.orFalse(), message.orEmpty())
-  }
+    @SerializedName("success")
+    val success: Boolean? = null
+    @SerializedName("message")
+    val message: String? = null
+    @SerializedName("data")
+    val data: T? = null
+    fun toBaseUiResult(): BaseUiResult {
+        return BaseUiResult(success.orFalse(), message.orEmpty())
+    }
 }
 
 

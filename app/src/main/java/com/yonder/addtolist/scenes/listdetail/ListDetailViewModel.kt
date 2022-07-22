@@ -28,7 +28,6 @@ private const val QUERY_LIMIT = 10
 
 @HiltViewModel
 class ListDetailViewModel @Inject constructor(
-    private val getPopularProducts: GetPopularProducts,
     private val getProductByQuery: GetProductByQuery,
     private val productUseCase: ProductUseCase,
     private val addProductUseCase: AddProductUseCase,
@@ -43,19 +42,16 @@ class ListDetailViewModel @Inject constructor(
 
     var job: Job? = null
 
-    fun setSelectedList(uuid: String){
+    fun setSelectedList(uuid: String) {
         userPreferenceDataStore.setSelectedListUUID(uuid)
     }
+
     fun fetchProducts(listUUID: String, query: String = EMPTY_STRING) {
         val flow1 = getUserListUseCase(listUUID)
-        val flow2 = if (query.trim().isEmpty()) {
-            getPopularProducts()
-        } else {
-            getProductByQuery(
-                query = query,
-                limit = QUERY_LIMIT
-            )
-        }
+        val flow2 = getProductByQuery(
+            query = query,
+            limit = QUERY_LIMIT
+        )
         job?.cancel()
         job = viewModelScope.launch {
             flow1.combine(flow2) { userList, listingProducts ->
@@ -68,7 +64,7 @@ class ListDetailViewModel @Inject constructor(
                         isLoading = false,
                         userList = userList,
                         products = listingProducts,
-                        userListProducts = userList.products,
+                        userListProducts = userList.products.asReversed(),
                         items = items
                     )
                 }
@@ -78,18 +74,17 @@ class ListDetailViewModel @Inject constructor(
     }
 
     fun addProduct(userListUUID: String, productName: String) {
-            viewModelScope.launch {
-                productUseCase.getProductEntityForName(productName).collect { productEntity ->
-                    val categoryImage = productEntity?.categoryImage ?: CATEGORY_OTHER_IMAGE
-                    addProductUseCase.invoke(
-                        listUUID = userListUUID,
-                        productName = productName,
-                        productCategoryImage = categoryImage
-                    ).collect()
-                }
+        viewModelScope.launch {
+            productUseCase.getProductEntityForName(productName).collect { productEntity ->
+                val categoryImage = productEntity?.categoryImage ?: CATEGORY_OTHER_IMAGE
+                addProductUseCase.invoke(
+                    listUUID = userListUUID,
+                    productName = productName,
+                    productCategoryImage = categoryImage
+                ).collect()
             }
+        }
     }
-
 
     fun increaseQuantity(product: UserListProductUiModel) {
         product.quantityValue = product.quantityValue.plus(1.0)
@@ -97,7 +92,7 @@ class ListDetailViewModel @Inject constructor(
     }
 
     fun decreaseQuantity(product: UserListProductUiModel) {
-        if (product.quantityValue <= 1.0){
+        if (product.quantityValue <= 1.0) {
             deleteProduct(product = product)
             return
         }
@@ -125,12 +120,11 @@ class ListDetailViewModel @Inject constructor(
         }
     }
 
-    fun deleteProduct(product: UserListProductUiModel) {
+    private fun deleteProduct(product: UserListProductUiModel) {
         viewModelScope.launch {
             deleteProductOfUserListUseCase.invoke(product)
         }
     }
-
 
 
     data class UiState(

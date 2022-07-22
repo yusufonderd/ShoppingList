@@ -9,7 +9,6 @@ import java.util.*
 @Suppress("TooManyFunctions")
 interface UserPreferenceDataStore {
     fun getAppLanguageId(): Int
-    fun setAppLanguageId(languageId: Int)
     fun getLocale(): Locale
     fun setLocale(locale: Locale)
     fun getCurrency(): String

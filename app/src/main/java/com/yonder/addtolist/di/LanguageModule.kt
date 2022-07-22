@@ -4,8 +4,8 @@ import com.yonder.core.base.mapper.Mapper
 import com.yonder.addtolist.domain.mapper.LanguageResponseMapper
 import com.yonder.addtolist.data.remote.response.LanguageResponse
 import com.yonder.addtolist.domain.uimodel.LanguageUiModel
-import com.yonder.addtolist.scenes.languageselection.data.repository.LanguageRepository
-import com.yonder.addtolist.scenes.languageselection.data.repository.LanguageRepositoryImpl
+import com.yonder.addtolist.data.repository.LanguageRepository
+import com.yonder.addtolist.data.repository.LanguageRepositoryImpl
 import com.yonder.addtolist.domain.usecase.GetLanguageUseCase
 import com.yonder.addtolist.domain.usecase.GetLanguageUseCaseImpl
 import dagger.Binds

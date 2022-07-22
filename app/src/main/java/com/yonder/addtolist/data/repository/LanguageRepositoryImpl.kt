@@ -1,4 +1,4 @@
-package com.yonder.addtolist.scenes.languageselection.data.repository
+package com.yonder.addtolist.data.repository
 
 import com.yonder.addtolist.core.data.State
 import com.yonder.addtolist.core.data.safeApiCall

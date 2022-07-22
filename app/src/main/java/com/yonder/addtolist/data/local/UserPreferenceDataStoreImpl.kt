@@ -9,24 +9,14 @@ import javax.inject.Inject
  * Yusuf Onder on 07,May,2021
  */
 
-//Default language is English
-private const val DEFAULT_LANGUAGE_ID = 2
-
 @Suppress("TooManyFunctions")
 class UserPreferenceDataStoreImpl @Inject constructor(private val sharedPreferences: SharedPreferences) :
     UserPreferenceDataStore {
 
-    override fun setAppLanguageId(languageId: Int) {
-        sharedPreferences.edit().apply {
-            putInt(KEY_LANGUAGE, languageId)
-            apply()
-        }
-    }
-
     override fun getAppLanguageId(): Int {
-        return sharedPreferences.getInt(KEY_LANGUAGE, DEFAULT_LANGUAGE_ID)
+        val locale = getLocale()
+        return LanguageUtils.getLanguageIdBy(locale.language)
     }
-
 
     override fun setFullName(name: String) {
         sharedPreferences.edit().apply {
