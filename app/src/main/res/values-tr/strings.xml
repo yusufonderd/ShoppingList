@@ -89,4 +89,5 @@
     <string name="more">Daha fazla</string>
     <string name="delete_list">Listeyi sil</string>
     <string name="share_with_friends">Arkadaşlarınla paylaş</string>
+    <string name="delete_purchased_items">Satın alınan öğeleri sil</string>
 </resources>

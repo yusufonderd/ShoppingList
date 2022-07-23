@@ -30,4 +30,8 @@ class UserListProductEntity(
   @field:ColumnInfo(name = "quantity") var quantity: Double? = 1.0,
   @field:ColumnInfo(name = "price") var price: Double? = 0.0,
   @field:ColumnInfo(name = "sync") var sync: Boolean? = false
-) : Parcelable
+) : Parcelable{
+  fun isPurchased(): Boolean{
+    return (done ?: 0) == 1
+  }
+}

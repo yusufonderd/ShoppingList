@@ -35,6 +35,10 @@ interface UserListProductDao {
   fun getUserListWithProducts(listUUID: String): LiveData<List<UserListWithProducts>>
 
   @Transaction
+  @Query("SELECT * FROM userList WHERE uuid = :listUUID LIMIT 1")
+  fun getFirstUserListWithProducts(listUUID: String): UserListWithProducts?
+
+  @Transaction
   @Query("SELECT * FROM userList")
   suspend fun getAllUserListWithProducts(): List<UserListWithProducts>
 

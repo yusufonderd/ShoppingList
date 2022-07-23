@@ -85,4 +85,6 @@
     <string name="more">Mehr</string>
     <string name="delete_list">Liste löschen</string>
     <string name="share_with_friends">Mit Freunden teilen</string>
+    <string name="delete_purchased_items">Gekaufte Artikel löschen</string>
+
 </resources>

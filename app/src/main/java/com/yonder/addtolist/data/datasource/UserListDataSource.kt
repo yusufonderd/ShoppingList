@@ -15,6 +15,7 @@ interface UserListDataSource {
   suspend fun insertAll(list: List<UserListEntity>)
   suspend fun getUserLists(): List<UserListEntity>
   suspend fun getUserListWithProducts(): List<UserListWithProducts>
+  suspend fun getFirstUserListWithProducts(listUUID: String): UserListWithProducts?
   fun getUserListByUUID(listUUID: String): Flow<UserListWithProducts>
   suspend fun getUserList(listUUID: String): UserListEntity?
   suspend fun insertProducts(products: List<UserListProductEntity>)

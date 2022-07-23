@@ -141,6 +141,18 @@ class HomeActivity : ComponentActivity() {
                                             expanded = showMenu,
                                             onDismissRequest = { showMenu = false }
                                         ) {
+
+                                            DropdownMenuItem(onClick = {
+                                                showMenu = false
+                                                homeViewModel.deletePurchasedItems()
+                                            }) {
+                                                TextIcon(
+                                                    Icons.Filled.Delete,
+                                                    stringResource(id = R.string.delete_purchased_items),
+                                                    colorResource(id = R.color.colorGray)
+                                                )
+                                            }
+
                                             DropdownMenuItem(onClick = {
                                                 showMenu = false
                                                 homeViewModel.deleteSelectedList()
@@ -152,6 +164,8 @@ class HomeActivity : ComponentActivity() {
                                                     colorResource(id = R.color.colorRed)
                                                 )
                                             }
+
+
                                         }
                                     },
                                     navigationIcon = if (backArrowState.value) {
