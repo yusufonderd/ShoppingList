@@ -1,11 +1,14 @@
 package com.yonder.addtolist.data.remote.response
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
 /**
  * @author: yusufonder
  * @date: 05/06/2021
  */
+
+@Keep
 data class UserListProductResponse(
   @SerializedName("id") val id: Int,
   @SerializedName("name") val name: String,

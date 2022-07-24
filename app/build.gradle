@@ -51,6 +51,7 @@ android {
 
     debug {
       minifyEnabled true
+      proguardFiles getDefaultProguardFile(Config.proguard_txt), Config.proguard_rules
       buildConfigField "String", "BASE_URL", base_url
       buildConfigField "String", "DATABASE_NAME", database_name
       buildConfigField "String", "PARAMS_FCM_TOKEN", params_fcm_token

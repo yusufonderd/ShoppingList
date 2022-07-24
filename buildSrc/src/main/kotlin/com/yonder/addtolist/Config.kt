@@ -6,8 +6,8 @@ package com.yonder.addtolist
 
 object Config {
   const val applicationName = "com.yonder.addtolist"
-  const val versionCode = 9
-  const val versionName = "1.0.8"
+  const val versionCode = 10
+  const val versionName = "1.0.9"
   const val compileSdkVersion = 32
   const val minSdkVersion = 21
   const val targetSdkVersion = 32
