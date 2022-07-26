@@ -20,11 +20,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
 import com.yonder.addtolist.R
 import com.yonder.addtolist.common.utils.OnLifecycleEvent
-import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
 import com.yonder.addtolist.scenes.activity.Screen
 import com.yonder.addtolist.scenes.lists.row.ListRow
 import com.yonder.addtolist.uicomponent.*
-import timber.log.Timber
 
 @Composable
 fun ListScreen(navController: NavController) {
@@ -44,37 +42,13 @@ fun ListScreen(navController: NavController) {
     }
 
     if (showMenu) {
-        Dialog(
+        ListOptionDialog(
+            listName = listName,
             onDismissRequest = {
                 showMenu = false
-            }, content = {
-                Surface(
-                    shape = MaterialTheme.shapes.medium,
-                    color = MaterialTheme.colorScheme.surface,
-                ) {
-                    Column(
-                        modifier = Modifier.padding(16.dp),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            text = listName,
-                            style = MaterialTheme.typography.bodyLarge,
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier.padding(bottom = 8.dp)
-                        )
-                        OutlinedButton(onClick = {
-                            showMenu = false
-                            viewModel.deleteList(listUUID)
-                        }) {
-                            TextIcon(
-                                Icons.Filled.Delete,
-                                stringResource(id = R.string.delete_list),
-                                colorResource(id = R.color.colorRed)
-                            )
-                        }
-                    }
-                }
+            }, onDeleteList = {
+                showMenu = false
+                viewModel.deleteList(listUUID)
             })
     }
 
