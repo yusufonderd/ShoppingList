@@ -37,7 +37,7 @@ import com.yonder.addtolist.theme.padding_8
  */
 
 @Composable
-fun EditButton(isDone: Boolean, appColor: AppColor, onEditClicked: () -> Unit) {
+fun EditButton(onEditClicked: () -> Unit) {
     IconButton(
         modifier = Modifier.padding(padding_8),
         onClick = onEditClicked
@@ -177,11 +177,7 @@ fun UserListProductRow(
 
     ) {
 
-        EditButton(
-            isDone = product.isDone,
-            appColor = userList?.appColor ?: AppColor.Blue,
-            onEditClicked = onEditClicked
-        )
+        EditButton(onEditClicked = onEditClicked)
 
         Column(
             modifier = Modifier
@@ -210,11 +206,12 @@ fun UserListProductRow(
                 NoteField(note = product.note)
             }
 
+            if (product.isFavorite) {
+                FavoriteImageView(onRemoveFavoriteClicked = onRemoveFavoriteClicked)
+            }
         }
 
-        if (product.isFavorite) {
-            FavoriteImageView(onRemoveFavoriteClicked = onRemoveFavoriteClicked)
-        }
+
 
         DoneImageView(isDone = product.isDone, appColor = userList?.appColor ?: AppColor.Blue)
 

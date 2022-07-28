@@ -64,7 +64,7 @@ class ListDetailViewModel @Inject constructor(
                         isLoading = false,
                         userList = userList,
                         products = listingProducts,
-                        userListProducts = userList.products.asReversed(),
+                        userListProducts = userList.products.asReversed().sortedBy { it.isDone },
                         items = items
                     )
                 }

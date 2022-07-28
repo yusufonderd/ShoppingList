@@ -42,11 +42,7 @@ fun ListOptionDialog(listName: String, onDismissRequest: () -> Unit,onDeleteList
                     OutlinedButton(onClick = {
                         onDeleteList.invoke()
                     }) {
-                        TextIcon(
-                            Icons.Filled.Delete,
-                            stringResource(id = R.string.delete_list),
-                            colorResource(id = R.color.colorRed)
-                        )
+                        Text(text = stringResource(id = R.string.delete_list))
                     }
                 }
             }

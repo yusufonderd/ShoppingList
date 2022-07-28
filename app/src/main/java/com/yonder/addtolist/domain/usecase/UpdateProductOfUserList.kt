@@ -1,12 +1,8 @@
 package com.yonder.addtolist.domain.usecase
 
 import com.yonder.addtolist.core.extensions.toInt
-import com.yonder.addtolist.local.AppDatabase
-import com.yonder.addtolist.network.ApiService
 import com.yonder.addtolist.domain.uimodel.UserListProductUiModel
-import com.yonder.addtolist.domain.uimodel.UserListProductMapper
-import timber.log.Timber
-import java.lang.Exception
+import com.yonder.addtolist.local.AppDatabase
 import javax.inject.Inject
 
 /**
@@ -22,7 +18,6 @@ class UpdateProductOfUserList @Inject constructor(
         listUUID: String,
         product: UserListProductUiModel
     ) {
-        Timber.d("productName => $productName $listUUID $product")
         try {
             val productEntity =
                 appDatabase
@@ -37,8 +32,8 @@ class UpdateProductOfUserList @Inject constructor(
                         price = product.priceValue
                         categoryImage = product.categoryImage
                         categoryName = product.categoryName
-                        done = product.isDone.toInt()
                         favorite = product.isFavorite.toInt()
+                        done = product.isDone.toInt()
                     }
             appDatabase.userListProductDao().update(productEntity)
         }catch (e: Exception){

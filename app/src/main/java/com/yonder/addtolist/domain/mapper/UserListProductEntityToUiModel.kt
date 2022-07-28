@@ -13,6 +13,7 @@ import com.yonder.addtolist.common.utils.formatter.currency.CurrencyProvider
 import com.yonder.addtolist.core.extensions.format
 import com.yonder.addtolist.domain.decider.CategoryImageWrapper
 import dagger.hilt.android.qualifiers.ApplicationContext
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -31,6 +32,8 @@ class UserListProductEntityToUiModel @Inject constructor(@ApplicationContext pri
         )
         val isDone = input.done == DoneType.Done.value
         val isFavorite = input.favorite == FavoriteType.Favorite.value
+        Timber.e("map isFavorite=> $isFavorite isDone:$isDone")
+
         return UserListProductUiModel(
             id = input.id,
             listUUID = input.listUUID,

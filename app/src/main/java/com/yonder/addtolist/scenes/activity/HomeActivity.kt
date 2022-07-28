@@ -146,11 +146,7 @@ class HomeActivity : ComponentActivity() {
                                                 showMenu = false
                                                 homeViewModel.deletePurchasedItems()
                                             }) {
-                                                TextIcon(
-                                                    Icons.Filled.Delete,
-                                                    stringResource(id = R.string.delete_purchased_items),
-                                                    colorResource(id = R.color.colorGray)
-                                                )
+                                                Text(text = stringResource(id = R.string.delete_purchased_items))
                                             }
 
                                             DropdownMenuItem(onClick = {
@@ -158,11 +154,7 @@ class HomeActivity : ComponentActivity() {
                                                 homeViewModel.deleteSelectedList()
                                                 navController.popBackStack()
                                             }) {
-                                                TextIcon(
-                                                    Icons.Filled.Delete,
-                                                    stringResource(id = R.string.delete_list),
-                                                    colorResource(id = R.color.colorRed)
-                                                )
+                                                Text(text = stringResource(id = R.string.delete_list))
                                             }
 
 
