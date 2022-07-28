@@ -1,5 +1,6 @@
 package com.yonder.addtolist.scenes.about
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.background
@@ -73,7 +74,7 @@ fun AboutScreen(navController: NavController) {
                         Intent.ACTION_VIEW,
                         Uri.parse(PRIVACY_POLICY_URL)
                     )
-                context.getActivity()?.startActivity(browserIntent)
+                (context as Activity).startActivity(browserIntent)
             },
             modifier = Modifier.fillMaxWidth()
         ) {

@@ -19,7 +19,7 @@ object LanguageUtils {
     val IN = "hi" to 8
     private val RO = "ro" to 9
 
-    val supportedLanguages = listOf(TR.first,EN.first,DE.first)
+    val supportedLanguages = listOf(TR.first, EN.first, DE.first, FR.first)
 
     private val LANGUAGES = arrayListOf(TR, EN, DE, FR, RU, ES, AR, IN, RO)
 }

@@ -9,7 +9,6 @@ import com.yonder.addtolist.domain.uimodel.LanguageUiModel
 import com.yonder.addtolist.data.repository.LanguageRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -27,7 +26,8 @@ class GetLanguageUseCaseImpl @Inject constructor(
                     .filter {
                         it.tag == LanguageUtils.TR.first ||
                                 it.tag == LanguageUtils.EN.first ||
-                                it.tag == LanguageUtils.DE.first
+                                it.tag == LanguageUtils.DE.first ||
+                                it.tag == LanguageUtils.FR.first
                     }
                 )
             }

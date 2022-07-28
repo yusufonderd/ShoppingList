@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Addtolist</string>
+    <string name="cd_splash_image">Splash Image</string>
+    <string name="cd_welcome_image">Welcome Image</string>
+    <string name="cd_error_image">Error Image</string>
+    <string name="cd_navigate_url">Navigate Url Image</string>
+    <string name="cd_create_new_list">Créer une nouvelle liste</string>
+    <string name="cd_edit_item">Modifier l\'article</string>
+    <string name="cd_premium_image">Premium image</string>
+    <string name="cd_close_premium_screen">Close premium screen</string>
+    <string name="cd_chevron_right">Flèche droite</string>
+    <string name="license_1_title" translatable="false">Freepik</string>
+    <string name="license_1_description" translatable="false">Some of icons are made by [Freepik] from www.flaticon.com</string>
+    <string name="title_list">Liste</string>
+    <string name="title_list_detail">Détail de la liste</string>
+    <string name="title_settings">Réglages</string>
+    <string name="title_language_selection">Choisir la langue</string>
+    <string name="title_about">À propos de</string>
+    <string name="title_license">Licence</string>
+    <string name="title_premium">Premium</string>
+    <string name="title_splash">Splash</string>
+    <string name="title_shopping_lists">Listes</string>
+    <string name="error_occurred">Une erreur s\'est produite</string>
+    <string name="create_list">Créer une liste</string>
+    <string name="list_name">Liste de noms</string>
+    <string name="list_color">Couleur de la liste</string>
+    <string name="create">Créer</string>
+    <string name="list_name_should_not_be_empty">Le nom de la liste ne doit pas être vide</string>
+    <string-array name="list_names">
+        <item>Liste de courses</item>
+        <item>Les courses</item>
+        <item>Achats mensuels</item>
+        <item>Achats quotidiens</item>
+    </string-array>
+    <string name="list_detail">Détail de la liste</string>
+    <string name="what_would_you_like_to_buy">Qu\'aimerais-tu acheter ?</string>
+    <string name="product_name">Nom de l\'article</string>
+    <string name="product_details">Détails de l\'article</string>
+    <string name="product_quantity">Quantité</string>
+    <string name="product_note">Noter</string>
+    <string name="product_unit_price">Prix unitaire</string>
+    <string name="product_category">Catégorie</string>
+    <string name="select_category">Choisir une catégorie</string>
+    <string name="unicode" translatable="false">\U+1F37F</string>
+    <string name="unit_piece">pièce</string>
+    <string name="unit_package">forfait</string>
+    <string name="unit_kg">kg</string>
+    <string name="unit_lt">lt</string>
+    <string name="unit_gr">gr</string>
+    <string name="add_note">Ajouter une note</string>
+    <string name="check_done">Marquer l\'élément comme terminé</string>
+    <string name="add_favorites">Ajouter des favoris</string>
+    <string name="delete_item">Effacer l\'article</string>
+    <string name="remove_favorites">Supprimer les favoris</string>
+    <string name="about">À propos de</string>
+    <string name="language">Langue</string>
+    <string name="world_emo" translatable="false">🌎</string>
+    <string name="rate_us">Évaluer l\'application</string>
+    <string name="share_app">Partager l\'application</string>
+    <string name="help_us_to_translate_app">Aidez-nous à traduire Addtolist</string>
+    <string name="twitter" translatable="false">Twitter</string>
+    <string name="instagram" translatable="false">Instagram</string>
+    <string name="follow_us_on_social_media">🤗 Suivez-nous sur les réseaux sociaux</string>
+    <string name="help_us_to_improve_addtolist">🌱 Aidez-nous à améliorer Addtolist</string>
+    <string name="add_item">Ajouter un item</string>
+    <string name="profile">Profil</string>
+    <string name="translators">Traductrices</string>
+
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="cancel">Annuler</string>
+    <string name="premium_emo" translatable="false">⭐</string>
+    <string name="be_premium">Ajouter à la liste d\'assistance</string>
+    <string name="be_premium_text">L\'application Addtolist a été développée par Yusuf Onder avec l\'aide de son chat Memoli 🐈. En tant que supporter d\'Addtolist, vous pouvez m\'aider à travailler à plein temps sur l\'application, et bénéficier de quelques fonctionnalités utiles.</string>
+    <string name="_continue">Continuer</string>
+    <string name="unlimited_lists">✏️ Créer un nombre illimité de listes</string>
+    <string name="create_own_color">🥳 Créez votre propre couleur</string>
+    <string name="remove_all_ads">🤖 Supprimer toutes les annonces</string>
+    <string name="unlimited_access_to_all_features">🤩 Accès illimité à toutes les fonctionnalités d\'Addtolist</string>
+    <string name="create_new_list">Créer une nouvelle liste</string>
+    <string name="popular_items">Articles populaires</string>
+    <string name="category">Catégorie</string>
+    <string name="empty_list">La liste de courses est vide maintenant</string>
+    <string name="premium_brand_title">Addtolist Premium</string>
+    <string name="try_again">Réessayer</string>
+    <string name="loading">Chargement</string>
+    <string name="about_description">Addtolist est une application de liste de courses où vous pouvez simplement créer et partager des listes de courses. Il vous permet d\'ajouter simplement des produits aux listes de courses que vous créez. Vous pouvez ajouter des informations telles que la quantité, la note et l\'unité aux produits que vous ajoutez. Vous pouvez marquer les produits que vous avez achetés comme reçus.</string>
+    <string name="privacy_policy">Politique de confidentialité</string>
+    <string name="license">Licence</string>
+    <string name="version">Version</string>
+    <string name="format_price">%.2f %2$s</string>
+    <string name="more">Suite</string>
+    <string name="delete_list">Supprimer la liste</string>
+    <string name="share_with_friends">Partager avec des amis</string>
+    <string name="delete_purchased_items">Supprimer les articles achetés</string>
+
+</resources>

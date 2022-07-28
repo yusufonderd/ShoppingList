@@ -2,21 +2,17 @@ package com.yonder.addtolist.scenes.languageselection
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.yonder.addtolist.common.enums.AppLanguage
 import com.yonder.addtolist.core.data.doOnError
 import com.yonder.addtolist.core.data.doOnSuccess
 import com.yonder.addtolist.data.local.UserPreferenceDataStore
 import com.yonder.addtolist.domain.uimodel.LanguageUiModel
 import com.yonder.addtolist.domain.usecase.GetLanguageUseCase
-import com.yonder.addtolist.network.ApiService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import timber.log.Timber
-import java.lang.Exception
 import java.util.*
 import javax.inject.Inject
 
@@ -28,7 +24,6 @@ import javax.inject.Inject
 @HiltViewModel
 class LanguageSelectionViewModel @Inject constructor(
     private val getLanguageUseCase: GetLanguageUseCase,
-    var apiService: ApiService,
     var userPreferenceDataStore: UserPreferenceDataStore
 ) : ViewModel() {
 
